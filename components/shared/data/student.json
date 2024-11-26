@@ -1,0 +1,40 @@
+{
+    "students": [
+        { "id": "1", "firstName": "Emeka", "surName":"Ugochukwu",  "middleName":"Babel", "studentId":"ICSABC", "phone": "09087873454", "email": "emekaugo@gmail.com", "enrolled": "2024-09-05" },
+        { "id": "2", "firstName": "Nnamdi", "surName":"Festus",  "middleName":"Marvel", "studentId":"ICSDEF", "phone": "07087239812", "email": "festus009@gmail.com", "enrolled": "2024-10-12" }
+     ],
+     "clients": [
+        { "id": "1", "company": "Total Energy", "branch": 3, "onbaorded": "2020-08-12", "status": "Active" },
+        { "id": "2", "company": "BCT", "branch": 5, "onbaorded": "2023-10-10", "status": "Active" }
+     ],
+     "candidates": [
+        { "id": "1", "firstName": "Kudus", "surName": "Makinde", "email": "kudusmakinde@gmail.com", "phone": "08023984733", "studentId": "ICSABC", "staus": "confirmed", "passport": "" },
+        { "id": "2", "firstName": "Festus", "surName": "Phillip", "email": "fphillip@gmail.com", "phone": "07082232345", "studentId": "ICSDEF", "staus": "confirmed", "passport": "" }
+     ],
+     "document": [
+        { "id": "1", "text": "First Day At Work", "percentage": "", "figure": "Admin" },
+        { "id": "2", "text": "Working With Co-Workers", "percentage": "", "figure": "Admin" },
+        { "id": "4", "text": "Work Process", "percentage": "", "figure": "Admin" },
+        { "id": "3", "text": "Filling", "percentage": "", "figure": "Admin" }
+     ],
+     "documents": [
+        { "id": "1", "folders": "First Day At Work", "files": "45", "views": "200", "lastUpdated": "2022-02-23" },
+        { "id": "2", "folders": "Working With Co-Workers", "files": "12", "views": "190", "lastUpdated": "2019-02-31" },
+        { "id": "3", "folders": "Work Process", "files": "9", "views": "23", "lastUpdated": "2021-02-03" },
+        { "id": "4", "folders": "Filling", "files": "15", "views": "8", "lastUpdated": "2000-02-13" }
+     ],
+     "offieTools": [
+        { "id": "1", "itemName": "Printer", "description": "Producing hard copy of documents", "condition": "Good", "availability": "Yes", "url": "" },
+        { "id": "2", "itemName": "Laptop", "description": "For carrying out various activities", "condition": "Good", "availability": "Yes", "url": "" },
+        { "id": "3", "itemName": "Jotter", "description": "Taking note of things", "condition": "Good", "availability": "No", "url": "" },
+        { "id": "4", "itemName": "Bag", "description": "Carrying office items", "condition": "Bad", "availability": "Yes", "url": "" }
+     ],
+     "resumption": [
+        { "id": "1", "firstName": "Emeka", "surName":"Ugochukwu", "studentId":"ICSABC", "phone": "09087873454", "email": "emekaugo@gmail.com", "company": "Elizabeth Company", "branch": "Akure", "department": "Production", "resumptionDate": "2019-02-31" },
+        { "id": "2", "firstName": "Nnamdi", "surName":"Festus", "studentId":"ICSDEF", "phone": "07087239812", "email": "festus009@gmail.com", "company": "NITEL", "branch": "Makurdi", "department": "Finance", "resumptionDate": "2000-02-13" }
+     ],
+     "sanction": [
+        { "id": "1", "firstName": "Emeka", "surName":"Ugochukwu", "studentId":"ICSABC", "phone": "09087873454", "email": "emekaugo@gmail.com", "company": "Elizabeth Company", "branch": "Akure", "category": "Warning", "resumptionDate": "2000-02-13", "suspendedDate": "2019-02-31" },
+        { "id": "2", "firstName": "Nnamdi", "surName":"Festus", "studentId":"ICSDEF", "phone": "07087239812", "email": "festus009@gmail.com", "company": "NITEL", "branch": "Makurdi", "category": "Query", "resumptionDate": "2019-02-31", "suspendedDate": "2000-02-13" }
+     ]
+}

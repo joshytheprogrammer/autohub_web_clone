@@ -1,0 +1,10 @@
+/* .dragArea {
+    border: solid 2px #5edb79;
+} */
+.dragAreaWhite {
+  border: solid 2px white;
+  background-color: aquamarine;
+}
+.cloud {
+  display: none;
+}
