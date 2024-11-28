@@ -4,19 +4,17 @@ import { HiFlag } from 'react-icons/hi2'
 import { Icons } from '../../../../../components/shared/Icons'
 import { Show } from '../../../../../components/shared/Show'
 import { Table } from '../../../../../components/shared/Table'
-import { EditCategoryModal } from './categories/editCategoryModal'
 
-export default function Categories() 
+export default function Product() 
 {
-    const [openCategoryModal, setCategoryModalOpen] = useState<boolean>(false)
+    const [openFlagModal, setFlagModalOpen] = useState<boolean>(false)
     const [viewTransactionDetail, setVeiwTransactionDetail] = useState<boolean>(false)
-
 
     const [showingStates, setShowStates] = useState<boolean>(false)
 
     useEffect(() => 
     {
-       console.log({ viewTransactionDetail })
+       console.log({ viewTransactionDetail, openFlagModal })
     }, [])
     
 
@@ -41,7 +39,7 @@ export default function Categories()
     const ActiveTrans: ActiveTransProps[] = 
     [
         {
-          category: 'E-Commerce E-Commerce E-Commerce E-Commerce ',
+          category: 'E-Commerce',
           seller: 'Kingsley Effiong',
           buyer: 'Mathew Peter',
           transactionId: 'UF79KFKCUF0EODKE',
@@ -77,30 +75,48 @@ export default function Categories()
     const ActiveTransAct = useMemo<ColumnDef<ActiveTransProps>[]>(
         () => [
         {
-          header: 'Name',
+          header: 'Category',
           cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
           accessorKey: 'category',
-          size: 100,
         },
         {
-            header: 'Description',
+            header: 'Seller',
             cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
             accessorKey: 'seller',
-            size: 1200,
         },
         {
-            header: 'Edit',
-            cell: () => (<a href="#" onClick={() => setCategoryModalOpen(true)}><Icons iconName='edit' color='blue' width={4} height={4}/></a>),
+            header: 'Buyer',
+            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            accessorKey: 'buyer',
+        },
+        {
+            header: 'Transaction Id',
+            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            accessorKey: 'transactionId',
+        },
+        {
+            header: 'Amount',
+            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            accessorKey: 'amount',
+        },
+        {
+            header: 'Date',
+            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            accessorKey: 'initiatedDate',
+        },
+        {
+            header: 'Percentage',
+            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            accessorKey: 'percentage',
+        },
+        {
+            header: 'Flag',
+            cell: () => (<a href="#" onClick={() => setFlagModalOpen(true)}><HiFlag className="text-green-600 hover:text-black" width={5} height={5}/></a>),
             accessorKey: '',
         },
         {
-            header: 'Delete',
-            cell: () => (<a href="#" onClick={() => setVeiwTransactionDetail(true)}><Icons iconName="delete" color="red" width={4} height={4}/></a>),
-            accessorKey: '',
-        },
-        {
-            header: 'Thrash',
-            cell: () => (<a href="#" onClick={() => setVeiwTransactionDetail(true)}><HiFlag className="text-green-600 hover:text-black" width={5} height={5}/></a>),
+            header: 'View Detail',
+            cell: () => (<a href="#" onClick={() => setVeiwTransactionDetail(true)}><Icons iconName="eye" color="blue" width={4} height={4}/></a>),
             accessorKey: '',
         }
     ],[])
@@ -113,7 +129,7 @@ export default function Categories()
                     <h1 
                         className='text-black'
                     >
-                        All Categories
+                        All Manfacturer
                     </h1>
             </div>   
             
@@ -134,14 +150,7 @@ export default function Categories()
                      className="py-10"
                 >
                 </div>              
-            </div>  
-
-            { openCategoryModal && <EditCategoryModal editModal={openCategoryModal} 
-                                                      onClick={() => {
-                                                          setCategoryModalOpen(false)  
-                                                      }} 
-                                        /> 
-            }   
+            </div>     
         </>
     )
 }

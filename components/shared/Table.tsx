@@ -22,15 +22,11 @@ interface ReactTableProps<T extends object>
 
 export const Table = <T extends object>({ data, columns, headerNavigation=true, showFooter = false, removeHeader, showNavigation = false, searchPlaceHolder = '', headerColor, space, from='nothing', headerTextColor }: ReactTableProps<T>) => 
 {
-    
-    const [employeeId, setEmployeeId] = useState<string>('')
-    const [open, setOpen] = useState<boolean>(false)
     const [openModal, setOpenModal] = useState<boolean>(false)
 
-    const placeHolder: string = searchPlaceHolder;
     const page:any = (from === 'dashboard') ? space : 'mb-7'
 
-    console.log(columns)
+    console.log({columns, searchPlaceHolder})
     
     const table = useReactTable(
         {

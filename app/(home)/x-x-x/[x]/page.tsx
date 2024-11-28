@@ -16,7 +16,7 @@ export default function Category()
   const router = useRouter()
 
   const { ref, inView } = useInView()
-  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [currentPage] = useState<number>(1)
 
   const {
       fetchNextPage,

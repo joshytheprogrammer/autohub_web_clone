@@ -20,9 +20,9 @@ export async function ApplicationData()
     }
 }
 
-export async function Detail(slug: string, token: string, userType: string)
+export async function Detail(slug: string, token: string)
 {
-    let endPoint = `${userType}/detail/`
+    let endPoint = `detail/`
     let ApiUrl = `${BASE_URL}${endPoint}${slug}`
 
     const response = await fetch(ApiUrl, 

@@ -18,7 +18,6 @@ export default function SingleImageUpload({width, space, ICloudColour, onClick}:
 {
     const [userPassport, setUserPassport] = useState<string>("")
     const [passport, setPassport] = useState<string>("")
-    const [userPhoto, setUserPhoto] = useState<string>("")
     const [uploadText, setUploadText] = useState<string>("Click to upload passport")
     let photograph!: HTMLDivElement
 
@@ -28,6 +27,7 @@ export default function SingleImageUpload({width, space, ICloudColour, onClick}:
         {   
             photograph = document.querySelector('.theArea')!
         }, 200)
+        console.log({ width })
     }, [])
 
     useEffect(() => 
@@ -68,7 +68,6 @@ export default function SingleImageUpload({width, space, ICloudColour, onClick}:
         cloud.style.display = 'none'
         setUploadText("Click to change passport")
         photo.style.backgroundImage = `url(${passportUrl})`
-        setUserPhoto(passportUrl)
 
         const image = Array.from(e.target.files)
         Promise.all(
@@ -105,7 +104,7 @@ export default function SingleImageUpload({width, space, ICloudColour, onClick}:
               >    
                     {/* <img src={userPhoto} className='absolute object-fit rounded-full w-10/12' /> */}
                     
-                    <div 
+                    <section 
                         className={`passportText ${ICloudColour} w-full d-flex justify-center mt-5 text-center mx-auto font-bold upload`}
                       > 
                         <div className="cloudy mb-3"
@@ -113,7 +112,7 @@ export default function SingleImageUpload({width, space, ICloudColour, onClick}:
                             <HiCloudUpload className={`w-10 h-10 ${ICloudColour} upload mx-auto`} />
                         </div>
                         <span className='bg-white p-1 text-black flex text-center justify-center text-sm rounded-full opacity-50 w-full'>{uploadText}</span>
-                    </div>
+                    </section>
                     <input type='file' id='passport' name='passport' className='passort p-5 upload' hidden
                             onChange={(e: any) => {                                       
                                 displayPassport(e)

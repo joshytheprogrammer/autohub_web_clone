@@ -10,11 +10,11 @@ import { Table } from '../../../../components/shared/Table';
 
 export default function Students() 
 {
-      const [open, setOpen] = useState<boolean>(false)
-      const [showModal, setShowModal] = useState<boolean>(false)
-      const [employeeId, setEmployeeId] = useState<string>('')
-      const [isItThis, setIsItThis] = useState<string>('')  
-      const [openModal, setOpenModal] = useState<boolean>(false)  
+      const [open] = useState<boolean>(false)
+      const [showModal] = useState<boolean>(false)
+      const [employeeId] = useState<string>('')
+      const [isItThis] = useState<string>('')  
+      const [openModal] = useState<boolean>(false)  
       
       const [editOpenModal, setEditModal] = useState<boolean>(false)
       const [deleteOpenModal, setDeleteModal] = useState<boolean>(false)
@@ -30,13 +30,13 @@ export default function Students()
         setRefresh(false)
       }, [open, showModal, employeeId, isItThis, openModal, editOpenModal, deleteOpenModal, showingStates, action, showProfile, refresh])
       
-      const editModal = (page: any) => {
-          setEditModal(true)
-      }
+    //   const editModal = (page: any) => {
+    //       setEditModal(true)
+    //   }
   
-      const deleteModal = (page: any) => {
-          setDeleteModal(true)
-      }
+    //   const deleteModal = (page: any) => {
+    //       setDeleteModal(true)
+    //   }
   
       const ShowStates = (page: any) => 
       {

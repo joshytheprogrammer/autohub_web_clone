@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 
-type countryNames = {
-    name: string
-}[]
 
 const Price = () => 
 {
   const [inputValue, setInputValue] = useState("");
-  const [selected, setSelected] = useState("");
+  const [selected] = useState("");
   const [open, setOpen] = useState(false);
 
 

@@ -21,7 +21,7 @@ export const SubMenuItem = ({ items }: any) =>
                         <DropDown submenus={items?.subMenu} dropdown={dropdown} />
                     </div>
                 ) : (
-                    <Link className='mx-2 text-gray-200 font-bold hover:text-black hover:font-bold cursor-pointer text-sm' href={items?.goTo}>
+                    <Link shallow={true} className='mx-2 text-gray-200 font-bold hover:text-black hover:font-bold cursor-pointer text-sm' href={items?.goTo}>
                         {items?.name}
                     </Link>
                 )

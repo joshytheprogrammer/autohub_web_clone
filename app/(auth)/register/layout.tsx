@@ -4,9 +4,13 @@ export default function RegisterLayout({ children } : { children: React.ReactNod
 {
     return (
       <html lang="en">
-        <body
+        <body className="bg-[#27973f]"
         >
-          {children}
+          <main>
+            <div>
+              {children}
+            </div>
+          </main>
         </body>
       </html>
     )

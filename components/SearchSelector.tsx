@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
 
-type countryNames = {
-    name: string
-}[]
 
 const SearchSelector = () => 
 {
   const [inputValue, setInputValue] = useState("");
-  const [selected, setSelected] = useState("");
+  const [selected] = useState("");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {

@@ -1,5 +1,3 @@
-        
-
 export async function ResponsePromise(rms: any) 
 {
     let ans: { responseState: boolean, data: any }

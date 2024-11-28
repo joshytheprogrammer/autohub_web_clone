@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { HiOutlineUserAdd } from 'react-icons/hi';
 import { HiBuildingStorefront, HiMiniBars4, HiMiniBookmarkSquare, HiMiniPower, HiOutlineUser, HiWallet } from 'react-icons/hi2';
 import { UseStore } from '../state/store';
@@ -14,6 +14,12 @@ export default function RightSide()
     const userState = UseStore((state) => state)
     const token = userState.getUserToken()
     const [openLoggedOut, setOpenLoggedOut] = useState<boolean>(false)
+    const [passport, setPassport] = useState<string>("")
+
+    useEffect(() => 
+    {
+       setPassport(userState.getPassport())
+    }, [])
 
     const dropdownHandler = () => 
     {
@@ -37,7 +43,7 @@ export default function RightSide()
                     style={{ width: 'max-content' }}
                 >   
                   {    
-                      userState.getUserToken() && <>
+                      token && <>
                         <Link href={`/user/profile`} 
                               className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
                         >
@@ -119,7 +125,7 @@ export default function RightSide()
                     </>
                   }
                   {    
-                      !userState.getUserToken() && <>
+                      !token && <>
                         <Link 
                             href={`/login`} 
                             className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-red-600 flex items-center focus:text-indigo-700 focus:outline-none"
@@ -148,8 +154,8 @@ export default function RightSide()
                 <div 
                     className="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
                 >         
-                    { !userState.getPassport() && <HiOutlineUser className='w-6 h-6 font-bold' /> }
-                    { userState.getPassport() && <img src={`${USAGE_PATH.AVATAR}${userState.getPassport()}`} width={50}  className='rounded-full' />  }
+                    { !token && <HiOutlineUser className='w-6 h-6 font-bold' /> }
+                    { token && <img src={`${USAGE_PATH.AVATAR}${passport}`} width={50}  className='rounded-full' />  }
                 </div>
                 <div 
                     className="ml-2 "

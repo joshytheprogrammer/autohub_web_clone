@@ -1,7 +1,7 @@
 
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { UseStore } from '../state/store'
 import ProfilePicture from '../app/(user)/user/adverts/control/profile-picture'
@@ -20,21 +20,44 @@ export default function MemberDealerNavigation({ marketPlace }: MemberDealerNavi
   const router = useRouter()
   const token = Session.getUserToken()
   const [openLoggedOut, setOpenLoggedOut] = useState<boolean>(false)
+
+  const [firstname, setFirstname] = useState<string>("")
+  const [surname, setSurname] = useState<string>("")
+  const [userType, setUserType] = useState<string>("")
+  const [page, setPage] = useState<string>("")
+
+  useEffect(() => 
+  {
+      setFirstname(Session.getFName())
+      setSurname(Session.getSName())
+      setUserType(Session.getUType())
+      setPage(page)
+  }, [])
+
+  useEffect(() => 
+  {
+    
+  }, [page])
+
   
   return (
             <>
                 <div 
                     className='w-3/12 d-flex border-shadow drop-shadow-lg md:block hidden rounded-2xl'
                 >
-                        <div 
+                        <section 
                                 className='d-flex justify-center items-center mx-auto h-[fit] px-10 pb-5 pt-2 mt-0 bg-green-50'
                         >
                             {/* <img src='' className='h-[200px] w-[200px] mx-auto rounded-full bg-blue-200 mb-3' /> */}
                             <ProfilePicture />
-                            <div className='w-full flex justify-center mx-auto font-bold text-lg'>{Session.getFName()} {Session.getSName()}</div>
-                            <div className='w-full flex justify-center mx-auto font-bold text-md uppercase'>{Session.getUType()}</div>
-                        </div>
-                        <div 
+                            <span className='w-full flex justify-center mx-auto font-bold text-lg'>{firstname} {surname}</span>
+                            <span 
+                                className='w-full flex justify-center mx-auto font-bold text-md uppercase text-blue-600'
+                            >
+                                {userType}
+                            </span>
+                        </section>
+                        <section 
                                 className='d-flex justify-center items-center mx-auto'
                         >
                             <ul 
@@ -45,13 +68,13 @@ export default function MemberDealerNavigation({ marketPlace }: MemberDealerNavi
                                     return (
                                         <Link href={`${user?.url}`} key={index}
                                               onClick={() => {
-                                                Session.setMarketPlaceLink(user?.name)
+                                                setPage(user?.name)
                                                 router.push(`${user?.url}`)                                                
                                               }}
                                         >
                                             <li 
                                                 key={index} 
-                                                className={`px-5 py-3 ${(Session.getMarketPlaceLink() === user?.name) ? 'bg-green-800' : 'bg-green-600'} hover:bg-green-900 text-whiterounded-md mb-1 cursor-pointer rounded-lg text-center uppercase text-white font-bold hover:text-white`}
+                                                className={`px-5 py-3 ${(page === user?.name) ? 'bg-green-800' : 'bg-green-600'} hover:bg-green-900 text-whiterounded-md mb-1 cursor-pointer rounded-lg text-center uppercase text-white font-bold hover:text-white`}
                                             >
                                                 {user?.name}
                                             </li>
@@ -76,27 +99,26 @@ export default function MemberDealerNavigation({ marketPlace }: MemberDealerNavi
                                 } */}
                                 <Link href={'profile'}
                                       onClick={() => {
-                                          Session.setMarketPlaceLink(`/user/profile`)
-                                          router.push(`user/profile`)
+                                          setPage(`/user/profile`)
                                       }}
                                 >
                                     <li 
                                         key={Math.random()} 
-                                        className={`px-5 py-3 ${(Session.getMarketPlaceLink() === `/user/profile`) ? 'bg-green-800' : 'bg-green-600'} hover:bg-green-900 text-whiterounded-md mb-1 cursor-pointer rounded-lg text-center uppercase text-white font-bold hover:text-white`}
+                                        className={`px-5 py-3 ${(page === `/user/profile`) ? 'bg-green-800' : 'bg-green-600'} hover:bg-green-900 text-whiterounded-md mb-1 cursor-pointer rounded-lg text-center uppercase text-white font-bold hover:text-white`}
                                     >
                                         {`Profile`}
                                     </li>
                                 </Link> 
-                                { (Session.getUType() === `member`) &&
+                                { 
+                                    (userType === `member`) &&
                                     <Link href={`become-a-dealer`}
                                       onClick={() => {
-                                          Session.setMarketPlaceLink(`/user/become-a-dealer`)
-                                          router.push(`user/become-a-dealer`)
+                                          setPage(`/user/become-a-dealer`)
                                       }}
                                     >
                                         <li 
                                             key={Math.random()} 
-                                            className={`px-5 py-3 ${(Session.getMarketPlaceLink() === `/user/become-a-dealer`) ? 'bg-green-800' : 'bg-green-600'} hover:bg-green-900 text-whiterounded-md mb-1 cursor-pointer rounded-lg text-center uppercase text-white font-bold hover:text-white`}
+                                            className={`px-5 py-3 ${(page === `/user/become-a-dealer`) ? 'bg-green-800' : 'bg-green-600'} hover:bg-green-900 text-whiterounded-md mb-1 cursor-pointer rounded-lg text-center uppercase text-white font-bold hover:text-white`}
                                         >
                                             {`Become a Dealer`}
                                         </li>
@@ -104,13 +126,12 @@ export default function MemberDealerNavigation({ marketPlace }: MemberDealerNavi
                                 }
                                 <Link href={`change-password`}
                                       onClick={() => {
-                                          Session.setMarketPlaceLink(`/user/change-password`)
-                                          router.push(`user/change-password`)
+                                          setPage(`/user/change-password`)
                                       }}
                                 >
                                     <li 
                                         key={Math.random()} 
-                                        className={`px-5 py-3 ${(Session.getMarketPlaceLink() === `/user/change-password`) ? 'bg-green-800' : 'bg-green-600'} hover:bg-green-900 text-whiterounded-md mb-1 cursor-pointer rounded-lg text-center uppercase text-white font-bold hover:text-white`}
+                                        className={`px-5 py-3 ${(page === `/user/change-password`) ? 'bg-green-800' : 'bg-green-600'} hover:bg-green-900 text-whiterounded-md mb-1 cursor-pointer rounded-lg text-center uppercase text-white font-bold hover:text-white`}
                                     >
                                         {`Change Password`}
                                     </li>
@@ -125,7 +146,7 @@ export default function MemberDealerNavigation({ marketPlace }: MemberDealerNavi
                                 Logout
                                 </li>
                             </ul>                    
-                        </div>
+                        </section>
                     </div>
 
                     {

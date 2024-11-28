@@ -9,8 +9,6 @@ export default function SlideShowThumbnail({ data, imageSize, waterMark }: { dat
     const [slide, setSlide] = useState<number>(0)
     let sliderTimeOut: any
 
-    console.log(data)
-
     useEffect(() => 
     {
         sliderTimeOut =  setTimeout(() => 
@@ -47,7 +45,6 @@ export default function SlideShowThumbnail({ data, imageSize, waterMark }: { dat
               {
                  (data?.length === 0) && <>
                     <div 
-                        // className="flex justify-content h-[400px] items-center -translate-x-0 translate-y-[-50%] left-5 text-xl rounded-full text-white cursor-pointer"
                         className="w-full h-[10px] md:h-[400px] d-flex justify-center items-center mx-auto pt-20"
                     >
                         {/* <div className=''

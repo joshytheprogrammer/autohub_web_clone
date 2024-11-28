@@ -6,7 +6,7 @@ import { Show } from '../../../../../components/shared/Show'
 import { Table } from '../../../../../components/shared/Table'
 import { EditCategoryModal } from './categories/editCategoryModal'
 
-export default function Categories() 
+export default function Location() 
 {
     const [openCategoryModal, setCategoryModalOpen] = useState<boolean>(false)
     const [viewTransactionDetail, setVeiwTransactionDetail] = useState<boolean>(false)
@@ -27,7 +27,7 @@ export default function Categories()
         setShowStates(true)
     }
 
-    type ActiveTransProps =
+    type CountryProps =
     {
         category: string,
         seller: string,
@@ -38,7 +38,7 @@ export default function Categories()
         percentage: number,
     }
       
-    const ActiveTrans: ActiveTransProps[] = 
+    const ActiveTrans: CountryProps[] = 
     [
         {
           category: 'E-Commerce E-Commerce E-Commerce E-Commerce ',
@@ -74,17 +74,17 @@ export default function Categories()
         return ActiveTrans
     }
 
-    const ActiveTransAct = useMemo<ColumnDef<ActiveTransProps>[]>(
+    const ActiveTransAct = useMemo<ColumnDef<CountryProps>[]>(
         () => [
         {
           header: 'Name',
-          cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+          cell: (row: CellContext<CountryProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
           accessorKey: 'category',
           size: 100,
         },
         {
             header: 'Description',
-            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            cell: (row: CellContext<CountryProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
             accessorKey: 'seller',
             size: 1200,
         },
@@ -113,7 +113,7 @@ export default function Categories()
                     <h1 
                         className='text-black'
                     >
-                        All Categories
+                        All Countries
                     </h1>
             </div>   
             

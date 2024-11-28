@@ -28,10 +28,10 @@ export default function WishListProduct()
     const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`wishlist-products-${currentPage}-${perPage}`, currentPage, perPage, token], queryFn: () => WishListProducts(Number(currentPage), Number(perPage), token, usertype)})
     
     const [openMarkAsSold, setOpenMarkAsSold] = useState<boolean>(false)
-    const [porductId, setProductId] = useState<number>(-1)     
-    const [productTitle, setProductTitle] = useState<string>("") 
-    const [deleteMessage, setDeleteMessage] = useState<string>("") 
-    const [imageUrl, setImageUrl] = useState<string>("")  
+    const [porductId] = useState<number>(-1)     
+    const [productTitle] = useState<string>("") 
+    const [deleteMessage] = useState<string>("") 
+    const [imageUrl] = useState<string>("")  
 
     return (
             <div 

@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 // import './css/dragAndDrop.css'
 import { BeatLoader } from "react-spinners";
 import { Modal } from '../../../../../components/modal/Modal';
-import ProfilePicture from './profile-picture';
-import MoreImage from './MoreImage';
-import SingleImageUpload from '../../../../../components/shared/SingleImageUpload';
 import { reduceImageSize } from '../../../../../components/util/image';
 import { AddImage } from '../../../../api/home/market/images/product-images';
 import Message from '../../../../../components/shared/Message';
@@ -32,6 +29,7 @@ export const AddProductImage = ({onClick, imageModal, productId, adverProductId,
         {
            setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
            setErrorMessage("")
+           console.log(adverProductId)
         }, []) 
         
         useEffect(() => 

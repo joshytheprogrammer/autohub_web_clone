@@ -1,11 +1,11 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 
 
 export const DropDown = ({ submenus, dropdown }: any) =>
 {
-    const [dropDownStatus, setDropDownStatus] = useState<boolean>(dropdown)
-    const [isOpen, setIsOpen] = useState<string>('hidden')
+    // const [dropDownStatus, setDropDownStatus] = useState<boolean>(dropdown)
+    // const [isOpen, setIsOpen] = useState<string>('hidden')
 
     return (
         <ul 

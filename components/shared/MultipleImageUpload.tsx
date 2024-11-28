@@ -11,14 +11,12 @@ type ImageProps =
     onClick: (img: any, position: number) => void
 }
 
-
 export default function MultipleImageUpload({width, ICloudColour, onClick}: ImageProps) 
 {
     const advertState = UseStore((state) => state)
     const [userPassport] = useState<string>("")
     const [uploadText] = useState<string>("Click to upload pictures")
     let photograph!: HTMLDivElement
-
     
     const [previewUrls, setPreviewUrls] = useState<any[]>([]);
     const [ mainImagePosition, setMainImagePosition] = useState<number>(-1)    
@@ -34,7 +32,7 @@ export default function MultipleImageUpload({width, ICloudColour, onClick}: Imag
         {   
             photograph = document.querySelector('.theArea')!
         }, 200)
-        console.log({ thumbnail, mainImageErrorMsg })
+        console.log({ thumbnail, mainImageErrorMsg, width })
     }, [])
 
     useEffect(() => 

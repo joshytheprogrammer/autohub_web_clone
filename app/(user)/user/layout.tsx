@@ -5,6 +5,7 @@ import HeaderNavigation from '../../../components/shared/HeaderNavigation'
 import Footer from '../../../components/shared/Footer'
 import UserProvider from '../../../provider/UserProvider'
 import MemberDealerNavigation from '../../../components/MemberDealerNavigation'
+// import IsAuthenticated from '../../route/IsAuthenticated'
 
 // const inter = Inter({ subsets: ['latin'] })
 
@@ -70,17 +71,21 @@ export default function UserLayout(
           >
             <UserProvider>
                 <HeaderNavigation />
-                
-                    <div className='container relative w-full gap-5 flex justify-between mt-2 mb-4 mx-auto'
-                    >
-                    <MemberDealerNavigation marketPlace={marketPlate} />  
-                    
-                    {/* <div className='bg-green-400 d-flex bg-green-50 border-shadow drop-shadow-lg md:block h-[fit] px-1 py-5 mt-3 md:rounded-2xl -mb-24 md:mb-0'>                   */}
-                    <div className='container'> 
-                            {children} 
-                            </div>                 
-                    </div>
-                    
+                  {/* <UserProvider> */}
+                  {/* <IsAuthenticated>                 */}
+                      <div className='container relative w-full gap-5 flex justify-between mt-2 mb-4 mx-auto'
+                      >
+                        <MemberDealerNavigation marketPlace={marketPlate} />  
+                      
+                          {/* <div className='bg-green-400 d-flex bg-green-50 border-shadow drop-shadow-lg md:block h-[fit] px-1 py-5 mt-3 md:rounded-2xl -mb-24 md:mb-0'>                   */}
+                          <div 
+                              className='container'
+                          > 
+                              {children} 
+                          </div>
+                      </div>
+                      {/* </UserProvider> */}
+                    {/* </IsAuthenticated> */}
                     <div className='px-1 py-10'></div>
 
                 <Footer />

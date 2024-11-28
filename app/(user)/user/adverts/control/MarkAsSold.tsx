@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { BeatLoader } from "react-spinners"
 import { Modal } from "../../../../../components/modal/Modal"
 import { USAGE_PATH } from "../../../../../constant/Path"
-import { DeleteProduct, MarkProductSold } from "../../../../api/home/market/user/product"
+import { MarkProductSold } from "../../../../api/home/market/user/product"
 import Message from "../../../../../components/shared/Message"
 
 

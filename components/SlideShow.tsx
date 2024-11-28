@@ -6,7 +6,6 @@ import { USAGE_PATH } from '../constant/Path';
 import { HiOutlineSpeakerphone } from 'react-icons/hi';
 
 
-
 export default function SlideShow({ data, imageSize }: { data: any, imageSize: number }) 
 {
     const router = useRouter()

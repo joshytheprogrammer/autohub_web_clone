@@ -6,19 +6,18 @@ import { Show } from '../../../../../components/shared/Show'
 import { Table } from '../../../../../components/shared/Table'
 import { EditCategoryModal } from './categories/editCategoryModal'
 
-export default function Categories() 
+export default function States() 
 {
     const [openCategoryModal, setCategoryModalOpen] = useState<boolean>(false)
     const [viewTransactionDetail, setVeiwTransactionDetail] = useState<boolean>(false)
 
-
     const [showingStates, setShowStates] = useState<boolean>(false)
+    
 
     useEffect(() => 
     {
        console.log({ viewTransactionDetail })
     }, [])
-    
 
     const ShowStates = (page: any) => 
     {
@@ -27,7 +26,7 @@ export default function Categories()
         setShowStates(true)
     }
 
-    type ActiveTransProps =
+    type StateProps =
     {
         category: string,
         seller: string,
@@ -38,7 +37,7 @@ export default function Categories()
         percentage: number,
     }
       
-    const ActiveTrans: ActiveTransProps[] = 
+    const ActiveTrans: StateProps[] = 
     [
         {
           category: 'E-Commerce E-Commerce E-Commerce E-Commerce ',
@@ -74,17 +73,17 @@ export default function Categories()
         return ActiveTrans
     }
 
-    const ActiveTransAct = useMemo<ColumnDef<ActiveTransProps>[]>(
+    const ActiveTransAct = useMemo<ColumnDef<StateProps>[]>(
         () => [
         {
           header: 'Name',
-          cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+          cell: (row: CellContext<StateProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
           accessorKey: 'category',
           size: 100,
         },
         {
             header: 'Description',
-            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            cell: (row: CellContext<StateProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
             accessorKey: 'seller',
             size: 1200,
         },
@@ -113,7 +112,7 @@ export default function Categories()
                     <h1 
                         className='text-black'
                     >
-                        All Categories
+                        All States
                     </h1>
             </div>   
             

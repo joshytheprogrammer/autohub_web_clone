@@ -1,3 +1,6 @@
+import { Suspense } from "react"
+import Loading from "../loading"
+
 export const metadata = {
   title: 'AutoHub - Member Registration',
   description: 'Autohub',
@@ -7,14 +10,6 @@ export const metadata = {
 export default function MemberLayout({ children } : { children: React.ReactNode })
 {
     return (
-      <html lang="en">
-        <body
-        >
-            {/* <Suspense fallback={<Loading />}>{children}</Suspense> */}
-            <main>
-                {children}
-            </main>
-        </body>
-      </html>
+      <Suspense fallback={<Loading />}>{children}</Suspense>
     )
 }

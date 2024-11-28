@@ -8,12 +8,10 @@ import WebCategory from '../../components/category/WebCategory'
 import Banner from '../../components/Banner'
 import SlideShow from '../../components/SlideShow'
 import { Landing } from '../api/home/market/AllProduct'
-import { UseStore } from '../../state/store'
 
 
 export default function Home() 
 {
-    const x = UseStore((state) => state)
 
     const { isFetching, isLoading, ...data } = useQuery({ queryKey: ['landing-page'], queryFn: () => Landing() })
     
@@ -84,7 +82,7 @@ export default function Home()
 
                     <div className='container grid grid-cols-12 gap-2 md:gap-5 mx-auto mt-4 px-2 md:p-0'
                     >
-                        <Product firstLoad={data?.data?.product} />
+                        <Product />
                     </div>
 
                     <div className='p-10'></div>

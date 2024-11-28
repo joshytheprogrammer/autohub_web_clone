@@ -19,11 +19,6 @@ export default function Profile()
       url = `${usertype}/profile`
       const { data, isLoading } = useQuery({ queryKey: [`user-profile-${url}`, url], queryFn: () => UserDetail(url, token) })
 
-      if(!isLoading)
-      {
-            console.log(data?.data?.dealer)
-      }
-      
       const COMPANY_NAME_MESSAGE = 'Enter Company Name'
       const COMPANY_ADDRESS_MESSAGE = 'Enter Company Address'
       const RC_NUMBER_MESSAGE = 'Enter RC Number'

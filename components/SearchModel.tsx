@@ -4,7 +4,6 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { UseStore } from "../state/store";
 
 
-
 type SearchModelProps = 
 {
     manufacturerId: number

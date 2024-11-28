@@ -4,7 +4,8 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { UseStore } from "../../state/store";
 
 
-type CategoryProps = {
+type CategoryProps = 
+{
     placeholder: string,
     incomingData: any
     selectedColour: string

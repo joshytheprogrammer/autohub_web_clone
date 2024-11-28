@@ -22,7 +22,7 @@ export const useProductDetail = (slug: string) =>
 
     const callApi = async () => 
     {
-        const response: any = await Detail(slug, token, usertype)
+        const response: any = await Detail(slug, token)
         console.log(response)
         if(response?.status === 200)
         {

@@ -4,10 +4,6 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { UseStore } from "../state/store";
 
 
-type countryNames = {
-    name: string
-}[]
-
 type searchStateProps = 
 {
     countryId: number

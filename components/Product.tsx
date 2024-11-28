@@ -6,10 +6,10 @@ import { useInView } from 'react-intersection-observer';
 import { AllProduct } from '../app/api/home/market/AllProduct';
 
 
-export default function Products({firstLoad}: { firstLoad: any }) 
+export default function Products() 
 {
     const { ref, inView } = useInView()
-    const [currentPage, setCurrentPage] = useState<number>(1)
+    const [currentPage] = useState<number>(1)
 
 
     const {

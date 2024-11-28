@@ -5,9 +5,9 @@ import Categories from "./tabs/categories";
 import Color from "./tabs/color";
 import Conditions from "./tabs/conditions";
 import Fuel from "./tabs/fuel";
-import Locations from "./tabs/locations";
-import Products from "./tabs/products";
 import Transmissions from "./tabs/transmissions";
+import Location from "./tabs/location";
+import Product from "./tabs/product";
 
 
 export default function ProductEntry() 
@@ -16,17 +16,17 @@ export default function ProductEntry()
   
       const tabsData = [   
         {
+          label: "Locations",
+          content: <Location />
+        },
+        {
           label: "Categories",
           content: <Categories />
-        },   
+        },  
         {
           label: "Products",
-          content: <Products />
-        },   
-        {
-          label: "Locations",
-          content: <Locations />
-        },  
+          content: <Product />
+        }, 
         {
           label: "Fuel",
           content: <Fuel />
@@ -87,7 +87,7 @@ export default function ProductEntry()
                         <div 
                             className="px-1 md:px-5 mt-3"
                         >
-                            <p>{tabsData[activeTabIndex].content}</p>
+                            <div>{tabsData[activeTabIndex].content}</div>
                         </div>                   
                   </div>
             </div>

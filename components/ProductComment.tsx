@@ -22,7 +22,7 @@ export default function ProductComment({ productId, vendorId, userId }: Prdoduct
   const token: string = userToken.getUserToken()
   const userType: string = userToken.getUType()
 
-  const { data, isLoading: isLoadingComment, error, isError, refetch, isFetching } = useQuery({ queryKey: [`product-comment-${productId}`, productId], queryFn: () => ProductComments(Number(productId)) })
+  const { data, isLoading: isLoadingComment, refetch } = useQuery({ queryKey: [`product-comment-${productId}`, productId], queryFn: () => ProductComments(Number(productId)) })
   
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [comment, setComment] = useState<string>('')

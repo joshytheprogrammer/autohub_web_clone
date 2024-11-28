@@ -67,7 +67,7 @@ export default function Advert()
                 <div 
                     className="px-1 mt-3"
                 >
-                    <p>{tabsData[activeTabIndex].content}</p>
+                    <div>{tabsData[activeTabIndex].content}</div>
                 </div>
                 <div className="h-[0px]"></div>
             </>

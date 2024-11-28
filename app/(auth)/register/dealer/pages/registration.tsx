@@ -14,6 +14,7 @@ type RegistrationProp =
     onClick: (currentSection: number) => void
 }
 
+
 export default function Registration({ onClick }: RegistrationProp) 
 {
   const router = useRouter()
@@ -67,11 +68,13 @@ export default function Registration({ onClick }: RegistrationProp)
   const [errMsgStyle, setErrMsgStyle] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>("")
   const [refresh, setRefresh] = useState<boolean>(false)
+  const [dom, setDom] = useState<boolean>(false)
 
   useEffect(() => 
   {
      setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
      setErrorMessage("")
+     setDom(true)
   }, []) 
 
   useEffect(() => 
@@ -122,302 +125,303 @@ export default function Registration({ onClick }: RegistrationProp)
 
   return (
       
-      <div 
-            className="w-full -mt-1 md:mt-0 p-5 md:px-9 md:pt-10 md:pb-5 d-flex items-center justify-center rounded-md md:rounded-xl bg-[#23913b] hover:text-white mb-20 md:mb-0 border-2 border-green-700"
-      >
-          <div  
-                className='w-full d-flex md:flex gap-10 md:mb-3'
-          >                                          
-                <div 
-                      className="mb-4 md:w-full"
-                >
-                      <input 
-                              defaultValue={advertState.getCompanyName()}
-                              className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                              type="text" name="companyName" id="companyName" placeholder="Enter Company Name" 
+      
+            <div 
+                  className="w-full -mt-1 md:mt-0 p-5 md:px-9 md:pt-10 md:pb-5 d-flex items-center justify-center rounded-md md:rounded-xl bg-[#23913b] hover:text-white mb-20 md:mb-0 border-2 border-green-700"
+            >
+            <div  
+                  className='w-full d-flex md:flex gap-10 md:mb-3'
+            >                                          
+                  <div 
+                        className="mb-4 md:w-full"
+                  >
+                        <input 
+                                    defaultValue={advertState.getCompanyName()}
+                                    className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
+                                    type="text" name="companyName" id="companyName" placeholder="Enter Company Name" 
+                                    onChange={(e: any) => 
+                                    {
+                                          let value: string = e.target.value
+                                          setCompanyName(value)
+                                          setCompanyNameMessage("")
+                                          advertState.setCompanyName(value)
+                                    }}
+                                    onBlur={(e: any) => 
+                                    {
+                                          let value: string = e.target.value
+                                          if(value === "" || value === undefined || value === null)
+                                          {
+                                                setCompanyNameMessage(COMPANY_NAME_MESSAGE)
+                                          }
+                                    }}
+                        />
+                        { companyNameMessage && <Message msg={companyNameMessage} status={errMsgStyle} /> }
+                  </div>
+            </div>
+            <div  
+                  className='w-full d-flex md:flex gap-10 md:mb-3'
+            >                                          
+                  <div 
+                        className="mb-4 md:w-full"
+                  >
+                        <textarea  
+                                    defaultValue={advertState.getCompanyAddress()}
+                                    className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
+                                    placeholder="Enter Company Address." rows={2}                              
+                                    onChange={(e: any) => 
+                                    {
+                                          let value: string = e.target.value
+                                          setCompanyAddress(value)
+                                          setCompanyAddressMessage("")
+                                          advertState.setCompanyAddress(value)
+                                    }}
+                                    onBlur={(e: any) => 
+                                    {
+                                          let value: string = e.target.value
+                                          if(value === "" || value === undefined || value === null)
+                                          {
+                                          setCompanyAddressMessage(COMPANY_ADDRESS_MESSAGE)
+                                          }
+                                    }}
+                              >
+                        </textarea>
+                        { companyAddressMessage && <Message msg={companyAddressMessage} status={errMsgStyle} /> }
+                  </div>
+            </div>
+            <div 
+                  className='w-full d-flex md:flex gap-10 md:mb-3'
+            >                                          
+                  <div 
+                        className="mb-4 md:w-1/2 w-2/2"
+                  >
+                        <input 
+                              defaultValue={advertState.getRCNumber()}
+                              inputMode="numeric"
+                              pattern="[0-9.]+"
+                              id="rcNumber" name="rcNumber" placeholder="Enter RC Number"
+                              className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out"  
                               onChange={(e: any) => 
                               {
                                     let value: string = e.target.value
-                                    setCompanyName(value)
-                                    setCompanyNameMessage("")
-                                    advertState.setCompanyName(value)
+                                    setRcNumber(value)
+                                    setRcNumberMessage("")
+                                    advertState.setRCNumber(value)
                               }}
                               onBlur={(e: any) => 
                               {
                                     let value: string = e.target.value
                                     if(value === "" || value === undefined || value === null)
                                     {
-                                          setCompanyNameMessage(COMPANY_NAME_MESSAGE)
+                                          setRcNumberMessage(RC_NUMBER_MESSAGE)
                                     }
                               }}
-                      />
-                      { companyNameMessage && <Message msg={companyNameMessage} status={errMsgStyle} /> }
-                </div>
-          </div>
-          <div  
-                className='w-full d-flex md:flex gap-10 md:mb-3'
-          >                                          
-                <div 
-                      className="mb-4 md:w-full"
-                >
-                      <textarea  
-                              defaultValue={advertState.getCompanyAddress()}
-                              className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                              placeholder="Enter Company Address." rows={2}                              
+                        />
+                        { rcNumberMessage && <Message msg={rcNumberMessage} status={errMsgStyle} /> }
+                  </div>
+                  <div 
+                        className="mb-4 md:w-1/2 w-2/2"
+                  >
+                              <input  
+                                    defaultValue={advertState.getFirstname()}
+                                    className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
+                                    type="text" name="firstname" id="firstname" placeholder="Enter firstname" 
+                                    onChange={(e: any) => 
+                                    {
+                                          let value: string = e.target.value
+                                          setFirstname(value)
+                                          setFirstnameMessage("")
+                                          advertState.setFirstname(value)
+                                    }}
+                                    onBlur={(e: any) => 
+                                    {
+                                          let value: string = e.target.value
+                                          if(value === "" || value === undefined || value === null)
+                                          {
+                                          setFirstnameMessage(FIRST_NAME_MESSAGE)
+                                          }
+                                    }}
+                              />
+                        { firstnameMessage && <Message msg={firstnameMessage} status={errMsgStyle} /> }
+                        </div>
+            </div>
+            <div 
+                  className='w-full d-flex md:flex gap-10 md:mb-3'
+            >           
+                  <div 
+                        className="mb-4 md:w-1/2 w-2/2"
+                  >
+                              <input  
+                                    defaultValue={advertState.getSurname()}
+                                    className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
+                                    type="text" name="surname" id="surname" placeholder="Enter Surname"  
+                                    onChange={(e: any) => 
+                                    {
+                                          let value: string = e.target.value
+                                          setSurname(value)
+                                          setSurnameMessage("")
+                                          advertState.setSurname(value)
+                                    }}
+                                    onBlur={(e: any) => 
+                                    {
+                                          let value: string = e.target.value
+                                          if(value === "" || value === undefined || value === null)
+                                          {
+                                          setSurnameMessage(SURNAME_MESSAGE)
+                                          }
+                                    }}
+                              />
+                        { surnameMessage && <Message msg={surnameMessage} status={errMsgStyle} /> }
+                        </div>
+                  <div 
+                        className="mb-4 md:w-1/2 w-2/2"
+                  >
+                        <input  
+                              defaultValue={advertState.getMiddlename()}
+                              className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
+                              type="text" name="middlename" id="middlename" placeholder="Enter Middlename (Optional)" 
                               onChange={(e: any) => 
                               {
                                     let value: string = e.target.value
-                                    setCompanyAddress(value)
-                                    setCompanyAddressMessage("")
-                                    advertState.setCompanyAddress(value)
+                                    setMiddlename(value)
+                                    setMiddlenameMessage("")
+                                    advertState.setMiddlename(value)
+                              }}
+                        />
+                  </div>
+            </div>
+            <div  
+                  className='w-full d-flex md:flex gap-10 md:mb-3'
+            >                                          
+                  <div 
+                        className="mb-4 md:w-full"
+                  >
+                              <input  
+                                    defaultValue={advertState.getEmail()}
+                                    className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
+                                    type="email" name="email" id="email" placeholder="Enter Email" 
+                                    onChange={(e: any) => 
+                                    {
+                                          let value: string = e.target.value
+                                          setEmail(value)
+                                          setEmailMessage("")
+                                          advertState.setEmail(value)
+                                    }}
+                                    onBlur={(e: any) => 
+                                    {
+                                          let value: string = e.target.value
+                                          if(value === "" || value === undefined || value === null)
+                                          {
+                                          setEmailMessage(EMAIL_MESSAGE)
+                                          }
+                                    }}
+                              />
+                        { emailMessage && <Message msg={emailMessage} status={errMsgStyle} /> }
+                        </div>
+                  <div 
+                        className="mb-4 md:w-full"
+                  >
+                        <input  
+                              defaultValue={advertState.getPhone()} 
+                              className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
+                              type="text" name="phone" id="phone" 
+                              onChange={(e: any) => 
+                              {
+                                    let value: string = e.target.value
+                                    setPhone(value)
+                                    setPhoneMessage("")
+                                    advertState.setPhone(value)
                               }}
                               onBlur={(e: any) => 
                               {
                                     let value: string = e.target.value
                                     if(value === "" || value === undefined || value === null)
                                     {
-                                       setCompanyAddressMessage(COMPANY_ADDRESS_MESSAGE)
+                                    setPhoneMessage(PHONE_NUMBER_MESSAGE)
                                     }
+                              }}
+                        />
+                  { phoneMessage && <Message msg={phoneMessage} status={errMsgStyle} /> }
+                  </div>
+            </div>
+            <div  
+                  className='w-full d-flex md:flex gap-10 md:mb-3'
+            >                                          
+                  <div 
+                        className="mb-4 md:w-full"
+                  >
+                        <input  
+                              className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
+                              type="password" name="password" id="password" placeholder="Enter Password" 
+                              onChange={(e: any) => 
+                              {
+                                    let value: string = e.target.value
+                                    setPassword(value)
+                                    setPasswordMessage("")
+                                    advertState.setPassword(value)
+                              }}
+                              onBlur={(e: any) => 
+                              {
+                                    let value: string = e.target.value
+                                    if(value === "" || value === undefined || value === null)
+                                    {
+                                    setPasswordMessage(PASSWORD_MESSAGE)
+                                    }
+                              }}
+                        />
+                  { passwordMessage && <Message msg={passwordMessage} status={errMsgStyle} /> }
+                  </div>
+                  <div 
+                        className="mb-4 md:w-full"
+                  >
+                        <input  
+                              className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border mb-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
+                              type="password" name="cPassword" id="cPassword" placeholder="Enter Passowrd Again" 
+                              onChange={(e: any) => 
+                              {
+                                    let value: string = e.target.value
+                                    setConfirmPassword(value)
+                                    setConfirmPasswordMessage("")
+                              }}
+                              onBlur={(e: any) => 
+                              {
+                                    let value: string = e.target.value
+                                    if(value === "" || value === undefined || value === null)
+                                    {
+                                    setConfirmPasswordMessage(CONFIRM_PASSWORD_MESSAGE)
+                                    }
+                              }}
+                        />
+                  { confirmPasswordMessage && <Message msg={confirmPasswordMessage} status={errMsgStyle} /> }
+                  </div>
+            </div>      
+            
+            <div 
+                  className="mb-2 -mt-6"
+            >
+                  { matchError && <Message msg={matchError} status={errMsgStyle} /> }
+            </div>    
+            <div  
+                  className='w-full flex justify-between md:flex gap-10 md:mb-3 mt-10 px-5'
+            >   
+                        <HiArrowSmLeft 
+                              className='w-11 h-11 bg-green-100 cursor-pointer rounded-full text-black hover:text-green-600 p-1'
+                              onClick={() => 
+                              { 
+                                    advertState.setDealerAgreement(0)
+                                    onClick(0)
+                              }} 
+                        /> 
+                        <button 
+                              className="block w-fit bg-green-500 hover:bg-green-800 border-shadow text-white font-bold p-4 rounded-lg ring-2 ring-white ring-inset"
+                              onClick={() => 
+                              {
+                                    DealerDetail()
                               }}
                         >
-                      </textarea>
-                      { companyAddressMessage && <Message msg={companyAddressMessage} status={errMsgStyle} /> }
-                </div>
-          </div>
-          <div 
-                className='w-full d-flex md:flex gap-10 md:mb-3'
-          >                                          
-                <div 
-                      className="mb-4 md:w-1/2 w-2/2"
-                >
-                      {/* <input className="w-full border rounded-md p-4" type="number" name="rcNumber" id="rcNumber" placeholder="Enter RC Number" min="1" max="5" /> */} 
-                      <input 
-                            defaultValue={advertState.getRCNumber()}
-                            inputMode="numeric"
-                            pattern="[0-9.]+"
-                            id="rcNumber" name="rcNumber" placeholder="Enter RC Number"
-                            className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out"  
-                            onChange={(e: any) => 
-                            {
-                                  let value: string = e.target.value
-                                  setRcNumber(value)
-                                  setRcNumberMessage("")
-                                  advertState.setRCNumber(value)
-                            }}
-                            onBlur={(e: any) => 
-                            {
-                                  let value: string = e.target.value
-                                  if(value === "" || value === undefined || value === null)
-                                  {
-                                    setRcNumberMessage(RC_NUMBER_MESSAGE)
-                                  }
-                            }}
-                      />
-                  { rcNumberMessage && <Message msg={rcNumberMessage} status={errMsgStyle} /> }
-                </div>
-                <div 
-                    className="mb-4 md:w-1/2 w-2/2"
-                >
-                        <input  
-                              defaultValue={advertState.getFirstname()}
-                              className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                              type="text" name="firstname" id="firstname" placeholder="Enter firstname" 
-                              onChange={(e: any) => 
-                              {
-                                    let value: string = e.target.value
-                                    setFirstname(value)
-                                    setFirstnameMessage("")
-                                    advertState.setFirstname(value)
-                              }}
-                              onBlur={(e: any) => 
-                              {
-                                    let value: string = e.target.value
-                                    if(value === "" || value === undefined || value === null)
-                                    {
-                                    setFirstnameMessage(FIRST_NAME_MESSAGE)
-                                    }
-                              }}
-                        />
-                  { firstnameMessage && <Message msg={firstnameMessage} status={errMsgStyle} /> }
+                        { loading ? <BeatLoader size={10} color="white" className="" /> : "Next"}
+                        </button>
                   </div>
-          </div>
-          <div 
-                className='w-full d-flex md:flex gap-10 md:mb-3'
-          >           
-                <div 
-                    className="mb-4 md:w-1/2 w-2/2"
-                 >
-                        <input  
-                              defaultValue={advertState.getSurname()}
-                              className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                              type="text" name="surname" id="surname" placeholder="Enter Surname"  
-                              onChange={(e: any) => 
-                              {
-                                    let value: string = e.target.value
-                                    setSurname(value)
-                                    setSurnameMessage("")
-                                    advertState.setSurname(value)
-                              }}
-                              onBlur={(e: any) => 
-                              {
-                                    let value: string = e.target.value
-                                    if(value === "" || value === undefined || value === null)
-                                    {
-                                    setSurnameMessage(SURNAME_MESSAGE)
-                                    }
-                              }}
-                        />
-                  { surnameMessage && <Message msg={surnameMessage} status={errMsgStyle} /> }
-                  </div>
-                <div 
-                      className="mb-4 md:w-1/2 w-2/2"
-                >
-                      <input  
-                            defaultValue={advertState.getMiddlename()}
-                            className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                            type="text" name="middlename" id="middlename" placeholder="Enter Middlename (Optional)" 
-                            onChange={(e: any) => 
-                            {
-                                  let value: string = e.target.value
-                                  setMiddlename(value)
-                                  setMiddlenameMessage("")
-                                  advertState.setMiddlename(value)
-                            }}
-                      />
-                </div>
-          </div>
-          <div  
-                className='w-full d-flex md:flex gap-10 md:mb-3'
-          >                                          
-                <div 
-                    className="mb-4 md:w-full"
-                >
-                        <input  
-                              defaultValue={advertState.getEmail()}
-                              className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                              type="email" name="email" id="email" placeholder="Enter Email" 
-                              onChange={(e: any) => 
-                              {
-                                    let value: string = e.target.value
-                                    setEmail(value)
-                                    setEmailMessage("")
-                                    advertState.setEmail(value)
-                              }}
-                              onBlur={(e: any) => 
-                              {
-                                    let value: string = e.target.value
-                                    if(value === "" || value === undefined || value === null)
-                                    {
-                                    setEmailMessage(EMAIL_MESSAGE)
-                                    }
-                              }}
-                        />
-                  { emailMessage && <Message msg={emailMessage} status={errMsgStyle} /> }
-                  </div>
-                <div 
-                    className="mb-4 md:w-full"
-              >
-                    <input  
-                            defaultValue={advertState.getPhone()} 
-                            className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                            type="text" name="phone" id="phone" 
-                            onChange={(e: any) => 
-                            {
-                                let value: string = e.target.value
-                                setPhone(value)
-                                setPhoneMessage("")
-                                advertState.setPhone(value)
-                            }}
-                            onBlur={(e: any) => 
-                            {
-                                let value: string = e.target.value
-                                if(value === "" || value === undefined || value === null)
-                                {
-                                  setPhoneMessage(PHONE_NUMBER_MESSAGE)
-                                }
-                            }}
-                    />
-                { phoneMessage && <Message msg={phoneMessage} status={errMsgStyle} /> }
-              </div>
-          </div>
-          <div  
-                className='w-full d-flex md:flex gap-10 md:mb-3'
-          >                                          
-                <div 
-                    className="mb-4 md:w-full"
-              >
-                    <input  
-                          className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                          type="password" name="password" id="password" placeholder="Enter Password" 
-                          onChange={(e: any) => 
-                          {
-                              let value: string = e.target.value
-                              setPassword(value)
-                              setPasswordMessage("")
-                              advertState.setPassword(value)
-                          }}
-                          onBlur={(e: any) => 
-                          {
-                              let value: string = e.target.value
-                              if(value === "" || value === undefined || value === null)
-                              {
-                                setPasswordMessage(PASSWORD_MESSAGE)
-                              }
-                          }}
-                    />
-                { passwordMessage && <Message msg={passwordMessage} status={errMsgStyle} /> }
-              </div>
-              <div 
-                    className="mb-4 md:w-full"
-              >
-                    <input  
-                          className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border mb-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                          type="password" name="cPassword" id="cPassword" placeholder="Enter Passowrd Again" 
-                          onChange={(e: any) => 
-                          {
-                              let value: string = e.target.value
-                              setConfirmPassword(value)
-                              setConfirmPasswordMessage("")
-                          }}
-                          onBlur={(e: any) => 
-                          {
-                              let value: string = e.target.value
-                              if(value === "" || value === undefined || value === null)
-                              {
-                                setConfirmPasswordMessage(CONFIRM_PASSWORD_MESSAGE)
-                              }
-                          }}
-                    />
-                { confirmPasswordMessage && <Message msg={confirmPasswordMessage} status={errMsgStyle} /> }
-              </div>
-          </div>      
-        
-          <div 
-             className="mb-2 -mt-6"
-          >
-            { matchError && <Message msg={matchError} status={errMsgStyle} /> }
-          </div>    
-          <div  
-              className='w-full flex justify-between md:flex gap-10 md:mb-3 mt-10 px-5'
-          >   
-                  <HiArrowSmLeft 
-                        className='w-11 h-11 bg-green-100 cursor-pointer rounded-full text-black hover:text-green-600 p-1'
-                        onClick={() => 
-                        { 
-                              advertState.setDealerAgreement(0)
-                              onClick(0)
-                        }} 
-                  /> 
-                  <button 
-                        className="block w-fit bg-green-500 hover:bg-green-800 border-shadow text-white font-bold p-4 rounded-lg ring-2 ring-white ring-inset"
-                        onClick={() => 
-                        {
-                              DealerDetail()
-                        }}
-                  >
-                      { loading ? <BeatLoader size={10} color="white" className="" /> : "Next"}
-                  </button>
             </div>
-      </div>
+   
   )
 }
