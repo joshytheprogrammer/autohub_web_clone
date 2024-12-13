@@ -23,18 +23,20 @@ export default function Products()
         refetch,
         isLoading,
         ...data
-      } = useInfiniteQuery({
-        queryKey: ['adverts'],
-        queryFn: ({ pageParam }) => AllProduct(pageParam),
-        refetchOnWindowFocus: true,
-        initialPageParam: currentPage,
-        getNextPageParam: (lastPage, allPages) => {
-            const nextPage = lastPage.length ? (allPages.length + 1) : undefined 
-            return nextPage
-        },
-        getPreviousPageParam: (firstPage) =>
-          firstPage.prevCursor,
-      })
+      } = useInfiniteQuery(
+        {
+            queryKey: ['adverts'],
+            queryFn: ({ pageParam }) => AllProduct(pageParam),
+            refetchOnWindowFocus: true,
+            initialPageParam: currentPage,
+            getNextPageParam: (lastPage, allPages) => {
+                const nextPage = lastPage.length ? (allPages.length + 1) : undefined 
+                return nextPage
+            },
+            getPreviousPageParam: (firstPage) =>
+            firstPage.prevCursor,
+       }
+      )
 
       useEffect(() => {
             fetchNextPage()
@@ -63,7 +65,7 @@ export default function Products()
                 <div ref={ref} className="col-span-12 h-[70px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
                 >
                     { isFetchingNextPage && hasNextPage && <RotateLoader className='w-12 h-12' />  }
-                    { !isFetchingNextPage && !isFetching && "No more product"  }
+                    { !isFetchingNextPage && !isFetching && "No Product"  }
                     
                 </div>
             }

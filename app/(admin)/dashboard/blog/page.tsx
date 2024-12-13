@@ -5,10 +5,14 @@ export default function Blog()
 {
 
   return (
-        <div 
+      <div 
+          className="w-full"
+      > 
+          <div 
               className="flex-1 p-10 text-2xl font-bold"
-        >
-            Blog
-        </div>
+          >
+              Blog
+          </div>
+      </div>
   )
 }

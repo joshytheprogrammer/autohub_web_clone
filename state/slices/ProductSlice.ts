@@ -19,9 +19,19 @@ const createProductSlice: StateCreator<IProductOnHomePage> = (set, get) => (
         {
             return get().toWishList
         },
-        setWishList()
+        setWishList(toWishList: any)
         {
-            set(() => ({ toWishList: this.toWishList }))
+            set(() => ({ toWishList: toWishList }))
+        },
+
+        showType: 'list',
+        getShowType()
+        {
+            return get().showType
+        },
+        setShowType(showType: any)
+        {
+            set(() => ({ showType: showType }))
         }
     }   
 )

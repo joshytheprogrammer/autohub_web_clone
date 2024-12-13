@@ -15,10 +15,18 @@ export default function RightSide()
     const token = userState.getUserToken()
     const [openLoggedOut, setOpenLoggedOut] = useState<boolean>(false)
     const [passport, setPassport] = useState<string>("")
+    const [userType, setUserType] = useState<string>("")    
+    const ROLES = ['admin', 'super-admin']
 
     useEffect(() => 
     {
        setPassport(userState.getPassport())
+       setUserType(userState.getUType())
+    }, [])
+
+    useEffect(() => 
+    {
+       console.log(passport)
     }, [])
 
     const dropdownHandler = () => 
@@ -44,6 +52,20 @@ export default function RightSide()
                 >   
                   {    
                       token && <>
+                        { (ROLES.includes(userType)) &&
+                          <Link href={`/dashboard`} 
+                                className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
+                          >
+                            <span 
+                                className="ml-2 flex justify-center items-center text-[15px]"
+                            >
+                              <HiWallet 
+                                    className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
+                              />
+                              Dashboard
+                            </span>
+                          </Link>                          
+                        } 
                         <Link href={`/user/profile`} 
                               className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
                         >
@@ -67,19 +89,21 @@ export default function RightSide()
                                   My Adverts
                               </span>
                         </Link>
-                        <Link 
-                              href={`/user/dashboard`} 
-                              className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outLink focus:outline-none"
-                        >
-                              <span 
-                                  className="ml-2 flex justify-center items-center text-[15px]"
-                              >
-                                <HiMiniBars4 
-                                          className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
-                                />
-                                  Become A Dealer
-                                </span>
-                        </Link>
+                        { (userType === `member`) &&
+                          <Link 
+                                href={`/user/become-a-dealer`} 
+                                className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outLink focus:outline-none"
+                          >
+                                <span 
+                                    className="ml-2 flex justify-center items-center text-[15px]"
+                                >
+                                  <HiMiniBars4 
+                                            className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
+                                  />
+                                    Become A Dealer
+                                  </span>
+                          </Link>
+                        }
                         <Link 
                           href={`/user/create-advert`} 
                           className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
@@ -91,19 +115,6 @@ export default function RightSide()
                                             className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
                             />
                                 Create Advert
-                          </span>
-                        </Link>
-                        <Link 
-                          href={`/user/become-a-dealer`} 
-                          className="cursor-pointer text-sm leading-3 tracking-normal mt-2 py-2 ml-2 flex items-center focus:text-indigo-700 focus:outline-none"
-                      >
-                          <span 
-                              className="ml-2 flex justify-center items-center text-[15px]"
-                          >
-                            <HiBuildingStorefront 
-                                            className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
-                            />
-                                Become A Dealer
                           </span>
                         </Link>
                         <Link 
@@ -155,7 +166,7 @@ export default function RightSide()
                     className="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
                 >         
                     { !token && <HiOutlineUser className='w-6 h-6 font-bold' /> }
-                    { token && <img src={`${USAGE_PATH.AVATAR}${passport}`} width={50}  className='rounded-full' />  }
+                    { token && <img src={`${USAGE_PATH.AVATAR}${userState.getPassport()}`} width={50}  className='rounded-full' />  }
                 </div>
                 <div 
                     className="ml-2 "

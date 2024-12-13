@@ -27,4 +27,8 @@ export interface IProductOnHomePage
     toWishList: boolean
     getToWishList:  () => void
     setWishList:  (toWishList: number) => void
+
+    showType: string
+    getShowType:  () => void
+    setShowType:  (showType: string) => void
 }

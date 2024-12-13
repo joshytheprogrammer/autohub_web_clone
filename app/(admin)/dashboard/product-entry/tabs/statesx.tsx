@@ -1,18 +1,22 @@
 import { ColumnDef, CellContext } from '@tanstack/react-table'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { HiFlag } from 'react-icons/hi2'
 import { Icons } from '../../../../../components/shared/Icons'
 import { Show } from '../../../../../components/shared/Show'
 import { Table } from '../../../../../components/shared/Table'
 
-export default function Products() 
+export default function States() 
 {
-    const [openFlagModal, setFlagModalOpen] = useState<boolean>(false)
+    const [openCategoryModal, setCategoryModalOpen] = useState<boolean>(false)
     const [viewTransactionDetail, setVeiwTransactionDetail] = useState<boolean>(false)
-
 
     const [showingStates, setShowStates] = useState<boolean>(false)
     
+
+    useEffect(() => 
+    {
+       console.log({ viewTransactionDetail })
+    }, [])
 
     const ShowStates = (page: any) => 
     {
@@ -21,7 +25,7 @@ export default function Products()
         setShowStates(true)
     }
 
-    type ActiveTransProps =
+    type StateProps =
     {
         category: string,
         seller: string,
@@ -32,10 +36,10 @@ export default function Products()
         percentage: number,
     }
       
-    const ActiveTrans: ActiveTransProps[] = 
+    const ActiveTrans: StateProps[] = 
     [
         {
-          category: 'E-Commerce',
+          category: 'E-Commerce E-Commerce E-Commerce E-Commerce ',
           seller: 'Kingsley Effiong',
           buyer: 'Mathew Peter',
           transactionId: 'UF79KFKCUF0EODKE',
@@ -68,51 +72,33 @@ export default function Products()
         return ActiveTrans
     }
 
-    const ActiveTransAct = useMemo<ColumnDef<ActiveTransProps>[]>(
+    const ActiveTransAct = useMemo<ColumnDef<StateProps>[]>(
         () => [
         {
-          header: 'Category',
-          cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+          header: 'Name',
+          cell: (row: CellContext<StateProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
           accessorKey: 'category',
+          size: 100,
         },
         {
-            header: 'Seller',
-            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            header: 'Description',
+            cell: (row: CellContext<StateProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
             accessorKey: 'seller',
+            size: 1200,
         },
         {
-            header: 'Buyer',
-            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-            accessorKey: 'buyer',
-        },
-        {
-            header: 'Transaction Id',
-            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-            accessorKey: 'transactionId',
-        },
-        {
-            header: 'Amount',
-            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-            accessorKey: 'amount',
-        },
-        {
-            header: 'Date',
-            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-            accessorKey: 'initiatedDate',
-        },
-        {
-            header: 'Percentage',
-            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-            accessorKey: 'percentage',
-        },
-        {
-            header: 'Flag',
-            cell: () => (<a href="#" onClick={() => setFlagModalOpen(true)}><HiFlag className="text-green-600 hover:text-black" width={5} height={5}/></a>),
+            header: 'Edit',
+            cell: () => (<a href="#" onClick={() => setCategoryModalOpen(true)}><Icons iconName='edit' color='blue' width={4} height={4}/></a>),
             accessorKey: '',
         },
         {
-            header: 'View Detail',
-            cell: () => (<a href="#" onClick={() => setVeiwTransactionDetail(true)}><Icons iconName="eye" color="blue" width={4} height={4}/></a>),
+            header: 'Delete',
+            cell: () => (<a href="#" onClick={() => setVeiwTransactionDetail(true)}><Icons iconName="delete" color="red" width={4} height={4}/></a>),
+            accessorKey: '',
+        },
+        {
+            header: 'Thrash',
+            cell: () => (<a href="#" onClick={() => setVeiwTransactionDetail(true)}><HiFlag className="text-green-600 hover:text-black" width={5} height={5}/></a>),
             accessorKey: '',
         }
     ],[])
@@ -125,7 +111,7 @@ export default function Products()
                     <h1 
                         className='text-black'
                     >
-                        All Products
+                        All States
                     </h1>
             </div>   
             
@@ -140,13 +126,20 @@ export default function Products()
                        path='transactions' 
                        from='transactions' 
                        headerTextColor="white"
+                       onClick={
+                          () => console.log('')
+                       } searchTerm={
+                          () => console.log('')
+                       } 
                /> 
 
                 <div 
                      className="py-10"
                 >
                 </div>              
-            </div>     
+            </div>  
+
+             
         </>
     )
 }

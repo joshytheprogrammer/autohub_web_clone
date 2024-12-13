@@ -11,9 +11,9 @@ import currencyFormatter from "../../../../components/util/currency-formatter"
 import { USAGE_PATH } from "../../../../constant/Path"
 import { UseStore } from "../../../../state/store"
 import { DraftProducts } from "../../../api/home/market/user/product"
-import AdvertControl from "./control/AdvertControl"
 import { SaveDraft } from "./control/SaveDraft"
-
+import DraftControl from "./control/DraftControl"
+import { PreLoadingModal } from "../edit-advert/preloading"
 
 
 export default function DraftedProduct() 
@@ -24,7 +24,7 @@ export default function DraftedProduct()
     const usertype: string = userToken.getUType()
 
     const [currentPage, setCurrentPage] = useState(1)  
-    const [perPage] = useState(5) 
+    const [perPage] = useState(20) 
 
     const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`pending-products-${currentPage}-${perPage}`, currentPage, perPage, token], queryFn: () => DraftProducts(Number(currentPage), Number(perPage), token, usertype)})
 
@@ -33,6 +33,10 @@ export default function DraftedProduct()
     const [saveDraftMessage, setSaveDraftMessage] = useState<string>("") 
     const [imageUrl, setImageUrl] = useState<string>("")  
     const [openSaveDraft, setOpenSaveDraft] = useState<boolean>(false)  
+    const [preload, setPreload] = useState<boolean>(false)  
+    const [mode, setMode] = useState<string>("")  
+    const [slug, setSlug] = useState<string>("")     
+    
 
     return (
             <div 
@@ -97,10 +101,11 @@ export default function DraftedProduct()
                                 return (
                                     <>
                                         <div 
+                                            key={index}
                                             className="relative col-span-12 md:col-span-6 d-flex mb-3 p-1 border-2 border-green-200 bg-white"
                                         >
                                             <div 
-                                                className="w-2/2 flex h-[235px] md:h-[235px]"
+                                                className="w-2/2 flex h-[300px] md:h-[300px]"
                                             >     
                                                 <div 
                                                     className="w-6/12"
@@ -151,19 +156,6 @@ export default function DraftedProduct()
                                                                 View Product Detail
                                                             </span>
                                                         </div>
-                                                        <div 
-                                                            className="w-fit px-2 py-1 rounded-md cursor-pointer mt-2 flex justify-left items-center bg-blue-800 hover:bg-blue-600 hover:border-2 border-green-200"
-                                                            onClick={() => {
-                                                                setImageUrl(product?.face_image)
-                                                                setProductId(product?.tb_id)
-                                                                setProductTitle(product?.title)
-                                                                setSaveDraftMessage(`Product will become visible on the market place on saving`)
-                                                                setOpenSaveDraft(true)
-                                                            }}
-                                                        >
-                                                            <HiPaperAirplane className="w-5 h-5 text-white" />
-                                                            <span className="text-md ml-1 text-center text-white font-bold pr-1">Save</span>
-                                                        </div>
                                                     </div>
                                                     <div 
                                                         className="md:block"
@@ -174,13 +166,42 @@ export default function DraftedProduct()
                                             <div 
                                                 className="w-full mt-1 absolute bg-white bottom-0 left-0 p-1"
                                             >
-                                                <AdvertControl product={product} refetch={() => {
-                                                        refetch()
-                                                    }} 
-                                                 token={token}
-                                                 usertype={usertype}
-                                                />  
+                                                <DraftControl product={product} refetch={() => {
+                                                            refetch()
+                                                        }} 
+                                                    token={token}
+                                                    usertype={usertype}
+                                                /> 
+                                            <div 
+                                                className="md:d-flex flex gap-5 justify-center items-center pb-5"
+                                            >
+                                                <div 
+                                                    className="w-fit px-2 py-2 rounded-md cursor-pointer mt-2 flex justify-left items-center bg-blue-800 hover:bg-blue-600 hover:border-2 border-green-200"
+                                                    onClick={() => {
+                                                        setMode('UD')
+                                                        setSlug(product?.slug)
+                                                        setPreload(true)
+                                                    }}
+                                                >
+                                                    <HiPaperAirplane className="w-5 h-5 text-white" />
+                                                    <span className="text-md ml-1 text-center text-white font-bold pr-1">Update Draft</span>
+                                                </div>
+                                                <div 
+                                                    className="w-fit px-2 py-2 rounded-md cursor-pointer mt-2 flex justify-left items-center bg-green-800 hover:bg-green-600 hover:border-2 border-green-200"
+                                                    onClick={() => {
+                                                        setImageUrl(product?.face_image)
+                                                        setProductId(product?.tb_id)
+                                                        setProductTitle(product?.title)
+                                                        setSaveDraftMessage(`Product will become visible on the market place on saving`)
+                                                        setOpenSaveDraft(true)
+                                                    }}
+                                                >
+                                                    <HiPaperAirplane className="w-5 h-5 text-white" />
+                                                    <span className="text-md ml-1 text-center text-white font-bold pr-1">Save</span>
+                                                </div>
                                             </div> 
+                                            </div> 
+                                                    
                                         </div>
                                     </>
                                 )
@@ -258,6 +279,16 @@ export default function DraftedProduct()
                                             userType={usertype}
                                             token={token}
                 />
+            }
+            
+            {
+                preload && <PreLoadingModal onClick={() => {
+                                     setPreload(false)
+                                  }} 
+                                  preLoadModal={preload} 
+                                  slug={slug}
+                                  mode={mode}
+                            />
             }
 
 

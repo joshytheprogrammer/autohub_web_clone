@@ -8,7 +8,7 @@ export default function SlideShowThumbnail({ data, imageSize, waterMark }: { dat
 {
     const [slide, setSlide] = useState<number>(0)
     let sliderTimeOut: any
-
+    
     useEffect(() => 
     {
         sliderTimeOut =  setTimeout(() => 
@@ -47,8 +47,6 @@ export default function SlideShowThumbnail({ data, imageSize, waterMark }: { dat
                     <div 
                         className="w-full h-[10px] md:h-[400px] d-flex justify-center items-center mx-auto pt-20"
                     >
-                        {/* <div className=''
-                        >                             */}
                             <div 
                                 className='w-full flex justify-center items-center mt-10'
                             >
@@ -62,23 +60,33 @@ export default function SlideShowThumbnail({ data, imageSize, waterMark }: { dat
                                     Place An Advert
                                 </h1>                    
                             </div>
-                        {/* </div>                        */}
                     </div>
                   </>
               }
               {
                 
           <div 
-                className="w-full m-auto relative cursor-pointer"                
+             className="w-full m-auto relative cursor-pointer"                
           >
-             {
-                 ((data?.length > 0)) && <img
+            <div 
+                className='relative'
+            >
+                {
+                    ((data?.length > 0)) && <img
                                                 src={`${USAGE_PATH.IMAGE_SLIDER}${data[slide]?.image_url}`} 
                                                 className="w-full h-full object-fit"
                                             />
-             }
-             <div className="absolute mt-5">
-                <img src={waterMark} className="" style={{width: '120px'}} />
+                }
+                <div 
+                    className="absolute p-5 md:hidden w-4/12" style={{marginTop: '-230px', marginLeft: '150px'}} 
+                >
+                    <img src={`${USAGE_PATH.WATER_MARK}${waterMark}`} width={500} height={500} className="absolute" />
+                </div>
+                <div 
+                    className="absolute p-5 hidden md:block w-3/12" style={{marginTop: '-320px', marginLeft: '250px'}} 
+                >
+                    <img src={`${USAGE_PATH.WATER_MARK}${waterMark}`} width={500} height={500} className="absolute" />
+                </div>
              </div>
 
              {

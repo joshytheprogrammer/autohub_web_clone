@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 // import { Inter } from 'next/font/google'
 import '../globals.css'
-import Link from 'next/link'
+import { Toaster } from 'react-hot-toast';
 import HeaderNavigation from '../../components/shared/HeaderNavigation'
 import Footer from '../../components/shared/Footer'
 import AutoHubProvider from '../../provider/AutoHubProvider'
@@ -21,9 +21,12 @@ export default function RootLayout(
 }) {
 
       return (
-        <html lang="en">
-          <body className={`w-12/12`}
+        <html 
+            lang="en">
+          <body 
+              className={`w-12/12`}
           >
+              <Toaster />
               <AutoHubProvider>                
                 <HeaderNavigation />
                   {children}

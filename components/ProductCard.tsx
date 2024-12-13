@@ -53,12 +53,12 @@ export default function ProductCard({ product }: ProductDetail)
                                     src={`${USAGE_PATH.WATER_MARK}${product?.water_mark}`}
                                     className='absolute top-center w-27 h-10' 
                             />
-                            <WishList productId={product?.tb_id} data={data} onClick={(response) => 
+                            <WishList 
+                                productId={product?.tb_id} 
+                                data={data} 
+                                onClick={() => 
                                 {
                                     refetch()
-                                    toast.success(response, {
-                                      position: "top-center",
-                                    });
                                 }}
                                 token={token}
                                 type={type}
@@ -100,11 +100,13 @@ export default function ProductCard({ product }: ProductDetail)
                                 >
                                     {product?.condition}
                                 </span>
-                                <span 
-                                    className='w-4/12 flex justify-center pb-1 hover:bg-blue-600 ml-2 border-2 border-blue-200 text-black hover:text-white hover:font-bold text-[12px] md:text-[13px] rounded-lg md:px-3 px-2 px-1 py-1'
-                                >
-                                    {product?.mileage}
-                                </span>
+                                { (product?.mileage != '0km') &&
+                                    <span 
+                                        className='w-4/12 flex justify-center pb-1 hover:bg-blue-600 ml-2 border-2 border-blue-200 text-black hover:text-white hover:font-bold text-[12px] md:text-[13px] rounded-lg md:px-3 px-2 px-1 py-1'
+                                    >
+                                        {product?.mileage}
+                                    </span>
+                                }
                                 {   (product?.engine != 'ns') &&
                                     <span 
                                     className='w-4/12 flex justify-center pb-1 hover:bg-blue-600 ml-2 border-2 border-blue-200 text-black hover:text-white hover:font-bold text-[12px] md:text-[13px] rounded-lg md:px-3 px-2 px-1 py-1'

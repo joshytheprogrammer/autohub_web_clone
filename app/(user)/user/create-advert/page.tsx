@@ -123,7 +123,7 @@ export default function CreateAdvert()
     const [errMsgStyle, setErrMsgStyle] = useState<string>('')
     const [advertImages, setAdvertImages] = useState<string[]>([])
   
-    const [value, setValue] = useState(advertState.getDescription())
+    const [value] = useState(advertState.getDescription())
 
     const [errorMessage, setErrorMessage] = useState<string>("")
 
@@ -131,10 +131,6 @@ export default function CreateAdvert()
     
     useEffect(() => 
     {
-    //    if(appState.getUser().token)
-    //    {
-    //       navigate('/dashboard')
-    //    }
        setErrMsgStyle('text-md text-red-600 font-bold')
        setErrorMessage("")
     }, [])    
@@ -170,7 +166,7 @@ export default function CreateAdvert()
                 theManufacturer:  advertState.getTheManufacturerName(), theModel: advertState.getTheModelName(), theTrim: advertState.getTheTrimName(), theEngine: advertState.getTheEngineName(),
                 fuel: Number(advertState.getFuel()), year: advertState.getYear(), colour: Number(advertState.getColour()), transmission: Number(advertState.getTransmission()), 
                 condition: Number(advertState.getCondition()), milage: advertState.getMileage(), location: advertState.getLocation(), imagePosition: Number(advertState.getImagePosition()),
-                chasisno: advertState.getChasisNo(), price: advertState.getPrice(), description: advertState.getDescription(), mileage: advertState.getMileage(), address: advertState.getLocation(),
+                chasis_no: advertState.getChasisNo(), price: advertState.getPrice(), description: advertState.getDescription(), mileage: advertState.getMileage(), address: advertState.getLocation(),
                 images: advertImages,
                 draft: option
             }
@@ -268,8 +264,8 @@ export default function CreateAdvert()
         {
             if(advertState.getManufacturer() === -1){ setManufacturerMessage(MANUFACTURER_MESSAGE); validity = 'invalid' }
             if(advertState.getModel() === -1){ setModelMessage(MODEL_MESSAGE); validity = 'invalid' }
-            if(advertState.getTrim() === -1){ setTrimMessage(TRIM_MESSAGE); validity = 'invalid' }
-            if(advertState.getEngine() === -1){ setEngineMessage(ENGINE_MESSAGE); validity = 'invalid' }
+            // if(advertState.getTrim() === -1){ setTrimMessage(TRIM_MESSAGE); validity = 'invalid' }
+            // if(advertState.getEngine() === -1){ setEngineMessage(ENGINE_MESSAGE); validity = 'invalid' }
         } else {
             if(advertState.getTheManufacturerName() === ""){ setTheManufacturerNameMessage(MANUFACTURER_NAME_MESSAGE); validity = 'invalid' }
             if(advertState.getTheModelName() === -1){ setTheModelNameMessage(MODEL_NAME_MESSAGE); validity = 'invalid' }
@@ -283,8 +279,8 @@ export default function CreateAdvert()
         if(advertState.getTransmission() === -1){ setTransmissionMessage(TRANSMISSION_MESSAGE); validity = 'invalid' }
         if(advertState.getCondition() === -1){ setConditionMessage(CONDITION_MESSAGE); validity = 'invalid' }
         // if(advertState.getMileage() === ""){ setMileageMessage(MILEAGE_MESSAGE); validity = 'invalid' }
-        if(advertState.getLocation() === ""){ setLocationMessage(MILEAGE_MESSAGE); validity = 'invalid' }
-        if(advertState.getChasisNo() === ""){ setChasisNoMessage(MILEAGE_MESSAGE); validity = 'invalid' }
+        if(advertState.getLocation() === ""){ setLocationMessage(LOCATION_MESSAGE); validity = 'invalid' }
+        // if(advertState.getChasisNo() === ""){ setChasisNoMessage(MILEAGE_MESSAGE); validity = 'invalid' }
         if(advertState.getPrice() === ""){ setPriceMessage(PRICE_MESSAGE); validity = 'invalid' }
         if(advertState.getDescription() === ""){ setDescriptionErrorMsg(DESCRIPTION_MESSAGE); validity = 'invalid' }
         if(advertImages.length < 5)
@@ -495,7 +491,7 @@ export default function CreateAdvert()
                                         className="w-full mb-5 md:mb-0"
                                     >
                                         <label className="font-semibold text-xs">Engine</label>
-                                        <SelectEngine manufacturerId={advertState.getManufacturer()} modelId={advertState.getModel()} trimId={advertState.getTrim()} engineOption={theEngineOption} selectedEngine={advertState.getEngineName()} engine={theEngine} placeholder={"Select Engine Type"} 
+                                        <SelectEngine manufacturerId={advertState.getManufacturer()} modelId={advertState.getModel()} trimId={advertState.getTrim()} edit={true} engineOption={theEngineOption} selectedEngine={advertState.getEngineName()} engine={theEngine} placeholder={"Select Engine Type"} 
                                                     onClick={
                                                         (cId) => 
                                                         {
@@ -688,20 +684,20 @@ export default function CreateAdvert()
                             >
                                 <label className="font-semibold text-xs">Colour</label>
                                 <SelectColour 
-                                                incomingData={data?.['colour']} 
-                                                selectedColour={advertState.getColourName()}  
-                                                placeholder={"Select Colour"}
-                                                onClick={(clr) => 
-                                                {
-                                                    const selected: string | number = clr
-                                                    if(selected != -1)
-                                                    {
-                                                        setColourMessage(YEAR_MESSAGE)
-                                                    } else {
-                                                        setColourMessage("")
-                                                    }
-                                                }}
-                                                edit={true}
+                                        incomingData={data?.['colour']} 
+                                        selectedColour={advertState.getColourName()}  
+                                        placeholder={"Select Colour"}
+                                        onClick={(clr) => 
+                                        {
+                                            const selected: string | number = clr
+                                            if(selected != -1)
+                                            {
+                                               setColourMessage(YEAR_MESSAGE)
+                                            } else {
+                                               setColourMessage("")
+                                            }
+                                        }}
+                                        edit={true}
                                 />
                                 { colourMessage && <Message msg={COLOUR_MESSAGE} status={errMsgStyle} /> }
                             </div>
@@ -903,8 +899,12 @@ export default function CreateAdvert()
                             <div 
                                 className="w-2/2 mb-5 md:mb-0"
                             >
-                            <div className="dropdown inline-block relative">
-                                <button className="bg-blue-600 text-white font-semibold py-3 px-5 rounded inline-flex items-center">
+                            <div 
+                                className="dropdown inline-block relative"
+                            >
+                                <button 
+                                    className="bg-blue-600 text-white font-semibold py-3 px-5 rounded inline-flex items-center"
+                                >
                                     {/* <span 
                                         className="mr-1 text-white"
                                     >

@@ -23,7 +23,7 @@ export default function SoldProduct()
     const usertype: string = userToken.getUType()
 
     const [currentPage, setCurrentPage] = useState(1)  
-    const [perPage] = useState(5) 
+    const [perPage] = useState(20) 
 
     const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`pending-products-${currentPage}-${perPage}`, currentPage, perPage, token], queryFn: () => SoldProducts(Number(currentPage), Number(perPage), token, usertype)})
 
@@ -96,6 +96,7 @@ export default function SoldProduct()
                                 return (
                                     <>
                                         <div 
+                                            key={index}
                                             className="relative col-span-12 md:col-span-6 d-flex mb-3 p-1 border-2 border-green-200 bg-white"
                                         >
                                             <div 

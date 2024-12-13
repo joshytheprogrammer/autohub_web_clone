@@ -5,7 +5,6 @@ export type ProductCommentProps =
 {
     product_id: string
     vendor_id: string 
-    user_id: number,
     comments: string
 }
 
@@ -106,7 +105,7 @@ export async function UserWishList(productId: number, token: string, type: strin
          throw new Error(`HTTP Error! status: ${response.status}`)
       }     
       const x = await response.json()
-      return x?.message
+      return x
 }
 
 export async function ProductWishList(token: string, type: string)

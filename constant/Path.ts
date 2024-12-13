@@ -5,25 +5,27 @@ const URL =
         status: true
     },
     online: {
-        path: '', 
+        path: process.env.URL, 
         status: false
     },
-    connectTo: 'offline'
+    connectTo: 'online'
 }
 
 const DESTINATION = (URL.connectTo === 'offline') ? URL.offline.path : URL.online.path
 
 export const BASE_URL = `${DESTINATION}api/`;
+export const ASSET_URL = `${DESTINATION}`;
 
 export const USAGE_PATH = 
 {
     BASE_URL_FRONT : `${DESTINATION}blog-detail/`,
-    IMAGE_SLIDER : `${DESTINATION}product/`, 
-    PRODUCT_FACE : `${DESTINATION}product/`,
-    AVATAR : `${DESTINATION}profile_picture/`,
-    WATER_MARK : `${DESTINATION}water/`,
-    BLOG_POST : `${DESTINATION}posts/`,
-    RECEIPT : `${DESTINATION}receipt/`,
+    IMAGE_SLIDER : `${ASSET_URL}product/`, 
+    PRODUCT_FACE : `${ASSET_URL}product/`,
+    AVATAR : `${ASSET_URL}profile_picture/`,
+    WATER_MARK : `${ASSET_URL}constant/water/`,
+    BLOG_POST : `${ASSET_URL}posts/`,
+    RECEIPT : `${ASSET_URL}receipt/`,
+    DEFAULT_AVATAR : `${ASSET_URL}constant/`,
 }
 
 

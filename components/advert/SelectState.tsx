@@ -72,7 +72,7 @@ const SelectState = ({ placeholder, incomingData, countryId, stateOption, select
                     </div>
                     <ul
                         className={`bg-gray-100 overflow-y-auto -mt-2 absolute w-full ${
-                        open ? "max-h-60 z-40" : "max-h-0 z-40"
+                        open ? "max-h-80 z-40" : "max-h-0 z-40"
                         } `}
                         onMouseLeave={() => {
                             setOpen(false)

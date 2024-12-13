@@ -50,7 +50,7 @@ const SelectManufacturer = ({ placeholder, manufacturers, models, selectedManufa
             >
                 <div
                     onClick={() => setOpen(!open)}
-                    className={`bg-white w-full h-[50px] pt-2 md:pb-2 pb-3 px-3 flex items-center justify-between rounded ${
+                    className={`bg-white w-full h-[50px] pt-2 md:pb-2 h-[40px] pb-3 px-3 flex items-center justify-between rounded ${
                     !selected && "text-gray-700"
                     }`}
                 >
@@ -65,7 +65,7 @@ const SelectManufacturer = ({ placeholder, manufacturers, models, selectedManufa
                 </div>
                 <ul
                     className={`bg-gray-100 overflow-y-auto -mt-2 absolute w-full ${
-                    open ? "max-h-200 z-40" : "max-h-0 z-40"
+                    open ? "max-h-80 z-40" : "max-h-0 z-40"
                     } `}
                     onMouseLeave={() => {
                         setOpen(false)

@@ -6,6 +6,7 @@ import { ProductComments } from "../../../../../components/advert/ProductComment
 import { useState } from "react"
 import { ChangeProductImage } from "./ChangeProductImage"
 import { DeleteProductModal } from "./DeleteProductModal"
+import { PreLoadingModal } from "../../edit-advert/preloading"
 
 
 type ActiveProductProps =
@@ -21,10 +22,13 @@ export default function AdvertControl({ product, refetch, token, usertype }: Act
     const [closeCommentDialog, setCloseCommentDialog] = useState<boolean>(false)
     const [openProductImages, setOpenProductImages] = useState<boolean>(false)
     const [porductId, setProductId] = useState<number>(-1)     
+    const [slug, setSlug] = useState<string>("")     
     const [productTitle, setProductTitle] = useState<string>("") 
     const [deleteMessage, setDeleteMessage] = useState<string>("") 
     const [openDeleteProduct, setOpenDeleteProduct] = useState<boolean>(false) 
     const [imageUrl, setImageUrl] = useState<string>("")  
+    const [preload, setPreload] = useState<boolean>(false)  
+    const [mode, setMode] = useState<string>("")
     
     return (
             <> 
@@ -45,7 +49,9 @@ export default function AdvertControl({ product, refetch, token, usertype }: Act
                     <div 
                         className="w-4/12 flex justify-center items-center cursor-pointer hover:border-2 hover:border-green-300 rounded-lg p-1"
                         onClick={() => {
-                            // router.push(`/user/edit-advert`)                            
+                            setMode('UA')
+                            setSlug(product?.slug)
+                            setPreload(true)
                         }}
                     >
                         <Icons iconName='edit' color="blue" width={4} height={4}/>
@@ -133,6 +139,16 @@ export default function AdvertControl({ product, refetch, token, usertype }: Act
                                     }
                                 } 
                     />
+                }
+
+                {
+                    preload && <PreLoadingModal onClick={() => {
+                                           setPreload(false)
+                                        }} 
+                                        preLoadModal={preload} 
+                                        slug={slug}
+                                        mode={mode}
+                                />
                 }
             </>
     )

@@ -1,27 +1,32 @@
 import { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
-import { Modal } from "../../../../../../components/modal/Modal";
+import { Modal } from "../../../../../../../components/modal/Modal";
 
-type FlaggedModalPropos = 
+type AddCountryProductProps = 
 {
     onClick: (isOpen: boolean) => void,
-    editModal: boolean,
-    edit?: string,
-    returnTo?: string,
-    message?: string,
+    openCountryProduct: boolean,
+    userType: string
+    token: string
 } 
 
-export const EditCategoryModal = ({onClick, editModal}: FlaggedModalPropos)  =>
+export const AddCountryModal = ({onClick, openCountryProduct, userType, token}: AddCountryProductProps)  =>
 {
         const [loading, setIsLoading] = useState(false)
 
         useEffect(() => {
                 setIsLoading(false)
-        })
+                console.log({ userType, token })
+        }), []
+
+        const addCountry = () =>
+        {
+
+        }
 
         return (
                 <Modal 
-                        onClick={onClick} isOpen={editModal} wrapperWidth={800} margin={'120px auto 0px auto'}
+                        onClick={onClick} isOpen={openCountryProduct} wrapperWidth={800} margin={'120px auto 0px auto'}
                 >
                         <div 
                                 className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
@@ -32,33 +37,23 @@ export const EditCategoryModal = ({onClick, editModal}: FlaggedModalPropos)  =>
                                         <h1 
                                                 className="text-black font-bold w-full flex justify-left text-center mb-5"
                                         >
-                                                Edit Category
+                                                Add Country
                                         </h1>
                                         <div 
                                                 className="mb-4 md:w-full"
                                         >
                                                 <input  
                                                         className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                                                        type="email" name="email" id="email" placeholder="Enter Category Name" 
+                                                        type="text" name="country" id="country" placeholder="Enter Country Name" 
                                                 />
-                                        </div>                                         
-                                        <div 
-                                                className="mb-4 md:w-full"
-                                        >
-                                                <textarea  
-                                                        className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                                                        name="password" id="password" placeholder="Enter Category Description" 
-                                                        rows={5}
-                                                >
-                                                </textarea>
-                                        </div>
+                                        </div>   
                                         <div 
                                         className="items-center gap-5 mt-2 sm:flex flex justify-between mx-1 mt-5"
                                         >                                       
                                                 {
                                                         <button 
                                                                 className="py-3 px-4 bg-red-700 hover:bg-red-800 text-white font-semibold text-sm rounded-xl w-max"
-                                                                onClick={() => onClick(editModal) }
+                                                                onClick={() => onClick(openCountryProduct) }
                                                         >
                                                                         Close
                                                         </button>
@@ -66,7 +61,7 @@ export const EditCategoryModal = ({onClick, editModal}: FlaggedModalPropos)  =>
                                                 {
                                                 <button 
                                                                 className="py-3 px-4 bg-green-800 hover:bg-green-700 text-white font-semibold text-sm rounded-xl w-max"
-                                                                onClick={() => console.log('')}
+                                                                onClick={() => addCountry()}
                                                                         >
                                                                 {       loading ? ( <BeatLoader size={9} color="#fff" />) : ( "Create" )          }
                                                 </button>

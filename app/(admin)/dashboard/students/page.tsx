@@ -16,8 +16,8 @@ export default function Students()
       const [isItThis] = useState<string>('')  
       const [openModal] = useState<boolean>(false)  
       
-      const [editOpenModal, setEditModal] = useState<boolean>(false)
-      const [deleteOpenModal, setDeleteModal] = useState<boolean>(false)
+      const [editOpenModal] = useState<boolean>(false)
+      const [deleteOpenModal] = useState<boolean>(false)
   
       const [showingStates, setShowStates] = useState<boolean>(false)
       const [action, setAction] = useState<boolean>(false)
@@ -40,17 +40,20 @@ export default function Students()
   
       const ShowStates = (page: any) => 
       {
+          console.log(page)
           setShowStates(true)
       }
   
       const pages = (page: any) => {
           // setShowModal(true)
           // navigate(`${page}`);
+          console.log(page)
           setAction(true)
       }
   
       const setProfile = (data: any) => 
       {
+          console.log(data)
           setShowProfile(true)
       }
   

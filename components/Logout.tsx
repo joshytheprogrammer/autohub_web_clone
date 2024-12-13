@@ -3,8 +3,9 @@ import { BeatLoader } from "react-spinners"
 import { Modal } from "./modal/Modal"
 import Message from "./shared/Message"
 import { UseStore } from "../state/store"
-import { LogOutUser } from "../app/api/home/home"
+// import { LogOutUser } from "../app/api/home/home"
 import { useRouter } from "next/navigation"
+import delay from "delay"
 
 
 type SaveDraftProps = 
@@ -31,30 +32,38 @@ export const Logout = ({onClick, deleteModal, token}: SaveDraftProps)  =>
         }, []) 
 
         const LogUserOut = async () => 
-        {    
-           const loggingUserOut = LogOutUser(token)
-           loggingUserOut.then((response) => 
-           {
-              if(response?.status === 200)
-              {
-                 setIsLoading(false)
-                 setErrorMessage("")
-                 UserPics.setUserToken("")
-                 UserPics.setFName("")
-                 UserPics.setSName("")
-                 UserPics.setUType("")
-                 router.push('/login')                 
-              } else {
-                 setIsLoading(false)
-                 setErrorMessage("Difficulty logging you out")
-                 setTimeout(() => 
-                 {
-                     setErrorMessage("")                                
-                 }, 10000)
-              }
-            }).then(() => {
+        { 
+           await delay(2000)
+           UserPics.setUserToken("")
+           UserPics.setFName("")
+           UserPics.setSName("")
+           UserPics.setUType("")
+           window.location.href = '/'
+        //    router.push('/')
+        //    const loggingUserOut = LogOutUser(token)
+        //    loggingUserOut.then((response) => 
+        //    {
+        //         setErrorMessage("")
+        //       if(response?.status === 200)
+        //       {
+        //          setIsLoading(false)
+        //          setErrorMessage("")
+        //          UserPics.setUserToken("")
+        //          UserPics.setFName("")
+        //          UserPics.setSName("")
+        //          UserPics.setUType("")
+        //          router.push('/login')                 
+        //       } else {
+        //          setIsLoading(false)
+        //          setErrorMessage("Difficulty logging you out")
+        //          setTimeout(() => 
+        //          {
+        //              setErrorMessage("")                                
+        //          }, 10000)
+        //       }
+        //     }).then(() => {
                 
-            })
+        //     })
         }
 
         return (

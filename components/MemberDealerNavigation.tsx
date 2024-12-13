@@ -135,6 +135,18 @@ export default function MemberDealerNavigation({ marketPlace }: MemberDealerNavi
                                     >
                                         {`Change Password`}
                                     </li>
+                                </Link>
+                                <Link href={`change-passport`}
+                                      onClick={() => {
+                                          setPage(`/user/change-passport`)
+                                      }}
+                                >
+                                    <li 
+                                        key={Math.random()} 
+                                        className={`px-5 py-3 ${(page === `/user/change-passport`) ? 'bg-green-800' : 'bg-green-600'} hover:bg-green-900 text-whiterounded-md mb-1 cursor-pointer rounded-lg text-center uppercase text-white font-bold hover:text-white`}
+                                    >
+                                        {`Change Passport`}
+                                    </li>
                                 </Link>               
                                 <li 
                                     key={Math.random()} 

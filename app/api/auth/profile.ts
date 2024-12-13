@@ -43,3 +43,25 @@ export async function UserProfile(data: Member | Dealer, token: string)
       const x = await response.json()
       return x
 }
+
+export async function ChangeProfilePicture(passport: string, userType: string, token: string)
+{
+    let endPoint = `${userType}/change-picture`
+    let ApiUrl = `${BASE_URL}${endPoint}`
+
+    const response = await fetch(ApiUrl, 
+    {
+        method: 'PUT',    
+        headers: {    
+          'Content-Type': 'application/json',       
+          'Authorization': `Bearer ${token}` 
+        },
+        body: JSON.stringify({ passport: passport }),    
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      const x = await response.json()
+      return x
+}

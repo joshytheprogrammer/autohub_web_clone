@@ -98,7 +98,7 @@ export default function ProductPreview()
                                           <div 
                                               className="font-bold text-md text-gray-500 mt-5 border-shadow"
                                           >
-                                            <SlideShowThumbnail data={data?.['images']} imageSize={data?.['images']} waterMark={data?.['water_mark']} />
+                                            <SlideShowThumbnail data={data?.['images']} imageSize={data?.['images']} waterMark={data?.['watermark']} />
                                            </div> 
                                 <div className="h-[60px]"></div>                                          
                           </div>
@@ -124,14 +124,18 @@ export default function ProductPreview()
                               <p className="text-brandGreen">
                                 {`${data?.['model']['name']}`}
                               </p>
-                            </div>                        
-                            <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
-                                <p>Trim:</p>
-                                {`${data?.['trim']['name']}`}
+                            </div>   
+                            <div 
+                                className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center"
+                            >
+                              <p>Trim:</p>
+                              { data?.['trim'] ? `${data?.['trim']['name']}` : 'Not Specififed' }
                             </div>                     
-                            <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
-                                <p>Trim:</p>
-                                {`${data?.['engine']['name']}`}
+                            <div 
+                              className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center"
+                            >
+                              <p>Engine:</p>
+                              { data?.['engine'] ? `${data?.['engine']['name']}` : 'Not Specififed' }
                             </div>
                             <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                               <p>Colour:</p>

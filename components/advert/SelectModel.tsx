@@ -90,7 +90,7 @@ const SelectModel = ({ placeholder, models, trims, manufacturerId, selectedModel
                         </div>
                         <ul
                             className={`bg-gray-100 overflow-y-auto -mt-2 absolute w-full ${
-                            open ? "max-h-200 z-40" : "max-h-0 z-40"
+                            open ? "max-h-80 z-40" : "max-h-0 z-40"
                             } `}
                             onMouseLeave={() => {
                                 setOpen(false)

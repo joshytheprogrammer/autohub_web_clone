@@ -1,5 +1,6 @@
 "use client"
 
+import toast from "react-hot-toast"
 import { UserWishList } from "../app/api/home/market/advert/Comments"
 
 type WishProp = 
@@ -24,14 +25,44 @@ export default function WishList({ productId, data, onClick, token, type }: Wish
 
   const AddToWishList = () => 
   {
-      const AddToWishList = UserWishList(productId, token, type)
-      AddToWishList.then((response) => 
-      {
-          onClick(response)
-      }).then(() => {
+    if(!token)
+    {
+       toast.error('Login to add wishlist',
+        {
+            position: "bottom-center",
+            style: customStyle
+        },
+       );
+    } else {
+        const AddToWishList = UserWishList(productId, token, type)
+        AddToWishList.then((response) => 
+        {
+            if(response?.status === 200)
+            {
+              toast.success(response?.message, {
+                position: "top-center",
+              });
+            } else {
+              toast.error(response?.message,
+                {
+                    position: "top-center",
+                    style: customStyle
+                },
+               );
+            }
+            onClick('')
+        }).then(() => {
 
-      })
+        })
+    }
+      
   }
+
+  const customStyle = {
+    backgroundColor: "red",
+    color: "#FFFFFF",
+    fontWeight: "bold"
+  };
 
 
   return (
@@ -39,7 +70,8 @@ export default function WishList({ productId, data, onClick, token, type }: Wish
             {
                 ((data?.length === 0) || (data?.length === undefined) || (data?.length === null)) && <div 
                       className={`bg-blue-300 text-pink-500 z-5 hover:text-pink-600 p-2 rounded-full absolute top-5 right-5 hover:bg-green-600`}
-                      onClick={() => {
+                      onClick={() => 
+                      {
                         AddToWishList()
                       }}
                       style={{ zIndex: 999 }}

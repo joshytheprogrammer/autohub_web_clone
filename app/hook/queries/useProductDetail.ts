@@ -11,7 +11,6 @@ export const useProductDetail = (slug: string) =>
 {
     const userToken = UseStore((state) => state)
     const token: string = userToken.getUserToken()
-    const usertype: string = userToken.getUType()
     
     const [appData, setAppData] = useState({ data: null, isLoading: false, isSuccess: false, isError: false, error: "", completed: '', category: null, featured: [] })
     useEffect(() => 

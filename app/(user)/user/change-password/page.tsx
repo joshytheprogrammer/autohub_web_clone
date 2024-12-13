@@ -33,6 +33,7 @@ export default function ChangePassword()
      
       const [errMsgStyle, setErrMsgStyle] = useState<string>('')
       const [validationMessage, setValidationMessage] = useState<string>("")
+      
     
       useEffect(() => 
       {

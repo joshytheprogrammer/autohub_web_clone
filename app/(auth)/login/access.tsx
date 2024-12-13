@@ -6,7 +6,6 @@ import '../../globals.css'
 import Logo from '../../../components/shared/Logo'
 import { HiHome } from 'react-icons/hi2'
 import Message from '../../../components/shared/Message'
-import { useRouter } from 'next/navigation'
 import { BeatLoader } from 'react-spinners'
 import { Authenticate } from '../../api/auth/auth'
 import { UseStore } from '../../../state/store'
@@ -15,7 +14,6 @@ import { profileDB } from '../../model/Product'
 
 export default function Access({ showLogo, goTo } : { showLogo: boolean, goTo: string }) 
 {
-      const router = useRouter()
       const userData = UseStore((state) => state)
       
       const EMAIL_MESSAGE = 'Enter Email'
@@ -68,8 +66,12 @@ export default function Access({ showLogo, goTo } : { showLogo: boolean, goTo: s
                      userData.setUserRoles(response?.additions)
                      userData.setUserToken(response?.plus)
                      profileDB.add(response?.data)
-                     //   router.push(`/user/adverts`)
-                     window.location.href = goTo
+                     if(response?.data?.user_type === 'admin')
+                     {                        
+                        window.location.href = '/dashboard'
+                     } else {
+                        window.location.href = goTo
+                     }
                   } else {
                      setErrorMessage(response?.message)
                      setLoading(false)
@@ -128,7 +130,7 @@ export default function Access({ showLogo, goTo } : { showLogo: boolean, goTo: s
                               <h3 
                                     className='flex text-gray-300 font-bold justify-center mb-5 uppercase'
                                     >
-                                    Login with either username or password
+                                    Enter your email address/phone number and password to login.
                               </h3>
                         </div>
                         <div 
@@ -148,7 +150,7 @@ export default function Access({ showLogo, goTo } : { showLogo: boolean, goTo: s
                                           >
                                                 <input  
                                                       className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                                                      type="email" name="email" id="email" placeholder="Enter Email" 
+                                                      type="text" name="text" id="text" placeholder="Enter Email or Phone Number" 
                                                       onChange={(e: any) => 
                                                       {
                                                             let value: string = e.target.value

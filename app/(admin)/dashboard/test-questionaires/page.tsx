@@ -5,10 +5,14 @@ export default function TestQuestionaire()
 {
 
   return (
-        <div 
+      <div 
+          className="w-full"
+      > 
+          <div 
               className="flex-1 p-10 text-2xl font-bold"
-        >
-            Test Questionaire
-        </div>
+          >
+              Test Questionaire
+          </div>
+      </div>
   )
 }

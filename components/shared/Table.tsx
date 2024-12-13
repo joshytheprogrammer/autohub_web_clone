@@ -18,15 +18,16 @@ interface ReactTableProps<T extends object>
     headerTextColor?: string
     headerNavigation?: boolean
     removeHeader?: boolean
+    pageNos?: number[]
+    onClick: (pageNo: number) => void
+    searchTerm: (keyword: string) => void
 }
 
-export const Table = <T extends object>({ data, columns, headerNavigation=true, showFooter = false, removeHeader, showNavigation = false, searchPlaceHolder = '', headerColor, space, from='nothing', headerTextColor }: ReactTableProps<T>) => 
+export const Table = <T extends object>({ data, columns, headerNavigation=true, showFooter = false, removeHeader, showNavigation = false, searchPlaceHolder = '', headerColor, space, from='nothing', headerTextColor, pageNos, onClick, searchTerm }: ReactTableProps<T>) => 
 {
     const [openModal, setOpenModal] = useState<boolean>(false)
 
     const page:any = (from === 'dashboard') ? space : 'mb-7'
-
-    console.log({columns, searchPlaceHolder})
     
     const table = useReactTable(
         {
@@ -51,8 +52,12 @@ export const Table = <T extends object>({ data, columns, headerNavigation=true, 
                                                         onChange={(e) => {
                                                             table.setPageSize(Number(e.target.value));
                                                         }} className="appearance-none w-full py-1 pl-3 md:pr-20 pr-14 bg-white" name="whatever" id="frm-whatever">
-                                                        {[10, 20, 30, 40, 50].map((pageSize) => (
-                                                            <option key={pageSize} value={pageSize}>
+                                                        {pageNos?.map((pageSize: number) => (
+                                                            <option key={pageSize} value={pageSize}
+                                                                    onClick={() => {
+                                                                        onClick(pageSize)
+                                                                    }}
+                                                            >
                                                                 {pageSize}
                                                             </option>
                                                         ))}
@@ -69,6 +74,10 @@ export const Table = <T extends object>({ data, columns, headerNavigation=true, 
                                                     <input  
                                                            className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                                            type="email" name="email" id="email" placeholder="Enter Email" 
+                                                           onChange={(e) => {
+                                                              let value: string = e.target.value
+                                                              searchTerm(value)
+                                                           }}
                                                       />
                                                 </div>
                                                 <div 
@@ -86,7 +95,7 @@ export const Table = <T extends object>({ data, columns, headerNavigation=true, 
               }
             </div>
 
-            <div className='grid grid-cols-1  overflow-x-auto'>
+            <div className='grid grid-cols-1  overflow-x-auto pb-10'>
                 <table className="text-left">
                     { !removeHeader && 
                         <thead className="border-1 bg-green-700 shadow-sm shadow-black">
@@ -95,7 +104,7 @@ export const Table = <T extends object>({ data, columns, headerNavigation=true, 
                                 <tr key={headerGroup.id} className='px-5 py-3 border-b-2 border-gray-200 text-left bg-NavHover text-white text-[11px] font-semibold uppercase tracking-wider'>
                                     {
                                         headerGroup.headers.map((header) => (
-                                            <th key={header.id} className="px-6 py-4 text-[13px] font-bold text-black" style={{backgroundColor: headerColor, color: headerTextColor  }}>
+                                            <th key={header.id} className="px-6 py-4 text-[13px] font-bold text-white" style={{backgroundColor: headerColor, color: headerTextColor  }}>
                                                 { header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())  }
                                             </th>
                                         ))

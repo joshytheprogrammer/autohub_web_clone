@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { USAGE_PATH } from '../constant/Path'
 import { RotateLoader, ScaleLoader } from 'react-spinners'
-import delay from 'delay'
 import { Comments, ProductCommentProps, ProductComments } from '../app/api/home/market/advert/Comments'
 import Message from './shared/Message'
 import { useQuery } from '@tanstack/react-query'
@@ -12,11 +11,10 @@ type PrdoductCommentProps =
 {
     productId: string
     vendorId: string 
-    userId: number
 }
 
 
-export default function ProductComment({ productId, vendorId, userId }: PrdoductCommentProps) 
+export default function ProductComment({ productId, vendorId }: PrdoductCommentProps) 
 {
   const userToken = UseStore((state) => state)
   const token: string = userToken.getUserToken()
@@ -51,12 +49,10 @@ export default function ProductComment({ productId, vendorId, userId }: Prdoduct
   const SendMessage = async () => 
   {
       setIsLoading(true)
-      await delay(3000)
       const data: ProductCommentProps = 
       {
         product_id: productId,
         vendor_id: vendorId,
-        user_id: userId,
         comments: comment
       }
 
@@ -182,7 +178,9 @@ export default function ProductComment({ productId, vendorId, userId }: Prdoduct
                  (data as any)?.map((comments: any, index: number) => 
                  {
                     return (
-                      <div key={index} className='border-2 border-gray-200 p-3 mb-1 bg-[#fbfbfb] rounded-lg'>
+                      <div 
+                        key={index} className='border-2 border-gray-200 p-3 mb-1 bg-[#fbfbfb] rounded-lg'
+                      >
                         <div 
                             className="flex gap-2 justify-between items-center"
                         >

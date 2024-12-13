@@ -67,7 +67,8 @@ export default function UserLayout(
 
       return (
         <html lang="en">
-          <body className={`w-12/12`}
+          <body 
+              className={`w-12/12`}
           >
             <UserProvider>
                 <HeaderNavigation />

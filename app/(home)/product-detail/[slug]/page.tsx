@@ -23,21 +23,26 @@ export default function ProductDetail()
   const router = useRouter()
   const { data, isLoading, completed, category, featured } = useProductDetail(params?.slug)
 
-
   return (
-          <>                
+          <>  
               {
+                  (isLoading === true) && <div className="col-span-12 h-[300px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
+                  >
+                      <RotateLoader className='w-12 h-12' />
+                  </div>
+              }              
+              {/* {
                   ((isLoading === false) && ((completed === "no") || (completed === ""))) && <div className="col-span-12 h-[300px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
                   >
                       <RotateLoader className='w-12 h-12' />
                   </div>
-              }  
-              {
+              }   */}
+              {/* {
                   ((isLoading === true) && ((completed === "no") || (completed === ""))) &&  <div className="col-span-12 h-[300px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
                   >
                       <h1>No Product</h1>
                   </div>
-              }
+              } */}
 
               { 
                   ((isLoading === false) && (completed === "yes")) && <div 
@@ -49,7 +54,6 @@ export default function ProductDetail()
                           <div 
                               className="hidden md:block col-span-3 p-5"
                           >
-                               {/* <img src={ownACar} alt="" className="mb-3" />  */}
                                <Image className="object-cover" src={ownACar} alt={""} />                               
                                <Image className="object-cover" src={swap} alt={""} />
                           </div>
@@ -123,12 +127,12 @@ export default function ProductDetail()
                               <div 
                                   className="font-bold text-dm text-gray-500 mt-5"
                               >
-                                 <span className="text-gray-500">Advertiser is: </span><span className="text-red-700 font-bold">{data?.['user']['online']}</span>
+                                 {/* <span className="text-gray-500">Advertiser is: </span><span className="text-red-700 font-bold">{data?.['user']['online']}</span> */}
                               </div>
                               <div 
                                   className="font-bold text-md text-gray-500 mt-5 border-shadow"
                               >
-                                 <SlideShowThumbnail data={data?.['images']} imageSize={data?.['images']} waterMark={data?.['water_mark']} />
+                                 <SlideShowThumbnail data={data?.['images']} imageSize={data?.['images']} waterMark={data?.['watermark']} />
                               </div>
                               <div 
                                   className="font-bold w-full text-dm text-gray-500 mt-2 h-fit pb-10 rounded-md border-shadow"
@@ -194,11 +198,11 @@ export default function ProductDetail()
                                     </div>                        
                                     <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                                         <p>Trim:</p>
-                                        {`${data?.['trim']['name']}`}
+                                        { data?.['trim'] ? `${data?.['trim']['name']}` : 'Not Specififed' }
                                     </div>                     
                                     <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
-                                        <p>Trim:</p>
-                                        {`${data?.['engine']['name']}`}
+                                        <p>Engine:</p>
+                                        { data?.['engine'] ? `${data?.['engine']['name']}` : 'Not Specififed' }
                                     </div>
                                     <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                                       <p>Colour:</p>
@@ -227,7 +231,7 @@ export default function ProductDetail()
                                         {currencyFormatter(data?.['price'])}
                                       </p>
                                     </div>
-                                    <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
+                                    {/* <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                                     <p>Sellable at:</p>
                                     { (data?.['min_price'] != 0) && (data?.['max_price'] != 0) ? 
                                         <>
@@ -239,7 +243,7 @@ export default function ProductDetail()
                                           <p className="text-brandGreen">{currencyFormatter(data?.['max_price'])}</p> 
                                         </>                          
                                     }
-                                  </div>
+                                  </div> */}
                                   {/* Door */}
                                   <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                                     <p>Country</p>
@@ -267,7 +271,7 @@ export default function ProductDetail()
                                 </div>
                               </div>
 
-                              <ProductComment productId={`${data?.['id']}`} vendorId={`${data?.['user_id']}`} userId={12} />
+                              <ProductComment productId={`${data?.['id']}`} vendorId={`${data?.['user_id']}`} />
 
                               <div className="h-[10px]"></div>
 
@@ -298,8 +302,6 @@ export default function ProductDetail()
                                       })
                                   }
                               </div>
-
-
 
                           </div>
                       </div>

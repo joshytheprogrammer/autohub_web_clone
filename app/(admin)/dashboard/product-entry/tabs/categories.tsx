@@ -1,22 +1,25 @@
 import { ColumnDef, CellContext } from '@tanstack/react-table'
 import React, { useEffect, useMemo, useState } from 'react'
-import { HiFlag } from 'react-icons/hi2'
 import { Icons } from '../../../../../components/shared/Icons'
 import { Show } from '../../../../../components/shared/Show'
 import { Table } from '../../../../../components/shared/Table'
-import { EditCategoryModal } from './categories/editCategoryModal'
+import { EditCategoryModal } from '../sections/categories/editCategoryModal'
+import { BsHighlighter } from 'react-icons/bs'
+import { AddCategoryModal } from '../sections/categories/addCategoryModal'
+import { DeletCategoryModal } from '../sections/categories/deletCategoryModal'
+
 
 export default function Categories() 
 {
     const [openCategoryModal, setCategoryModalOpen] = useState<boolean>(false)
-    const [viewTransactionDetail, setVeiwTransactionDetail] = useState<boolean>(false)
-
+    const [openEditCategoryModal, setEditCategoryModalOpen] = useState<boolean>(false)
+    const [openDeleteCategoryModal, setDeleteCategoryModalOpen] = useState<boolean>(false)
 
     const [showingStates, setShowStates] = useState<boolean>(false)
 
     useEffect(() => 
     {
-       console.log({ viewTransactionDetail })
+    //    console.log({ viewTransactionDetail })
     }, [])
     
 
@@ -90,45 +93,56 @@ export default function Categories()
         },
         {
             header: 'Edit',
-            cell: () => (<a href="#" onClick={() => setCategoryModalOpen(true)}><Icons iconName='edit' color='blue' width={4} height={4}/></a>),
+            cell: () => (<a href="#" onClick={() => setEditCategoryModalOpen(true)}><Icons iconName='edit' color='blue' width={4} height={4}/></a>),
             accessorKey: '',
         },
         {
             header: 'Delete',
-            cell: () => (<a href="#" onClick={() => setVeiwTransactionDetail(true)}><Icons iconName="delete" color="red" width={4} height={4}/></a>),
+            cell: () => (<a href="#" onClick={() => setDeleteCategoryModalOpen(true)}><Icons iconName="delete" color="red" width={4} height={4}/></a>),
             accessorKey: '',
         },
-        {
-            header: 'Thrash',
-            cell: () => (<a href="#" onClick={() => setVeiwTransactionDetail(true)}><HiFlag className="text-green-600 hover:text-black" width={5} height={5}/></a>),
-            accessorKey: '',
-        }
+        // {
+        //     header: 'Thrash',
+        //     cell: () => (<a href="#" onClick={() => setVeiwTransactionDetail(true)}><HiFlag className="text-green-600 hover:text-black" width={5} height={5}/></a>),
+        //     accessorKey: '',
+        // }
     ],[])
 
     return (
         <>            
             <div 
-                className='mx-5 font-bold text-md mt-5 text-blue-700 uppercase'
-            > 
-                    <h1 
-                        className='text-black'
+               className='font-bold text-2xl text-green-600 ml-5 mb-7 mt-7 flex gap-10'
+            >
+                  <span 
+                     className="text-lg text-black"
                     >
                         All Categories
-                    </h1>
-            </div>   
-            
+                  </span>
+                  <span className='mt-1 cursor-pointer' 
+                        onClick={() => {
+                            setCategoryModalOpen(true)
+                        }}      
+                  >
+                     <BsHighlighter className="w-20 hover:text-blue-600" />
+                  </span>
+            </div> 
                 
             <div 
                     className=''
             >                          
-                <Table data={AllActiveTransactions()} 
-                       columns={ActiveTransAct} 
-                       showNavigation={false} 
-                       searchPlaceHolder='search for transactions ...' 
-                       path='transactions' 
-                       from='transactions' 
-                       headerTextColor="white"
-               /> 
+                <Table data={AllActiveTransactions()}
+                        columns={ActiveTransAct}
+                        showNavigation={false}
+                        searchPlaceHolder='search for transactions ...'
+                        path='transactions'
+                        from='transactions'
+                        headerTextColor="white" 
+                        onClick={
+                            () => console.log('')
+                        } searchTerm={
+                            () => console.log('')
+                         }               
+                /> 
 
                 <div 
                      className="py-10"
@@ -136,10 +150,28 @@ export default function Categories()
                 </div>              
             </div>  
 
-            { openCategoryModal && <EditCategoryModal editModal={openCategoryModal} 
+            { 
+                openCategoryModal && <AddCategoryModal openCategoryModal={openCategoryModal} 
                                                       onClick={() => {
                                                           setCategoryModalOpen(false)  
                                                       }} 
+                                                      userType={''} token={''}
+                                        /> 
+            } 
+            {
+                openDeleteCategoryModal &&  <DeletCategoryModal openDeleteCategory={openDeleteCategoryModal}
+                                                                onClick={() => {
+                                                                    setDeleteCategoryModalOpen(false)
+                                                                } }
+                                                                userType={''} token={''} message={''}
+                                            /> 
+            }
+            { 
+                openEditCategoryModal && <EditCategoryModal editModal={openEditCategoryModal} 
+                                                      onClick={() => {
+                                                          setEditCategoryModalOpen(false)  
+                                                      }} 
+                                                      userType={''} token={''}
                                         /> 
             }   
         </>

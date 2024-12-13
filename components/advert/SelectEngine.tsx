@@ -14,9 +14,10 @@ type SelectTrimProps =
     placeholder: string
     selectedEngine: string
     onClick: (trimId: number) => void
+    edit: boolean
 }
 
-const Engine = ({ manufacturerId, modelId, trimId, engineOption, engine, selectedEngine, placeholder, onClick }: SelectTrimProps) => 
+const Engine = ({ manufacturerId, modelId, trimId, engineOption, engine, selectedEngine, placeholder, onClick, edit }: SelectTrimProps) => 
 {
   const advertState = UseStore((state) => state) 
   const [inputValue, setInputValue] = useState("")
@@ -86,21 +87,24 @@ const Engine = ({ manufacturerId, modelId, trimId, engineOption, engine, selecte
                                 placeholder="Enter state name"
                                 className="placeholder:text-gray-700 p-2 outline-none w-full"
                             />
-                        </div>                 
-                        <li
-                            className={`p-2 text-md hover:bg-sky-600 border-2 border-gray-200 hover:border-2 hover:border-green-200 hover:text-white cursor-pointer py-3`}
-                            onClick={() => 
-                            {                 
-                                setSelected("")
-                                setInputValue("")
-                                advertState.setEngine(-1)
-                                advertState.setEngineName("")
-                                setOpen(false)
-                                onClick(-1)
-                            }}
-                        >
-                            - Select Engine -
-                        </li>
+                        </div>
+                        {
+                            edit &&                  
+                            <li
+                                className={`p-2 text-md hover:bg-sky-600 border-2 border-gray-200 hover:border-2 hover:border-green-200 hover:text-white cursor-pointer py-3`}
+                                onClick={() => 
+                                {                 
+                                    setSelected("")
+                                    setInputValue("")
+                                    advertState.setEngine(-1)
+                                    advertState.setEngineName("")
+                                    setOpen(false)
+                                    onClick(-1)
+                                }}
+                            >
+                                - Select Engine -
+                            </li>
+                        }
                         {
                             engine?.map((x: any, index: number) => 
                             (
