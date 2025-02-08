@@ -33,28 +33,28 @@ export default function Profile()
     
       const [loading, setLoading] = useState<boolean>(false)
     
-      const [companyName, setCompanyName] = useState<string>(profile.getCompanyName())
+      const [companyName, setCompanyName] = useState<string>('')
       const [companyNameMessage, setCompanyNameMessage] = useState<string>("")
     
-      const [companyAddress, setCompanyAddress] = useState<string>(profile.getCompanyAddress())
+      const [companyAddress, setCompanyAddress] = useState<string>('')
       const [companyAddressMessage, setCompanyAddressMessage] = useState<string>("")
     
-      const [rcNumber, setRcNumber] = useState<string>(profile.getRCNumber())
+      const [rcNumber, setRcNumber] = useState<string>('')
       const [rcNumberMessage, setRcNumberMessage] = useState<string>("")
     
-      const [firstname, setFirstname] = useState<string>(profile.getFirstname())
+      const [firstname, setFirstname] = useState<string>('')
       const [firstnameMessage, setFirstnameMessage] = useState<string>("")
     
-      const [surname, setSurname] = useState<string>(profile.getSurname())
+      const [surname, setSurname] = useState<string>('')
       const [surnameMessage, setSurnameMessage] = useState<string>("")
     
-      const [middlename, setMiddlename] = useState<string>(profile.getMiddlename())
+      const [middlename, setMiddlename] = useState<string>(']')
       const [middlenameMessage, setMiddlenameMessage] = useState<string>("")
     
-      const [email, setEmail] = useState<string>(profile.getEmail())
+      const [email, setEmail] = useState<string>('')
       const [emailMessage, setEmailMessage] = useState<string>("")
     
-      const [phone, setPhone] = useState<string>(profile.getPhone())
+      const [phone, setPhone] = useState<string>('')
       const [phoneMessage, setPhoneMessage] = useState<string>("")
      
       const [errMsgStyle, setErrMsgStyle] = useState<string>('')
@@ -75,6 +75,11 @@ export default function Profile()
 
       useEffect(() => 
       {
+            
+      }, [email]) 
+
+      useEffect(() => 
+      {
             setRefresh(false)
       }, [firstname, surname, middlename, email, phone, errorMessage, refresh, companyName, companyAddress, rcNumber, middlenameMessage])
 
@@ -87,27 +92,30 @@ export default function Profile()
             if(type === 'dealer')
             {
                user = {
-                    company_name: (profile.getCompanyName() === "") ? data?.data?.dealers?.company_name : "",
-                    company_address: (profile.getCompanyAddress() === "") ? data?.data?.dealers?.company_address : "",
-                    rc_number: (profile.getRCNumber() === "") ? data?.data?.dealers?.rc_number : "",
-                    firstname: (profile.getFirstname() === "") ? data?.data?.firstname : "",
-                    surname: (profile.getSurname() === "") ? data?.data?.surname : "",
-                    middlename: (profile.getMiddlename() === "") ? data?.data?.midddlename : "",
-                    phone: (profile.getPhone() === "") ? data?.data?.phone : "",
-                    email: (profile.getEmail() === "") ? data?.data?.email : "",
+                    company_name: (companyAddress === "") ? data?.data?.dealers?.company_name : companyAddress,
+                    company_address: (companyAddress === "") ? data?.data?.dealers?.company_address : companyAddress,
+                    rc_number: (rcNumber === "") ? data?.data?.dealers?.rc_number : rcNumber,
+                    firstname: (firstname === "") ? data?.data?.firstname : firstname,
+                    surname: (surname === "") ? data?.data?.surname : surname,
+                    middlename: (middlename === "") ? data?.data?.midddlename : middlename,
+                    phone: (phone === "") ? data?.data?.phone : phone,
+                    email: (email === "") ? data?.data?.email : email,
                     url: 'dealer/update-profile'
                   }
             } else {
                   user = 
                   {
-                        firstname: (profile.getFirstname() === "") ? data?.data?.firstname : "",
-                        surname: (profile.getSurname() === "") ? data?.data?.surname : "",
-                        middlename: (profile.getMiddlename() === "") ? data?.data?.midddlename : "",
-                        phone: (profile.getPhone() === "") ? data?.data?.phone : "",
-                        email: (profile.getEmail() === "") ? data?.data?.email : "",
+                        firstname: (firstname === "") ? data?.data?.firstname : firstname,
+                        surname: (surname === "") ? data?.data?.surname : surname,
+                        middlename: (middlename === "") ? data?.data?.midddlename : middlename,
+                        phone: (phone === "") ? data?.data?.phone : phone,
+                        email: (email === "") ? data?.data?.email : email,
                         url: 'member/update-profile'
                    }                        
             }
+            // alert(email)
+            // setLoading(false)
+            // return
             const updateProfile = UserProfile(user, token)
             updateProfile.then((response) => 
             {

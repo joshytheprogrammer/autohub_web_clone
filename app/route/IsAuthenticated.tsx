@@ -23,7 +23,7 @@ export default function IsAuthenticated({ children } : { children: React.ReactNo
     {
         return <div className='-mt-20'
         >
-          <Access showLogo={false} />
+          <Access showLogo={false} goTo='' />
         </div>
     }
 
@@ -31,7 +31,7 @@ export default function IsAuthenticated({ children } : { children: React.ReactNo
     {
         return <div className='-mt-20'
         >
-           <Access showLogo={false} />
+           <Access showLogo={false} goTo=''/>
         </div>
     }
     

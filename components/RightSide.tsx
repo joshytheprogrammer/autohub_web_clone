@@ -7,21 +7,26 @@ import { HiBuildingStorefront, HiMiniBars4, HiMiniBookmarkSquare, HiMiniPower, H
 import { UseStore } from '../state/store';
 import { USAGE_PATH } from '../constant/Path';
 import { Logout } from './Logout';
+import { useRouter } from 'next/navigation';
 
 
 export default function RightSide() 
 {
+    const router = useRouter()
     const userState = UseStore((state) => state)
     const token = userState.getUserToken()
     const [openLoggedOut, setOpenLoggedOut] = useState<boolean>(false)
     const [passport, setPassport] = useState<string>("")
     const [userType, setUserType] = useState<string>("")    
     const ROLES = ['admin', 'super-admin']
+    const [roles, setRoles] = useState<string[]>([]) 
 
     useEffect(() => 
     {
        setPassport(userState.getPassport())
        setUserType(userState.getUType())
+       setRoles(userState.getUserRoles())
+       console.log(userState.getUserRoles())
     }, [])
 
     useEffect(() => 
@@ -53,20 +58,32 @@ export default function RightSide()
                   {    
                       token && <>
                         { (ROLES.includes(userType)) &&
-                          <Link href={`/dashboard`} 
-                                className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
+                          <span 
+                                onClick={
+                                  () => {
+                                      userState.setSideType('member')
+                                      router.push(`/dashboard`)
+                                  } 
+                                }
+                                className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 -ml-3 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
                           >
                             <span 
                                 className="ml-2 flex justify-center items-center text-[15px]"
                             >
                               <HiWallet 
-                                    className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
+                                    className='mr-2 -ml-s5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
                               />
                               Dashboard
                             </span>
-                          </Link>                          
+                          </span>                          
                         } 
-                        <Link href={`/user/profile`} 
+                        <span
+                              onClick={
+                               () => {
+                                    userState.setSideType('member')
+                                    router.push(`/user/profile`)
+                                } 
+                              }
                               className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
                         >
                           <span 
@@ -77,9 +94,14 @@ export default function RightSide()
                             />
                             Profile
                           </span>
-                        </Link>        
-                        <Link 
-                              href={`/user/adverts`} 
+                        </span>        
+                        <span 
+                              onClick={
+                                () => {
+                                    userState.setSideType('member')
+                                    router.push(`/user/adverts`)
+                                 } 
+                              }
                               className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
                         >
                               <span 
@@ -88,26 +110,38 @@ export default function RightSide()
                                 <HiMiniBookmarkSquare className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold' />
                                   My Adverts
                               </span>
-                        </Link>
-                        { (userType === `member`) &&
-                          <Link 
-                                href={`/user/become-a-dealer`} 
-                                className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outLink focus:outline-none"
-                          >
-                                <span 
-                                    className="ml-2 flex justify-center items-center text-[15px]"
-                                >
-                                  <HiMiniBars4 
-                                            className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
-                                  />
-                                    Become A Dealer
-                                  </span>
-                          </Link>
+                        </span>
+                        { 
+                          (roles.includes('member')) &&  
+                            <span 
+                                  onClick={
+                                    () => {
+                                        userState.setSideType('member')
+                                        router.push(`/user/become-a-dealer`)
+                                    } 
+                                  }
+                                  className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outspan focus:outline-none"
+                            >
+                                  <span 
+                                      className="ml-2 flex justify-center items-center text-[15px]"
+                                  >
+                                    <HiMiniBars4 
+                                              className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
+                                    />
+                                      Become A Dealer
+                                    </span>
+                            </span>
+
                         }
-                        <Link 
-                          href={`/user/create-advert`} 
-                          className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
-                      >
+                        <span                         
+                            onClick={
+                              () => {
+                                  userState.setSideType('member')
+                                  router.push(`/user/create-advert`)
+                              } 
+                            }
+                            className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
+                        >
                           <span 
                               className="ml-2 flex justify-center items-center text-[15px]"
                           >
@@ -116,7 +150,164 @@ export default function RightSide()
                             />
                                 Create Advert
                           </span>
-                        </Link>
+                        </span>                               
+                        <span 
+                             onClick={
+                                () => {
+                                    userState.setSideType('member')
+                                    router.push(`/user/change-password`)
+                                } 
+                              }
+                              className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
+                        >
+                              <span 
+                                  className="ml-2 flex justify-center items-center text-[15px]"
+                              >
+                                <HiMiniBookmarkSquare className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold' />
+                                  Change Password
+                              </span>
+                        </span>                              
+                        <span 
+                              onClick={
+                                () => {
+                                    userState.setSideType('member')
+                                    router.push(`/user-change-passport`)
+                                } 
+                              }
+                              className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
+                        >
+                              <span 
+                                  className="ml-2 flex justify-center items-center text-[15px]"
+                              >
+                                <HiMiniBookmarkSquare className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold' />
+                                  Change Passport
+                              </span>
+                        </span>
+                        
+                        { 
+                          (roles.includes('student')) &&  
+                            <div 
+                              className='border border-gray-200 mt-2 w-[200px]'
+                            >
+                              <div 
+                                className='bg-blue-700 p-1 text-white text-md text-center'
+                              >
+                                  Class Roomm
+                              </div>
+                              <div 
+                                className='pl-5'
+                              >
+                                  <span 
+                                        onClick={
+                                           () => {
+                                              userState.setSideType('student')
+                                              router.push(`/user/dashboard`)
+                                           } 
+                                        }
+                                        className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outLink focus:outline-none"
+                                  >
+                                        <span 
+                                            className="ml-2 flex justify-center items-center text-[15px]"
+                                        >
+                                          <HiMiniBars4 
+                                                    className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
+                                          />
+                                            Dashbaord
+                                          </span>
+                                  </span>
+                                  <span 
+                                        onClick={
+                                           () => {
+                                              userState.setSideType('student')
+                                              router.push(`/user/course`)
+                                           } 
+                                        }
+                                        className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outspan focus:outline-none"
+                                  >
+                                        <span 
+                                            className="ml-2 flex justify-center items-center text-[15px]"
+                                        >
+                                          <HiMiniBars4 
+                                                    className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
+                                          />
+                                            Courses
+                                          </span>
+                                  </span>
+                                  <span 
+                                        onClick={
+                                           () => {
+                                              userState.setSideType('student')
+                                              router.push(`/user/time-table`)
+                                           } 
+                                        }
+                                        className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outspan focus:outline-none"
+                                  >
+                                        <span 
+                                            className="ml-2 flex justify-center items-center text-[15px]"
+                                        >
+                                          <HiMiniBars4 
+                                                    className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
+                                          />
+                                            Time Table
+                                          </span>
+                                  </span>
+                                  <span 
+                                        onClick={
+                                           () => {
+                                              userState.setSideType('student')
+                                              router.push(`/user/test`)
+                                           } 
+                                        }
+                                        className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outspan focus:outline-none"
+                                  >
+                                        <span 
+                                            className="ml-2 flex justify-center items-center text-[15px]"
+                                        >
+                                          <HiMiniBars4 
+                                                    className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
+                                          />
+                                            Test
+                                          </span>
+                                  </span>
+                                  <span 
+                                        onClick={
+                                           () => {
+                                              userState.setSideType('student')
+                                              router.push(`/user/exam`)
+                                           } 
+                                        }
+                                        className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outspan focus:outline-none"
+                                  >
+                                        <span 
+                                            className="ml-2 flex justify-center items-center text-[15px]"
+                                        >
+                                          <HiMiniBars4 
+                                                    className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
+                                          />
+                                            Exam
+                                          </span>
+                                  </span>
+                                  <span 
+                                        onClick={
+                                           () => {
+                                              userState.setSideType('student')
+                                              router.push(`/user/faq`)
+                                           } 
+                                        }
+                                        className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outspan focus:outline-none"
+                                  >
+                                        <span 
+                                            className="ml-2 flex justify-center items-center text-[15px]"
+                                        >
+                                          <HiMiniBars4 
+                                                    className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
+                                          />
+                                            FAQ
+                                          </span>
+                                  </span>
+                                </div>
+                            </div>
+                        }
                         <Link 
                             href={`#`} 
                             onClick={() => {
@@ -166,7 +357,7 @@ export default function RightSide()
                     className="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
                 >         
                     { !token && <HiOutlineUser className='w-6 h-6 font-bold' /> }
-                    { token && <img src={`${USAGE_PATH.AVATAR}${userState.getPassport()}`} width={50}  className='rounded-full' />  }
+                    { token && <img src={`${USAGE_PATH.AVATAR}${userState.getPassport()}`} className='rounded-full w-[80px] h-[40px]' />  }
                 </div>
                 <div 
                     className="ml-2 "

@@ -105,3 +105,68 @@ export async function GetStaffs(currentPage: number, perPage: number, searchQuer
       }     
       return await response.json()
 }
+
+export async function NewStaff(data: { firstname: string, surname: string, phone: string, email: string, departmentId: number, roleId: number, token: string })
+{
+    let endPoint = `user/new-staff`
+    let ApiUrl = `${BASE_URL}${endPoint}`
+
+    const response = await fetch(ApiUrl, 
+    {
+        method: 'POST',    
+        headers: {    
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${data?.token}`   
+        },   
+        body: JSON.stringify({ firstname: data?.firstname, surname: data?.surname, phone: data?.phone, email: data?.email, role_id: data?.roleId, department_id: data?.departmentId })
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      return await response.json()
+}
+
+export async function ChangeDepartment(userId: number, departmentId: number, token: string)
+{
+    let endPoint = `user/change-department`
+    let ApiUrl = `${BASE_URL}${endPoint}`
+
+    const response = await fetch(ApiUrl, 
+    {
+        method: 'PUT',    
+        headers: {    
+          'Content-Type': 'application/json',      
+          'Authorization': `Bearer ${token}`     
+        },
+        body: JSON.stringify({ user_id: userId, department_id: departmentId }),    
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      const x: any = await response.json() 
+      return x
+}
+
+export async function ChangeRole(userId: number, roleId: number, token: string)
+{
+    let endPoint = `user/change-role`
+    let ApiUrl = `${BASE_URL}${endPoint}`
+
+    const response = await fetch(ApiUrl, 
+    {
+        method: 'PUT',    
+        headers: {    
+          'Content-Type': 'application/json',      
+          'Authorization': `Bearer ${token}`     
+        },
+        body: JSON.stringify({ user_id: userId, role_id: roleId }),    
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      const x: any = await response.json() 
+      return x
+}

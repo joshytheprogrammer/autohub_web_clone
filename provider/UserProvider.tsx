@@ -32,7 +32,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) =>
     return (
         <>
             {
-                dom && !token && <Access showLogo={false} goTo={`/user/create-advert`} />
+                dom && !token && <Access showLogo={true} goTo={`/user/create-advert`} />
             }
             {
                 dom && token &&

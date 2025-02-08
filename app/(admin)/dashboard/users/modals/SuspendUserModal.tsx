@@ -18,7 +18,7 @@ export const SuspendUserModal = ({onClick, openSuspendUser, data, token}: Suspen
 {
      const [loading, setIsLoading] = useState<boolean>(false)
      const [takeAction, setTakeAction] = useState<string>(data?.status)
-     const ACTIONS = ['active', 'inactive', 'suspended', 'pending', 'pending-activation']
+     const ACTIONS = ['active', 'inactive', 'suspended', 'pending']
 
      const SelectedUser = async () => 
      {
@@ -59,7 +59,14 @@ export const SuspendUserModal = ({onClick, openSuspendUser, data, token}: Suspen
                                     >
                                         {data?.fullname}
                                     </span>
-                                    <img src={`${USAGE_PATH.AVATAR}${data?.passport}`} width={400} height={400} className="rounded-xl border-4 border-green-400" />
+                                    {/* <img src={`${USAGE_PATH.AVATAR}${data?.passport}`} width={400} height={400} className="rounded-xl border-4 border-green-400" /> */}
+                                    { 
+                                        (data?.passport === "no-image.png") ? (
+                                            <img src={`${USAGE_PATH.DEFAULT_AVATAR}${data?.passport}`} className="object-contain w-full rounded-xl cover border-4 border-green-400 mx-auto" />
+                                        ) : (
+                                            <img src={`${USAGE_PATH.AVATAR}${data?.passport}`} className="object-contain w-full rounded-xl border-4 border-green-400 mx-auto" />
+                                        )
+                                    }
                                 </div>
                                 <div 
                                    className="w-full mx-auto items-center gap-3 mt-2 flex justify-center mb-2 mt-5"

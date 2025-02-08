@@ -78,7 +78,7 @@ const SelectManufacturer = ({ placeholder, manufacturers, models, selectedManufa
                             type="text"
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value.toLowerCase())}
-                            placeholder="Enter country name"
+                            placeholder="Search brand name"
                             className="placeholder:text-gray-700 p-2 outline-none w-full"
                         />
                     </div>

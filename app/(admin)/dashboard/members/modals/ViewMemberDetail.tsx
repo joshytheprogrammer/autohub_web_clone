@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Modal } from "../../../../../components/modal/Modal"
 // import { USAGE_PATH } from "../../../../../constant/Path"
-import Message from "../../../../../components/shared/Message"
+// import Message from "../../../../../components/shared/Message"
 
 
 type ViewMemberDetailProps = 
@@ -17,15 +17,13 @@ type ViewMemberDetailProps =
 
 export const ViewMemberDetail = ({onClick, openViewMember, message, imageUrl, userId, userType, token}: ViewMemberDetailProps)  =>
 {
-    //  const [loading, setIsLoading] = useState<boolean>(false)
- 
-     const [errMsgStyle, setErrMsgStyle] = useState<string>('')
-     const [errorMessage, setErrorMessage] = useState<string>("")
+    //  const [loading, setIsLoading] = useState<boolean>(false) 
+    //  const [errMsgStyle, setErrMsgStyle] = useState<string>('')
+    //  const [errorMessage, setErrorMessage] = useState<string>("")
 
      useEffect(() => 
      {
-        setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
-        setErrorMessage("")
+        // setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
         console.log({ imageUrl, userId, userType, token })
      }, []) 
 
@@ -34,7 +32,7 @@ export const ViewMemberDetail = ({onClick, openViewMember, message, imageUrl, us
                 <Modal 
                         onClick={onClick} isOpen={openViewMember} wrapperWidth={1000} margin={'100px auto 0px auto'}
                 >
-                        { errorMessage && <Message msg={errorMessage} status={errMsgStyle} />  }
+                        {/* { errorMessage && <Message msg={errorMessage} status={errMsgStyle} />  } */}
                         <div className='col-span-12 pt-1 pb-5 overflow-y-auto xm:overflow-y-scroll justify-center item-center'>
                                 <h1 className='w-full flex justify-center items-center uppercase mb-5 font-bold mt-3 text-red-600'>{message}</h1>                               
                                 {

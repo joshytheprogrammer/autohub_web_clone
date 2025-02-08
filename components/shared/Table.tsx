@@ -35,8 +35,10 @@ export const Table = <T extends object>({ data, columns, headerNavigation=true, 
             columns,
             getCoreRowModel: getCoreRowModel(),
             getPaginationRowModel: getPaginationRowModel(),
+            manualPagination: true
         },
     );
+    console.log(table.getPaginationRowModel())
    
     return (
         <>
@@ -95,7 +97,9 @@ export const Table = <T extends object>({ data, columns, headerNavigation=true, 
               }
             </div>
 
-            <div className='grid grid-cols-1  overflow-x-auto pb-10'>
+            <div 
+                className='grid grid-cols-1 overflow-x-auto pb-10'
+            >
                 <table className="text-left">
                     { !removeHeader && 
                         <thead className="border-1 bg-green-700 shadow-sm shadow-black">
@@ -114,6 +118,7 @@ export const Table = <T extends object>({ data, columns, headerNavigation=true, 
                         }
                         </thead>
                     }
+                    
                     <tbody>
                       {
                         table.getRowModel().rows.map((row) => (

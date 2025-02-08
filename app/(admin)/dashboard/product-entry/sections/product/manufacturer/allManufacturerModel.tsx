@@ -71,6 +71,12 @@ export const AllManufacturerModel = ({onClick, openManufacturerModel, message, u
                              path='transactions' 
                              from='transactions' 
                              headerTextColor="white"
+                             onClick={() => {
+                                 console.log('')
+                             }}
+                             searchTerm={() => {
+                                 console.log('')
+                             }}
                       /> 
                     </div>
                 </div>

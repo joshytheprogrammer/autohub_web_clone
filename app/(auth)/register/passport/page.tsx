@@ -12,31 +12,53 @@ import { BeatLoader } from 'react-spinners';
 import delay from 'delay';
 import { AutoHubSignUp } from "../../../api/auth/auth";
 import Message from "../../../../components/shared/Message";
+import React from "react";
 
 
-export default function page() 
+export default function Page() 
 {
    const router = useRouter()
    const advertState = UseStore((state) => state)
 
+   const isClient = () => typeof window !== 'undefined';
+
    const [loading, setLoading] = useState<boolean>(false)
    const [passport, setPassport] = useState<string>("")    
+   const [userIsRegistered, setUserIsRegistered] = useState<string>("")
 
    const [errMsgStyle, setErrMsgStyle] = useState<string>('')
    const [errorMessage, setErrorMessage] = useState<string>("")
    const [dom, setDom] = useState<boolean>(false)
+   
+   if (isClient()) {
+      document.body.addEventListener('keypress', (ev: any) => 
+      {
+         Register()
+      })
+   }
     
    useEffect(() => 
    {
-      setErrMsgStyle('text-md text-red-600 text-center bg-white rounded-lg p-5 font-bold')
+      setErrMsgStyle('text-sm text-white font-bold bg-red-600 rounded-lg py-2 -mt-1 px-2')
       setErrorMessage("")
       setDom(true)
    }, [])    
+
 
    const Register = async () => 
    {                   
       setLoading(true)
       await delay(1000)
+      if(!passport)
+      {
+        setErrorMessage("Kindly, upload passport")
+        setLoading(false)
+        setTimeout(() => 
+        {
+          setErrorMessage("")
+        }, 10000)    
+        return        
+      }
       let data: Member | Dealer
       if(advertState.getPassportFor() === "member")
       {
@@ -82,8 +104,14 @@ export default function page()
               advertState.setPassword("")
               advertState.setMemberAgreement(0)
               advertState.setRegistered(response?.message)
-              setLoading(false)
-              router.push(`/login`)
+              setUserIsRegistered(response?.message) 
+              setTimeout(() => 
+                { 
+                  setUserIsRegistered(response?.message) 
+                  setLoading(false)
+                  router.push(`/login`)                  
+                }, 2000
+              )
           } else {
               setErrorMessage(response?.message)
               setLoading(false)
@@ -97,7 +125,7 @@ export default function page()
           return false
       })
    }
-    
+
   return (
     <>  
         { dom &&
@@ -121,25 +149,27 @@ export default function page()
                               <h3 
                                     className='flex text-white font-bold justify-center mb-5 uppercase'
                                     >
-                                    Upload Recent Passport Photograph
+                                    Upload Profile Picture
                               </h3>
                         </div>
                         <div 
                               className="w-full py-10 px-10 md:px-9 md:pt-10 md:pb-5 d-flex items-center justify-center rounded-md md:rounded-xl bg-[#23913b] hover:text-white mb-20 md:mb-0 border-2 border-green-700"
                         >
+                              
                                     <div  
-                                          className='w-full d-flex gap-10 md:mb-3'
+                                          className='w-full d-flex gap-10 md:mb-3 justify-center items-center text-center'
                                     > 
                                           { errorMessage && <Message msg={errorMessage} status={errMsgStyle} />  }
+                                          { userIsRegistered && <Message msg={userIsRegistered} status={''} customStyle='bg-blue-600 text-white font-bold p-5 rounded-lg' />  }
                                     </div>
                                     <div  
                                           className='w-full d-flex gap-10 md:mb-3'
                                     > 
-                                    <SingleImageUpload width={6} ICloudColour='text-white' space="w-7/12 md:w-4/12 rounded-md" onClick={(photo) => 
-                                          {
-                                                setPassport(photo)
-                                          }
-                                    }  
+                                          <SingleImageUpload width={6} ICloudColour='text-white' space="w-7/12 md:w-4/12 rounded-md" onClick={(photo) => 
+                                                {
+                                                      setPassport(photo)
+                                                }
+                                          }  
                                     
                                     />
                                     </div>
@@ -169,16 +199,18 @@ export default function page()
                                                 }                                              
                                                 }} 
                                     /> 
-                                          <button
-                                                disabled={(passport === "") ? true : false} 
-                                                className={`${(passport === "") ? 'bg-gray-500' : 'bg-gren-500 hover:bg-green-800'} block w-fit border-shadow text-white font-bold p-4 rounded-lg ring-2 ring-white ring-inset`}
-                                                onClick={Register}
-                                          >
-                                                { loading ? <BeatLoader size={10} color="white" className="" /> : "Register"}
-                                          </button>
-                                    </div>
+                                    <button
+                                       type="submit"
+                                       disabled={(passport === "") ? true : false} 
+                                       className={`${(passport === "") ? 'bg-gray-500' : 'bg-gren-500 hover:bg-green-800'} block w-fit border-shadow text-white font-bold p-4 rounded-lg ring-2 ring-white ring-inset`}
+                                       onClick={Register}
+                                    >
+                                       { loading ? <BeatLoader size={10} color="white" className="" /> : "Register"}
+                                    </button>
+                                </div>
+                          <div/>
                         </div>
-                        </div>
+                     </div>
                   </div>
             </main>
         }

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import student from '../../../../../../../components/shared/data/student.json'
 import { Modal } from "../../../../../../../components/modal/Modal";
 import { Table } from "../../../../../../../components/shared/Table";
@@ -72,7 +72,14 @@ export const AllCountyStatesModal = ({onClick, openCountryStates, message, userT
                              path='transactions' 
                              from='transactions' 
                              headerTextColor="white"
+                             onClick={() => {
+                                 console.log('')
+                             }}
+                             searchTerm={() => {
+                                 console.log('')
+                             }}
                       /> 
+                       
                     </div>
                 </div>
                 </Modal>  

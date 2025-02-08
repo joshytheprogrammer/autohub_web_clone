@@ -2,7 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import { PuffLoader } from "react-spinners"
+import { RotateLoader } from "react-spinners"
 import { useAppData } from "../app/hook/queries/useAppData"
 
 
@@ -17,14 +17,14 @@ const AutoHubProvider = ({ children }: { children: React.ReactNode }) =>
                 ((isLoading === false) && ((completed === "no") || (completed === ""))) &&  <div 
                                 className="flex md:d-flex xl:flex-row h-screen bg-[#27973f] justify-center items-center"
                             >
-                                { isLoading && <PuffLoader className='w-12 h-12' color="white" /> }
+                                { isLoading && <RotateLoader className='w-12 h-12' color="white" /> }
                             </div>
             }
             {
                 ((isLoading === true) && ((completed === "no") || (completed === ""))) &&  <div 
                                 className="flex md:d-flex xl:flex-row h-screen bg-[#27973f] justify-center items-center"
                             >
-                                { isLoading && <PuffLoader className='w-12 h-12' color="white" /> }
+                                { isLoading && <RotateLoader className='w-12 h-12' color="white" /> }
                             </div>
             }
             {   

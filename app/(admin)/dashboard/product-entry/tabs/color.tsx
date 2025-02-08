@@ -1,6 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table'
 import React, { useEffect, useMemo, useState } from 'react'
-import student from '../../../../../components/shared/data/student.json'
 import { Show } from '../../../../../components/shared/Show'
 import { Icons } from '../../../../../components/shared/Icons'
 import { BsHighlighter } from 'react-icons/bs'
@@ -8,18 +7,29 @@ import { Table } from '../../../../../components/shared/Table'
 import { EditColourModal } from '../sections/colour/editColourModal'
 import { DeleteColourModal } from '../sections/colour/deleteColourModal'
 import { AddColourModal } from '../sections/colour/addColourModal'
+import { useQuery } from '@tanstack/react-query'
+import { UseStore } from '../../../../../state/store'
+import { GetColour } from '../../../../api/admin/market/colour'
+import { PuffLoader } from 'react-spinners'
+
 
 export default function Color()
 {
+      const userToken = UseStore((state) => state)
+      const token: string = userToken.getUserToken()
+      
       const [open] = useState<boolean>(false)
       const [showModal] = useState<boolean>(false)
       const [employeeId] = useState<string>('')
       const [isItThis] = useState<string>('')  
       const [openModal] = useState<boolean>(false)  
+
+      const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`get-all-colour`, token], queryFn: () => GetColour(token), refetchOnWindowFocus: true })
       
       const [openAddColour, setOpenAddColour] = useState<boolean>(false)
-      const [openEditColour, setOpenEditDealer] = useState<boolean>(false)
+      const [openEditColour, setOpenEditColour] = useState<boolean>(false)
       const [openDeleteColour, setOpenDeleteColour] = useState<boolean>(false)
+      const [colourData, setColourData] = useState<{ id: number, name: string, rate: number }>({ id: -1, name: "", rate: -1 })
   
       const [refresh, setRefresh] = useState<boolean>(false)
 
@@ -34,52 +44,49 @@ export default function Color()
          setOpenAddColour(x)
       }
 
-      const openEdit = (x: boolean, data: any) =>
+      const ChangeFuel = (x: boolean, data: any) => 
       {
-         console.log(data)
-         setOpenEditDealer(x)
-      }
-
-      const openDelete = (x: boolean, data: any) =>
-      {
-         console.log(data)
-         setOpenDeleteColour(x)
+          setColourData(data)
+          setOpenEditColour(x)
       }
   
-      const Employee = () => 
+      const DeleteFuel = (x: boolean, data: any) => 
       {
-          return student.students;
+          setColourData(data)
+          setOpenDeleteColour(x)
       }
 
-      type AllStudent = 
+      type AllColours = 
       {
           id: string
-          firstName: string
-          surName: string
-          middleName: string
-          studentId: string
-          phone: string
-          email: string
-          enrolled: string
+          name: string
+          rate: number
+          edit: { id: number, name: string, rate: number }
+          delete: { id: number, name: string, rate: number }
       }
   
-      const employees = useMemo<ColumnDef<AllStudent>[]>(
+      const colours = useMemo<ColumnDef<AllColours>[]>(
           () => [
           {
-            header: 'Firstname',
+            header: 'Name',
             cell: (row) => (<a href="#" onClick={() => openAdd(true, row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-            accessorKey: 'firstName',
+            accessorKey: 'name',
+          },
+          {
+            header: 'Rate',
+            cell: (row) => (<a href="#" onClick={() => openAdd(true, row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            accessorKey: 'rate',
           },
           {
               header: 'Edit',
-              cell: (row) => (<a href="#" onClick={() => openEdit(true, row.cell.row.getValue.toString)}><Icons iconName='edit'  width={5} height={5} color='red' /></a>),
-              accessorKey: '',
+              cell: (row) => (<a href="#" onClick={() => ChangeFuel(true, row.renderValue())}><Icons iconName='edit'  width={5} height={5} color='red' /></a>),
+              accessorKey: 'edit',
               maxSize: 20
           },
           {
               header: 'Delete',
-              cell: (row) => (<a href="#" onClick={() => openDelete(true, row.cell.row.getValue.toString)}><Icons iconName="delete" color='red' width={4} height={4}/></a>),
-              accessorKey: '',
+              cell: (row) => (<a href="#" onClick={() => DeleteFuel(true, row.renderValue())}><Icons iconName="delete" color='red' width={4} height={4}/></a>),
+              accessorKey: 'delete',
               maxSize: 20
             }
       ],[])
@@ -94,7 +101,7 @@ export default function Color()
                   <span 
                      className="text-lg text-black"
                     >
-                        All Product Colour
+                        All Colour
                   </span>
                   <span className='mt-1 cursor-pointer' 
                         onClick={() => {
@@ -104,55 +111,91 @@ export default function Color()
                      <BsHighlighter className="w-20 hover:text-blue-600" />
                   </span>
             </div> 
+                
+            {
+                isLoading && !isRefetching &&  <div 
+                            className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                        >
+                            <PuffLoader className='w-12 h-12' color="black" />
+                        </div>
+            }
+            {
+                isLoading && isRefetching  &&  <div 
+                            className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                        >
+                            <PuffLoader className='w-12 h-12' color="black" />
+                        </div>
+            }
+                  
+            {  !isLoading && (data?.length === 0) && <>
+                    <div 
+                        className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                    >
+                        <div 
+                            className="w-full d-flex justify-center items-center"
+                        >
+                            <div className="w-full text-center text-lg">No colour created yet</div>
+                        </div>
+                    </div>
+                </>
+            }
 
-            <div 
-                className=''
-            >                          
-                <Table data={Employee()} 
-                       columns={employees} 
-                       showNavigation={false} 
-                       searchPlaceHolder='search for transactions ...' 
-                       path='transactions' 
-                       from='transactions' 
-                       headerTextColor="white"
-                        onClick={
-                            () => console.log('')
-                        } searchTerm={
-                            () => console.log('')
-                         } 
-                /> 
-            </div>
+                  
+            {  
+                !isLoading && (data?.length > 0) && 
+                  <div 
+                        className=''
+                  >                          
+                        <Table data={data} 
+                              columns={colours} 
+                              showNavigation={false} 
+                              searchPlaceHolder='search for transactions ...' 
+                              path='transactions' 
+                              from='transactions' 
+                              headerTextColor="white"
+                                    onClick={
+                                          () => console.log('')
+                                    } searchTerm={
+                                          () => console.log('')
+                                    } 
+                        /> 
+                  </div>
+            }
+            <div className='p-10'></div>
 
             { 
                   openAddColour &&  <AddColourModal 
                         openColourlProduct={openAddColour} 
-                        userType={''} 
-                        token={''} 
                         onClick={() => {
+                              refetch()
                               setOpenAddColour(false)
                         }}
+                        token={token}  
                   />
             }
 
             { 
                   openEditColour &&  <EditColourModal 
                         openColourProduct={openEditColour}
-                        userType={''} 
-                        token={''} 
                         onClick={() => {
-                              setOpenEditDealer(false)
+                              refetch()
+                              setOpenEditColour(false)
                         }}
+                        token={token}
+                        data={colourData}  
                   />
             }
 
             { 
                   openDeleteColour &&  <DeleteColourModal 
                                             openDeleteColour={openDeleteColour}
-                                            userType={''}
-                                            token={''}
                                             onClick={() => {
+                                                refetch()
                                                 setOpenDeleteColour(false)
-                                            } } message={''}                  
+                                             } 
+                                            }
+                                            token={token}
+                                            data={colourData}                
                                         />
             }
       </div>

@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import student from '../../../../../components/shared/data/student.json'
 import { AddFuelProduct } from '../sections/fuel/addFuelProduct'
 import { EditFuelProduct } from '../sections/fuel/editFuelProduct'
 import { DeleteFuelProduct } from '../sections/fuel/deleteFuelProduct'
@@ -8,20 +7,30 @@ import { BsHighlighter } from 'react-icons/bs'
 import { ColumnDef } from '@tanstack/react-table'
 import { Show } from '../../../../../components/shared/Show'
 import { Icons } from '../../../../../components/shared/Icons'
+import { useQuery } from '@tanstack/react-query'
+import { UseStore } from '../../../../../state/store'
+import { GetFuel } from '../../../../api/admin/market/fuel'
+import { PuffLoader } from 'react-spinners'
 
 
 
 export default function Fuel()
 {
+      const userToken = UseStore((state) => state)
+      const token: string = userToken.getUserToken()
+      
       const [open] = useState<boolean>(false)
       const [showModal] = useState<boolean>(false)
       const [employeeId] = useState<string>('')
       const [isItThis] = useState<string>('')  
       const [openModal] = useState<boolean>(false)  
+
+      const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`get-all-fuel`, token], queryFn: () => GetFuel(token), refetchOnWindowFocus: true })
       
       const [openAddFuel, setOpenAddFuel] = useState<boolean>(false)
-      const [openEditFuel, setOpenEditDealer] = useState<boolean>(false)
+      const [openEditFuel, setOpenEditFuel] = useState<boolean>(false)
       const [openDeleteFuel, setOpenDeleteFuel] = useState<boolean>(false)
+      const [fuelData, setFuelData] = useState<{ id: number, name: string }>({ id: -1, name: "" })
   
       const [refresh, setRefresh] = useState<boolean>(false)
 
@@ -36,52 +45,42 @@ export default function Fuel()
          setOpenAddFuel(x)
       }
 
-      const openEdit = (x: boolean, data: any) =>
+      const ChangeFuel = (x: boolean, data: any) => 
       {
-         console.log(data)
-         setOpenEditDealer(x)
-      }
-
-      const openDelete = (x: boolean, data: any) =>
-      {
-         console.log(data)
-         setOpenDeleteFuel(x)
+          setFuelData(data)
+          setOpenEditFuel(x)
       }
   
-      const Employee = () => 
+      const DeleteFuel = (x: boolean, data: any) => 
       {
-          return student.students;
+          setFuelData(data)
+          setOpenDeleteFuel(x)
       }
 
-      type AllStudent = 
+      type Fossile = 
       {
           id: string
-          firstName: string
-          surName: string
-          middleName: string
-          studentId: string
-          phone: string
-          email: string
-          enrolled: string
+          edit: { id: number, name: string }
+          delete: { id: number, name: string }
       }
   
-      const employees = useMemo<ColumnDef<AllStudent>[]>(
+      const fuel = useMemo<ColumnDef<Fossile>[]>(
           () => [
           {
-            header: 'Firstname',
+            header: 'Name',
             cell: (row) => (<a href="#" onClick={() => openAdd(true, row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-            accessorKey: 'firstName',
+            accessorKey: 'name',
           },
           {
               header: 'Edit',
-              cell: (row) => (<a href="#" onClick={() => openEdit(true, row.cell.row.getValue.toString)}><Icons iconName='edit'  width={5} height={5} color='red' /></a>),
-              accessorKey: '',
+              cell: (row) => (<a href="#" onClick={() => ChangeFuel(true, row.renderValue())}><Icons iconName='edit'  width={5} height={5} color='red' /></a>),
+              accessorKey: 'edit',
               maxSize: 20
           },
           {
               header: 'Delete',
-              cell: (row) => (<a href="#" onClick={() => openDelete(true, row.cell.row.getValue.toString)}><Icons iconName="delete" color='red' width={4} height={4}/></a>),
-              accessorKey: '',
+              cell: (row) => (<a href="#" onClick={() => DeleteFuel(true, row.renderValue())}><Icons iconName="delete" color='red' width={4} height={4}/></a>),
+              accessorKey: 'delete',
               maxSize: 20
             }
       ],[])
@@ -106,31 +105,62 @@ export default function Fuel()
                      <BsHighlighter className="w-20 hover:text-blue-600" />
                   </span>
             </div> 
-
-            <div 
-                className=''
-            >                          
-                <Table data={Employee()} 
-                       columns={employees} 
-                       showNavigation={false} 
-                       searchPlaceHolder='search for transactions ...' 
-                       path='transactions' 
-                       from='transactions' 
-                       headerTextColor="white"
-                       onClick={
-                           () => console.log('')
-                       } searchTerm={
-                           () => console.log('')
-                       } 
-                /> 
-            </div>
+                
+            {
+                isLoading && !isRefetching &&  <div 
+                            className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                        >
+                            <PuffLoader className='w-12 h-12' color="black" />
+                        </div>
+            }
+            {
+                isLoading && isRefetching  &&  <div 
+                            className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                        >
+                            <PuffLoader className='w-12 h-12' color="black" />
+                        </div>
+            }
+                  
+            {  !isLoading && (data?.data.length === 0) && <>
+                    <div 
+                        className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                    >
+                        <div 
+                            className="w-full d-flex justify-center items-center"
+                        >
+                            <div className="w-full text-center text-lg">No fuel created yet</div>
+                        </div>
+                    </div>
+                </>
+            }
+                  
+            {  
+                  !isLoading && (data?.data?.length > 0) && 
+                  <div 
+                      className=''
+                  >                          
+                        <Table data={data?.data} 
+                              columns={fuel} 
+                              showNavigation={false} 
+                              searchPlaceHolder='search for transactions ...' 
+                              path='transactions' 
+                              from='transactions' 
+                              headerTextColor="white"
+                              onClick={
+                                    () => console.log('')
+                              } searchTerm={
+                                    () => console.log('')
+                              } 
+                        /> 
+                  </div>
+            }
 
             { 
                   openAddFuel &&  <AddFuelProduct 
                         openFuelProduct={openAddFuel} 
-                        userType={''} 
-                        token={''} 
+                        token={token} 
                         onClick={() => {
+                              refetch()
                               setOpenAddFuel(false)
                         }}
                   />
@@ -139,23 +169,26 @@ export default function Fuel()
             { 
                   openEditFuel &&  <EditFuelProduct 
                         openFuelProduct={openEditFuel}
-                        userType={''} 
-                        token={''} 
+                        token={token} 
                         onClick={() => {
-                              setOpenEditDealer(false)
+                              refetch()
+                              setOpenEditFuel(false)
                         }}
+                        data={fuelData}
                   />
             }
 
             { 
                   openDeleteFuel &&  <DeleteFuelProduct 
                                             openDeleteFuel={openDeleteFuel}
-                                            userType={''}
-                                            token={''}
+                                            token={token}
                                             onClick={() => {
+                                                refetch()
                                                 setOpenDeleteFuel(false)
-                                            } } message={''}                  
-                                        />
+                                             } 
+                                          }       
+                                          data={fuelData}        
+                                    />
             }
       </div>
   )

@@ -26,17 +26,20 @@ export const DeleteMemberModal = ({onClick, openDeleteMember, message, imageUrl,
      useEffect(() => 
      {
         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
-        setErrorMessage("")
         console.log({ imageUrl, userId, userType, token })
      }, []) 
 
      const deleteProduct = async () => 
      { 
+        setErrorMessage("")
      }
 
      return (
                 <Modal 
-                        onClick={onClick} isOpen={openDeleteMember} wrapperWidth={650} margin={'100px auto 0px auto'}
+                    onClick={onClick} 
+                    isOpen={openDeleteMember} 
+                    wrapperWidth={650} 
+                    margin={'100px auto 0px auto'}
                 >
                         { errorMessage && <Message msg={errorMessage} status={errMsgStyle} />  }
                         <div className='col-span-12 pt-1 pb-5 overflow-y-auto xm:overflow-y-scroll justify-center item-center'>

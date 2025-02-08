@@ -13,6 +13,7 @@ import { PuffLoader } from 'react-spinners';
 import Pagination from '../../../../../components/Pagination';
 import { ViewUserInfo } from '../modals/ViewUserInfo';
 import { DeleteAdvertModal } from '../modals/DeleteAdvertModal';
+import { AdvertComments } from '../modals/AdvertComments';
 
 
 export const DefaultUserDetail = 
@@ -52,6 +53,9 @@ export default function LikeRow()
 
     const [productDetail, setopenProductDetail] = useState<boolean>(false)
     const [productInfo, setOpenProductInfo] = useState<UserDetail>(DefaultUserDetail)
+
+    const [productComment, setProductComment] = useState<number>(-1)
+    const [openComment, setOpenComment] = useState<boolean>(false)
 
     const [verifyProduct, setOpenVerifyProduct] = useState<boolean>(false)
     
@@ -127,6 +131,12 @@ export default function LikeRow()
         setOpenProductInfo(data)  
         setOpenVerifyProduct(x)
     }
+
+    const ViewComment = (x: boolean, data: any) =>
+    {
+        setProductComment(data)
+        setOpenComment(x)  
+    }
     
     type AllProducts = 
     {
@@ -175,6 +185,12 @@ export default function LikeRow()
               header: 'Mileage',
               cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
               accessorKey: 'mileage',
+          },
+          {
+              header: 'Comments',
+              cell: (row) => (<a href="#" onClick={() => ViewComment(true, row.renderValue())}><Icons color='green' height={5} width={5} iconName='comment' /></a>),
+              accessorKey: 'tb_id',
+              maxSize: 20
           },
           {
               header: 'Status',
@@ -407,6 +423,17 @@ export default function LikeRow()
                                 setOpenVerifyProduct(false)
                             }}
                     />
+                }
+
+                {
+                    openComment && <AdvertComments 
+                                            closeCommentDialog={openComment} 
+                                            onClick={
+                                                () => setOpenComment(false)
+                                            } 
+                                            productId={productComment} 
+                                            token={token}
+                                    />
                 }
             <div 
                 className='p-10'

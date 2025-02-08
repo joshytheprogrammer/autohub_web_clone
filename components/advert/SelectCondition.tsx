@@ -71,7 +71,7 @@ const SelectCondition = ({ onClick, placeholder, selectedCondition, incomingData
                         type="text"
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value.toLowerCase())}
-                        placeholder="Enter country name"
+                        placeholder="Search Condition"
                         className="placeholder:text-gray-700 p-2 outline-none w-full"
                     />
                 </div> 

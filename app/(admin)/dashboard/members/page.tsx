@@ -137,7 +137,7 @@ export default function Members()
             },
             {
                   header: 'Suspend',
-                  cell: (row) => (<a href="#" onClick={() => SuspendUser(true, row.renderValue())}><Icons iconName="delete" color='red' width={4} height={4}/></a>),
+                  cell: (row) => (<a href="#" onClick={() => SuspendUser(true, row.renderValue())}><Icons iconName="delete" color='red' width={4} height={4} /></a>),
                   accessorKey: 'data',
                   maxSize: 20
             }

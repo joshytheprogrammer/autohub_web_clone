@@ -38,16 +38,22 @@ export default function DashboardLayout(
       const [surname, setSurname] = useState<string>("")
       const [member, setMember] = useState<string>("") 
 
-  useEffect(() => 
-  {
-     setFirstName(Session.getFName())
-     setSurname(Session.getSName())
-     setMember(Session.getUType())
-  }, [])
+      useEffect(() => 
+      {
+         setFirstName(Session.getFName())
+         setSurname(Session.getSName())
+         setMember(Session.getUType())
+      }, [])
 
-      useEffect(() => {
+      useEffect(() => 
+      {
         setMenu(false)
       }, [])
+
+      const callOpen = () => 
+      {
+         setMenu(true)
+      }
       
       const admin = 
       [
@@ -164,7 +170,7 @@ export default function DashboardLayout(
                     className="relative min-h-screen md:flex"
                 >                
                     <section 
-                            className='md:w-0/12 w-12/12 md:hidden p-2 flex justify-between relative bg-green-800'
+                            className='md:w-0/12 w-12/12 md:hidden p-2 flex justify-between relative bg-green-800 z-5'
                     >
                         <span className='flex justify-center items-center 10/12 md:absolute z-50 md:-mt-5 mt-1'
                         >
@@ -174,20 +180,23 @@ export default function DashboardLayout(
                             <p className='text-white md:text-[14px] font-bold text-lg -ml-4 md:-mt-1'>+23409033333367</p>
                         </span>
                         <FiMenu 
-                                className='text-4xl mr-1 text-white cursor-pointer md:hidden' 
-                                onClick={() => {
-                                setMenu(true)
+                                className='text-4xl mr-1 text-white cursor-pointer md:hidden z-5' 
+                                onClick={() => 
+                                {
+                                   setMenu(true)
+                                   callOpen()
                                 }}
                         />
                     </section>  
-                    <div className="max-w-[1440px] mx-auto px-8 px-3 md:hidden md:p-3 z-50 -mb-2"
+                    <div 
+                        className="max-w-[1440px] mx-auto px-8 px-3 md:hidden md:p-3 z-50 -mb-2"
                     > 
                         <div className={
-                            clsx("fixed z-50 h-screen w-screen lg:hidden bg-black/50 top-0 right-0 -translate-x-full duration-500", isMenuOpen && "transition ease-out duration-500 translate-x-0")
+                            clsx("fixed z-50 w-screen lg:hidden bg-black/50 top-0 right-0 -translate-x-full duration-500", isMenuOpen && "transition ease-out duration-500 translate-x-0")
                             }
                         >
                             <div 
-                                className='flex text-black left-0 top-0 h-screen z-50 w-12/12'
+                                className='flex text-black left-0 top-0 z-50 w-12/12'
                             >
                                 <div 
                                     className='w-8/12 pt-5 bg-green-800 border-blue-500'
@@ -206,7 +215,7 @@ export default function DashboardLayout(
                                         <Logo />
                                     </div>
                                     <div 
-                                            className='p-3 d-flex -mt-10'
+                                        className='p-3 d-flex overflow-y-auto drop-shadow-xl scrollbar-thin scrollbar-thumb-indigo-300 scrollbar-track-pink-200 h-[900px] relative'
                                     >
                                         <div  
                                                 className='flex justify-left h-[fit] px-10 py-5 text-white gap-3'
@@ -252,7 +261,8 @@ export default function DashboardLayout(
                                                     )
                                                 })
                                             }   
-                                        </ul>                    
+                                        </ul>  
+                                        <div className='h-[100px]'></div>                  
                                     </div>
                                     {/* ends here  */}
                                 </div>                      
@@ -267,10 +277,14 @@ export default function DashboardLayout(
                             </div>
                         </div>
                     </div> 
-
+                    {/* Medium View  */}
                     <div 
-                        className="sidebar bg-green-800 text-blue-100 w-[400px] space-y-6 pt-1 pb-7 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out"
-                        >
+                        className="sidebar bg-green-800 text-blue-100 w-[400px] space-y-6 pt-1 pb-7 absolute inset-y-0 
+                        left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out 
+                        overflow-y-auto drop-shadow-xl scrollbar-thin scrollbar-thumb-indigo-300 scrollbar-track-pink-200 h-full fixed
+                        "
+                    >                        
+                        {/* overflow-y-auto drop-shadow-xl scrollbar-thin scrollbar-thumb-indigo-300 scrollbar-track-pink-200 h-[1000px] relative */}
                         <div 
                                 className='p-3 w-full mx-auto flex justify-center items-center -mb-12 -mt-3'
                         >

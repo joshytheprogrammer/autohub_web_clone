@@ -1,3 +1,5 @@
+"use server"
+
 import { BASE_URL } from "../../../constant/Path";
 
 
@@ -37,9 +39,11 @@ export async function Detail(slug: string, token: string)
       if(!response.ok)
       {
          throw new Error(`HTTP Error! status: ${response.status}`)
-      }     
-      const x: any = await response.json() 
-      return x
+        // return response.status
+      } else {
+        const x: any = await response.json() 
+        return x
+      }
 }
 
 export async function LogOutUser(token: string)
@@ -62,4 +66,32 @@ export async function LogOutUser(token: string)
       }     
       const x: any = await response.json() 
       return x
+}
+
+export async function UserInfo(token: string)
+{
+  if(token)
+  {
+    let endPoint = `member/user-info`
+    let ApiUrl = `${BASE_URL}${endPoint}`
+
+    const response = await fetch(ApiUrl, 
+    {
+        method: 'GET',    
+        headers: {    
+          'Content-Type': 'application/json',      
+          'Authorization': `Bearer ${token}`     
+        }
+    
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      const x: any = await response.json() 
+      return x
+  } else {
+      return "anonymous"
+  }
+    
 }

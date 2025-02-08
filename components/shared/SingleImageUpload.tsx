@@ -18,7 +18,7 @@ export default function SingleImageUpload({width, space, ICloudColour, onClick}:
 {
     const [userPassport, setUserPassport] = useState<string>("")
     const [passport, setPassport] = useState<string>("")
-    const [uploadText, setUploadText] = useState<string>("Click to upload passport")
+    const [uploadText, setUploadText] = useState<string>("Click to upload profile picture")
     let photograph!: HTMLDivElement
 
     useEffect(() => 
@@ -66,7 +66,8 @@ export default function SingleImageUpload({width, space, ICloudColour, onClick}:
         photo.style.width = '300px'
         photo.style.height = '300px'
         cloud.style.display = 'none'
-        setUploadText("Click to change passport")
+        cloud.style.fontSize = '10px'
+        setUploadText("Click to change profile picture")
         photo.style.backgroundImage = `url(${passportUrl})`
 
         const image = Array.from(e.target.files)
@@ -111,7 +112,7 @@ export default function SingleImageUpload({width, space, ICloudColour, onClick}:
                         >
                             <HiCloudUpload className={`w-10 h-10 ${ICloudColour} upload mx-auto`} />
                         </div>
-                        <span className='bg-white p-1 text-black flex text-center justify-center text-sm rounded-full opacity-50 w-full'>{uploadText}</span>
+                        <span className='px-2 text-white flex text-center justify-center text-sm rounded-full w-full whitespace-nowrap text-[9px] md:text-[13px]'>{uploadText}</span>
                     </section>
                     <input type='file' id='passport' name='passport' className='passort p-5 upload' hidden
                             onChange={(e: any) => {                                       

@@ -1,23 +1,56 @@
 import { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { Modal } from "../../../../../../components/modal/Modal";
+import { UpdateFuel } from "../../../../../api/admin/market/fuel";
+import Message from "../../../../../../components/shared/Message";
+import toast from "react-hot-toast";
 
 type EditProductFuelProps = 
 {
-    onClick: (isOpen: boolean) => void,
+    onClick: () => void,
     openFuelProduct: boolean,
-    userType: string
     token: string
+    data: { id: number, name: string }
 } 
 
-export const EditFuelProduct = ({onClick, openFuelProduct, userType, token}: EditProductFuelProps)  =>
+export const EditFuelProduct = ({onClick, openFuelProduct, data, token}: EditProductFuelProps)  =>
 {
-        const [loading, setIsLoading] = useState(false)
+        const [loading, setIsLoading] = useState<boolean>(false)
+        const [id] = useState<number>(data?.id)
+        const [name, setName] = useState<string>(data?.name)
+        const [errMsgStyle, setErrMsgStyle] = useState<string>('')
+        const [errorMessage, setErrorMessage] = useState<string>("")
 
-        useEffect(() => {
-                setIsLoading(false)
-                console.log({ userType, token })
+        useEffect(() => 
+        {
+           setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
+           setErrorMessage("")
         }, []) 
+        
+        const UpdateFueel = () => 
+        {
+            setIsLoading(true)
+            const updateFuel = UpdateFuel(id, name, token)
+            updateFuel.then((response) => 
+            {
+                if(response?.status === 200)
+                {
+                   setIsLoading(false)
+                   toast.success('Updated', {
+                      position: "top-center",
+                   });
+                   onClick()  
+                } else {
+                   setErrorMessage(response?.message)
+                   setTimeout(() => 
+                   {
+                      setErrorMessage("")
+                   }, 5000)
+                }
+            }).then(() => {
+
+            })
+        }
 
         return (
                 <Modal 
@@ -26,6 +59,7 @@ export const EditFuelProduct = ({onClick, openFuelProduct, userType, token}: Edi
                         <div 
                                 className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
                         >
+                                { errorMessage && <Message msg={errorMessage} status={errMsgStyle} />  }
                                 <div 
                                                 className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
                                 >
@@ -38,6 +72,10 @@ export const EditFuelProduct = ({onClick, openFuelProduct, userType, token}: Edi
                                                 className="mb-4 md:w-full"
                                         >
                                                 <input  
+                                                        onChange={(e) => {
+                                                                setName(e.target.value) 
+                                                        }}
+                                                        defaultValue={name}
                                                         className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                                         type="text" name="fuel" id="fuel" placeholder="Enter Fuel Name" 
                                                 />
@@ -48,7 +86,7 @@ export const EditFuelProduct = ({onClick, openFuelProduct, userType, token}: Edi
                                                 {
                                                         <button 
                                                                 className="py-3 px-4 bg-red-700 hover:bg-red-800 text-white font-semibold text-sm rounded-xl w-max"
-                                                                onClick={() => onClick(openFuelProduct) }
+                                                                onClick={() => onClick() }
                                                         >
                                                                         Close
                                                         </button>
@@ -56,7 +94,7 @@ export const EditFuelProduct = ({onClick, openFuelProduct, userType, token}: Edi
                                                 {
                                                 <button 
                                                                 className="py-3 px-4 bg-green-800 hover:bg-green-700 text-white font-semibold text-sm rounded-xl w-max"
-                                                                onClick={() => console.log('')}
+                                                                onClick={() => UpdateFueel()}
                                                                         >
                                                                 {       loading ? ( <BeatLoader size={9} color="#fff" />) : ( "Update" )          }
                                                 </button>

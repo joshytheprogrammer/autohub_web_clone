@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import student from '../../../../../components/shared/data/student.json'
 import { ColumnDef } from '@tanstack/react-table'
 import { BsHighlighter } from 'react-icons/bs'
 import { Table } from '../../../../../components/shared/Table'
@@ -8,19 +7,29 @@ import { EditConditionProduct } from '../sections/condition/editConditionProduct
 import { DeleteConditionProduct } from '../sections/condition/deleteConditionProduct'
 import { Show } from '../../../../../components/shared/Show'
 import { Icons } from '../../../../../components/shared/Icons'
+import { useQuery } from '@tanstack/react-query'
+import { UseStore } from '../../../../../state/store'
+import { GetCondition } from '../../../../api/admin/market/condition'
+import { PuffLoader } from 'react-spinners'
 
 
 export default function Conditions()
 {
+      const userToken = UseStore((state) => state)
+      const token: string = userToken.getUserToken()
+      
       const [open] = useState<boolean>(false)
       const [showModal] = useState<boolean>(false)
       const [employeeId] = useState<string>('')
       const [isItThis] = useState<string>('')  
       const [openModal] = useState<boolean>(false)  
+
+      const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`get-all-fuel`, token], queryFn: () => GetCondition(token), refetchOnWindowFocus: true })
       
       const [openAddCondition, setOpenAddCondition] = useState<boolean>(false)
-      const [openEditCondition, setOpenEditDealer] = useState<boolean>(false)
+      const [openEditCondition, setOpenEditCondition] = useState<boolean>(false)
       const [openDeleteCondition, setOpenDeleteCondition] = useState<boolean>(false)
+      const [conditionData, setConditionData] = useState<{ id: number, name: string }>({ id: -1, name: "" })
   
       const [refresh, setRefresh] = useState<boolean>(false)
 
@@ -35,52 +44,43 @@ export default function Conditions()
          setOpenAddCondition(x)
       }
 
-      const openEdit = (x: boolean, data: any) =>
+      const ChangeFuel = (x: boolean, data: any) => 
       {
-         console.log(data)
-         setOpenEditDealer(x)
-      }
-
-      const openDelete = (x: boolean, data: any) =>
-      {
-         console.log(data)
-         setOpenDeleteCondition(x)
+          setConditionData(data)
+          setOpenEditCondition(x)
       }
   
-      const Employee = () => 
+      const DeleteFuel = (x: boolean, data: any) => 
       {
-          return student.students;
+          setConditionData(data)
+          setOpenDeleteCondition(x)
       }
 
-      type AllStudent = 
+      type AllCondition = 
       {
           id: string
-          firstName: string
-          surName: string
-          middleName: string
-          studentId: string
-          phone: string
-          email: string
-          enrolled: string
+          name: string
+          edit: string
+          delete: string
       }
   
-      const employees = useMemo<ColumnDef<AllStudent>[]>(
+      const conditions = useMemo<ColumnDef<AllCondition>[]>(
           () => [
           {
-            header: 'Firstname',
+            header: 'Name',
             cell: (row) => (<a href="#" onClick={() => openAdd(true, row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-            accessorKey: 'firstName',
+            accessorKey: 'name',
           },
           {
               header: 'Edit',
-              cell: (row) => (<a href="#" onClick={() => openEdit(true, row.cell.row.getValue.toString)}><Icons iconName='edit'  width={5} height={5} color='red' /></a>),
-              accessorKey: '',
+              cell: (row) => (<a href="#" onClick={() => ChangeFuel(true, row.renderValue())}><Icons iconName='edit'  width={5} height={5} color='red' /></a>),
+              accessorKey: 'edit',
               maxSize: 20
           },
           {
               header: 'Delete',
-              cell: (row) => (<a href="#" onClick={() => openDelete(true, row.cell.row.getValue.toString)}><Icons iconName="delete" color='red' width={4} height={4}/></a>),
-              accessorKey: '',
+              cell: (row) => (<a href="#" onClick={() => DeleteFuel(true, row.renderValue())}><Icons iconName="delete" color='red' width={4} height={4}/></a>),
+              accessorKey: 'delete',
               maxSize: 20
             }
       ],[])
@@ -105,55 +105,96 @@ export default function Conditions()
                      <BsHighlighter className="w-20 hover:text-blue-600" />
                   </span>
             </div> 
+                
+            {
+                isLoading && !isRefetching &&  <div 
+                            className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                        >
+                            <PuffLoader className='w-12 h-12' color="black" />
+                        </div>
+            }
+            {
+                isLoading && isRefetching  &&  <div 
+                            className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                        >
+                            <PuffLoader className='w-12 h-12' color="black" />
+                        </div>
+            }
+                  
+            {  !isLoading && (data?.data.length === 0) && <>
+                    <div 
+                        className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                    >
+                        <div 
+                            className="w-full d-flex justify-center items-center"
+                        >
+                            <div className="w-full text-center text-lg">No Condition created yet</div>
+                        </div>
+                    </div>
+                </>
+            }
+                  
+            {  
+                  !isLoading && (data?.data?.length > 0) && 
 
-            <div 
-                className=''
-            >                          
-                <Table data={Employee()} 
-                       columns={employees} 
-                       showNavigation={false} 
-                       searchPlaceHolder='search for transactions ...' 
-                       path='transactions' 
-                       from='transactions' 
-                       headerTextColor="white"
-                        onClick={
-                            () => console.log('')
-                        } searchTerm={
-                            () => console.log('')
-                         } 
-                /> 
-            </div>
+                  <div 
+                     className=''
+                  >                          
+                      <Table data={data?.data} 
+                           columns={conditions} 
+                           showNavigation={false} 
+                           searchPlaceHolder='search for transactions ...' 
+                           path='transactions' 
+                           from='transactions' 
+                           headerTextColor="white"
+                              onClick={
+                                 () => console.log('')
+                              } searchTerm={
+                                 () => console.log('')
+                              } 
+                        /> 
+                  </div>
+            }
 
             { 
                   openAddCondition &&  <AddConditionProduct 
                         openConditionProduct={openAddCondition} 
-                        userType={''} 
-                        token={''} 
-                        onClick={() => {
+                        token={token} 
+                        onClick={() => 
+                          {
+                              refetch()
                               setOpenAddCondition(false)
-                        }}
+                          }
+                        }
+                        data={conditionData}  
                   />
             }
 
             { 
                   openEditCondition &&  <EditConditionProduct 
                         openConditionProduct={openEditCondition}
-                        userType={''} 
-                        token={''} 
-                        onClick={() => {
-                              setOpenEditDealer(false)
-                        }}
+                        token={token} 
+                        onClick={() => 
+                          {
+                              refetch()
+                              setOpenEditCondition(false)
+                          }
+                        }
+                        data={conditionData}  
                   />
             }
 
             { 
                   openDeleteCondition &&  <DeleteConditionProduct 
                                             openDeleteCondition={openDeleteCondition}
-                                            userType={''}
-                                            token={''}
-                                            onClick={() => {
+                                            token={token}
+                                            onClick={() => 
+                                              {
+                                                refetch()
                                                 setOpenDeleteCondition(false)
-                                            } } message={''}                  
+                                              } 
+                                            }
+                                            data={conditionData}                  
                                         />
             }
       </div>

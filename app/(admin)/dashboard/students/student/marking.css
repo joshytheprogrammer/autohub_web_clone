@@ -1,0 +1,19 @@
+input[type="radio"] {
+    background-color: transparent;
+    border: 0.15em solid black;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 0 white;
+    cursor: pointer;
+    font: inherit;
+    height: 1em;
+    outline: none;
+    width: 1em;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    &:checked {
+      background-color: rgb(9, 133, 56);
+      box-shadow: inset 0 0 0 .1875em #47d1da;
+      -webkit-transition: green .15s, box-shadow .1s; 
+      transition: green .15s, box-shadow .1s; 
+    }
+  }

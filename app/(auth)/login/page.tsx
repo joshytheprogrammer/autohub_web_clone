@@ -4,12 +4,13 @@
 import Access from './access'
 
 
-export default function page() 
+export default function Page() 
 {
       
       return (
             <>  
-                  <Access showLogo={false} goTo={`/user/adverts`} />
+                  {/* <Access showLogo={false} goTo={`/user/adverts`} /> */}
+                  <Access showLogo={true} goTo={`/`} />
             </>
       )
 }

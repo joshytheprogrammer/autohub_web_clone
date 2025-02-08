@@ -26,12 +26,12 @@ export const SuspendMemberModal = ({onClick, openSuspendMember, message, imageUr
      useEffect(() => 
      {
         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
-        setErrorMessage("")
         console.log({ imageUrl, userId, userType, token })
      }, []) 
 
      const deleteProduct = async () => 
      { 
+        setErrorMessage("")
      }
 
      return (

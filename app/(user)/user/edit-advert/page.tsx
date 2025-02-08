@@ -35,7 +35,7 @@ export default function EditAdvert()
     const { data,  isLoading, completed } = useCreateAd()
     
 
-    const COUNTRY_MESSAGE = 'Select Country'
+    // const COUNTRY_MESSAGE = 'Select Country'
     const STATE_MESSAGE = 'Select State'
     // const MANUFACTURER_MESSAGE = 'Select Manufacturer'
     // const RESET_MANUFACTURER_MESSAGE = 'Reset Manufacture'
@@ -578,7 +578,7 @@ export default function EditAdvert()
                                     <input 
                                         defaultValue={advertState.getPrice()}
                                         className="w-full border border border-3 shadow-md rounded-md py-2 px-3 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                                        type="text" name="location" id="location" placeholder="Enter Price" 
+                                        type='number' name="price" id="price" placeholder="Enter Price" 
                                         onChange={(e: any) => 
                                         {
                                             let selected: string = e.target.value

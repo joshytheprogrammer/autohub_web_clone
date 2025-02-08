@@ -73,6 +73,12 @@ export const AllTrimEngine = ({onClick, openTrimEngine, message, userType, token
                              path='transactions' 
                              from='transactions' 
                              headerTextColor="white"
+                             onClick={() => {
+                                 console.log('')
+                             }}
+                             searchTerm={() => {
+                                 console.log('')
+                             }}
                       /> 
                     </div>
                 </div>

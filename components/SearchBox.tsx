@@ -33,8 +33,9 @@ export default function SearchBox({ deviceWidth = true } : SearchProps)
     }
 
     let deviceType = deviceWidth === true ? 'md:block' : 'md:block'
+    
     return (
-        <div className={`d-flex relative mt-2 mb-3 ${deviceType}`}>            
+        <div className={`d-flex relative md:mt-2 mb-3 ${deviceType}`}>            
             <div className={`w-full bg-white border-2 shadow relative rounded-xl flex p-2 absolute ${borderCharcter}`}
             >
                 <span className="w-auto flex justify-end text-gray-500 p-2">

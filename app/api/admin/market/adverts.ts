@@ -126,3 +126,66 @@ export async function RemoveProduct(productId: number, token: string)
       return await response.json()
 }
 
+export async function AllSelectedAdvertComment(productId: number, token: string)
+{
+    let endPoint = `market-place/comment/${productId}`
+    let ApiUrl = `${BASE_URL}${endPoint}`
+
+    const response = await fetch(ApiUrl, 
+    {
+        method: 'GET',    
+        headers: {    
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`   
+        },   
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      return await response.json()
+}
+
+export async function ControlComment(productId: number, action: string, commentId: number, token: string)
+{
+    let endPoint = `market-place/control`
+    let ApiUrl = `${BASE_URL}${endPoint}`
+
+    const response = await fetch(ApiUrl, 
+    {
+        method: 'PUT',    
+        headers: {    
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`   
+        },   
+        body: JSON.stringify({ product_id: productId, comment_id: commentId, action: action }),
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      return await response.json()
+}
+
+export async function CommentModeration(productId: number, action: string, commentId: number, token: string)
+{
+    let endPoint = `market-place/moderate`
+    let ApiUrl = `${BASE_URL}${endPoint}`
+
+    const response = await fetch(ApiUrl, 
+    {
+        method: 'PUT',    
+        headers: {    
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`   
+        },   
+        body: JSON.stringify({ product_id: productId, comment_id: commentId, action: action }),
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      return await response.json()
+}
+
+

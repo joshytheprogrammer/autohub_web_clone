@@ -15,7 +15,7 @@ export default function States()
 
     useEffect(() => 
     {
-       console.log({ viewTransactionDetail })
+       console.log({ viewTransactionDetail, openCategoryModal })
     }, [])
 
     const ShowStates = (page: any) => 

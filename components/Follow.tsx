@@ -6,6 +6,7 @@ import { FlUnFlow, Followers } from "../app/api/home/market/advert/Comments"
 import { ScaleLoader } from "react-spinners"
 import delay from "delay"
 import { UseStore } from "../state/store"
+import { useRouter } from "next/navigation"
 
 type FollowProps =
 {
@@ -16,9 +17,10 @@ type FollowProps =
 export default function Follow({ vendorId, user }: FollowProps)
 {  
     const userState = UseStore((state) => state)
-    const token: string = userState.getUserToken()
-    const userType: string = userState.getUType()
-    const { data, isLoading: isLoadingComment, refetch } = useQuery({ queryKey: [`user-followers-${vendorId}`, vendorId], queryFn: () => Followers(Number(user)) })
+    const token: string = userState.getUserToken() ? userState.getUserToken() : ''
+    const userType: string = userState.getUType() ? userState.getUType() : ''
+    
+    const { data, isLoading: isLoadingComment, refetch } = useQuery({ queryKey: [`user-followers-${vendorId}`, vendorId], queryFn: () => Followers(Number(user), token, userType) })
     
     const [loading, setLoading] = useState(false)
     const [msg, setMsg] = useState("")
@@ -43,7 +45,8 @@ export default function Follow({ vendorId, user }: FollowProps)
 
             })
         } else {
-            setMsg("You have to be logged in to follow")
+            // setMsg("You have to be logged in to follow")
+            setMsg("Login to follow")
             setLoading(false)
             setTimeout(() => {
                 setMsg("")
@@ -69,10 +72,20 @@ export default function Follow({ vendorId, user }: FollowProps)
                        onClick={() => follower() } 
                        className="w-fit h-fit rounded-md p-2 text-white font-bold text-xs mt-1"
                  >
-                    { !isLoadingComment && (data > 0) ? <Flw count={data} /> : <UnFlw count={data} /> }
+                    { 
+                        !isLoadingComment && (data?.plus === 'yes')
+                        ? <>
+                            {
+                                (Number(data?.data) > 0) ? <Flw count={data?.message} /> : <UnFlw count={data?.message} />
+                            }
+                        </>
+                        :
+                        'xx'
+                    }
+                    { !isLoadingComment && (data?.plus === 'no') && <Follower count={data?.message} />}
                  </button>
               }
-              { msg && <span className='p-2 bg-red-600 text-white text-red-500 w-full flex justify-center rounded px-10'>{ msg } </span> }
+              { msg && <span className='p-2 bg-red-600 text-white text-red-500 w-full flex justify-center items-center whitespace-nowrap rounded px-3'>{ msg } </span> }
             </div>
         </>
   )
@@ -95,7 +108,7 @@ const Flw = ({ count = 0 }: { count: number }) =>
             > 
                 {(count === 0) && <div className="flex justify-center items-center">No Follower</div>}
                 {(count === 1) && <div className="flex justify-center items-center"><span className="mr-1">{count} </span> Follower</div>}
-                {(count > 1) && <div className="flex justify-center items-center"><span>{count} </span> Followers</div>}
+                {(count === 2) && <div className="flex space-x-4"><span className="mr-1">{count} </span>Followers</div>}
             </span>
         </div>
    )
@@ -117,7 +130,36 @@ const UnFlw = ({ count = 0 }: { count: number }) =>
             > 
                 {(count === 0) && <div className="flex justify-center items-center">No Follower</div>}
                 {(count === 1) && <div className="flex justify-center items-center"><span className="mr-1">{count} </span> Follower</div>}
-                {(count > 1) && <div className="flex justify-center items-center"><span>{count} </span> Followers</div>}
+                {(count === 2) && <div className="flex space-x-4"><span className="mr-1">{count} </span>Followers</div>}
+            </span>
+        </div>
+   )
+}
+
+const Follower = ({ count = 0 }: { count: number }) =>
+{
+   const router = useRouter()
+
+   return (
+        <div 
+            className="flex justify-center items-center"
+        >
+            <span 
+                className="p-3 rounded-lg bg-green-700 w-full hover:bg-green-400 mr-4"
+                onClick={
+                    () => {
+                        router.push('/login')
+                    }
+                }
+            >
+                Loin to Follow
+            </span>
+            <span 
+                className="font-bold text-blue-600 text-sm flex justify-center items-center"
+            > 
+                {(count === 0) && <div className="flex justify-center items-center">No Follower</div>}
+                {(count === 1) && <div className="flex justify-center items-center"><span className="mr-1">{count} </span> Follower</div>}
+                {(count > 1) && <div className="flex space-x-4"><span className="mr-1">{count} </span>Followers</div>}
             </span>
         </div>
    )

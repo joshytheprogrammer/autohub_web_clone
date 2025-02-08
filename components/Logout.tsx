@@ -38,6 +38,42 @@ export const Logout = ({onClick, deleteModal, token}: SaveDraftProps)  =>
            UserPics.setFName("")
            UserPics.setSName("")
            UserPics.setUType("")
+
+           UserPics.setForce("no")     
+           UserPics.setEmptyTestObjective([])
+           UserPics.setDataLoaded(false)
+
+           
+           UserPics.setFirstDataLoadedExamObj([])
+           UserPics.setAdditionExamObj('')
+           UserPics.setDurationExamObj('')
+           UserPics.setQuestionIdExamObj('')
+
+           // objective
+           UserPics.setSelectedExamObjectiveOption([])
+           UserPics.setEmptyExamObjective([])
+           UserPics.setDefaultExamObjectiveAnswer([])
+           UserPics.setExamObjectiveIdentifier('')
+           UserPics.setDataLoadedExamObj(false)
+           UserPics.setFirstDataLoadedExamObj('')
+           UserPics.setAdditionExamObj('')
+           UserPics.setDurationExamObj('')
+           UserPics.setQuestionIdExamObj('')
+           
+           // theory
+           UserPics.setSelectedExamTheoryOption([])
+           UserPics.setEmptyExamTheory([])
+           UserPics.setSelectedExamTheoryAnswerValue('')
+           UserPics.setForceExamTheory('')
+           UserPics.setDefaultExamTheoryAnswer([])
+           UserPics.setExamTheoryIdentifier('')
+           UserPics.setDataLoadedExamTheory(false)
+           UserPics.setForceExamObj('no')
+           UserPics.setUserRoles([])
+
+           UserPics.setSideType('')
+
+        //    UserPics.setPlusExamObj('')
            window.location.href = '/'
         //    router.push('/')
         //    const loggingUserOut = LogOutUser(token)

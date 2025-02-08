@@ -14,6 +14,10 @@ import { USAGE_PATH } from '../../../../constant/Path'
 import { SuspendUserModal } from '../users/modals/SuspendUserModal'
 import { BsHighlighter } from 'react-icons/bs'
 import { AddStaffModal } from './modals/AddStaffModal'
+import { ChangeStaffRoleModal } from './modals/ChangeStaffRoleModal'
+import { ChangeStaffDepartmentModal } from './modals/ChangeStaffDepartmentModal'
+import { HiMiniPuzzlePiece, HiMiniSwatch } from 'react-icons/hi2'
+import toast from 'react-hot-toast'
 
 
 export default function Staffs() 
@@ -26,7 +30,7 @@ export default function Staffs()
     const [perPage, setPerPage] = useState<number>(pages[0])  
     const [searchQuery, setSearchQuery] = useState("")
 
-    const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`get-all-product`, currentPage, perPage, searchQuery, token], queryFn: () => GetStaffs(currentPage, perPage, searchQuery, token)})
+    const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`get-all-staffs`, currentPage, perPage, searchQuery, token], queryFn: () => GetStaffs(currentPage, perPage, searchQuery, token)})
 
     const [open] = useState<boolean>(false)
     const [showModal] = useState<boolean>(false)
@@ -34,9 +38,11 @@ export default function Staffs()
     const [isItThis] = useState<string>('')  
     const [openModal] = useState<boolean>(false)  
         
-    const [openSuspend, setSuspend] = useState<boolean>(false)
+    const [openSuspend, setOpenSuspend] = useState<boolean>(false)
+    const [openDepartment, setOpenDepartment] = useState<boolean>(false)
+    const [openRole, setOpenRole] = useState<boolean>(false)
     const [openStaff, setOpenStaff] = useState<boolean>(false)
-    const [userData, setUserData] = useState<number>(-1)
+    const [userData, setUserData] = useState<{ id: number, passport: string, fullname: string }>({ id: -1, passport: "", fullname: "" })
     
     const [showingStates, setShowStates] = useState<boolean>(false)
     const [refresh, setRefresh] = useState<boolean>(false)
@@ -90,7 +96,19 @@ export default function Staffs()
     const SuspendUser = (x: boolean, data: any) => 
     {
        setUserData(data)
-       setSuspend(x)
+       setOpenSuspend(x)
+    }
+
+    const ChangeUserRole = (x: boolean, data: any) => 
+    {
+        setUserData(data)
+        setOpenRole(x)        
+    }
+
+    const ChangeUserDepartment = (x: boolean, data: any) => 
+    {
+        setUserData(data)
+        setOpenDepartment(x)        
     }
     
     type AllStaffs = 
@@ -109,7 +127,15 @@ export default function Staffs()
           () => [            
             {
                   header: 'Picture',
-                  cell: (row) => (<a href="#"><img src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} width={65} height={65} className='rounded-full' /></a>),
+                  cell: (row) => {
+                        const image: string | unknown = row.renderValue()
+                        if(image === "no-image.png")
+                        {
+                            return <img src={`${USAGE_PATH.DEFAULT_AVATAR}${row.renderValue()}`} width={65} height={65} className='rounded-full border-2 border-blue-200' />
+                        } else {
+                            return <img src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} width={65} height={65} className='rounded-full' />                            
+                        }
+                  },
                   accessorKey: 'passport',
                   maxSize: 20
             },
@@ -141,6 +167,18 @@ export default function Staffs()
             {
                   header: 'Suspend',
                   cell: (row) => (<a href="#" onClick={() => SuspendUser(true, row.renderValue())}><Icons iconName="delete" color='red' width={4} height={4}/></a>),
+                  accessorKey: 'data',
+                  maxSize: 20
+            },
+            {
+                  header: 'Change Role',
+                  cell: (row) => (<a href="#" onClick={() => ChangeUserRole(true, row.renderValue())}><HiMiniPuzzlePiece className='text-blue-600' width={6} height={6} /></a>),
+                  accessorKey: 'data',
+                  maxSize: 20
+            },
+            {
+                  header: 'Change Department',
+                  cell: (row) => (<a href="#" onClick={() => ChangeUserDepartment(true, row.renderValue())}><HiMiniSwatch className='text-blue-600' width={6} height={6} /></a>),
                   accessorKey: 'data',
                   maxSize: 20
             }
@@ -322,7 +360,7 @@ export default function Staffs()
                     openSuspend &&  <SuspendUserModal 
                                                 onClick={() => {
                                                    refetch()
-                                                   setSuspend(false)
+                                                   setOpenSuspend(false)
                                                 }} 
                                                 openSuspendUser={openSuspend} 
                                                 data={userData}  
@@ -332,10 +370,53 @@ export default function Staffs()
 
                 {
                     openStaff && <AddStaffModal onClick={
-                                        () => setOpenStaff(false)
+                                        () => {
+                                            setOpenStaff(false)
+                                            toast.success("Staff Created", {
+                                              position: "top-center",
+                                            });
+                                            refetch()
+                                        }
                                     } 
                                     openAddMember={openStaff} 
                                     token={token} 
+                                    departments={data?.data?.staffs?.departments}
+                                    roles={data?.data?.staffs?.roles}
+                                />
+                }
+
+                {
+                    openRole && <ChangeStaffRoleModal onClick={                        
+                                        () => {  
+                                            setOpenStaff(false)
+                                            refetch()
+                                            toast.success("Role Changed", {
+                                              position: "top-center",
+                                            });
+                                            setOpenRole(false)  
+                                        } 
+                                    } 
+                                    openAddMember={openRole} 
+                                    token={token} 
+                                    roles={data?.data?.staffs?.roles}
+                                    data={userData}
+                                />
+                }
+
+                {
+                    openDepartment && <ChangeStaffDepartmentModal onClick={
+                                        () => {   
+                                            refetch()  
+                                            toast.success("Department Changed", {
+                                              position: "top-center",
+                                            });
+                                            setOpenDepartment(false) 
+                                        } 
+                                    } 
+                                    openAddMember={openDepartment} 
+                                    token={token} 
+                                    departments={data?.data?.staffs?.departments}
+                                    data={userData}
                                 />
                 }
             

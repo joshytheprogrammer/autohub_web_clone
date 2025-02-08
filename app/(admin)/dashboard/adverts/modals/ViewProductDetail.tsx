@@ -23,28 +23,35 @@ export const ViewProductDetail = ({onClick, openViewProductDetail, product}: Vie
 
     const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`get-all-product`, product?.tb_id, token], queryFn: () => GetProductDetail(product?.tb_id, token)})
   
-    const placeAdvert = (imageId: number) => 
+    const placeAdvert = (imageId: number, status: string) => 
     {
-        const Place = PlaceAsAdvert(Number(imageId), Number(product?.tb_id), token)
-        Place.then((response) => 
+        if(status === 'active')
         {
-            if(response?.status === 200)
+            const Place = PlaceAsAdvert(Number(imageId), Number(product?.tb_id), token)
+            Place.then((response) => 
             {
-                toast.success(response?.message, {
-                  position: "top-center",
-                });
-                refetch()
-                // alert(response?.message)
-            } else {
-                toast.success(response?.message, {
-                  position: "top-center",
-                });
-                refetch()
-                // alert("Advert could not be placed")
-            }
-        }).catch(() => {
-
-        })
+                if(response?.status === 200)
+                {
+                    toast.success(response?.message, {
+                      position: "top-center",
+                    });
+                    refetch()
+                    // alert(response?.message)
+                } else {
+                    toast.success(response?.message, {
+                      position: "top-center",
+                    });
+                    refetch()
+                    // alert("Advert could not be placed")
+                }
+            }).catch(() => {
+    
+            })
+        } else {
+            toast.error(`You can not place as an advert, product is ${status}`, {
+              position: "top-center",
+            });
+        }
     }
 
     return (
@@ -235,13 +242,13 @@ export const ViewProductDetail = ({onClick, openViewProductDetail, product}: Vie
                                     </div> 
                                     { 
                                         data?.data?.images && (data?.data?.images.length > 0) && data?.data?.images.map((img: any, index: number) => {
-                                                let cssStyle = (img.as_advert === 1) ? "col-span-3 md:col-span-3 border border-2 mb-5 relative border border-2 p-3 bg-green-100 border-green-700" : "col-span-3 md:col-span-3 border border-2 mb-5 relative"
+                                                let cssStyle = (Number(img.as_advert) === 1) ? "col-span-3 md:col-span-3 border border-2 mb-5 relative border border-2 p-3 bg-green-100 border-green-700" : "col-span-3 md:col-span-3 border border-2 mb-5 relative"
                                                 return (
                                                         <div className={cssStyle} key={index}>
                                                             <img src={`${USAGE_PATH.PRODUCT_FACE}${img.image_url}`} alt="product images" />
                                                                 <button 
                                                                     onClick={() => {
-                                                                        placeAdvert(img?.id)
+                                                                        placeAdvert(img?.id, data?.data?.status)
                                                                     }} 
                                                                     className='hover:bg-green-800 rounded-full text-sm p-3 px-5 bg-blue-700 text-white font-bold absolute bottom-11 right-11'>
                                                                     place as advert - {img.as_advert}

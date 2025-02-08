@@ -69,7 +69,7 @@ const SelectFuel = ({ onClick, placeholder, selectedFuel, incomingData, edit }: 
                         type="text"
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value.toLowerCase())}
-                        placeholder="Enter country name"
+                        placeholder="Search Fuel"
                         className="placeholder:text-gray-700 p-2 outline-none w-full"
                     />
                 </div> 

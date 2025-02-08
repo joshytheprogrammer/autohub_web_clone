@@ -72,7 +72,7 @@ const SelectColour = ({ onClick, placeholder, selectedColour, incomingData, edit
                         type="text"
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value.toLowerCase())}
-                        placeholder="Enter country name"
+                        placeholder="Search Colour"
                         className="placeholder:text-gray-700 p-2 outline-none w-full"
                     />
                 </div>

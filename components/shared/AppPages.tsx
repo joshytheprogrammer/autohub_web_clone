@@ -28,12 +28,8 @@ export const AppPages = [
         goTo: '/car-loan' 
     },
     {   
-        name: 'MACEOS', 
-        goTo: '/maceos', 
-        subMenu: [ 
-                    { name: 'Academy', goTo: '/academy' }, 
-                    { name: 'Business Loan', goTo: '/business-loan' } 
-                ] 
+        name: 'MACEOS Academy', 
+        goTo: '/portal' 
     },
     {   
         name: 'OAS', 

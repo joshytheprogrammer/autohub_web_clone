@@ -62,7 +62,7 @@ export default function Agreement({onClick}: AgreementProp)
       <>
         { dom &&
           <div 
-              className="w-full mx-auto my-4 d-flex items-center justify-center pl-10 pr-10 pb-10 md:-mt-30 mt-1 gap-5"
+              className="w-full mx-auto my-4 d-flex items-center justify-center md:pl-10 md:pr-10 pb-10 md:-mt-30 mt-1 gap-5"
           >   
               <section 
                     className="max-h-[calc(100vh-400px)] w-full bg-white rounded-[10px] relative flex flex-col justify-between overflow-hidden"

@@ -23,7 +23,7 @@ export default function WishListProduct()
     const usertype: string = userToken.getUType()
 
     const [currentPage, setCurrentPage] = useState(1)  
-    const [perPage] = useState(20) 
+    const [perPage] = useState(10) 
 
     const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`wishlist-products-${currentPage}-${perPage}`, currentPage, perPage, token], queryFn: () => WishListProducts(Number(currentPage), Number(perPage), token, usertype)})
     
@@ -52,7 +52,7 @@ export default function WishListProduct()
                             </div>
                 }
                   
-                {  !isLoading && (data?.data?.product_advert?.product.length === 0) && <>
+                {  !isLoading && (data?.data?.product_advert?.noOfPages === 0) && <>
                         <div 
                             className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
                         >
@@ -73,7 +73,7 @@ export default function WishListProduct()
                     </>
                 }
                   
-                {  !isLoading && (data?.data?.product_advert?.product.length > 0) && <>
+                {  !isLoading && (data?.data?.product_advert?.noOfPages > 0) && <>
                         <div 
                             className="container px-2 mr-3 border-2 border-gray-200 flex justify-between items-center mb-5"
                         >
@@ -91,7 +91,7 @@ export default function WishListProduct()
                     className="grid grid-cols-12 gap-5 rounded-md mb-5 gap-2 md:mx-0 mr-2"
                 >
                 {
-                  !isLoading && (data?.data?.product_advert?.product.length > 0) && data?.data?.product_advert?.product.map((product: any, index: number) => 
+                  !isLoading && (data?.data?.product_advert?.noOfPages > 0) && data?.data?.product_advert?.product.map((product: any, index: number) => 
                             {
                                 return (
                                     <>
@@ -100,7 +100,7 @@ export default function WishListProduct()
                                         className="relative col-span-12 md:col-span-6 d-flex mb-3 p-1 border-2 border-green-200 bg-white"
                                     >
                                         <div 
-                                            className="w-w-2/2 flex h-[235px] md:h-[235px]"
+                                            className="w-w-2/2 flex h-[190px] md:h-[235px]"
                                         >     
                                             <div 
                                                 className="w-6/12"
@@ -114,15 +114,15 @@ export default function WishListProduct()
                                             <div 
                                                 className="w-6/12 p-5 d-flex pr-3"
                                             >
-                                                <p className="text-[19px] text-green-700 font-semibold -mt-5">{product?.title}</p>
-                                                <p className="text-[18px] text-blue-600 font-semibold md:mt-1">{ currencyFormatter(product?.price) }</p>
+                                                <p className="text-[16px] md:text-[17px] lg:text-[18px] text-green-700 font-semibold -mt-5">{product?.title}</p>
+                                                <p className="text-[15px] md:text-[15px] lg:text-[17px] text-blue-600 font-semibold md:mt-1">{ currencyFormatter(product?.price) }</p>
                                                 <div 
                                                     className="flex justify-left items-center mt-1"
                                                 >
-                                                    <BsGeoAltFill className='w-3 h-3 text-red-600 md:mt-1 mr-3' />
-                                                    <span className="text-[16px]">{product?.country} - </span>
-                                                    <span className="text-[13px] ml-1"> {product?.state}</span>
-                                                </div>                                                 
+                                                    <BsGeoAltFill className='w-3 h-3 text-red-600 md:mt-1 mr-1' />
+                                                    <span className="md:text-[16px] text-[13px] text-red-500 font-bold">{product?.country} - </span>
+                                                    <span className="text-[13px] ml-1 font-semibold"> {product?.state}</span>
+                                                </div>                                                
                                                 <div 
                                                         className="w-fit px-2 py-2 rounded-md cursor-pointer mt-2 flex justify-left items-center hover:bg-green-600 hover:text-white bg-white border-2 border-green-200"
                                                         onClick={() => {
@@ -143,7 +143,7 @@ export default function WishListProduct()
                                             </div>                                        
                                         </div>
                                         <div 
-                                            className="w-full mt-1 absolute bg-white bottom-0 left-0 p-1"
+                                            className="w-full -mt-20 md:-mt-0 absolute bg-white bottom-0 left-0 p-1"
                                         >
                                             <WishControl  product={product} refetch={() => {
                                                         refetch()
@@ -159,7 +159,7 @@ export default function WishListProduct()
                         }
                 </div>
                 
-                {  !isLoading && (data?.data?.product_advert?.product.length > 0) && <>
+                {  !isLoading && (data?.data?.product_advert?.noOfPages > 0) && <>
                         <div 
                             className="container px-2 mr-3 border-2 border-gray-200 flex justify-between items-center mb-5"
                         >
@@ -175,7 +175,7 @@ export default function WishListProduct()
 
             <div className="mt-14">
                 { 
-                    !isLoading && isRefetching && (data?.data?.product_advert?.product.length > 0) && 
+                    !isLoading && isRefetching && (data?.data?.product_advert?.noOfPages > 0) && 
                             <Pagination onClick={(data) => {
                                       setCurrentPage(data)
                                       setTimeout(() => {
@@ -194,7 +194,7 @@ export default function WishListProduct()
 
             <div className="mt-14">
                 { 
-                    !isLoading && !isRefetching && (data?.data?.product_advert?.product.length > 0) && 
+                    !isLoading && !isRefetching && (data?.data?.product_advert?.noOfPages > 0) && 
                             <Pagination onClick={(data) => {
                                       setCurrentPage(data)
                                       setTimeout(() => {

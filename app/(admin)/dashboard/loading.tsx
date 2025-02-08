@@ -1,5 +1,5 @@
 import React from 'react'
-import { RotateLoader } from 'react-spinners'
+import { PuffLoader } from 'react-spinners'
 
 export default function loading() 
 {
@@ -7,7 +7,7 @@ export default function loading()
       <div 
           className="ccontainer mx-auto h-screen flex justify-center items-center" style={{ marginTop: '0px', paddingTop: '0px' }}
       >
-          <RotateLoader className='w-12 h-12' />
+          <PuffLoader className='w-12 h-12' />
       </div>
   )
 }

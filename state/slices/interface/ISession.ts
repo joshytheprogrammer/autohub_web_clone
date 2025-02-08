@@ -29,4 +29,8 @@ export interface ISession
     getPassport: () => void
     setPassport: (passport: any) => void
     
+    sideType: ""
+    getSideType: () => void
+    setSideType: (sideType: any) => void
+    
 }

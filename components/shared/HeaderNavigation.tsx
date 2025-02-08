@@ -17,6 +17,7 @@ import { HiMiniPower } from 'react-icons/hi2';
 import { UseStore } from '../../state/store';
 import ProfilePicture from '../../app/(user)/user/adverts/control/profile-picture';
 import { Logout } from '../Logout';
+import SmallScreen from './SmallScreen';
 
 
 // const marketPlate = 
@@ -143,40 +144,46 @@ export default function HeaderNavigation()
                             <section 
                                     className='p-3 d-flex -mt-10'
                             >
-                                <div 
-                                    className='flex justify-left h-[fit] px-10 py-5 text-white gap-10'
-                                >
-                                    <section 
-                                        className='w-5/12'
-                                    >
-                                        {/* <img src='' className='h-[90px] w-[90px] flex justify-left rounded-full bg-blue-200 mb-3' /> */}
-                                        <ProfilePicture />
-                                    </section>
-                                    <section 
-                                        className='w-7/12 -ml-7'
-                                    >   
+                                { 
+                                    token && 
                                         <div 
-                                            className='w-full flex justify-left font-bold text-[15px] mt-5'
+                                            className='flex justify-left h-[fit] px-10 py-5 text-white gap-10'
                                         >
-                                            {firstname} {surname}
+                                            <section 
+                                                className='w-5/12'
+                                            >
+                                                {/* <img src='' className='h-[90px] w-[90px] flex justify-left rounded-full bg-blue-200 mb-3' /> */}
+                                                <ProfilePicture />
+                                            </section>
+                                            <section 
+                                                className='w-7/12 -ml-7'
+                                            >   
+                                                <div 
+                                                    className='w-full flex justify-left font-bold text-[15px] mt-5'
+                                                >
+                                                    {firstname} {surname}
+                                                </div>
+                                                <div 
+                                                    className='w-full flex justify-left font-bold text-sm uppercase border-2 border-blue-400 rounded-lg pl-1'
+                                                >
+                                                    {member}
+                                                </div>
+                                                <div 
+                                                    className='w-full flex justify-left font-bold text-md'
+                                                >
+                                                    <HiMiniPower 
+                                                            className='mr-1 text-2xl mt-2 cursor-pointer hover:text-red-600' 
+                                                            onClick={() => {
+                                                                setOpenLoggedOut(true)                             
+                                                            }}
+                                                    />
+                                                </div>
+                                            </section>
                                         </div>
-                                        <div 
-                                            className='w-full flex justify-left font-bold text-md uppercase'
-                                        >
-                                            {member}
-                                        </div>
-                                        <div 
-                                            className='w-full flex justify-left font-bold text-md'
-                                        >
-                                            <HiMiniPower 
-                                                    className='mr-1 text-2xl mt-2 cursor-pointer hover:text-red-600' 
-                                                    onClick={() => {
-                                                        setOpenLoggedOut(true)                             
-                                                    }}
-                                            />
-                                        </div>
-                                    </section>
-                                </div>
+                                }
+                                {
+                                    !token && <div className='h-[50px]'></div>
+                                }
                                 
                                     <ul className='w-full mt-2'>
                                         {
@@ -189,7 +196,7 @@ export default function HeaderNavigation()
                                                         onClick={() => { setMenu(false) }}
                                                 >
                                                     <span 
-                                                            className='flex px-5 py-2 bg-[#1c733d] hover:bg-green-900 text-white mb-1 cursor-pointer text-left text-[14px] font-bold text-[#bdbcbb] hover:text-white'
+                                                            className='flex px-5 py-2 bg-[#1c733d] border-2 border-green-700 hover:bg-green-900 text-white mb-1 cursor-pointer text-left text-[14px] font-bold text-[#bdbcbb] hover:text-white'
                                                     >                                                
                                                         {user?.name}
                                                     </span>
@@ -228,7 +235,7 @@ export default function HeaderNavigation()
                 </div>
                 {/* second header  */}
                 <nav 
-                    className='flex md:grid md:grid-cols-12 pb-4 md:pb-2 justify-between justify-center'
+                    className='flex md:grid md:grid-cols-12 pb-4 md:pb-2 justify-center'
                 >
                     <Logo />         
                     <div className='md:block hidden md:col-span-8'
@@ -238,6 +245,12 @@ export default function HeaderNavigation()
                     <RightSide />
                     <PostAdvert />
                 </nav>
+             
+              
+                <div className='w-full md:hidden pb-2 mb-2'
+                >        
+                    <SmallScreen />
+                </div>
 
 
                 </div> 

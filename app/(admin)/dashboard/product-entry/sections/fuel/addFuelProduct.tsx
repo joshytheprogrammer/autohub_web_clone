@@ -1,23 +1,54 @@
 import { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { Modal } from "../../../../../../components/modal/Modal";
+import { AddFuel } from "../../../../../api/admin/market/fuel";
+import Message from "../../../../../../components/shared/Message";
+import toast from "react-hot-toast";
 
 type AddFuelProductProps = 
 {
-    onClick: (isOpen: boolean) => void,
+    onClick: () => void,
     openFuelProduct: boolean,
-    userType: string
     token: string
 } 
 
-export const AddFuelProduct = ({onClick, openFuelProduct, userType, token}: AddFuelProductProps)  =>
+export const AddFuelProduct = ({onClick, openFuelProduct, token}: AddFuelProductProps)  =>
 {
-        const [loading, setIsLoading] = useState(false)
+        const [loading, setIsLoading] = useState<boolean>(false)
+        const [name, setName] = useState<string>("")
+        const [errMsgStyle, setErrMsgStyle] = useState<string>('')
+        const [errorMessage, setErrorMessage] = useState<string>("")
 
-        useEffect(() => {
-                setIsLoading(false)
-                console.log({ userType, token })
+        useEffect(() => 
+        {
+           setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
+           setErrorMessage("")
+           setIsLoading(false)
         }), []
+        
+        const AddFueel = () => 
+        {
+            setIsLoading(true)
+            const addFuel = AddFuel(name, token)
+            addFuel.then((response) => 
+            {
+                if(response?.status === 200)
+                {
+                   toast.success('Created', {
+                       position: "top-center",
+                   });
+                   onClick()  
+                } else {
+                   setErrorMessage(response?.message)
+                   setTimeout(() => 
+                   {
+                      setErrorMessage("")
+                   }, 5000)
+                }
+            }).then(() => {
+
+            })
+        }
 
         return (
                 <Modal 
@@ -26,6 +57,7 @@ export const AddFuelProduct = ({onClick, openFuelProduct, userType, token}: AddF
                         <div 
                                 className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
                         >
+                                { errorMessage && <Message msg={errorMessage} status={errMsgStyle} />  }
                                 <div 
                                                 className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
                                 >
@@ -37,7 +69,10 @@ export const AddFuelProduct = ({onClick, openFuelProduct, userType, token}: AddF
                                         <div 
                                                 className="mb-4 md:w-full"
                                         >
-                                                <input  
+                                                <input   
+                                                        onChange={(e) => {
+                                                                setName(e.target.value) 
+                                                        }}
                                                         className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                                         type="text" name="fuel" id="fuel" placeholder="Enter Fuel Name" 
                                                 />
@@ -48,7 +83,7 @@ export const AddFuelProduct = ({onClick, openFuelProduct, userType, token}: AddF
                                                 {
                                                         <button 
                                                                 className="py-3 px-4 bg-red-700 hover:bg-red-800 text-white font-semibold text-sm rounded-xl w-max"
-                                                                onClick={() => onClick(openFuelProduct) }
+                                                                onClick={() => onClick() }
                                                         >
                                                                         Close
                                                         </button>
@@ -56,9 +91,9 @@ export const AddFuelProduct = ({onClick, openFuelProduct, userType, token}: AddF
                                                 {
                                                 <button 
                                                                 className="py-3 px-4 bg-green-800 hover:bg-green-700 text-white font-semibold text-sm rounded-xl w-max"
-                                                                onClick={() => console.log('')}
+                                                                onClick={() => AddFueel()}
                                                                         >
-                                                                {       loading ? ( <BeatLoader size={9} color="#fff" />) : ( "Create" )          }
+                                                                {       loading ? ( <BeatLoader size={9} color="#fff" />) : ( "Add" )          }
                                                 </button>
                                                 }
                                         </div>

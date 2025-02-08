@@ -8,7 +8,7 @@ import Registration from './pages/registration'
 import { UseStore } from '../../../../state/store'
 
 
-export default function page() 
+export default function Page() 
 {
       const adverState = UseStore((state) => state)
       const [section, setSection] = useState<number>(-1)
@@ -17,6 +17,11 @@ export default function page()
       {
          setSection(adverState.getDealerAgreement())  
       }, [])
+
+      useEffect(() => 
+      {
+         setSection(adverState.getDealerAgreement())  
+      }, [adverState])
     
       return (
       <>  
@@ -35,7 +40,7 @@ export default function page()
                               className='w-full'
                         >
                               <h3 
-                                    className='flex text-white font-bold justify-center mb-5 uppercase text-lg'
+                                    className='flex text-white font-bold justify-center mb-5 uppercase  text-[14px] md:text-[18px]'
                               >
                                     Signup to start selling and buying
                               </h3>

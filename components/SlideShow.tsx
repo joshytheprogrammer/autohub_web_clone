@@ -4,14 +4,19 @@ import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs';
 import currencyFormatter from './util/currency-formatter';
 import { USAGE_PATH } from '../constant/Path';
 import { HiOutlineSpeakerphone } from 'react-icons/hi';
+import { useLiveQuery } from "dexie-react-hooks";
+import { settingsDB } from '../app/model/Product';
 
 
-export default function SlideShow({ data, imageSize }: { data: any, imageSize: number }) 
+export default function SlideShow({ data, imageSize, timer }: { data: any, imageSize: number, timer: number }) 
 {
     const router = useRouter()
     const [slide, setSlide] = useState<number>(0)
+    const slideTimer = useLiveQuery(() => settingsDB.get(1));
+    let timing: number = Number(slideTimer?.timer)
     let sliderTimeOut: any;
 
+  
     useEffect(() => 
     {
         sliderTimeOut =  setTimeout(() => 
@@ -27,8 +32,8 @@ export default function SlideShow({ data, imageSize }: { data: any, imageSize: n
             } else {
                 setSlide(0)
             }
-        }, 5000);
-    }, [slide])
+        }, timing);
+    }, [timing])
 
     const nextSlide = () => 
     {
@@ -48,7 +53,7 @@ export default function SlideShow({ data, imageSize }: { data: any, imageSize: n
               {
                  (data?.length === 0) && <>
                     <div 
-                        className="w-full h-[10px] md:h-[400px] d-flex justify-center items-center mx-auto pt-20"
+                        className="w-full h-[400px] md:h-[400px] d-flex justify-center items-center mx-auto pt-14"
                     >
                             <div 
                                 className='w-full flex justify-center items-center mt-10'
@@ -66,61 +71,60 @@ export default function SlideShow({ data, imageSize }: { data: any, imageSize: n
                     </div>
                   </>
               }
-              {
-                
-          <div 
-                className="z-40 carousel h-[400px] md:h-full lg:h-full w-full m-auto overflow-hidden relative cursor-pointer"                
-          >
-             {
-                 ((data?.length > 0)) && <img
-                                                src={`${USAGE_PATH.IMAGE_SLIDER}${data[slide]?.image_url}`} 
-                                                className="slide absolute w-full h-full object-fit"
-                                                onClick={() => 
-                                                {
-                                                    router.push(`/product-detail/${data[slide]?.slug}`)
-                                                }}
-                                            />
-             }
-
-             {
-                (data?.length > 1) && <>
-                    <div 
-                        className="absolute top-[40%] -translate-x-0 translate-y-[-50%] z-5 left-5 text-xl rounded-full cursor-pointer bg-green-100 p-1"
-                    > 
-                        <BsArrowLeftCircleFill color="gray" className="arrow arrow-left w-9 h-9 text-white hover:bg-green-700 hover:fill-red" style={{ backgroundColor: "" }} onClick={prevSlide} />
-                    </div>
-                    <div 
-                        className="absolute top-[40%] -translate-x-0 translate-y-[-50%] right-5 text-xl rounded-full cursor-pointer bg-green-100 p-1"
-                    >
-                       <BsArrowRightCircleFill color="gray" className="arrow arrow-right w-9 h-9 text-white" style={{ backgroundColor: "" }} onClick={nextSlide} />
-                    </div>
-                </>
-             }
-
-            {
-              (data?.length > 0) && 
-               <div 
-                    className="absolute bg-blue-600 hover:bg-green-600 hover:border-2 hover:border-white rounded-lg px-4 py-2 bottom-7 md:bottom-5 font-semibold text-md text-white right-10"
-                    onClick={() => 
-                    {
-                        router.push(`/product-detail/${data[slide]?.slug}`)
-                    }}
+              {    (data?.length > 0) &&             
+                <div 
+                        className="z-40 carousel h-[330px] md:h-[400px] md:h-full lg:h-full w-full m-auto overflow-hidden relative cursor-pointer"                
                 >
-                   <span 
-                        className=""
-                    >
-                        {  data[slide]?.title } - {currencyFormatter(data[slide]?.price)}
-                    </span>
-                   <br />
-                   <span 
-                        className="text-sm font-bold"
-                    >
-                       { data[slide]?.country } - { data[slide]?.state }  
-                   </span>
-                 </div>
-            }
+                    {
+                        ((data?.length > 0)) && <img
+                                                        src={`${USAGE_PATH.IMAGE_SLIDER}${data[slide]?.image_url}`} 
+                                                        className="slide absolute w-full h-full object-fit"
+                                                        onClick={() => 
+                                                        {
+                                                            router.push(`/product-detail/${data[slide]?.slug}`)
+                                                        }}
+                                                    />
+                    }
 
-         </div>
+                    {
+                        (data?.length > 1) && <>
+                            <div 
+                                className="absolute top-[40%] -translate-x-0 translate-y-[-50%] z-5 left-5 text-xl rounded-full cursor-pointer bg-green-100 p-1"
+                            > 
+                                <BsArrowLeftCircleFill color="gray" className="arrow arrow-left w-9 h-9 text-white hover:bg-green-700 hover:fill-red" style={{ backgroundColor: "" }} onClick={prevSlide} />
+                            </div>
+                            <div 
+                                className="absolute top-[40%] -translate-x-0 translate-y-[-50%] right-5 text-xl rounded-full cursor-pointer bg-green-100 p-1"
+                            >
+                            <BsArrowRightCircleFill color="gray" className="arrow arrow-right w-9 h-9 text-white" style={{ backgroundColor: "" }} onClick={nextSlide} />
+                            </div>
+                        </>
+                    }
+
+                    {
+                    (data?.length > 0) && 
+                    <div 
+                            className="absolute bg-blue-600 hover:bg-green-600 hover:border-2 hover:border-white rounded-lg px-4 py-2 bottom-7 md:bottom-5 font-semibold text-md text-white right-10"
+                            onClick={() => 
+                            {
+                                router.push(`/product-detail/${data[slide]?.slug}`)
+                            }}
+                        >
+                        <span 
+                                className=""
+                            >
+                                {  data[slide]?.title } - {currencyFormatter(data[slide]?.price)}
+                            </span>
+                        <br />
+                        <span 
+                                className="text-sm font-bold"
+                            >
+                            { data[slide]?.country } - { data[slide]?.state }  
+                        </span>
+                        </div>
+                    }
+
+                </div>
               }
           </>
     )

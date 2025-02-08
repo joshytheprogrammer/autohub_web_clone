@@ -1,5 +1,5 @@
 import React from 'react'
-import { RotateLoader } from 'react-spinners'
+import { PuffLoader } from 'react-spinners'
 import Logo from '../../../../components/shared/Logo'
 
 export default function loading() 
@@ -21,7 +21,7 @@ export default function loading()
               >
                   <div className="col-span-12 h-[50px] flex justify-center items-center" style={{ marginTop: '20px', paddingTop: '0px' }}
                     >
-                        <RotateLoader className='w-12 h-12' />
+                        <PuffLoader className='w-12 h-12' />
                     </div>
                 </div>
           </div>

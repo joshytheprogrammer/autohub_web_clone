@@ -4,7 +4,7 @@ import '../../globals.css'
 import HeaderNavigation from '../../../components/shared/HeaderNavigation'
 import Footer from '../../../components/shared/Footer'
 import UserProvider from '../../../provider/UserProvider'
-import MemberDealerNavigation from '../../../components/MemberDealerNavigation'
+import UserTypeNavigation from './UserTypeNavigation'
 // import IsAuthenticated from '../../route/IsAuthenticated'
 
 // const inter = Inter({ subsets: ['latin'] })
@@ -37,33 +37,33 @@ export default function UserLayout(
           },
       ]
 
-      // const classRoom = 
-      // [
-      //     {
-      //         name: "dashboard",
-      //         url: "/user/dashboard"
-      //     },
-      //     {
-      //         name: "course",
-      //         url: "/user/course"
-      //     },
-      //     {
-      //         name: "time-table",
-      //         url: "/user/time-table"
-      //     },
-      //     {
-      //         name: "test",
-      //         url: "/user/test"
-      //     },
-      //     {
-      //         name: "exam",
-      //         url: "/user/exam"
-      //     },
-      //     {
-      //         name: "faq",
-      //         url: "/user/faq"
-      //     },
-      // ]
+      const classRoom = 
+      [
+          {
+              name: "dashboard",
+              url: "/user/dashboard"
+          },
+          {
+              name: "course",
+              url: "/user/course"
+          },
+          {
+              name: "time-table",
+              url: "/user/time-table"
+          },
+          {
+              name: "test",
+              url: "/user/test"
+          },
+          {
+              name: "exam",
+              url: "/user/exam"
+          },
+          {
+              name: "faq",
+              url: "/user/faq"
+          },
+      ]
 
       return (
         <html lang="en">
@@ -76,7 +76,7 @@ export default function UserLayout(
                   {/* <IsAuthenticated>                 */}
                       <div className='container relative w-full gap-5 flex justify-between mt-2 mb-4 mx-auto'
                       >
-                        <MemberDealerNavigation marketPlace={marketPlate} />  
+                        {  <UserTypeNavigation marketPlace={marketPlate} classRoom={classRoom} />  }
                       
                           {/* <div className='bg-green-400 d-flex bg-green-50 border-shadow drop-shadow-lg md:block h-[fit] px-1 py-5 mt-3 md:rounded-2xl -mb-24 md:mb-0'>                   */}
                           <div 

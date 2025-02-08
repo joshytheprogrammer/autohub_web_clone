@@ -11,7 +11,7 @@ import { HiHome } from 'react-icons/hi2'
 import { NewPassword } from '../../api/auth/auth'
 
 
-export default function page() 
+export default function Page() 
 {
       const params = useSearchParams()
       const router = useRouter()
@@ -35,7 +35,7 @@ export default function page()
     
       useEffect(() => 
       {
-         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
+          setErrMsgStyle('text-sm text-white font-bold bg-red-600 rounded-lg py-2 -mt-1 px-2')
       }, []) 
     
       const ResetPassword = async () => 
@@ -77,7 +77,13 @@ export default function page()
             }
             return false
       }
-    
+      
+      
+      const SubmitData = (event: any) => 
+      {
+         event.preventDefault();
+         ResetPassword()
+      }
     
       const allFields = () =>
       {
@@ -119,10 +125,14 @@ export default function page()
                         className='w-full d-flex gap-10'
                   >
                         <div 
-                              className="w-full p-10 md:px-9 md:pt-10 md:pb-5 d-flex items-center justify-center rounded-md md:rounded-xl bg-[#23913b] hover:text-white mb-20 md:mb-0 border-2 border-green-700"
+                              className="w-full p-4 md:px-9 md:pt-10 md:pb-5 pb-14 d-flex items-center justify-center rounded-md md:rounded-xl bg-[#23913b] hover:text-white mb-20 md:mb-0 border-2 border-green-700"
                         >
+                              
+                              <form 
+                                    onSubmit={SubmitData}
+                              >
                                     <div  
-                                          className='w-full d-flex gap-10 md:mb-3'
+                                          className='w-full d-flex gap-10 md:mb-3 mt-5'
                                     > 
                                           <div 
                                                 className="mb-4 md:w-full"
@@ -188,34 +198,31 @@ export default function page()
                                                 { loading ? <BeatLoader size={10} color="white" className="" /> : "Submit"}
                                           </button>
                                     </div>
+                              </form>
                                     <div  
-                                          className='w-full flex justify-between md:flex gap-10 md:mb-3 mt-10 px-5'
+                                          className='w-full flex justify-between md:flex gap-10 md:mb-3 mt-10 px-5 pb-5'
                                     >                                       
                                           <div 
                                                 className='d-flex justify-center text-center text-white'
                                           >
-                                                <div className=''>Access your account</div>
+                                                <div className='hidden md:block'>Access your account</div>
                                                 <div className='text-md hover:text-blue-300 font-bold'>
                                                       <Link href={'/login'}>Login</Link>
                                                 </div>
                                           </div>  
-                                          <div 
-                                                className='text-md text-white hover:text-blue-300 font-bold text-md'>
+                                          <div className='text-md text-white hover:text-blue-300 font-bold text-md'>
                                                 <Link href={'/'}
                                                 >                                
-                                                      <div className='mt-1 mr-2 flex justify-center items-center'
-                                                      >
-                                                            <HiHome className='mr-1 text-2xl mt-2'/>
-                                                      </div>
+                                                      <div className='mt-1 mr-2 flex justify-center items-center'><HiHome className='mr-1 text-2xl md:mt-2'/></div>
                                                 </Link>
-                                          </div>
+                                          </div> 
                                           <div 
                                                 className='d-flex justify-center text-center text-white'
                                           >
-                                                <div className=''>If you don't have an account </div>
-                                                <div className='text-md hover:text-blue-300 font-bold'>
-                                                      <Link href={'/register'}>Create one now.</Link>
-                                                </div>
+                                          <div className='hidden md:block'>If you do not have an account </div>
+                                          <div className='text-md hover:text-blue-300 font-bold'>
+                                                <Link href={'/register'}>Create one now.</Link>
+                                          </div>
                                           </div>
                                     </div>
                               </div>

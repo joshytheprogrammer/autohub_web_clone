@@ -216,7 +216,7 @@ export default function Thumbnail()
                                                   { product?.status }
                                                 </span>
                                             </div>
-                                            <div className="w-full p-2 flex justify-center item-center space-x-52 md:space-x-24 bg-white mt-1">
+                                            <div className="w-full p-2 flex justify-center item-center space-x-32 md:space-x-24 bg-white mt-1">
                                                 <div className="font-bold w-2/2 text-xl text-green-700">{ currencyFormatter(product?.price) }</div>
                                                 <div className="flex justify-center space-between items-center center py-1 px-3 rounded-full bg-green-100">
                                                     <Icons iconName={'eye'} color="black" width={6} height={6} strokeWidth={1} />

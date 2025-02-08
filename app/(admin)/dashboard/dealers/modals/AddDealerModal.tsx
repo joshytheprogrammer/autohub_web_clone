@@ -36,10 +36,15 @@ export const AddDealerModal = ({onClick, openAddDealer, message, imageUrl, userI
 
      return (
                 <Modal 
-                        onClick={onClick} isOpen={openAddDealer} wrapperWidth={1000} margin={'100px auto 0px auto'}
+                    onClick={onClick} 
+                    isOpen={openAddDealer} 
+                    wrapperWidth={1000} 
+                    margin={'100px auto 0px auto'}
                 >
                         { errorMessage && <Message msg={errorMessage} status={errMsgStyle} />  }
-                        <div className='col-span-12 pt-1 pb-5 overflow-y-auto xm:overflow-y-scroll justify-center item-center'>
+                        <div 
+                            className='col-span-12 pt-1 pb-5 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
+                        >
                                 <h1 className='w-full flex justify-center items-center uppercase mb-5 font-bold mt-3 text-red-600'>{message}</h1>                               
                                 {
                                         // imageProductUrl && imageProductUrl !="" && <div className="max-w-sm rounded overflow-hidden shadow-lg m-auto">

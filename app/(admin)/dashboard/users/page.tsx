@@ -19,7 +19,7 @@ export default function Users()
     const userToken = UseStore((state) => state)
     const token: string = userToken.getUserToken()
     
-    const pages = [20, 50, 100, 200, 350, 500, 1000]
+    const pages = [20, 50, 100]
     const [currentPage, setCurrentPage] = useState<number>(1)  
     const [perPage, setPerPage] = useState<number>(pages[0])  
     const [searchQuery, setSearchQuery] = useState("")

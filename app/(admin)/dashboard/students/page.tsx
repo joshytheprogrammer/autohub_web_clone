@@ -1,152 +1,563 @@
 "use client"
 
-import React, { useEffect, useMemo, useState } from 'react';
-import { ColumnDef } from '@tanstack/react-table';
-import { Show } from '../../../../components/shared/Show';
-import { Icons } from '../../../../components/shared/Icons';
-import student from '../../../../components/shared/data/student.json'
-import { Table } from '../../../../components/shared/Table';
+import { CellContext, ColumnDef } from '@tanstack/react-table'
+import { useEffect, useMemo, useState } from "react"
+import { Show } from '../../../../components/shared/Show'
+import { Icons } from '../../../../components/shared/Icons'
+import { Table } from '../../../../components/shared/Table'
+import { UseStore } from '../../../../state/store'
+import { useQuery } from '@tanstack/react-query'
+import { PuffLoader } from 'react-spinners'
+import Pagination from '../../../../components/Pagination'
+import { AllStudent } from '../../../api/admin/academic/student'
+import { USAGE_PATH } from '../../../../constant/Path'
+import { SuspendUserModal } from '../users/modals/SuspendUserModal'
+import { ConfirmStudent } from './student/ConfirmStudent'
+import { Receipt } from './student/Receipt'
+import { StudentResult } from './student/StudentResult'
+import { ExamSchedule } from './student/ExamSchedule'
+import { TestSchedule } from './student/TestSchedule'
 
 
 export default function Students() 
 {
-      const [open] = useState<boolean>(false)
-      const [showModal] = useState<boolean>(false)
-      const [employeeId] = useState<string>('')
-      const [isItThis] = useState<string>('')  
-      const [openModal] = useState<boolean>(false)  
-      
-      const [editOpenModal] = useState<boolean>(false)
-      const [deleteOpenModal] = useState<boolean>(false)
-  
-      const [showingStates, setShowStates] = useState<boolean>(false)
-      const [action, setAction] = useState<boolean>(false)
-      const [showProfile, setShowProfile] = useState<boolean>(false)
+    const userToken = UseStore((state) => state)
+    const token: string = userToken.getUserToken()
+    
+    const pages = [20, 50, 100, 200, 350, 500, 1000]
+    const [currentPage, setCurrentPage] = useState<number>(1)  
+    const [perPage, setPerPage] = useState<number>(pages[0])  
+    const [searchQuery, setSearchQuery] = useState("")
 
-      const [refresh, setRefresh] = useState<boolean>(false)
+    const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`get-all-student`, currentPage, perPage, searchQuery, token], queryFn: () => AllStudent(currentPage, perPage, searchQuery, token)})
+   
+    const [open] = useState<boolean>(false)
+    const [showModal] = useState<boolean>(false)
+    const [employeeId] = useState<string>('')
+    const [isItThis] = useState<string>('')  
+    const [openModal] = useState<boolean>(false)  
+        
+    const [openSuspend, setOpenSuspend] = useState<boolean>(false)
+    // const [openDepartment, setOpenDepartment] = useState<boolean>(false)
+    const [confirmAccess, setConfirmAccess] = useState<boolean>(false)
+    const [receipt, setReceipt] = useState<boolean>(false)
+    // const [openRole, setOpenRole] = useState<boolean>(false)
+    const [studentResult, setStudentResult] = useState<boolean>(false)
+    // const [openStaff, setOpenStaff] = useState<boolean>(false)
+    const [openTestSchedule, setOpenTestSchedule] = useState<boolean>(false)
+    const [examTime, setExamTime] = useState<boolean>(false)
+    const [userData, setUserData] = useState<
+                                                { id: number, fullname: string, has_paid: string, access: string, user_id: number, passport: string, receipt: string }
+                                            >(
+                                                { id: -1, fullname: '', has_paid: '', access: '', user_id: -1, passport: '', receipt: '' }
+                                            )
+                                             
+    
+    const [showingStates, setShowStates] = useState<boolean>(false)
+    const [refresh, setRefresh] = useState<boolean>(false)
+    
+    const displayByPageNo = (page: any) => 
+    {   
+       setPerPage(Number(page)) 
+       setTimeout(() => 
+       {          
+          refetch()
+       }, 2000)        
+    }
+    
+    const tellThePost = (e: any) => 
+    {        
+        setSearchQuery(e.target.value)
+        setTimeout(() => 
+        {            
+           callTheSearch(e)
+        }, 2000)
+    }
+  
+    const callTheSearch = (e: any) => 
+    {        
+       if (e.target.value != "") 
+       {
+          refetch()
+       } else {
+          setSearchQuery("")       
+          refetch()                            
+       }
+    }
 
-      useEffect(() => 
-      {
-        setRefresh(false)
-      }, [open, showModal, employeeId, isItThis, openModal, editOpenModal, deleteOpenModal, showingStates, action, showProfile, refresh])
-      
-    //   const editModal = (page: any) => {
-    //       setEditModal(true)
-    //   }
+    useEffect(() => 
+    {
+       setRefresh(false)
+    }, [open, showModal, employeeId, isItThis, openModal, showingStates, refresh])
   
-    //   const deleteModal = (page: any) => {
-    //       setDeleteModal(true)
-    //   }
-  
-      const ShowStates = (page: any) => 
-      {
-          console.log(page)
-          setShowStates(true)
-      }
-  
-      const pages = (page: any) => {
-          // setShowModal(true)
-          // navigate(`${page}`);
-          console.log(page)
-          setAction(true)
-      }
-  
-      const setProfile = (data: any) => 
-      {
-          console.log(data)
-          setShowProfile(true)
-      }
-  
-      const Employee = () => 
-      {
-          return student.students;
-      }
 
-      type AllStudent = 
-      {
-          id: string
-          firstName: string
-          surName: string
-          middleName: string
-          studentId: string
-          phone: string
-          email: string
-          enrolled: string
-      }
+    useEffect(() => 
+    {
+       refetch()
+    }, [perPage, searchQuery])
   
-      const employees = useMemo<ColumnDef<AllStudent>[]>(
-          () => [
-          {
-            header: 'Firstname',
-            cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-            accessorKey: 'firstName',
-          },
-          {
-              header: 'Surname',
-              cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-              accessorKey: 'surName',
-          },
-          {
-              header: 'MiddleName',
-              cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-              accessorKey: 'middleName',
-          },
-          {
-              header: 'Student Id',
-              cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-              accessorKey: 'studentId',
-          },
-          {
-              header: 'Phone',
-              cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-              accessorKey: 'phone',
-          },
-          {
-              header: 'Email',
-              cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-              accessorKey: 'email',
-          },
-          {
-              header: 'Enrolled',
-              cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-              accessorKey: 'enrolled',
-          },
-          {
-              header: '...',
-              cell: (row) => (<a href="#" onClick={() => setProfile(row.cell.row.getValue.toString)}><Icons iconName="eye" width={5} height={5}/></a>),
-              accessorKey: '',
-          },
-          {
-              header: '...',
-              cell: (row) => (<a href="#" onClick={() => pages(row.cell.row.getValue.toString)}><Icons iconName="list-bullet" width={4} height={4}/></a>),
-              accessorKey: '',
-          }
+    const ShowStates = (page: any) => 
+    {
+       console.log(page)
+       setShowStates(true)
+    }
+
+    // const SuspendUser = (x: boolean, data: any) => 
+    // {
+    //    setUserData(data)
+    //    setOpenSuspend(x)
+    // }
+
+    const SeeResult = (x: boolean, data: any) => 
+    {
+       setUserData(data)
+       setStudentResult(x)
+    }
+
+    const SeeReceipt = (x: boolean, data: any) => 
+    {
+        setUserData(data)
+        setReceipt(x)        
+    }
+
+    const SeeTestSchdule = (x: boolean, data: any) => 
+    {
+        setUserData(data)
+        setOpenTestSchedule(x)        
+    }
+    
+    type AllStudent = 
+    {
+        id:  number,
+        firstname:  string,
+        surname:  string,
+        phone:  string,
+        dob:  string,
+        gender:  string,
+        email:  string,
+        identification_no:  string,
+        status:  string,
+        user_type_id:  number,
+        online:  string,
+        passport:  string,
+        journey:  string,
+        company_name:  string,
+        company_address:  string,
+        specialization:  string,
+        years_in:  number,
+        birth:  Date,
+        region:  string,
+        city:  string,
+        qualification:  string,
+        payment_id:  string,
+        payment_status:  string,
+        receipt:  string
+        authorization:  number,
+        result:  number,
+        test:  number,
+        exam:  number
+    }
+  
+    const Staff = useMemo<ColumnDef<AllStudent>[]>(
+          () => [            
+            {
+                  header: 'Picture',
+                  cell: (row) => {
+                        const image: string | unknown = row.renderValue()
+                        if(image === "no-image.png")
+                        {
+                            return <img src={`${USAGE_PATH.DEFAULT_AVATAR}${row.renderValue()}`} width={200} height={200} className='rounded-full border-2 border-blue-200' />
+                        } else {
+                            return <img src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} width={200} height={200} className='rounded-full' />                            
+                        }
+                  },
+                  accessorKey: 'passport',
+                  maxSize: 20
+            },
+            {
+                  header: 'Firstname',
+                  cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+                  accessorKey: 'firstname',
+            },
+            {
+                  header: 'Surname',
+                  cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+                  accessorKey: 'surname',
+            },
+            {
+                  header: 'Phone',
+                  cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+                  accessorKey: 'phone',
+            },
+            {
+                  header: 'Email',
+                  cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+                  accessorKey: 'email',
+            },
+            {
+                  header: 'Status',
+                  cell: (row) => (<a href="#"><Show color='black' display={row.renderValue()} /></a>),
+                  accessorKey: 'status'
+            },
+            {
+                  header: 'Payment Status',
+                  cell: (row: CellContext<AllStudent, unknown>) => {
+                                                                  const value:any = row.renderValue() as {}
+                                                                  const id: number = value?.id
+                                                                  const hasPaid: string = value?.has_paid
+                                                                  return (                                                                                                                               
+                                                                      <>
+                                                                        {hasPaid}
+                                                                      </>
+                                                                  )
+                                                              },
+                  accessorKey: 'payment_status',
+                  maxSize: 20
+            },
+            {
+                  header: 'Permission',
+                  cell: (row: CellContext<AllStudent, unknown>) => {
+                                                                  const value:any = row.renderValue() as {}
+                                                                  const hasPaid: string = value?.access
+                                                                  return (                                                                                                                               
+                                                                      <>
+                                                                          {
+                                                                              (hasPaid === 'pending') && <>
+                                                                                  <span 
+                                                                                      className="px-2 py-2 font-semibold cursor-pointer text-xs hover:text-white rounded-xl bg-yellow-400 hover:bg-yellow-700"
+                                                                                      onClick={
+                                                                                            () => {
+                                                                                                setUserData(value)
+                                                                                                setConfirmAccess(true)
+                                                                                            }
+                                                                                        }
+                                                                                  >
+                                                                                      {'Confirm Student'}
+                                                                                  </span>
+                                                                              </>
+                                                                          }
+                                                                          {
+                                                                              (hasPaid === 'granted') && <>
+                                                                                  <span 
+                                                                                      className="px-2 py-2 font-semibold cursor-pointer text-xs hover:text-white rounded-xl bg-green-400 hover:bg-green-700"
+                                                                                  >
+                                                                                      {'Granted'}
+                                                                                  </span>
+                                                                              </>
+                                                                          }
+                                                                      </>
+                                                                  )
+                                                              },
+                  accessorKey: 'authorization',
+                  maxSize: 20
+            },
+            {
+                  header: 'Result',
+                  cell: (row: CellContext<AllStudent, unknown>) => (<a href="#" onClick={() => SeeResult(true, row.renderValue())}><Icons iconName="eye" color='green' width={7} height={7} /></a>),
+                  accessorKey: 'result',
+                  maxSize: 20
+            },
+            {
+                  header: 'Receipt',
+                  cell: (row: CellContext<AllStudent, unknown>) => (<a href="#" onClick={() => SeeReceipt(true, row.renderValue())}><Icons iconName="eye" color='green' width={7} height={7} /></a>),
+                  accessorKey: 'receipt',
+                  maxSize: 20
+            },
+            {
+                  header: 'Test Schedule',
+                  cell: (row: CellContext<AllStudent, unknown>) => {
+                                                                  const value:any = row.renderValue() as {}
+                                                                  const user: string = value?.user_id
+                                                                  return (                                                                                                                               
+                                                                      <>
+                                                                          <span 
+                                                                               className="px-2 py-2 font-semibold cursor-pointer text-xs text-white hover:text-white rounded-xl bg-blue-600 hover:bg-blue-300"
+                                                                                onClick={
+                                                                                      () => {
+                                                                                        console.log(value)
+                                                                                        SeeTestSchdule(true, value)
+                                                                                      }
+                                                                                    }
+                                                                          >
+                                                                             {'Modify'}
+                                                                          </span>
+                                                                      </>
+                                                                  )
+                                                              },
+                  accessorKey: 'test',
+                  maxSize: 20
+            },
+            {
+                  header: 'Exam Schedule',
+                  cell: (row: CellContext<AllStudent, unknown>) => {
+                                                                  const value:any = row.renderValue() as {}
+                                                                  const user: string = value?.user_id
+                                                                  return (                                                                                                                               
+                                                                      <>
+                                                                          <span 
+                                                                               className="px-2 py-2 font-semibold cursor-pointer text-xs text-white hover:text-white rounded-xl bg-blue-600 hover:bg-blue-300"
+                                                                                onClick={
+                                                                                    () => {
+                                                                                        setUserData(value)
+                                                                                        setExamTime(true)
+                                                                                    }
+                                                                                }
+                                                                          >
+                                                                             {'Modify'}
+                                                                          </span>
+                                                                      </>
+                                                                  )
+                                                              },
+                  accessorKey: 'exam',
+                  maxSize: 20
+            }
       ],[])
 
-  return (
-      <div 
-            className="w-full"
-      > 
+    return (
             <div 
-                    className='font-bold text-2xl text-green-600 ml-5 mb-7 mt-7'
-            >
-                    All Students
-            </div> 
-            <div 
-                  className="shadow-md border-2 border-gray-100 py-5 mb-3 mt-7 mx-auto md:mx-5 pb-8 rounded-none overflow-hidden hover:shadow-stone-400"
-            >                    
-                  <div 
-                        className='px-5'
-                  >                              
-                    <Table data={Employee()} 
-                            columns={employees} 
-                            showNavigation={true} 
-                            searchPlaceHolder='search for employees ...' 
-                            path='students' 
-                            from='students' 
-                    /> 
-                  </div>                       
-            </div>
+                className="w-full"
+            >        
+                <div 
+                    className='font-bold text-2xl text-green-600 ml-5 mb-7 mt-5 flex gap-10'
+                >
+                    <span 
+                        className="text-lg text-black"
+                    >
+                        All Students
+                    </span>
+                </div> 
+                <div 
+                    className={`grid grid-cols-12 my-1 gap-5 mx-5`}
+                >              
+                    <div 
+                        className="col-span-4 md:col-span-2"
+                    >
+                        <div 
+                            className="mb-4 border border-gray-200"
+                        >
+                            <div 
+                                className="relative border text-gray-800 bg-white col-span-3 md:col-span-2"
+                            >
+                                <select
+                                    value={perPage}
+                                    onChange={(e) => {
+                                        displayByPageNo(Number(e.target.value));
+                                    }} className="appearance-none w-full py-4 pl-3 md:pr-20 pr-14 bg-white" name="whatever" id="frm-whatever">
+                                    {pages?.map((pageSize: number) => (
+                                        <option key={pageSize} value={pageSize}
+                                        >
+                                            {pageSize}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div className="pointer-events-none absolute right-0 top-0 bottom-0 flex items-center px-2 text-gray-700 border-l">
+                                    <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+                    <div 
+                        className="col-span-8 md:col-span-10"
+                    >
+                        <input
+                            type="text"
+                            required
+                            name="search"
+                            autoComplete="off"
+                            aria-label="Search ..."
+                            className="h-[65px] w-full md:w-full bg-gray-100 bg-opacity-50 py-2 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 text-sm leading-8 transition-colors duration-200 ease-in-out"
+                            placeholder="Search firstname, surname, phone, email"
+                            onKeyUp={tellThePost}
+                        />    
+                    </div>    
+                </div>
+                
+                {
+                    isLoading && !isRefetching &&  <div 
+                                className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                            >
+                                <PuffLoader className='w-12 h-12' color="black" />
+                            </div>
+                }
+                {
+                    isLoading && isRefetching  &&  <div 
+                                className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                            >
+                                <PuffLoader className='w-12 h-12' color="black" />
+                            </div>
+                }
+                  
+                {  !isLoading && (data?.data?.data?.students?.length === 0) && <>
+                        <div 
+                            className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                        >
+                            <div 
+                                className="w-full d-flex justify-center items-center"
+                            >
+                                <div className="w-full text-center text-lg">No result found for {searchQuery}</div>
+                            </div>
+                        </div>
+                    </>
+                }
+                  
+                {  !isLoading && (data?.data?.data?.students?.length === 0) && searchQuery && <>
+                        <div 
+                            className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                        >
+                            <div 
+                                className="w-full d-flex justify-center items-center"
+                            >
+                                <div className="w-full text-center text-lg">No result found for {searchQuery}</div>
+                            </div>
+                        </div>
+                    </>
+                }
+
+                {
+                  !isLoading && (data?.data?.data?.students?.length > 0) && 
+                        <div 
+                                className="shadow-md border-2 border-gray-100 mb-3 mt-1 mx-auto md:mx-5 pb-8 rounded-none overflow-hidden hover:shadow-stone-400"
+                            >                    
+                                <div 
+                                        className='px-5'
+                                >                              
+                                    <Table data={data?.data?.data?.students} 
+                                            columns={Staff} 
+                                            showNavigation={false} 
+                                            searchPlaceHolder='search for employees ...' 
+                                            path='students' 
+                                            from='students' 
+                                            pageNos={pages}
+                                            onClick={(no) => {
+                                                setPerPage(no)
+                                            }}
+                                            searchTerm={(word) => {
+                                                setSearchQuery(word)
+                                            }}
+                                    /> 
+                                </div>                       
+                        </div>
+                }
+                <div className="p-10"></div>
+                
+                { 
+                        !isLoading && !isRefetching && (data?.data?.data?.students?.length > 0) && 
+                                <Pagination onClick={(data: number) => {
+                                        setCurrentPage(data)
+                                        // setRefresh(data)
+                                        // setPerPage(data.perPage)
+                                        setTimeout(() => {
+                                            refetch()   
+                                        }, 1000)
+                                    } 
+                                } 
+                                perPageNo={perPage} 
+                                currentPageNo={currentPage} 
+                                noOfPages={data?.data?.noOfPages} 
+                                hasNextPage={data?.data?.hasNextPage} 
+                                hasPreviousPage={data?.data?.hasPreviousPage} 
+                            />    
+                }
+                { 
+                    !isLoading && isRefetching && (data?.data?.data?.students?.length > 0) && 
+                            <Pagination onClick={(data: number) => {
+                                    setCurrentPage(data)
+                                    setTimeout(() => {
+                                        refetch()   
+                                    }, 1000)
+                                } 
+                            } 
+                            perPageNo={perPage} 
+                            currentPageNo={currentPage} 
+                            noOfPages={data?.data?.noOfPages} 
+                            hasNextPage={data?.data?.hasNextPage} 
+                            hasPreviousPage={data?.data?.hasPreviousPage} 
+                        />    
+                }
+
+
+                { 
+                    openSuspend &&  <SuspendUserModal 
+                                                onClick={() => {
+                                                   refetch()
+                                                   setOpenSuspend(false)
+                                                }} 
+                                                openSuspendUser={openSuspend} 
+                                                data={userData}  
+                                                token={token} 
+                    />
+                }
+                {  
+                    confirmAccess && 
+                       <ConfirmStudent
+                          confirmAccess={confirmAccess}
+                          student={userData}
+                          token={token}
+                          onClick={
+                             () => {
+                                refetch()
+                                setConfirmAccess(false)
+                              }
+                          }
+                       />
+                }
+                {  
+                    receipt && 
+                       <Receipt
+                          seeResult={receipt}
+                          student={userData}
+                          onClick={
+                             () => {
+                                refetch()
+                                setReceipt(false)
+                              }
+                          }
+                       />
+                }
+
+                {
+                   studentResult && <StudentResult
+                        studentResult={studentResult} 
+                        onClick={
+                          () => {
+                            setStudentResult(false)
+                          }
+                        } 
+                        student={userData}
+                        token={token}
+                    />
+                }
+
+                {
+                    examTime && 
+                        <ExamSchedule 
+                            examSchedule={examTime} 
+                            student={userData} 
+                            onClick={
+                                () => {
+                                    setExamTime(false)
+                                }
+                            } 
+                            token={token}
+                        />
+                }
+
+                {  openTestSchedule &&
+                    <TestSchedule 
+                        openTestSchedule={openTestSchedule} 
+                        onClick={
+                            () => {
+                                setOpenTestSchedule(false)
+                            }
+                        } 
+                        token={token} 
+                        student={userData}
+                    />
+                }
+
+            
       </div>
-  )
+    )
 }

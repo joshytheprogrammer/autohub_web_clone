@@ -26,15 +26,15 @@ export const useProductDetail = (slug: string) =>
         if(response?.status === 200)
         {
           setAppData({
-                                  data: response?.data?.product,
-                                  isLoading: false,
-                                  isSuccess: response?.status,
-                                  isError: false,
-                                  error: "",
-                                  completed: "yes",
-                                  category: response?.data?.category,
-                                  featured: response?.data?.featured
-                                }
+                        data: response?.data?.product,
+                        isLoading: false,
+                        isSuccess: response?.status,
+                        isError: false,
+                        error: "",
+                        completed: "yes",
+                        category: response?.data?.category,
+                        featured: response?.data?.featured
+                      }
                     )
         } else {
           setAppData({

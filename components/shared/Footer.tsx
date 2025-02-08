@@ -63,6 +63,8 @@ export default function Footer()
                     @CopyRight AutoHub
                 </p>
             </div>
+
+            <div className='h-[100px]'></div>
         </div>
   )
 }

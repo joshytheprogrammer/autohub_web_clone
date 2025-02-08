@@ -171,7 +171,9 @@ export default function MultipleImageUpload({width, ICloudColour, onClick}: Imag
                                 <div className={whenSet} key={index}
                                 >
                                     <img src={image} alt="upload" />
-                                    <div className={`${(index === mainImagePosition) ? 'pr-1 pt-1 pb-1' : ''} absolute flex justify-between bottom-0 w-full`}>
+                                    <div 
+                                        className={`${(index === mainImagePosition) ? 'pr-1 pt-1 pb-1' : ''} absolute flex justify-between bottom-0 w-full`}
+                                    >
                                         <span className="rounded-sm border border-1 left-0 border-green-900 p-1 bg-blue-200 delete cursor-pointer hover:bg-orange-200" 
                                             onClick={() => handleDeleteImage(index)}
                                         >

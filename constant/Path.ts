@@ -1,7 +1,7 @@
 const URL = 
 {
     offline: {
-        path: process.env.URL, 
+        path: process.env.URL,
         status: true
     },
     online: {

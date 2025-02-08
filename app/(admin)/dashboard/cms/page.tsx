@@ -5,9 +5,10 @@ import ContactUs from "./pages/contact";
 import AboutUs from "./pages/about";
 import IAgree from "./pages/iAgree";
 import Maceos from "./pages/maceos";
+import BankDetail from "./pages/bank";
 
 
-export default function  pages()
+export default function  Pages()
 {
       const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
   
@@ -27,6 +28,10 @@ export default function  pages()
         {
           label: "MACEOS",
           content: <Maceos />
+        },
+        {
+          label: "BANK DETAILS",
+          content: <BankDetail />
         },
       ]
 

@@ -65,18 +65,20 @@ export async function FlUnFlow(Vendor: Number, token: string, userType: string)
       return await response.json()    
 }
 
-export async function Followers(user: number)
+export async function Followers(user: number, token ='', usertype = '')
 {
-    let endPoint = `followers`
-    let ApiUrl = `${BASE_URL}${endPoint}/${user}`
-
-    const response = await fetch(ApiUrl, 
-    {
-        method: 'GET',    
-        headers: {    
-          'Content-Type': 'application/json'
-        }
-    
+    let endPoint = `followers`    
+    if(token)
+    {      
+      let ApiUrl = `${BASE_URL}${usertype}/${endPoint}/${user}`
+      const response = await fetch(ApiUrl, 
+      {
+         method: 'GET',    
+         headers: {    
+           'Content-Type': 'application/json',      
+           'Authorization': `Bearer ${token}`
+         }
+     
       })     
       if(!response.ok)
       {
@@ -84,6 +86,24 @@ export async function Followers(user: number)
       }     
       const x = await response.json() 
       return x
+
+    } else {
+      let ApiUrl = `${BASE_URL}${endPoint}/${user}`
+      const response = await fetch(ApiUrl, 
+      {
+        method: 'GET',    
+        headers: {    
+          'Content-Type': 'application/json'
+        }
+     
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      const x = await response.json() 
+      return x
+    }      
 }
 
 export async function UserWishList(productId: number, token: string, type: string)

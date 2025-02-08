@@ -1,27 +1,55 @@
 import { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { Modal } from "../../../../../../../components/modal/Modal";
+import { AddCountry } from "../../../../../../api/admin/market/country";
+import toast from "react-hot-toast";
+import Message from "../../../../../../../components/shared/Message";
+
 
 type AddCountryProductProps = 
 {
-    onClick: (isOpen: boolean) => void,
+    onClick: () => void,
     openCountryProduct: boolean,
-    userType: string
     token: string
 } 
 
-export const AddCountryModal = ({onClick, openCountryProduct, userType, token}: AddCountryProductProps)  =>
+export const AddCountryModal = ({onClick, openCountryProduct, token}: AddCountryProductProps)  =>
 {
-        const [loading, setIsLoading] = useState(false)
+        const [loading, setIsLoading] = useState<boolean>(false)
+        const [name, setName] = useState<string>("")
+        const [countryRate, setCountryRate] = useState<number>(-1)
+        const [errMsgStyle, setErrMsgStyle] = useState<string>('')
+        const [errorMessage, setErrorMessage] = useState<string>("")
 
-        useEffect(() => {
-                setIsLoading(false)
-                console.log({ userType, token })
-        }), []
-
-        const addCountry = () =>
+        useEffect(() => 
         {
+           setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
+           setErrorMessage("")
+           setIsLoading(false)
+        }), []
+        
+        const AddCountri = () => 
+        {
+            setIsLoading(true)
+            const addFuel = AddCountry(name, countryRate, token)
+            addFuel.then((response) => 
+            {
+                if(response?.status === 200)
+                {
+                   toast.success('Created', {
+                       position: "top-center",
+                   });
+                   onClick()  
+                } else {
+                   setErrorMessage(response?.message)
+                   setTimeout(() => 
+                   {
+                      setErrorMessage("")
+                   }, 5000)
+                }
+            }).then(() => {
 
+            })
         }
 
         return (
@@ -31,6 +59,7 @@ export const AddCountryModal = ({onClick, openCountryProduct, userType, token}: 
                         <div 
                                 className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
                         >
+                                { errorMessage && <Message msg={errorMessage} status={errMsgStyle} />  }
                                 <div 
                                                 className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
                                 >
@@ -43,17 +72,31 @@ export const AddCountryModal = ({onClick, openCountryProduct, userType, token}: 
                                                 className="mb-4 md:w-full"
                                         >
                                                 <input  
+                                                        onChange={(e) => {
+                                                                setName(e.target.value) 
+                                                        }}
                                                         className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                                         type="text" name="country" id="country" placeholder="Enter Country Name" 
                                                 />
                                         </div>   
+                                        <div 
+                                                className="mb-4 md:w-full"
+                                        >
+                                                <input  
+                                                        className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
+                                                        type="text" name="colourRate" id="colourRate" placeholder="Enter Category Rate" 
+                                                        onChange={(e) => {
+                                                                setCountryRate(Number(e.target.value)) 
+                                                        }}
+                                                />
+                                        </div> 
                                         <div 
                                         className="items-center gap-5 mt-2 sm:flex flex justify-between mx-1 mt-5"
                                         >                                       
                                                 {
                                                         <button 
                                                                 className="py-3 px-4 bg-red-700 hover:bg-red-800 text-white font-semibold text-sm rounded-xl w-max"
-                                                                onClick={() => onClick(openCountryProduct) }
+                                                                onClick={() => onClick() }
                                                         >
                                                                         Close
                                                         </button>
@@ -61,7 +104,7 @@ export const AddCountryModal = ({onClick, openCountryProduct, userType, token}: 
                                                 {
                                                 <button 
                                                                 className="py-3 px-4 bg-green-800 hover:bg-green-700 text-white font-semibold text-sm rounded-xl w-max"
-                                                                onClick={() => addCountry()}
+                                                                onClick={() => AddCountri()}
                                                                         >
                                                                 {       loading ? ( <BeatLoader size={9} color="#fff" />) : ( "Create" )          }
                                                 </button>

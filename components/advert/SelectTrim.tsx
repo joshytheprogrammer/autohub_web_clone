@@ -94,7 +94,7 @@ const SelectTrim = ({ manufacturerId, modelId, trimOption, trims, engine, select
                                 type="text"
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value.toLowerCase())}
-                                placeholder="Enter state name"
+                                placeholder="Search Trim"
                                 className="placeholder:text-gray-700 p-2 outline-none w-full"
                             />
                         </div>                 

@@ -75,6 +75,16 @@ const createSessionSlice: StateCreator<ISession> = (set, get) => (
             set(() => ({ passport: passport }))
         },
 
+        sideType: "",
+        getSideType()
+        {
+            return get().sideType
+        },
+        setSideType(sideType: any)
+        {
+            set(() => ({ sideType: sideType }))
+        },
+
     }   
 )
 

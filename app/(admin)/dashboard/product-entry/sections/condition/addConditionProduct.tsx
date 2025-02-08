@@ -1,23 +1,57 @@
 import { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { Modal } from "../../../../../../components/modal/Modal";
+import { AddCondition } from "../../../../../api/admin/market/condition";
+import toast from "react-hot-toast";
+import Message from "../../../../../../components/shared/Message";
 
 type AddConditionProductionModal = 
 {
-    onClick: (isOpen: boolean) => void,
+    onClick: () => void,
     openConditionProduct: boolean,
-    userType: string
-    token: string
+    token: string,
+    data: { id: number, name: string }
 } 
 
-export const AddConditionProduct = ({onClick, openConditionProduct, userType, token}: AddConditionProductionModal)  =>
+export const AddConditionProduct = ({onClick, openConditionProduct, token}: AddConditionProductionModal)  =>
 {
         const [loading, setIsLoading] = useState(false)
+        const [name, setName] = useState<string>("")
+        const [errMsgStyle, setErrMsgStyle] = useState<string>('')
+        const [errorMessage, setErrorMessage] = useState<string>("")
 
-        useEffect(() => {
-                setIsLoading(false)
-                console.log({ userType, token })
+        useEffect(() => 
+        {
+            setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
+            setErrorMessage("")
+            setIsLoading(false)
         }), []
+        
+        const AddConditionn = () => 
+        {
+            setIsLoading(true)
+            const addFuel = AddCondition(name, token)
+            addFuel.then((response) => 
+            {
+                if(response?.status === 200)
+                {  
+                   setIsLoading(false)
+                   toast.success('Created', {
+                       position: "top-center",
+                   });
+                   onClick()  
+                } else {
+                   setIsLoading(false)
+                   setErrorMessage(response?.message)
+                   setTimeout(() => 
+                   {
+                      setErrorMessage("")
+                   }, 5000)
+                }
+            }).then(() => {
+
+            })
+        }
 
         return (
                 <Modal 
@@ -26,6 +60,7 @@ export const AddConditionProduct = ({onClick, openConditionProduct, userType, to
                         <div 
                                 className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
                         >
+                                { errorMessage && <Message msg={errorMessage} status={errMsgStyle} />  }
                                 <div 
                                                 className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
                                 >
@@ -38,6 +73,9 @@ export const AddConditionProduct = ({onClick, openConditionProduct, userType, to
                                                 className="mb-4 md:w-full"
                                         >
                                                 <input  
+                                                        onChange={(e) => {
+                                                                setName(e.target.value) 
+                                                        }}
                                                         className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                                         type="text" name="condition" id="condition" placeholder="Enter Condition Name" 
                                                 />
@@ -48,7 +86,7 @@ export const AddConditionProduct = ({onClick, openConditionProduct, userType, to
                                                 {
                                                         <button 
                                                                 className="py-3 px-4 bg-red-700 hover:bg-red-800 text-white font-semibold text-sm rounded-xl w-max"
-                                                                onClick={() => onClick(openConditionProduct) }
+                                                                onClick={() => onClick() }
                                                         >
                                                                         Close
                                                         </button>
@@ -56,7 +94,7 @@ export const AddConditionProduct = ({onClick, openConditionProduct, userType, to
                                                 {
                                                 <button 
                                                                 className="py-3 px-4 bg-green-800 hover:bg-green-700 text-white font-semibold text-sm rounded-xl w-max"
-                                                                onClick={() => console.log('')}
+                                                                onClick={() => AddConditionn()}
                                                                         >
                                                                 {       loading ? ( <BeatLoader size={9} color="#fff" />) : ( "Create" )          }
                                                 </button>
