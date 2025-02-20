@@ -4,6 +4,7 @@ import Message from "../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../components/modal/Modal"
 import toast from "react-hot-toast"
 import { RemoveCondition } from "../../../../../api/admin/market/condition"
+import { productsDB } from "../../../../../model/Product"
 
 
 type DeleteConditionModalProps = 
@@ -36,6 +37,8 @@ export const DeleteConditionProduct = ({onClick, openDeleteCondition, data, toke
         {
             if(response?.status === 200)
             {
+                productsDB.clear()
+                productsDB.bulkAdd(response?.data)
                 setIsLoading(false)
                 toast.success('Deleted', {
                     position: "top-center",

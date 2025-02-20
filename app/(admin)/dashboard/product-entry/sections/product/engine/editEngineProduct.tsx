@@ -3,7 +3,7 @@ import { BeatLoader } from "react-spinners";
 import { Modal } from "../../../../../../../components/modal/Modal"
 import Message from "../../../../../../../components/shared/Message";
 import SelectManufacturer from "../model/SelectManufacturer";
-import { manufacturerDB, modelDB, trimDB } from "../../../../../../model/Product";
+import { manufacturerDB, modelDB, productsDB, trimDB } from "../../../../../../model/Product";
 import toast from "react-hot-toast";
 import { UpdateEngine } from "../../../../../../api/admin/market/product-entry/engine";
 import SelectModel from "../model/SelectModel";
@@ -95,6 +95,8 @@ export const EditEngineProduct = ({onClick, openEngineProduct, data, token}: Edi
             {
                 if(response?.status === 200)
                 {
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    toast.success('Updated', {
                        position: "top-center",
                    });

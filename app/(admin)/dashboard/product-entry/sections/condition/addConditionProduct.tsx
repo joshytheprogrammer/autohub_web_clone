@@ -4,6 +4,7 @@ import { Modal } from "../../../../../../components/modal/Modal";
 import { AddCondition } from "../../../../../api/admin/market/condition";
 import toast from "react-hot-toast";
 import Message from "../../../../../../components/shared/Message";
+import { productsDB } from "../../../../../model/Product";
 
 type AddConditionProductionModal = 
 {
@@ -35,6 +36,8 @@ export const AddConditionProduct = ({onClick, openConditionProduct, token}: AddC
             {
                 if(response?.status === 200)
                 {  
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    setIsLoading(false)
                    toast.success('Created', {
                        position: "top-center",

@@ -4,6 +4,7 @@ import Message from "../../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../../components/modal/Modal"
 import { AddManufacturer } from "../../../../../../api/admin/market/product-entry/manufacturer";
 import toast from "react-hot-toast";
+import { productsDB } from "../../../../../../model/Product";
 
 
 type AddManufacturerProductProps = 
@@ -30,10 +31,12 @@ export const AddManufacturerProduct = ({onClick, openManufacturerProduct, token}
         {
             setIsLoading(true)
             const addFuel = AddManufacturer(name, manufacturerRate, token)
-            addFuel.then((response) => 
+            addFuel.then(async (response) => 
             {
                 if(response?.status === 200)
-                {
+                {       
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    toast.success('Created', {
                        position: "top-center",
                    });

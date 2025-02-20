@@ -1,6 +1,7 @@
-import { useEffect } from "react"
 import { Modal } from "../../../../../components/modal/Modal"
 import { USAGE_PATH } from "../../../../../constant/Path"
+import Image from 'next/image'
+
 
 
 type ViewUserInfoProps = 
@@ -12,13 +13,7 @@ type ViewUserInfoProps =
 
 export const ViewUserInfo = ({onClick, openViewUserDetailModal, user}: ViewUserInfoProps)  =>
 {
-    console.log(user)
-     useEffect(() => 
-     {
-        console.log(user)
-     }, []) 
-
-     
+    
      return (
                 <Modal 
                         onClick={onClick} isOpen={openViewUserDetailModal} wrapperWidth={1000} margin={'80px auto 0px auto'}
@@ -29,10 +24,18 @@ export const ViewUserInfo = ({onClick, openViewUserDetailModal, user}: ViewUserI
                                 <div 
                                     className="mb-4 md:w-full d-flex md:flex justify-center items-center md:bg-blue-200 border-2 border-shadow rounded-lg p-5 mb-5 md:mb-5"
                                 >
-                                    <img 
+                                    
+                                    {/* <img 
                                         src={`${USAGE_PATH.AVATAR}${user?.image}`}
                                         width={300}
                                         className="flex justify-center items-center rounded-xl border-4 border-white"
+                                    /> */}
+                                    <Image 
+                                        className="" 
+                                        src={`${USAGE_PATH.AVATAR}${user?.image}`}
+                                        alt={`${user?.image}`}
+                                        width={300}
+                                        height={300}
                                     />                                         
                                 </div>
                                 <div 

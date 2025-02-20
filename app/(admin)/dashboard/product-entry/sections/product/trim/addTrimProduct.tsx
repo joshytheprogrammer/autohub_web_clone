@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import Message from "../../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../../components/modal/Modal"
-import { manufacturerDB, modelDB } from "../../../../../../model/Product";
+import { manufacturerDB, modelDB, productsDB } from "../../../../../../model/Product";
 import SelectManufacturer from "../model/SelectManufacturer";
 import toast from "react-hot-toast";
 import { AddTrim } from "../../../../../../api/admin/market/product-entry/trim";
@@ -74,6 +74,8 @@ export const AddTrimProduct = ({onClick, openTrimProduct, token}: AddTrrimProduc
             {
                 if(response?.status === 200)
                 {
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    toast.success('Created', {
                        position: "top-center",
                    });

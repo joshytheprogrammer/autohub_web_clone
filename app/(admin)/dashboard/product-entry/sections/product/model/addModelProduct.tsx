@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 // import { useQuery } from "@tanstack/react-query";
 import SelectManufacturer from "./SelectManufacturer";
 // import { GetAllManufacturer } from "../../../../../../api/admin/market/product-entry/manufacturer";
-import { manufacturerDB } from "../../../../../../model/Product";
+import { manufacturerDB, productsDB } from "../../../../../../model/Product";
 
 
 type AddModalProductProps = 
@@ -54,6 +54,8 @@ export const AddModelProduct = ({onClick, openModelProduct, token}: AddModalProd
             {
                 if(response?.status === 200)
                 {
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    toast.success('Created', {
                        position: "top-center",
                    });

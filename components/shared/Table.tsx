@@ -38,7 +38,7 @@ export const Table = <T extends object>({ data, columns, headerNavigation=true, 
             manualPagination: true
         },
     );
-    console.log(table.getPaginationRowModel())
+    // console.log(table.getPaginationRowModel())
    
     return (
         <>

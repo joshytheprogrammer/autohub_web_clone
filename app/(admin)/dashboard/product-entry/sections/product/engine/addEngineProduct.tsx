@@ -4,7 +4,7 @@ import Message from "../../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../../components/modal/Modal"
 import toast from "react-hot-toast";
 import { AddEngine } from "../../../../../../api/admin/market/product-entry/engine";
-import { manufacturerDB, modelDB, trimDB } from "../../../../../../model/Product";
+import { manufacturerDB, modelDB, productsDB, trimDB } from "../../../../../../model/Product";
 import SelectManufacturer from "../model/SelectManufacturer";
 import SelectModel from "../model/SelectModel";
 import SearchTrim from "../trim/SearchTrim";
@@ -97,6 +97,8 @@ export const AddEngineProduct = ({onClick, openEngineProduct, token}: AddEngineP
             {
                 if(response?.status === 200)
                 {
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    toast.success('Created', {
                        position: "top-center",
                    });

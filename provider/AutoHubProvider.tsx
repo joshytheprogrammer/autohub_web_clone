@@ -27,6 +27,7 @@ const AutoHubProvider = ({ children }: { children: React.ReactNode }) =>
                                 { isLoading && <RotateLoader className='w-12 h-12' color="white" /> }
                             </div>
             }
+            
             {   
                 ((isLoading === false) && (completed === "yes")) && 
                 <QueryClientProvider client={queryClient}>

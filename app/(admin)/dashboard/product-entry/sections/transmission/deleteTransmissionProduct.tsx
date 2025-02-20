@@ -4,6 +4,7 @@ import Message from "../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../components/modal/Modal"
 import { RemoveTransmission } from "../../../../../api/admin/market/transmission"
 import toast from "react-hot-toast"
+import { productsDB } from "../../../../../model/Product"
 
 
 type DeleteCategoryModalProps = 
@@ -36,6 +37,8 @@ export const DeleteTransmissionProduct = ({onClick, openDeleteTransmission, data
         {
             if(response?.status === 200)
             {
+                productsDB.clear()
+                productsDB.bulkAdd(response?.data)
                 setIsLoading(false)
                 toast.success('Deleted', {
                     position: "top-center",

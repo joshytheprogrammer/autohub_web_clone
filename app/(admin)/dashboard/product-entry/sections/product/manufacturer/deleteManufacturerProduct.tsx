@@ -4,6 +4,7 @@ import Message from "../../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../../components/modal/Modal"
 import { RemoveManufacturer } from "../../../../../../api/admin/market/product-entry/manufacturer"
 import toast from "react-hot-toast"
+import { productsDB } from "../../../../../../model/Product"
 
 
 type DeleteManufacturerProductProduct = 
@@ -31,10 +32,12 @@ export const DeleteManufacturerProduct = ({onClick, openDeleteManufacturer, data
         { 
            setIsLoading(true)
            const deleteManufacturer = RemoveManufacturer(id, token)
-           deleteManufacturer.then((response) => 
+           deleteManufacturer.then(async (response) => 
            {
                if(response?.status === 200)
                {
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    toast.success('Deleted', {
                        position: "top-center",
                    });

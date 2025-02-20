@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import Tiptap from './TipTap'
 import { UseStore } from '../../../../../state/store'
 
-export default function TextArea() 
+type TheTextArea = {
+    onClick: (categoryId: string) => void
+}
+
+export default function TextArea({ onClick }: TheTextArea)
 {
    const advertState = UseStore((state) => state)
    const [text, setText] = useState<string>(advertState.getDescription())
@@ -11,6 +15,7 @@ export default function TextArea()
    {
       advertState.setDescription(e)
       setText(e)
+      onClick(e)
    }
 
     return (

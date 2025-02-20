@@ -21,7 +21,7 @@ export class Product extends Dexie
   
   constructor() 
   {
-    super('AutoHubNigg');
+    super('AutoHubNiggs');
     this.version(1).stores(
       {
         productsDB: '++id, tb_id, user_id, title, face_image, slug, description, price, min_price, max_price, chasis_no, mileage, year, address, views, water_mark, category_id, category_name, hash, country, state, manufacturer, model, trim, colour, condition, transmission, engine, images, firstname, middlename, surname, phone, email',
@@ -58,4 +58,21 @@ export class Product extends Dexie
 
 }
 
-export const { productsDB, countryDB, stateDB, categoryDB, manufacturerDB, modelDB, trimDB, engineDB, fuelDB, colourDB, transmissionDB, conditionDB, sliderDB, profileDB, deleteFromProductsDB, settingsDB } = new Product();
+export const { 
+                productsDB, 
+                countryDB, 
+                stateDB, 
+                categoryDB, 
+                manufacturerDB, 
+                modelDB, 
+                trimDB, 
+                engineDB, 
+                fuelDB, 
+                colourDB, 
+                transmissionDB, 
+                conditionDB, 
+                sliderDB, 
+                profileDB, 
+                deleteFromProductsDB, 
+                settingsDB 
+            } = new Product();

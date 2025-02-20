@@ -1,6 +1,4 @@
-import React, { useState } from 'react'
-import TextArea from '../Editor/TextArea'
-import { BeatLoader } from 'react-spinners'
+
 
 export default function BankDetail() 
 {

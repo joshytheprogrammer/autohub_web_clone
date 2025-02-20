@@ -13,6 +13,8 @@ import { ExistingUserStudent, NewStudent } from "../../../api/admin/academic/stu
 import { Logout } from "../../../../components/Logout"
 import delay from "delay"
 import { profileDB } from "../../../model/Product"
+import { Router } from "lucide-react"
+import router from "next/router"
 
 
 export default function MACEOSRegistration() 
@@ -164,7 +166,7 @@ export default function MACEOSRegistration()
                       setIsSubmitting(false)                      
                       setSuccess("")
                       profile.setSideType('student')
-                      window.location.href = '/user/dashboard'
+                      router.push('/class-door')
                    }, 2000)
                 } else {
                     setError(response?.message)
@@ -199,7 +201,7 @@ export default function MACEOSRegistration()
                     setIsSubmitting(false)                      
                     setSuccess("")
                     profile.setSideType('student')
-                    window.location.href = '/user/dashboard'
+                    router.push('/class-door')
                  }, 2000)              
               } else {
                   setError(response?.message)

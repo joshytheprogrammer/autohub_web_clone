@@ -43,7 +43,7 @@ const Tiptap = ({content, onChange} : ContentProps) =>
 
     useEffect(() => 
     {
-        editor?.commands.setContent(writeUp)
+      //   editor?.commands.setContent(writeUp)
     }, []);
 
     return (

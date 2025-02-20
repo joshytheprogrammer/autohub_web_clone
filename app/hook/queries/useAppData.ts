@@ -16,6 +16,10 @@ export const useAppData = () =>
     const callApi = async () => 
     {
         const response: any = await ApplicationData()
+        console.log("+++++++++++++++++++++++")
+        console.log(response)
+        console.log("+++++++++++++++++++++++")
+        // return
         if(response?.status === true)
         {
           productsDB.clear()
@@ -40,7 +44,7 @@ export const useAppData = () =>
         } else {
           setAppData({
                                 data: null,
-                                isLoading: false,
+                                isLoading: true,
                                 isSuccess: response?.status,
                                 isError: true,
                                 error: response?.data,

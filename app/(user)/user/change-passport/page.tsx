@@ -117,6 +117,9 @@ export default function ChangePassport()
                     >
                         { picture && <img src={`${USAGE_PATH.AVATAR}${picture}`} className='flex justify-left  bg-blue-200 mb-3 rounded-xl' />  }
                         { imgUrl && <img src={`${imgUrl}`} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />  }
+
+                        {/* { picture && <img src={`${picture}`} className='flex justify-left  bg-blue-200 mb-3 rounded-xl' />  } */}
+                        {/* { imgUrl && <img src={`${imgUrl}`} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />  } */}
                     </div>
                 </div>
                 <div 

@@ -22,8 +22,7 @@ const SelectColour = ({ onClick, placeholder, selectedColour, incomingData, edit
   const [inputValue, setInputValue] = useState("");
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
-  const [categId] = useState<number>(-1)
-  const [refresh] = useState<number>(-1)
+  const [colourId, setColourId] = useState<number>(Number(advertState.getFuel()))
 
   
   useEffect(() => 
@@ -34,8 +33,8 @@ const SelectColour = ({ onClick, placeholder, selectedColour, incomingData, edit
   
   useEffect(() => 
   {
-     onClick(categId)
-  }, [refresh])
+    onClick(Number(advertState.getColour()))
+  }, [colourId])
 
   return (
         <div 
@@ -86,6 +85,7 @@ const SelectColour = ({ onClick, placeholder, selectedColour, incomingData, edit
                             advertState.setColour(-1)
                             advertState.setColourName("")
                             setOpen(false)
+                            setColourId(-1)
                         }}
                     >
                         - Select Colour -
@@ -111,6 +111,7 @@ const SelectColour = ({ onClick, placeholder, selectedColour, incomingData, edit
                                 setInputValue("")
                                 advertState.setColour(x?.tb_id)
                                 advertState.setColourName(x?.name)
+                                setColourId(Number(x?.tb_id))
                             }}
                         >
                             {x?.name}

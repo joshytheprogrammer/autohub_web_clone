@@ -4,6 +4,7 @@ import { Modal } from "../../../../../../components/modal/Modal";
 import toast from "react-hot-toast";
 import Message from "../../../../../../components/shared/Message";
 import { UpdateColour } from "../../../../../api/admin/market/colour";
+import { productsDB } from "../../../../../model/Product";
 
 type EditColourProductProps = 
 {
@@ -37,6 +38,8 @@ export const EditColourModal = ({onClick, openColourProduct, data, token}: EditC
             {
                 if(response?.status === 200)
                 {
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    setIsLoading(false)
                    toast.success('Updated', {
                       position: "top-center",

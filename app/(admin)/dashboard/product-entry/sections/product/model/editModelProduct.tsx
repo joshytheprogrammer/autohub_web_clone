@@ -5,7 +5,7 @@ import { UpdateModel } from "../../../../../../api/admin/market/product-entry/mo
 import toast from "react-hot-toast";
 import Message from "../../../../../../../components/shared/Message";
 import SelectManufacturer from "./SelectManufacturer";
-import { manufacturerDB } from "../../../../../../model/Product";
+import { manufacturerDB, productsDB } from "../../../../../../model/Product";
 
 
 type EditProductModelProps = 
@@ -57,6 +57,8 @@ export const EditModelProduct = ({onClick, openModelProduct, pdata, selectedManu
             {
                 if(response?.status === 200)
                 {
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    toast.success('Updated', {
                        position: "top-center",
                    });

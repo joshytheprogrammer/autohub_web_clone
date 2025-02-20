@@ -12,6 +12,7 @@ import { DefaultUserDetail } from './LikeRow'
 import { ViewUserInfo } from '../modals/ViewUserInfo'
 import { DeleteAdvertModal } from '../modals/DeleteAdvertModal'
 import { VerifyProductModal } from '../modals/VerifyProductModal'
+import Image from 'next/image'
 
 
 export default function Thumbnail() 
@@ -80,9 +81,14 @@ export default function Thumbnail()
     }, [open, showModal, employeeId, isItThis, openModal, refresh])
 
 
+    const refetcch = () => 
+    {
+       refetch()
+    }
+    
     useEffect(() => 
     {
-      refetch()
+       refetcch()
     }, [perPage, searchQuery])
 
 
@@ -187,7 +193,7 @@ export default function Thumbnail()
                                 !isLoading && data?.data?.product_advert?.product?.map((product: any, index: number) => {
                                     return (
                                         <div className="relative d-flex col-span-12 md:col-span-3 border rounded-lg p-2 bg-green-100 shadow-md" key={index}>
-                                            <img src={`${USAGE_PATH.PRODUCT_FACE}${product.image}`} 
+                                            {/* <img src={`${USAGE_PATH.PRODUCT_FACE}${product.image}`} 
                                                  alt="product images" 
                                                  className={`border border-solid border-3 mb-2 border-red-600 p-1 h-auto cursor-pointer`}                                                  
                                                  onClick={() => 
@@ -196,7 +202,19 @@ export default function Thumbnail()
                                                     setOpenProductDetail(true)                                                    
                                                 }
                                             }
-                                            />
+                                            /> */}
+                                            <Image 
+                                                className={`border border-solid border-3 mb-2 border-red-600 p-1 h-auto cursor-pointer`}  
+                                                src={`${USAGE_PATH.PRODUCT_FACE}${product.image}`}
+                                                alt={`${product.image}`}
+                                                width={300}
+                                                height={300} 
+                                                onClick={() => {
+                                                    setOpenProductInfo(product)
+                                                    setOpenProductDetail(true)                                                     
+                                                }}
+                                            /> 
+                                            
                                             <div className="w-full p-2 flex bg-white">
                                                 <p className="font-bold w-2/2 text-lg text-green-600">{ product?.title }</p>
                                             </div>

@@ -4,6 +4,7 @@ import Message from "../../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../../components/modal/Modal"
 import { UpdateManufacturer } from "../../../../../../api/admin/market/product-entry/manufacturer";
 import toast from "react-hot-toast";
+import { productsDB } from "../../../../../../model/Product";
 
 
 type EditManufacturerProductProps = 
@@ -33,10 +34,12 @@ export const EditManufacturerProduct = ({onClick, openManufacturerProduct, data,
         {
             setIsLoading(true)
             const updateFuel = UpdateManufacturer(id, name, manufacturerRate, token)
-            updateFuel.then((response) => 
+            updateFuel.then(async (response) => 
             {
                 if(response?.status === 200)
                 {
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    setIsLoading(false)
                    toast.success('Updated', {
                       position: "top-center",

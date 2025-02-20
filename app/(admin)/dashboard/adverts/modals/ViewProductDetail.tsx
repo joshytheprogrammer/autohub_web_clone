@@ -6,6 +6,7 @@ import { UseStore } from "../../../../../state/store"
 import { useQuery } from "@tanstack/react-query"
 import { PuffLoader } from "react-spinners"
 import toast from "react-hot-toast"
+import Image from 'next/image'
 
 
 type ViewProductDetailProps = 
@@ -243,16 +244,25 @@ export const ViewProductDetail = ({onClick, openViewProductDetail, product}: Vie
                                     { 
                                         data?.data?.images && (data?.data?.images.length > 0) && data?.data?.images.map((img: any, index: number) => {
                                                 let cssStyle = (Number(img.as_advert) === 1) ? "col-span-3 md:col-span-3 border border-2 mb-5 relative border border-2 p-3 bg-green-100 border-green-700" : "col-span-3 md:col-span-3 border border-2 mb-5 relative"
+                                                
                                                 return (
                                                         <div className={cssStyle} key={index}>
-                                                            <img src={`${USAGE_PATH.PRODUCT_FACE}${img.image_url}`} alt="product images" />
-                                                                <button 
-                                                                    onClick={() => {
-                                                                        placeAdvert(img?.id, data?.data?.status)
-                                                                    }} 
-                                                                    className='hover:bg-green-800 rounded-full text-sm p-3 px-5 bg-blue-700 text-white font-bold absolute bottom-11 right-11'>
-                                                                    place as advert - {img.as_advert}
-                                                                </button>
+                                                            {/* <img src={`${USAGE_PATH.PRODUCT_FACE}${img.image_url}`} alt="product images" /> */}
+                                                            <Image 
+                                                                className="w-full h-full object-fit" 
+                                                                src={`${USAGE_PATH.PRODUCT_FACE}${img.image_url}`}
+                                                                alt={`${img.image_url}`}
+                                                                width={700}
+                                                                height={700}
+                                                            />
+                                                            <button 
+                                                                onClick={() => {
+                                                                    placeAdvert(img?.id, data?.data?.status)
+                                                                }} 
+                                                                className='hover:bg-green-800 rounded-full text-sm p-3 px-5 bg-blue-700 text-white font-bold absolute bottom-11 right-11'
+                                                            >
+                                                                 place as advert - {img.as_advert}
+                                                            </button>
                                                         </div> 
                                                         )                                                       
                                                 }) 

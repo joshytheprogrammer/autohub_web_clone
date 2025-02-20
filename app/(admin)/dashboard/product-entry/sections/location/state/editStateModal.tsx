@@ -4,6 +4,7 @@ import { Modal } from "../../../../../../../components/modal/Modal";
 import { UpdateState } from "../../../../../../api/admin/market/states";
 import toast from "react-hot-toast";
 import Message from "../../../../../../../components/shared/Message";
+import { productsDB } from "../../../../../../model/Product";
 
 
 type EditProductStateProps = 
@@ -39,6 +40,8 @@ export const EditStateModal = ({onClick, openStateProduct, data, token}: EditPro
             {
                 if(response?.status === 200)
                 {
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    setIsLoading(false)
                    toast.success('Updated', {
                       position: "top-center",

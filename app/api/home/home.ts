@@ -1,5 +1,3 @@
-"use server"
-
 import { BASE_URL } from "../../../constant/Path";
 
 
@@ -10,11 +8,19 @@ export async function ApplicationData()
     try 
     {
         let response = await fetch(ApiUrl)
+        // const response = await fetch(ApiUrl, 
+        // {
+        //     method: 'GET',    
+        //     headers: {    
+        //       'Content-Type': 'application/json'    
+        //     }
+        // })  
         if(!response.ok)
         {
-            throw new Error(`HTTP Error! status: ${response.status}`)
-        }            
-        const result = await response.json()      
+            throw new Error(`HTTP Error! status: ${response}`)
+            // return { status: false, data: response } 
+        } 
+        const result = await response.json() 
         return { status: true, data: result }
 
     } catch (error) {

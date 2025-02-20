@@ -4,6 +4,7 @@ import Message from "../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../components/modal/Modal"
 import { RemoveFuel } from "../../../../../api/admin/market/fuel"
 import toast from "react-hot-toast"
+import { productsDB } from "../../../../../model/Product"
 // import { USAGE_PATH } from "../../../../../constant/Path"
 
 
@@ -37,6 +38,8 @@ export const DeleteFuelProduct = ({onClick, openDeleteFuel, data, token}: Delete
         {
             if(response?.status === 200)
             {
+                productsDB.clear()
+                productsDB.bulkAdd(response?.data)
                 toast.success('Deleted', {
                     position: "top-center",
                 });

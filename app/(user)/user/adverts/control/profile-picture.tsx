@@ -31,6 +31,7 @@ export default function ProfilePicture()
                 >
                   {
                     picture && <img src={`${USAGE_PATH.AVATAR}${Passport.getPassport()}`} width={400}  className='mt-5 mb-5 rounded-lg' />
+                    // picture && <img src={`${Passport.getPassport()}`} width={400}  className='mt-5 mb-5 rounded-lg' />
                   }
                   {/* {
                     !picture &&

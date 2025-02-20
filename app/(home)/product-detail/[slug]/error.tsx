@@ -20,13 +20,13 @@ export default function Error({
           style={{ marginTop: '100px' }}
         >
             <h2>{error?.message}</h2>
-            <h2 className='text-xl font-bold'>++++++++++++++ !!!!!!!!!!</h2>
+            <h2 className='text-xl font-bold'></h2>
             <button
               onClick={
                 () => reset()
               }
             >
-              Try again +
+              Try again
             </button>
             <PuffLoader color="#1c9236" />
             

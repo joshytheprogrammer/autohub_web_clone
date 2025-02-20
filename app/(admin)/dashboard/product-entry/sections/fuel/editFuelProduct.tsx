@@ -4,6 +4,7 @@ import { Modal } from "../../../../../../components/modal/Modal";
 import { UpdateFuel } from "../../../../../api/admin/market/fuel";
 import Message from "../../../../../../components/shared/Message";
 import toast from "react-hot-toast";
+import { productsDB } from "../../../../../model/Product";
 
 type EditProductFuelProps = 
 {
@@ -33,6 +34,8 @@ export const EditFuelProduct = ({onClick, openFuelProduct, data, token}: EditPro
             const updateFuel = UpdateFuel(id, name, token)
             updateFuel.then((response) => 
             {
+                productsDB.clear()
+                productsDB.bulkAdd(response?.data)
                 if(response?.status === 200)
                 {
                    setIsLoading(false)

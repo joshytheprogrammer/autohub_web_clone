@@ -3,6 +3,7 @@ import { BeatLoader } from "react-spinners";
 import { Modal } from "../../../../../../components/modal/Modal";
 import { UpdateCategory } from "../../../../../api/admin/market/categories";
 import Message from "../../../../../../components/shared/Message";
+import { productsDB } from "../../../../../model/Product";
 
 type EditProductCategoryProps = 
 {
@@ -57,6 +58,8 @@ export const EditCategoryModal = ({onClick, editModal, data, token}: EditProduct
             {
                 if(response?.status === 200)
                 {
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    setIsLoading(false)
                    onClick()  
                 } else {

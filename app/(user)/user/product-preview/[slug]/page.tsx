@@ -113,7 +113,7 @@ export default function ProductPreview({ params } : { params : { slug: string } 
                             >
                               <p>Manufacturer:</p>
                               <p className="text-brandGreen">
-                                {`${data?.['manufacturer']['name']}`}
+                                  {`${data?.['manufacturer']}`}
                               </p>
                             </div>
                             <div 
@@ -121,32 +121,32 @@ export default function ProductPreview({ params } : { params : { slug: string } 
                             >
                               <p>Model:</p>
                               <p className="text-brandGreen">
-                                {`${data?.['model']['name']}`}
+                              {`${data?.['model']}`}
                               </p>
                             </div>   
                             <div 
                                 className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center"
                             >
                               <p>Trim:</p>
-                              { data?.['trim'] ? `${data?.['trim']['name']}` : 'Not Specififed' }
+                              { data?.['trim'] ? `${data?.['trim']}` : 'Not Specififed' }
                             </div>                     
                             <div 
                               className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center"
                             >
                               <p>Engine:</p>
-                              { data?.['engine'] ? `${data?.['engine']['name']}` : 'Not Specififed' }
+                              { data?.['engine'] ? `${data?.['engine']}` : 'Not Specififed' }
                             </div>
                             <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                               <p>Colour:</p>
                               <p className="text-brandGreen">
-                                {`${data?.['colour']['name']}`}
+                                {`${data?.['colour']}`}
                               </p>
                             </div>
                             {/* Transmission */}
                             <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                               <p>Transmission:</p>
                               <p className="text-brandGreen">
-                                {`${data?.['transmission']['name']}`}
+                                {`${data?.['transmission']}`}
                               </p>
                             </div>
                             {/* Year */}
@@ -163,7 +163,7 @@ export default function ProductPreview({ params } : { params : { slug: string } 
                                 {currencyFormatter(data?.['price'])}
                               </p>
                             </div>
-                            <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
+                            {/* <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                             <p>Sellable at:</p>
                             { (data?.['min_price'] != 0) && (data?.['max_price'] != 0) ? 
                                 <>
@@ -175,25 +175,25 @@ export default function ProductPreview({ params } : { params : { slug: string } 
                                   <p className="text-brandGreen">{currencyFormatter(data?.['max_price'])}</p> 
                                 </>                          
                             }
-                          </div>
+                          </div> */}
                           {/* Door */}
                           <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                             <p>Country</p>
                             <p className="text-brandGreen">
-                              {`${data?.['country']['name']}`}
+                              {`${data?.['country']}`}
                             </p>
                           </div>
                           <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                             <p>State</p>
                             <p className="text-brandGreen">
-                              {`${data?.['state']['name']}`}
+                              {`${data?.['state']}`}
                             </p>
                           </div>
                           {/* Seat */}
                           <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                             <p>Location:</p>
                             <p className="text-brandGreen">
-                              {`${data?.['address']}`}
+                              {`${data?.['location']}`}
                             </p>
                           </div>
                           <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">

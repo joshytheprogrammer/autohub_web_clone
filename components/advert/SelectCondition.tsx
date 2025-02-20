@@ -21,8 +21,7 @@ const SelectCondition = ({ onClick, placeholder, selectedCondition, incomingData
   const [inputValue, setInputValue] = useState("");
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
-  const [categId] = useState<number>(-1)
-  const [refresh] = useState<number>(-1)
+  const [conditionId, setConditionId] = useState<number>(Number(advertState.getCondition()))
 
   
   useEffect(() => 
@@ -30,11 +29,11 @@ const SelectCondition = ({ onClick, placeholder, selectedCondition, incomingData
      setSelected(selectedCondition)
      setData(incomingData)
   }, [])
-  
+    
   useEffect(() => 
   {
-     onClick(categId)
-  }, [refresh])
+     onClick(Number(advertState.getCondition()))
+  }, [conditionId])
 
   return (
         <div 
@@ -84,6 +83,7 @@ const SelectCondition = ({ onClick, placeholder, selectedCondition, incomingData
                             setInputValue("")
                             advertState.setCondition(-1)
                             advertState.setConditionName("")
+                            setConditionId(-1)
                             setOpen(false)
                         }}
                     >
@@ -109,6 +109,7 @@ const SelectCondition = ({ onClick, placeholder, selectedCondition, incomingData
                                 setInputValue("")
                                 advertState.setCondition(x?.tb_id)
                                 advertState.setConditionName(x?.name) 
+                                setConditionId(Number(x?.tb_id))
                                 setOpen(false)
                             }}
                         >

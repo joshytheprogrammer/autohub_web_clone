@@ -69,7 +69,7 @@ export const CourseFaqQuestion = ({onClick, corseFaqs, cdata, token}: CourseFaqs
        () => [  
           {
              header: 'Question',
-             cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+             cell: (row) => (<a href="#" onClick={() => setShowStates(true)}><Show display={row.renderValue()} /></a>),
              accessorKey: 'questions',
           },
           {

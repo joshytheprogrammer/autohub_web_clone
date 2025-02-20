@@ -7,6 +7,7 @@ import Message from "../../../../../../../components/shared/Message";
 import { useQuery } from "@tanstack/react-query";
 import { GetCountry } from "../../../../../../api/admin/market/country";
 import delay from "delay";
+import { productsDB } from "../../../../../../model/Product";
 
 
 type AddStateProductProps = 
@@ -56,6 +57,8 @@ export const AddStateModal = ({onClick, openStateProduct, callAgain, token}: Add
             {
                 if(response?.status === 200)
                 {
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    toast.success(response?.message, {
                        position: "top-center",
                    });

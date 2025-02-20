@@ -4,6 +4,7 @@ import Message from "../../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../../components/modal/Modal"
 import toast from "react-hot-toast"
 import { RemoveEngine } from "../../../../../../api/admin/market/product-entry/engine"
+import { productsDB } from "../../../../../../model/Product"
 
 
 type DeleteEngineModalProps = 
@@ -35,6 +36,8 @@ export const DeleteEngineProduct = ({onClick, openDeleteEngine, data, token}: De
          {
             if(response?.status === 200)
             {
+                productsDB.clear()
+                productsDB.bulkAdd(response?.data)
                 toast.success('Deleted', {
                    position: "top-center",
                 });

@@ -3,6 +3,7 @@ import { BeatLoader } from "react-spinners";
 import { Modal } from "../../../../../../components/modal/Modal";
 import { AddCategory } from "../../../../../api/admin/market/categories";
 import Message from "../../../../../../components/shared/Message";
+import { productsDB } from "../../../../../model/Product";
 
 type addCategoryModalProps = 
 {
@@ -54,7 +55,9 @@ export const AddCategoryModal = ({onClick, openCategoryModal, userType, token}: 
             {
                 if(response?.status === 200)
                 {
-                      onClick()  
+                    productsDB.clear()
+                    productsDB.bulkAdd(response?.data)
+                    onClick()  
                 } else {
                    setErrorMessage(response?.message)
                    setTimeout(() => 

@@ -40,6 +40,7 @@ export default function ProductCard({ product, refetchs }: ProductDetail)
                                 >
                                 <img    
                                     src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
+                                    // src={`${product?.face_image}`} 
                                     onClick={() => 
                                       {
                                          router.push(`/product-detail/${product?.slug}`)

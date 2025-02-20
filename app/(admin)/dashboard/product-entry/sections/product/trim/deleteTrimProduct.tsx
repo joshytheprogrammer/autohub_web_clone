@@ -4,6 +4,7 @@ import Message from "../../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../../components/modal/Modal"
 import { RemoveTrim } from "../../../../../../api/admin/market/product-entry/trim"
 import toast from "react-hot-toast"
+import { productsDB } from "../../../../../../model/Product"
 
 
 type DeleteTrimModalProps = 
@@ -35,6 +36,8 @@ export const DeleteTrimProduct = ({onClick, openDeleteTrim, data, token}: Delete
               {
                   if(response?.status === 200)
                   {
+                      productsDB.clear()
+                      productsDB.bulkAdd(response?.data)
                       toast.success('Deleted', {
                           position: "top-center",
                       });

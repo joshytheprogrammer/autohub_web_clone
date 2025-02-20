@@ -4,6 +4,7 @@ import Message from "../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../components/modal/Modal"
 import { RemoveColour } from "../../../../../api/admin/market/colour"
 import toast from "react-hot-toast"
+import { productsDB } from "../../../../../model/Product"
 
 
 type DeleteColourModalProps = 
@@ -36,6 +37,8 @@ export const DeleteColourModal = ({onClick, openDeleteColour, data, token}: Dele
            {
                if(response?.status === 200)
                {
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    setIsLoading(false)
                    toast.success('Deleted', {
                        position: "top-center",

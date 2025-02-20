@@ -23,6 +23,7 @@ import TextArea from "./Editor/TextArea"
 import axios from "axios"
 import { BASE_URL } from "../../../../constant/Path"
 import { useRouter } from "next/navigation"
+import currencyFormatter from "../../../../components/util/currency-formatter"
 
 
 export default function CreateAdvert() 
@@ -46,7 +47,7 @@ export default function CreateAdvert()
     // const TRIM_MODEL_MESSAGE = 'Reset Trim'
     const ENGINE_MESSAGE = 'Select Engine'
     // const ENGIEN_MODEL_MESSAGE = 'Reset Trim'
-    const FUEL_MESSAGE = 'Select Engine'
+    const FUEL_MESSAGE = 'Select Fuel'
     const YEAR_MESSAGE = 'Select Year'
     const COLOUR_MESSAGE = 'Select Colour'
     const TRANSMISSION_MESSAGE = 'Select Transmission'
@@ -123,7 +124,7 @@ export default function CreateAdvert()
     const [errMsgStyle, setErrMsgStyle] = useState<string>('')
     const [advertImages, setAdvertImages] = useState<string[]>([])
   
-    const [value] = useState(advertState.getDescription())
+    const [value, setValue] = useState(advertState.getDescription())
     const [type, setType] = useState("x")
 
     const [errorMessage, setErrorMessage] = useState<string>("")
@@ -658,15 +659,24 @@ export default function CreateAdvert()
                                 className="w-2/2 md:w-1/2 mb-5 md:mb-0"
                             >
                                 <label className="font-semibold text-xs">Fuel</label>
-                                <SelectFuel incomingData={data?.['fuel']} 
-                                            placeholder={"Select Fuel"} 
-                                            selectedFuel={advertState.getFuelName()} 
-                                            onClick={
-                                                () => {
-
+                                <SelectFuel 
+                                        incomingData={data?.['fuel']} 
+                                        placeholder={"Select Fuel"} 
+                                        selectedFuel={advertState.getFuelName()} 
+                                        onClick={
+                                            (fuel: number = 0) => 
+                                            {
+                                                if(fuel != -1)
+                                                {
+                                                    setFuelMessage("")
+                                                } 
+                                                if(fuel === -1)
+                                                {
+                                                   setFuelMessage(FUEL_MESSAGE)
                                                 }
                                             }
-                                            edit={true}
+                                        }
+                                        edit={true}
                                 />
                                 { fuelMessage && <Message msg={FUEL_MESSAGE} status={errMsgStyle} /> }
                             </div>
@@ -707,12 +717,11 @@ export default function CreateAdvert()
                                         placeholder={"Select Colour"}
                                         onClick={(clr) => 
                                         {
-                                            const selected: string | number = clr
-                                            if(selected != -1)
+                                            if(clr != -1)
                                             {
-                                               setColourMessage(YEAR_MESSAGE)
-                                            } else {
                                                setColourMessage("")
+                                            } else {
+                                               setColourMessage(YEAR_MESSAGE)
                                             }
                                         }}
                                         edit={true}
@@ -732,9 +741,9 @@ export default function CreateAdvert()
                                                     const selected: string | number = trans
                                                     if(selected != -1)
                                                     {
-                                                        setTransmissionMessage(TRANSMISSION_MESSAGE)
-                                                    } else {
                                                         setTransmissionMessage("")
+                                                    } else {
+                                                        setTransmissionMessage(TRANSMISSION_MESSAGE)
                                                     }
                                                 }}
                                                 edit={true}
@@ -752,20 +761,20 @@ export default function CreateAdvert()
                             >
                                 <label className="font-semibold text-xs">Condition</label>
                                 <SelectCondition 
-                                                    incomingData={data?.['condition']}  
-                                                    selectedCondition={advertState.getConditionName()} 
-                                                    placeholder={"Select Condition"} 
-                                                    onClick={(cndt) => 
-                                                    {
-                                                        const selected: string | number = cndt
-                                                        if(selected != -1)
-                                                        {
-                                                            setConditionMessage(CONDITION_MESSAGE)
-                                                        } else {
-                                                            setConditionMessage("")
-                                                        }
-                                                    }}
-                                                    edit={true}
+                                        incomingData={data?.['condition']}  
+                                        selectedCondition={advertState.getConditionName()} 
+                                        placeholder={"Select Condition"} 
+                                        onClick={(cndt) => 
+                                            {
+                                               const selected: string | number = cndt
+                                               if(selected != -1)
+                                               {
+                                                  setConditionMessage("")
+                                               } else {
+                                                  setConditionMessage(CONDITION_MESSAGE)
+                                               }
+                                            }}
+                                        edit={true}
                                 />
                                 { conditionMessage && <Message msg={CONDITION_MESSAGE} status={errMsgStyle} /> }
                             </div>
@@ -814,7 +823,13 @@ export default function CreateAdvert()
                                     onChange={(e: any) => 
                                     {
                                         let selected: string = e.target.value
-                                        advertState.setLocation(selected)
+                                        if(selected === "" || selected === undefined || selected === null)
+                                        {
+                                            setLocationMessage(LOCATION_MESSAGE)
+                                        } else {
+                                            advertState.setLocation(selected)
+                                            setLocationMessage("")                                            
+                                        }
                                     }}
                                     onBlur={(e: any) => 
                                     {
@@ -822,6 +837,9 @@ export default function CreateAdvert()
                                         if(selected === "" || selected === undefined || selected === null)
                                         {
                                             setLocationMessage(LOCATION_MESSAGE)
+                                        } else {
+                                            advertState.setLocation(selected)
+                                            setLocationMessage("")                                            
                                         }
                                     }}
                                 />
@@ -867,24 +885,35 @@ export default function CreateAdvert()
                                 <div 
                                     className="mb-4 md:w-full"
                                 >
-                                    <label className="font-semibold text-xs">Price</label>
+                                    <label className="font-semibold text-xs">Price - </label><span className="font-bold text-md">{currencyFormatter(advertState.getPrice())}</span>
                                     <input 
                                         defaultValue={advertState.getPrice()}
                                         className="w-full border border border-3 shadow-md rounded-md py-2 px-3 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                         type='number' name="price" id="price" placeholder="Enter Price" 
                                         onChange={(e: any) => 
-                                        {
-                                            let selected: string = e.target.value
-                                            advertState.setPrice(selected)
-                                        }}
-                                        onBlur={(e: any) => 
-                                        {
-                                            let selected: string = e.target.value
-                                            if(selected === "" || selected === undefined || selected === null)
                                             {
-                                                setPriceMessage(PRICE_MESSAGE)
+                                                let selected: number = Number(e.target.value)
+                                                if(selected === 0 || selected.toString() === "" || selected === undefined || selected === null)
+                                                {
+                                                    setPriceMessage(PRICE_MESSAGE)
+                                                } else {
+                                                    advertState.setPrice(selected)
+                                                    setPriceMessage("")                                           
+                                                }
                                             }
-                                        }}
+                                        }
+                                        onBlur={(e: any) => 
+                                           {
+                                                let selected: number = Number(e.target.value)
+                                                if(selected === 0 || selected.toString() === "" || selected === undefined || selected === null)
+                                                {
+                                                    setPriceMessage(PRICE_MESSAGE)
+                                                } else {
+                                                    advertState.setPrice(selected)
+                                                    setPriceMessage("")                                           
+                                                }
+                                            }
+                                        }
                                     />
                                 { priceMessage && <Message msg={PRICE_MESSAGE} status={errMsgStyle} /> }
                                 </div>
@@ -895,12 +924,21 @@ export default function CreateAdvert()
                             className="w-full flex flex-wrap mt-5 md:mb-10 mb-20 py-2"
                         >
                             <span className="w-full font-bold text-sm mb-3">Description</span>
-                            <TextArea />
+                            <TextArea 
+                                onClick={
+                                    (desc: string) => {
+                                        if(desc === "" || desc === null || desc === undefined)
+                                        {
+                                            setDescriptionErrorMsg(DESCRIPTION_MESSAGE)
+                                        } else {          
+                                            setDescriptionErrorMsg("")
+                                        }
+                                    }
+                                }
+                            />
+                            <div className="text-red-500 font-bold text-sm">{ (value === "") ?  description : "" }</div>
                         </div>
-                        <div className="text-red-500 font-bold text-sm">{ (value === "") ?  description : "" }</div>
 
-                                        
-                        { (imagePosition) && <Message msg={imagePosition} status={errMsgStyle} /> } 
                         <MultipleImageUpload width={0} ICloudColour={""} 
                             onClick={(img: any,) => 
                             {
@@ -909,7 +947,9 @@ export default function CreateAdvert()
                         />
 
 
-                        { (errorMessage) && <Message msg={errorMessage} status={errMsgStyle} /> }              
+                        { (errorMessage) && <Message msg={errorMessage} status={errMsgStyle} /> }                                               
+                        { (imagePosition) && <Message msg={imagePosition} status={errMsgStyle} /> } 
+
 
                         <div 
                             className="w-full d-flex md:flex mb-3 mt-14 hidden md:block"

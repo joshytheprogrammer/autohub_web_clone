@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from 'react-icons/bs'
 import { USAGE_PATH } from '../constant/Path'
 import { HiOutlineSpeakerphone } from 'react-icons/hi'
+import Image from 'next/image'
 
 
 export default function SlideShowThumbnail({ data, imageSize, waterMark }: { data: any, imageSize: any, waterMark: string | any }) 
@@ -72,10 +73,19 @@ export default function SlideShowThumbnail({ data, imageSize, waterMark }: { dat
                 className='relative'
             >
                 {
-                    ((data?.length > 0)) && <img
+                    ((data?.length > 0)) && <Image 
+                                                className="w-full h-full object-fit" 
                                                 src={`${USAGE_PATH.IMAGE_SLIDER}${data[slide]?.image_url}`} 
-                                                className="w-full h-full object-fit"
-                                            />
+                                                alt={`${data[slide]?.image_url}`}
+                                                width={700}
+                                                height={700}
+                                            /> 
+                                            // <img
+                                            //     src={`${USAGE_PATH.IMAGE_SLIDER}${data[slide]?.image_url}`} 
+                                            //     src={`${data[slide]?.image_url}`} 
+                                            //     className="w-full h-full object-fit"
+                                            // />
+
                 }
                 <div 
                     className="absolute p-5 md:hidden w-4/12" style={{marginTop: '-180px', marginLeft: '110px'}} 
@@ -113,15 +123,18 @@ export default function SlideShowThumbnail({ data, imageSize, waterMark }: { dat
                             data.map((img: { image_url: string }, index: number) => 
                             {
                                 return (
-                                    <img
-                                           key={index}
-                                           src={`${USAGE_PATH.PRODUCT_FACE}${img?.image_url}`} 
-                                           className="w-[200px] h-[140px] object-fit border-2 border-gray-10"
-                                           onClick={() => 
-                                           {
-                                              setSlide((index))
-                                           }}
-                                    />
+                                    <Image 
+                                        key={index}
+                                        className="w-[200px] h-[140px] object-fit border-2 border-gray-10"
+                                        src={`${USAGE_PATH.PRODUCT_FACE}${img?.image_url}`} 
+                                        alt={`${data[slide]?.image_url}`}
+                                        width={700}
+                                        height={700}
+                                        onClick={() => 
+                                        {
+                                           setSlide((index))
+                                        }}
+                                    /> 
                                 )
                             })
                         }

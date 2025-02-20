@@ -4,6 +4,7 @@ import Message from "../../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../../components/modal/Modal"
 import { RemoveModel } from "../../../../../../api/admin/market/product-entry/model"
 import toast from "react-hot-toast"
+import { productsDB } from "../../../../../../model/Product"
 
 
 type DeleteModelModalProps = 
@@ -35,6 +36,8 @@ export const DeleteModelProduct = ({onClick, openDeleteModel, data, token}: Dele
            {
                if(response?.status === 200)
                {
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    toast.success('Deleted', {
                        position: "top-center",
                    });

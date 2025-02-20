@@ -21,8 +21,7 @@ const SelectTransmission = ({ onClick, placeholder, selectedTransmission, incomi
   const [inputValue, setInputValue] = useState("");
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
-  const [categId] = useState<number>(-1)
-  const [refresh] = useState<number>(-1)
+  const [transmissionId, setTransmissionId] = useState<number>(Number(advertState.getTransmission()))
 
   
   useEffect(() => 
@@ -30,11 +29,11 @@ const SelectTransmission = ({ onClick, placeholder, selectedTransmission, incomi
      setSelected(selectedTransmission)
      setData(incomingData)
   }, [])
-  
+    
   useEffect(() => 
   {
-     onClick(categId)
-  }, [refresh])
+    onClick(Number(advertState.getTransmission()))
+  }, [transmissionId])
 
   return (
         <div 
@@ -85,6 +84,7 @@ const SelectTransmission = ({ onClick, placeholder, selectedTransmission, incomi
                             setInputValue("")
                             advertState.setTransmission(-1)
                             advertState.setTransmissionName("")
+                            setTransmissionId(-1)
                             setOpen(false)
                         }}
                     >
@@ -111,6 +111,7 @@ const SelectTransmission = ({ onClick, placeholder, selectedTransmission, incomi
                                 setInputValue("")
                                 advertState.setTransmission(x?.tb_id)
                                 advertState.setTransmissionName(x?.name)  
+                                setTransmissionId(Number(x?.tb_id))
                                 setOpen(false)
                             }}
                         >

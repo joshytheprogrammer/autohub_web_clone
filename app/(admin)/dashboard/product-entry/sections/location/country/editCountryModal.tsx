@@ -4,6 +4,7 @@ import { Modal } from "../../../../../../../components/modal/Modal";
 import { UpdateCountry } from "../../../../../../api/admin/market/country";
 import toast from "react-hot-toast";
 import Message from "../../../../../../../components/shared/Message";
+import { productsDB } from "../../../../../../model/Product";
 
 
 type EditProductCountryProps = 
@@ -37,6 +38,8 @@ export const EditCountryModal = ({onClick, openCountryProduct, data, token}: Edi
             {
                 if(response?.status === 200)
                 {
+                   productsDB.clear()
+                   productsDB.bulkAdd(response?.data)
                    setIsLoading(false)
                    toast.success('Updated', {
                       position: "top-center",
