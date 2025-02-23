@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
+import Image from 'next/image'
 import { useState } from "react"
 import { BsGeoAltFill } from "react-icons/bs"
 import { HiPaperAirplane } from "react-icons/hi"
@@ -110,7 +111,7 @@ export default function DraftedProduct()
                                                 <div 
                                                     className="w-6/12"
                                                 >
-                                                    <img src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
+                                                    {/* <img src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
                                                          width={300} height={300}  
                                                          onClick={() => 
                                                          {
@@ -118,7 +119,19 @@ export default function DraftedProduct()
                                                          }
                                                          }
                                                          className="cursor-pointer"
-                                                    />    
+                                                    />     */}
+                                                    <Image 
+                                                        src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
+                                                        alt={`${product?.face_image}`} 
+                                                        width={300} 
+                                                        height={300}  
+                                                        onClick={() => 
+                                                        {
+                                                            router.push(`/user/product-preview/${product?.slug}`)
+                                                        }
+                                                        }
+                                                        className="cursor-pointer"
+                                                    /> 
                                                     <div 
                                                         className="hidden"
                                                     >

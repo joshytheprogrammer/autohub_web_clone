@@ -68,7 +68,7 @@ export default function SubModule({ openCourseModuleModal, mData, onClick, token
       () => [
       {
          header: 'Name',
-         cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+         cell: (row) => (<a href="#" onClick={() => row.cell.row.getValue}><Show display={row.renderValue()} /></a>),
          accessorKey: 'name',
       },
       {

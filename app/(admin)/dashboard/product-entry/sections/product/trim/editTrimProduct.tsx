@@ -32,7 +32,8 @@ export const EditTrimProduct = ({onClick, openTrimProduct, pdata, token}: EditPr
         const [errorMessage, setErrorMessage] = useState<string>("")
         const [allManufactures, setAllManufactures] = useState<any>([])
         const [allModels, setAllModels] = useState<any>([])
-        const [theModelOption, setTheModelOption] = useState<string>('invalid')
+        const [theModelOption, setTheModelOption] = useState<string>('invalid')        
+        const [modId, setModId] = useState<number>(pdata?.model_id)
         
         useEffect(() => 
         {
@@ -49,9 +50,11 @@ export const EditTrimProduct = ({onClick, openTrimProduct, pdata, token}: EditPr
 
         useEffect(() => 
         {
-            setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
-            _Manufacturers()
-            _Models(pdata?.model_id)  
+           setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
+           _Manufacturers()
+           //     _Models(pdata?.model_id)  
+           console.log({ selectedModel, theModelOption })
+           _Models(modId)  
         }, [])
 
         const _Manufacturers = async () => 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { BeatLoader } from "react-spinners"
+import Image from 'next/image'
 import { Modal } from "../../../../../components/modal/Modal"
 import { USAGE_PATH } from "../../../../../constant/Path"
 import { MarkProductSold } from "../../../../api/home/market/user/product"
@@ -55,16 +56,31 @@ export const MarkAsSolModal = ({onClick, asSoldModal, imageProductUrl='', produc
 
         return (
                 <Modal 
-                        onClick={onClick} isOpen={asSoldModal} wrapperWidth={800} margin={'240px auto 0px auto'}
+                   onClick={onClick} 
+                   isOpen={asSoldModal} 
+                   wrapperWidth={800} 
+                   margin={'240px auto 0px auto'}
                 >
                         { errorMessage && <Message msg={errorMessage} status={errMsgStyle} /> }
                         <div 
                              className='col-span-12 pt-1 pb-5 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
                         >
-                                <span className='mb-5 w-full flex justify-center items-center font-bold mt-3 text-2xl text-green-600 uppercase'>{productName}</span>                           
+                                <span 
+                                    className='mb-5 w-full flex justify-center items-center font-bold mt-3 text-2xl text-green-600 uppercase'
+                                >
+                                  {productName}
+                                </span>
                                 {
-                                        imageProductUrl && imageProductUrl !="" && <div className="max-w-sm rounded overflow-hidden shadow-lg m-auto">
-                                                <img className="w-full" src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} alt="Sunset in the mountains" />
+                                    imageProductUrl && imageProductUrl !="" && 
+                                        <div 
+                                           className="max-w-sm rounded overflow-hidden shadow-lg m-auto"
+                                        >
+                                           {/* <img 
+                                               className="w-full" 
+                                               src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} 
+                                               alt="Sunset in the mountains" 
+                                           /> */}
+                                           <Image src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`}  alt={`${imageProductUrl}`} width={600} height={600} className='rounded-full' /> 
                                         </div>
                                 }
                                 <div 

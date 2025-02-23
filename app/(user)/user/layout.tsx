@@ -23,10 +23,10 @@ export default function UserLayout(
       
       const marketPlate = 
       [
-        //   {
-        //       name: "dashboard",
-        //       url: "/user/dashboard"
-        //   },
+          {
+              name: "dashboard",
+              url: "/user/dashboard"
+          },
           {
               name: "My Ads",
               url: "/user/adverts"

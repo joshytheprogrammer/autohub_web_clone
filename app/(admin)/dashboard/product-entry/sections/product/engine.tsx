@@ -37,8 +37,8 @@ export default function Engine()
     const [openDeleteEngine, setOpenDeleteEngine] = useState<boolean>(false)
     const [refresh, setRefresh] = useState<boolean>(false)
     
-    const [allModels, setModels] = useState<any>([])
-    const [allTrim, setTrims] = useState<any>([])
+    // const [allModels, setModels] = useState<any>([])
+    // const [allTrim, setTrims] = useState<any>([])
     const [selectedEngine, setSelectedEngine] = useState<string>("")
 
     const [engineData, setEngineData] = useState<{ id: number, tb_id: number, manufacturer_id: number,  model_id: number, trim_id: number, manufacturer_name: string, model_name: string, trim_name: string, name: string, rate: number }>(
@@ -68,9 +68,14 @@ export default function Engine()
 //        setTrims(trimss)
 //     }
 
+    const refetcch = () => 
+    {
+       refetch()        
+    }
+
     useEffect(() => 
     {
-        refetch()
+        refetcch()
     }, [theType])
 
     useEffect(() => 

@@ -8,14 +8,14 @@ type ViewDealerDetailProps =
 {
     onClick: () => void 
     openViewDealer: boolean 
-    imageUrl: string 
-    userId: number 
+    imageUrl?: string 
+    userId?: number 
     message: string
-    userType: string
-    token: string
+    userType?: string
+    token?: string
 }    
 
-export const ViewDealerDetail = ({onClick, openViewDealer, message, imageUrl, userId, userType, token}: ViewDealerDetailProps)  =>
+export const ViewDealerDetail = ({onClick, openViewDealer, message}: ViewDealerDetailProps)  =>
 {
     //  const [loading] = useState<boolean>(false)
  
@@ -25,7 +25,6 @@ export const ViewDealerDetail = ({onClick, openViewDealer, message, imageUrl, us
      useEffect(() => 
      {
         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
-        console.log({ imageUrl, userId, userType, token })
      }, []) 
 
 

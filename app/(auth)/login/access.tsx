@@ -38,7 +38,7 @@ export default function Access({ showLogo, goTo } : { showLogo: boolean, goTo: s
       //    setUserIsRegistered(userData.getRegistered())
          setTimeout(() => 
          {
-            userData.setRegistered("")  
+            userData?.setRegistered("")  
             // setUserIsRegistered("")           
          }, 10000)
       }, []) 

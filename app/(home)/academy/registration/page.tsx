@@ -13,12 +13,12 @@ import { ExistingUserStudent, NewStudent } from "../../../api/admin/academic/stu
 import { Logout } from "../../../../components/Logout"
 import delay from "delay"
 import { profileDB } from "../../../model/Product"
-import { Router } from "lucide-react"
-import router from "next/router"
+import { useRouter } from "next/navigation"
 
 
 export default function MACEOSRegistration() 
 {  
+  const router = useRouter()
   const profile = UseStore((state) => state)
   const token: string = profile.getUserToken()
   
@@ -118,7 +118,7 @@ export default function MACEOSRegistration()
   const [errMsgStyle, setErrMsgStyle] = useState<string>('')
   const [success, setSuccess] = useState<string>("");
   const [successMsgStyle, setSuccessMsgStyle] = useState<string>('')
-  const [openLoggedOut, setOpenLoggedOut] = useState<boolean>(false) 
+  const [openLoggedOut] = useState<boolean>(false) 
   
   useEffect(() => 
   {

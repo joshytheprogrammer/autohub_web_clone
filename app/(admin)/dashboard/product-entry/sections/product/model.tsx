@@ -58,9 +58,14 @@ export default function Model()
        setModels(manufacturers)
     }
 
+    const refetcch = () => 
+    {
+        refetch()        
+    }
+
     useEffect(() => 
     {
-        refetch()
+        refetcch()
     }, [theType])
 
     useEffect(() => 

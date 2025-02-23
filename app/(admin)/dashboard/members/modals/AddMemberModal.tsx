@@ -9,14 +9,14 @@ type AddMemberModalProp =
 {
     onClick: () => void 
     openAddMember: boolean 
-    imageUrl: string 
-    userId: number 
+    imageUrl?: string 
+    userId?: number 
     message: string
-    userType: string
-    token: string
+    userType?: string
+    token?: string
 }    
 
-export const AddMemberModal = ({onClick, openAddMember, message, imageUrl, userId, userType, token}: AddMemberModalProp)  =>
+export const AddMemberModal = ({onClick, openAddMember, message}: AddMemberModalProp)  =>
 {
      const [loading] = useState<boolean>(false)
  
@@ -26,7 +26,6 @@ export const AddMemberModal = ({onClick, openAddMember, message, imageUrl, userI
      useEffect(() => 
      {
         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
-        console.log({ imageUrl, userId, userType, token })
      }, []) 
 
      const deleteProduct = async () => 

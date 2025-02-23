@@ -26,7 +26,7 @@ export default function CountDownTimerExam({ seconds, question, message='' }: { 
 
     const advertState = UseStore((state) => state)
     const [countdown, setCountDown] = useState(seconds)
-    const [theTime, setTheTime] = useState(0)
+    // const [theTime, setTheTime] = useState(0)
     const timerId = useRef<any>()
 
     useEffect(() => 
@@ -44,7 +44,7 @@ export default function CountDownTimerExam({ seconds, question, message='' }: { 
       {
         clearInterval(timerId.current)
         console.log("Will get you submitted")
-        advertState.setForceExamObj('yes')
+        advertState?.setForceExamObj('yes')
         router.push('/user/force-exam-submit')
       }
     }, [countdown])

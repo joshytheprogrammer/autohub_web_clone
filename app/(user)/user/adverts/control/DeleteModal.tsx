@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Image from 'next/image'
 import { BeatLoader } from "react-spinners"
 import { Modal } from "../../../../../components/modal/Modal"
 import { USAGE_PATH } from "../../../../../constant/Path"
@@ -62,12 +63,26 @@ export const DeleteImageModal = ({onClick, deleteModal, message, imageId, imageP
                         onClick={onClick} isOpen={deleteModal} wrapperWidth={800} margin={'320px auto 0px auto'}
                 >
                         { errorMessage && <Message msg={errorMessage} status={errMsgStyle} />  }
-                        <div className='col-span-12 pt-1 pb-5 overflow-y-auto xm:overflow-y-scroll justify-center item-center'>
-                                <h1 className='w-full flex justify-center items-center uppercase mb-5 font-bold mt-3 text-red-600'>{message}</h1>                               
-                                {
-                                        imageProductUrl && imageProductUrl !="" && <div className="max-w-sm rounded overflow-hidden shadow-lg m-auto">
-                                                <img className="w-full" src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} alt="Sunset in the mountains" />
-                                        </div>
+                        <div 
+                            className='col-span-12 pt-1 pb-5 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
+                        >
+                            <h1 
+                                className='w-full flex justify-center items-center uppercase mb-5 font-bold mt-3 text-red-600'
+                            >
+                                {message}
+                            </h1>
+                             {
+                                 imageProductUrl && imageProductUrl !="" && 
+                                   <div 
+                                        className="max-w-sm rounded overflow-hidden shadow-lg m-auto"
+                                   >
+                                    {/* <img 
+                                        className="w-full" 
+                                        src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} 
+                                        alt="Sunset in the mountains" 
+                                    /> */}
+                                    <Image src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} alt={`${imageProductUrl}`} width={200} height={200} className='w-full' /> 
+                                </div>
                                 }
                                 <div 
                                    className="items-center gap-5 mt-2 sm:flex flex justify-between mb-2 mx-5 mt-5"

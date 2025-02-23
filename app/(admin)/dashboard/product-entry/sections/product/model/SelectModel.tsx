@@ -17,22 +17,22 @@ type SelectModelProps =
 const SelectModel = ({ placeholder, selectedModel, models, id, onClick, modelOption }: SelectModelProps) => 
 {
   const [inputValue, setInputValue] = useState<string>("")
-  const [selected, setSelected] = useState<string>("")
+  const [selected, setSelected] = useState<string>(selectedModel)
   const [open, setOpen] = useState(false) 
   const [choosen, setChoosen] = useState<string>(modelOption)
 
   useEffect(() => 
   {
-     setSelected(selectedModel)
+    //  setSelected(selectedModel)
      console.log(id)
   }, [])
 
   useEffect(() => 
-  {
-     
+  {     
     setTimeout(() => 
     {
-       setChoosen(modelOption)
+        //    setChoosen(modelOption)
+        setChoosen(selected)
     }, 500)
   }, [selected])
   

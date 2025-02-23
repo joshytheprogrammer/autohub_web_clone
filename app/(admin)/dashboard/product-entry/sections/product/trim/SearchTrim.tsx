@@ -17,12 +17,12 @@ type SearchTrimProps =
 const SearchTrim = ({ placeholder, selectedTrim, selectedModel, trims, onClick }: SearchTrimProps) => 
 {
   const [inputValue, setInputValue] = useState<string>("")
-  const [selected, setSelected] = useState<string>("")
+  const [selected, setSelected] = useState<string>(selectedTrim)
   const [open, setOpen] = useState(false) 
   
   useEffect(() => 
   {
-     setSelected(selectedTrim)
+    //  setSelected(selectedTrim)
   }, [])
 
 

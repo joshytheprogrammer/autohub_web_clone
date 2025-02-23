@@ -9,14 +9,14 @@ type AddDealerModalProp =
 {
     onClick: () => void 
     openAddDealer: boolean 
-    imageUrl: string 
-    userId: number 
+    imageUrl?: string 
+    userId?: number 
     message: string
-    userType: string
-    token: string
+    userType?: string
+    token?: string
 }    
 
-export const AddDealerModal = ({onClick, openAddDealer, message, imageUrl, userId, userType, token}: AddDealerModalProp)  =>
+export const AddDealerModal = ({onClick, openAddDealer, message}: AddDealerModalProp)  =>
 {
      const [loading] = useState<boolean>(false)
  
@@ -27,7 +27,6 @@ export const AddDealerModal = ({onClick, openAddDealer, message, imageUrl, userI
      {
         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
         setErrorMessage("")
-        console.log({ imageUrl, userId, userType, token })
      }, []) 
 
      const deleteProduct = async () => 

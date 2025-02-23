@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import './css/dragAndDrop.css'
+import Image from 'next/image'
 import { BeatLoader } from "react-spinners";
 import { Modal } from '../../../../../components/modal/Modal';
 import { reduceImageSize } from '../../../../../components/util/image';
@@ -11,12 +12,12 @@ type AddProductImageProp =
    onClick: () => void 
    imageModal: boolean 
    productId: number 
-   adverProductId: number
+   adverProductId?: number
    userType: string
    token: string
 }
 
-export const AddProductImage = ({onClick, imageModal, productId, adverProductId, userType, token}: AddProductImageProp)  =>
+export const AddProductImage = ({onClick, imageModal, productId, userType, token}: AddProductImageProp)  =>
 {  
         const [imgUrl, setUrl] = useState<string>("")
         const [loading, setIsLoading] = useState<boolean>(false)
@@ -28,7 +29,6 @@ export const AddProductImage = ({onClick, imageModal, productId, adverProductId,
         useEffect(() => 
         {
            setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
-           console.log(adverProductId)
         }, []) 
         
         useEffect(() => 
@@ -100,7 +100,13 @@ export const AddProductImage = ({onClick, imageModal, productId, adverProductId,
 
         return (
                 <>
-                        <Modal onClick={onClick} isOpen={imageModal} wrapperWidth={800} margin={'240px auto 0px auto'} color='green'>
+                        <Modal 
+                            onClick={onClick} 
+                            isOpen={imageModal} 
+                            wrapperWidth={800} 
+                            margin={'240px auto 0px auto'} 
+                            color='green'
+                        >
                                 {/* <div className={`transition duration-300 w-full ${!error && "hidden"}`}>
                                         <div className={`bg-red-500/10 border-red-500/80 border w-full flex justify-center p-2`}>
                                                 <p className=" w-max text-center text-xs text-[#D10000]">{error}</p>
@@ -112,19 +118,28 @@ export const AddProductImage = ({onClick, imageModal, productId, adverProductId,
                                 >
                                         <div className="bg-white shadow-md w-fit mx-auto justify-center item-center overflow-y-auto xm:overflow-y-scroll justify-center item-center h-[400px]">
                                                { imgUrl && 
-                                                        <img src={imgUrl} alt="Product image" className="object-cover" />
+                                                        // <img src={imgUrl} alt="Product image" className="object-cover" />
+                                                        <Image src={imgUrl} alt={imgUrl} width={200} height={200} className='object-cover' /> 
                                                 }
                                          </div>
 
                                         
-                                         <div className="drag-area p-3 items-center text-center mx-auto">
-                                                <span className="flex select justify-center items-center text-xs block" role="button">
-                                                        <b className="px-10 py-5">Browse</b>
-                                                        <input type="file" id="product" name="product" className="file" onChange={
-                                                                (e) => {
-                                                                        imageUrlToDisplay(e.target.files)
-                                                                }
-                                                         } />
+                                         <div 
+                                            className="drag-area p-3 items-center text-center mx-auto"
+                                        >
+                                           <span 
+                                             className="flex select justify-center items-center text-xs block" role="button"
+                                           >
+                                                <b className="px-10 py-5">Browse</b>
+                                                <input 
+                                                   type="file" id="product" name="product" 
+                                                   className="file" 
+                                                   onChange={
+                                                     (e) => {
+                                                            imageUrlToDisplay(e.target.files)
+                                                        }
+                                                      } 
+                                                />
                                                 </span>
                                         </div>
                                 </div>

@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import Image from 'next/image'
 import { BsGeoAltFill } from "react-icons/bs"
 import { PuffLoader } from "react-spinners"
 import Pagination from "../../../../components/Pagination"
@@ -105,7 +106,14 @@ export default function WishListProduct()
                                             <div 
                                                 className="w-6/12"
                                             >
-                                                <img src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} width={300} height={300} />    
+                                                {/* <img src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} width={300} height={300} />     */}
+                                                <Image 
+                                                    src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
+                                                    alt={`${product?.face_image}`} 
+                                                    width={300} 
+                                                    height={300} 
+                                                    className='rounded-full' 
+                                                /> 
                                                 <div 
                                                     className="hidden"
                                                 >

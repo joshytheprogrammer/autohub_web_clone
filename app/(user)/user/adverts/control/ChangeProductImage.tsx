@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { PuffLoader, ScaleLoader } from "react-spinners"
+import Image from 'next/image'
 import { Modal } from "../../../../../components/modal/Modal"
 import Message from "../../../../../components/shared/Message"
 import { USAGE_PATH } from "../../../../../constant/Path"
@@ -118,8 +119,10 @@ export const ChangeProductImage = ({onClick, imageModal, imageId, imageUrl, mode
                                                                 return (
                                                                         <>
                                                                            <div className={`relative d-flex col-span-12 md:col-span-3 rounded-lg shadow-md px-2 pb-3 h-fit ${((selected) ? selected : '')}`} key={index}>
-                                                                                <img src={`${USAGE_PATH.PRODUCT_FACE}${image.image_url}`} alt="product images" className={''} />
-                                                                                <div className={`${faceAdvert}`}>
+                                                                                {/* <img src={`${USAGE_PATH.PRODUCT_FACE}${image.image_url}`} alt="product images" className={''} /> */}
+                                                                                <Image src={`${USAGE_PATH.PRODUCT_FACE}${image.image_url}`} alt={`${image.image_url}`} width={200} height={200} className='' /> 
+                                                                                <div 
+                                                                                        className={`${faceAdvert}`}>
                                                                                         {
                                                                                                 (mode != 'view') && 
                                                                                                 <span className={"absolute bottom-0 left-0 p-1 hover:border-4 hover:bg-green-100 rounded-full"} onClick={() => { 

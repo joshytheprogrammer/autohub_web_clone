@@ -1,6 +1,7 @@
 "use client"
 
 import { ColumnDef } from '@tanstack/react-table'
+import Image from 'next/image'
 import { useEffect, useMemo, useState } from "react"
 import { Show } from '../../../../components/shared/Show'
 import { Icons } from '../../../../components/shared/Icons'
@@ -71,11 +72,15 @@ export default function Users()
     {
        setRefresh(false)
     }, [open, showModal, employeeId, isItThis, openModal, showingStates, refresh])
-  
+    
+    const refetcch = () => 
+    {
+        refetch()
+    }
 
     useEffect(() => 
     {
-       refetch()
+       refetcch()
     }, [perPage, searchQuery])
   
     const ShowStates = (page: any) => 
@@ -106,7 +111,8 @@ export default function Users()
           () => [            
             {
                   header: 'Picture',
-                  cell: (row) => (<a href="#"><img src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} width={65} height={65} className='rounded-full' /></a>),
+                  cell: (row) => (<a href="#"><Image src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} alt={`${row.renderValue()}`} width={65} height={65} className='rounded-full' /></a>),
+                //   cell: (row) => (<a href="#"><img src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} width={65} height={65} className='rounded-full' /></a>),
                   accessorKey: 'passport',
                   maxSize: 20
             },

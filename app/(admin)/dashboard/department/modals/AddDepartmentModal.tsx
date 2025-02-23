@@ -9,11 +9,11 @@ type AddDepartmentProps =
 {
     onClick: () => void 
     openDepartmentModal: boolean 
-    userType: string
+    userType?: string
     token: string
 }    
 
-export const AddDepartmentModal = ({onClick, openDepartmentModal, userType, token}: AddDepartmentProps)  =>
+export const AddDepartmentModal = ({onClick, openDepartmentModal, token}: AddDepartmentProps)  =>
 {
      const [loading, setLoading] = useState<boolean>(false)
  
@@ -25,7 +25,6 @@ export const AddDepartmentModal = ({onClick, openDepartmentModal, userType, toke
      useEffect(() => 
      {
         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
-        console.log({userType})
      }, []) 
 
      const addDepartment = async () => 

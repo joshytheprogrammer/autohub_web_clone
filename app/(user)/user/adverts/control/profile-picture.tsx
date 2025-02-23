@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
 // import SingleImageUpload from '../../../../../components/shared/SingleImageUpload'
 import { UseStore } from '../../../../../state/store'
 import { USAGE_PATH } from '../../../../../constant/Path'
@@ -14,7 +15,7 @@ export default function ProfilePicture()
 
     useEffect(() => 
     {
-      setPicture(Passport.getPassport())
+      // setPicture(Passport.getPassport())
     }, [])
 
     useEffect(() => 
@@ -30,7 +31,8 @@ export default function ProfilePicture()
                     className='w-full md:w-7/12 mx-auto'
                 >
                   {
-                    picture && <img src={`${USAGE_PATH.AVATAR}${Passport.getPassport()}`} width={400}  className='mt-5 mb-5 rounded-lg' />
+                    picture && <Image src={`${USAGE_PATH.AVATAR}${Passport.getPassport()}`} alt={`${Passport.getPassport()}`} width={120} height={150} className='rounded-full mt-4 mb-4' /> 
+                    // <img src={`${USAGE_PATH.AVATAR}${Passport.getPassport()}`} width={400}  className='mt-5 mb-5 rounded-lg' />
                     // picture && <img src={`${Passport.getPassport()}`} width={400}  className='mt-5 mb-5 rounded-lg' />
                   }
                   {/* {

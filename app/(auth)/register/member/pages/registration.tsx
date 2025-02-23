@@ -53,24 +53,13 @@ export default function Registration({ onClick }: RegistrationProp)
   const [errorMessage, setErrorMessage] = useState<string>("")
   const [dom, setDom] = useState<boolean>(false)
 
-  const [nothing, setNothing] = useState<boolean>(false)
-
   useEffect(() => 
   {
      setErrMsgStyle('text-sm text-white font-bold bg-red-600 rounded-lg py-2 -mt-1 px-2')
      setErrorMessage("")
-     setNothing(false)
      setDom(true)
   }, [])
   
-  useEffect(() => 
-  {
-     setFirstname(firstname)
-     setSurname(surname)
-     setEmail(email)
-     setPhone(phone)
-  }, [nothing]) 
-
 
   const Detail = async () => 
   {

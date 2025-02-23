@@ -9,14 +9,14 @@ type DeleteMemberModalProps =
 {
     onClick: () => void 
     openDeleteMember: boolean 
-    imageUrl: string 
-    userId: number 
+    imageUrl?: string 
+    userId?: number 
     message: string
-    userType: string
-    token: string
+    userType?: string
+    token?: string
 }    
 
-export const DeleteMemberModal = ({onClick, openDeleteMember, message, imageUrl, userId, userType, token}: DeleteMemberModalProps)  =>
+export const DeleteMemberModal = ({onClick, openDeleteMember, message}: DeleteMemberModalProps)  =>
 {
      const [loading] = useState<boolean>(false)
  
@@ -26,7 +26,6 @@ export const DeleteMemberModal = ({onClick, openDeleteMember, message, imageUrl,
      useEffect(() => 
      {
         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
-        console.log({ imageUrl, userId, userType, token })
      }, []) 
 
      const deleteProduct = async () => 

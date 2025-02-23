@@ -19,7 +19,7 @@ export default function CountDownTimer({ message, seconds }: { message: string, 
   const router = useRouter()
   const SubmiteState = UseStore((state) => state)
   const [countdown, setCountDown] = useState<number>(seconds)
-  const [theTime, setTheTime] = useState<number>(0)
+  // const [theTime, setTheTime] = useState<number>(0)
   const timerId = useRef<any>()    
 
   // SubmiteState.setForce("yes")   
@@ -38,7 +38,7 @@ export default function CountDownTimer({ message, seconds }: { message: string, 
     if(countdown <= 0)
     {
        clearInterval(timerId.current)
-       SubmiteState.setForce('yes')
+       SubmiteState?.setForce('yes')
        router.push(`/user/force-submit`)
     }
   }, [countdown])

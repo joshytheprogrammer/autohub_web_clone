@@ -38,14 +38,6 @@ export default function ModulesWithCourses({ openCourseModuleModal, courseId, on
         
     }, []) 
 
-    const [showingStates, setShowStates] = useState<boolean>(false)
-    
-    const ShowStates = (page: any) => 
-    {
-       console.log({page, showingStates})
-       setShowStates(true)
-    }
-    
     const openEdit = (x: boolean, data: any) =>
     {
        setEditData(data)
@@ -77,7 +69,7 @@ export default function ModulesWithCourses({ openCourseModuleModal, courseId, on
       () => [
       {
          header: 'Name',
-         cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+         cell: (row) => (<a href="#" onClick={() => row.cell.row.getValue}><Show display={row.renderValue()} /></a>),
          accessorKey: 'name',
       },
       {

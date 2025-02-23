@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { BeatLoader } from "react-spinners"
+import Image from 'next/image'
 import { Modal } from "../../../../../components/modal/Modal"
 import Message from "../../../../../components/shared/Message"
 import { ChangeDepartment } from "../../../../api/admin/market/users"
@@ -66,12 +67,15 @@ export const ChangeStaffDepartmentModal = ({onClick, openAddMember, departments,
                                 >
                                     {data?.fullname}
                                 </span>
-                                {/* <img src={`${USAGE_PATH.AVATAR}${data?.passport}`} width={400} height={400} className="rounded-xl border-4 border-green-400 mx-auto" /> */}                                
+                                {/* <img src={`${USAGE_PATH.AVATAR}${data?.passport}`} width={400} height={400} className="rounded-xl border-4 border-green-400 mx-auto" /> */}     
+                                {/* <img src={`${USAGE_PATH.DEFAULT_AVATAR}${data?.passport}`} className="object-contain w-full rounded-xl cover border-4 border-green-400 mx-auto" />  */}
+
                                 { 
                                     (data?.passport === "no-image.png") ? (
-                                        <img src={`${USAGE_PATH.DEFAULT_AVATAR}${data?.passport}`} className="object-contain w-full rounded-xl cover border-4 border-green-400 mx-auto" />
+                                        <Image src={`${USAGE_PATH.DEFAULT_AVATAR}${data?.passport}`} alt={`${data?.passport}`} width={65} height={65} className='object-contain w-full rounded-xl border-4 border-green-400 mx-auto' />
                                     ) : (
-                                        <img src={`${USAGE_PATH.AVATAR}${data?.passport}`} className="object-contain w-full rounded-xl border-4 border-green-400 mx-auto" />
+                                        <Image src={`${USAGE_PATH.AVATAR}${data?.passport}`} alt={`${data?.passport}`} width={65} height={65} className='object-contain w-full rounded-xl border-4 border-green-400 mx-auto' />
+                                        // <img src={`${USAGE_PATH.AVATAR}${data?.passport}`} className="object-contain w-full rounded-xl border-4 border-green-400 mx-auto" />
                                     )
                                 }
                             </div>

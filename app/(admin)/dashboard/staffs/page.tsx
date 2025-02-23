@@ -2,6 +2,7 @@
 
 import { ColumnDef } from '@tanstack/react-table'
 import { useEffect, useMemo, useState } from "react"
+import Image from 'next/image'
 import { Show } from '../../../../components/shared/Show'
 import { Icons } from '../../../../components/shared/Icons'
 import { Table } from '../../../../components/shared/Table'
@@ -81,10 +82,14 @@ export default function Staffs()
        setRefresh(false)
     }, [open, showModal, employeeId, isItThis, openModal, showingStates, refresh])
   
+    const refetcch = () => 
+    {
+        refetch()
+    }
 
     useEffect(() => 
     {
-       refetch()
+       refetcch()
     }, [perPage, searchQuery])
   
     const ShowStates = (page: any) => 
@@ -131,9 +136,11 @@ export default function Staffs()
                         const image: string | unknown = row.renderValue()
                         if(image === "no-image.png")
                         {
-                            return <img src={`${USAGE_PATH.DEFAULT_AVATAR}${row.renderValue()}`} width={65} height={65} className='rounded-full border-2 border-blue-200' />
+                            return <Image src={`${USAGE_PATH.DEFAULT_AVATAR}${row.renderValue()}`} alt={`${row.renderValue()}`} width={65} height={65} className='rounded-full border-2 border-blue-200' />
+                            // return <img src={`${USAGE_PATH.DEFAULT_AVATAR}${row.renderValue()}`} width={65} height={65} className='rounded-full border-2 border-blue-200' />
                         } else {
-                            return <img src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} width={65} height={65} className='rounded-full' />                            
+                            return <Image src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} alt={`${row.renderValue()}`} width={65} height={65} className='rounded-full border-2 border-blue-200' />
+                            // return <img src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} width={65} height={65} className='rounded-full' />                            
                         }
                   },
                   accessorKey: 'passport',

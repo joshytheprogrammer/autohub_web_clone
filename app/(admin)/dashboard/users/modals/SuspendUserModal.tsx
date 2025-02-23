@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Image from 'next/image'
 import { Modal } from "../../../../../components/modal/Modal"
 import toast from "react-hot-toast"
 import { USAGE_PATH } from "../../../../../constant/Path"
@@ -62,9 +63,23 @@ export const SuspendUserModal = ({onClick, openSuspendUser, data, token}: Suspen
                                     {/* <img src={`${USAGE_PATH.AVATAR}${data?.passport}`} width={400} height={400} className="rounded-xl border-4 border-green-400" /> */}
                                     { 
                                         (data?.passport === "no-image.png") ? (
-                                            <img src={`${USAGE_PATH.DEFAULT_AVATAR}${data?.passport}`} className="object-contain w-full rounded-xl cover border-4 border-green-400 mx-auto" />
+                                            <Image 
+                                                src={`${USAGE_PATH.AVATAR}${data?.passport}`}
+                                                width={400}
+                                                height={400} 
+                                                alt={`${data?.passport}`} 
+                                                className="rounded-xl border-4 border-green-400"
+                                            />
+                                            // <img src={`${USAGE_PATH.DEFAULT_AVATAR}${data?.passport}`} className="object-contain w-full rounded-xl cover border-4 border-green-400 mx-auto" />
                                         ) : (
-                                            <img src={`${USAGE_PATH.AVATAR}${data?.passport}`} className="object-contain w-full rounded-xl border-4 border-green-400 mx-auto" />
+                                            // <img src={`${USAGE_PATH.AVATAR}${data?.passport}`} className="object-contain w-full rounded-xl border-4 border-green-400 mx-auto" />
+                                            <Image 
+                                                src={`${USAGE_PATH.AVATAR}${data?.passport}`}
+                                                width={400}
+                                                height={400} 
+                                                alt={`${data?.passport}`} 
+                                                className="rounded-xl border-4 border-green-400 mx-auto"
+                                            />
                                         )
                                     }
                                 </div>

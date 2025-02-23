@@ -11,10 +11,10 @@ type EditDepartmentProps =
     openEditDepartment: boolean 
     data: { id: number, name: string, description: string }
     token: string
-    userType: string
+    userType?: string
 }    
 
-export const EditDepartmentModal = ({onClick, openEditDepartment,data, userType, token}: EditDepartmentProps)  =>
+export const EditDepartmentModal = ({onClick, openEditDepartment,data, token}: EditDepartmentProps)  =>
 {
     const [loading, setLoading] = useState<boolean>(false)
 
@@ -28,7 +28,6 @@ export const EditDepartmentModal = ({onClick, openEditDepartment,data, userType,
      {
         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
         setErrorMessage("")
-        console.log({userType, token })
      }, []) 
 
      const updateDepartment = async () => 

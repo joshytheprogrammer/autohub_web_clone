@@ -8,14 +8,14 @@ type ViewDepartmentProps =
 {
     onClick: () => void 
     openViewDepartment: boolean 
-    imageUrl: string 
-    userId: number 
+    imageUrl?: string 
+    userId?: number 
     message: string
-    userType: string
-    token: string
+    userType?: string
+    token?: string
 }    
 
-export const ViewDepartmentModal = ({onClick, openViewDepartment, message, imageUrl, userId, userType, token}: ViewDepartmentProps)  =>
+export const ViewDepartmentModal = ({onClick, openViewDepartment, message}: ViewDepartmentProps)  =>
 {
     //  const [loading, setIsLoading] = useState<boolean>(false)
  
@@ -26,7 +26,6 @@ export const ViewDepartmentModal = ({onClick, openViewDepartment, message, image
      {
         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
         setErrorMessage("")
-        console.log({ imageUrl, userId, userType, token })
      }, []) 
 
     

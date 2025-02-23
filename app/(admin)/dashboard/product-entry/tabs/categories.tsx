@@ -33,17 +33,9 @@ export default function Categories()
 
     const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`get-all-categories`, token], queryFn: () => GetCategories(token), refetchOnWindowFocus: true })
 
-    const [showingStates, setShowStates] = useState<boolean>(false)
     const CategInitialData = { id: -1, name: "", icon: "", link: "", mobile: "", rate: -1 }
     const [categData, setCategData] = useState<TCateg>(CategInitialData)
     
-
-    const ShowStates = (page: any) => 
-    {
-        console.log(showingStates)
-        console.log(page)
-        setShowStates(true)
-    }
 
     const ChangeCateg = (x: boolean, data: any) => 
     {
@@ -73,31 +65,31 @@ export default function Categories()
         () => [
         {
           header: 'Name',
-          cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+          cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => row.cell.row.getValue}><Show display={row.renderValue()} /></a>),
           accessorKey: 'name',
           size: 100,
         },
         {
             header: 'Icon',
-            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => row.cell.row.getValue}><Show display={row.renderValue()} /></a>),
             accessorKey: 'icon',
             size: 1200,
         },
         {
             header: 'Link',
-            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => row.cell.row.getValue}><Show display={row.renderValue()} /></a>),
             accessorKey: 'link',
             size: 1200,
         },
         {
             header: 'Mobile',
-            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => row.cell.row.getValue}><Show display={row.renderValue()} /></a>),
             accessorKey: 'mobile',
             size: 1200,
         },
         {
             header: 'Rate',
-            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            cell: (row: CellContext<ActiveTransProps, unknown>) => (<a href="#" onClick={() => row.cell.row.getValue}><Show display={row.renderValue()} /></a>),
             accessorKey: 'rate',
             size: 1200,
         },

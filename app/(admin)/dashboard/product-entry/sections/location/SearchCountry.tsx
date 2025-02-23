@@ -15,12 +15,12 @@ type SearchCountryProps =
 const SearchCountry = ({ placeholder, selectedManufacturer, countries, onClick }: SearchCountryProps) => 
 {
   const [inputValue, setInputValue] = useState<string>("")
-  const [selected, setSelected] = useState<string>("")
+  const [selected, setSelected] = useState<string>(selectedManufacturer)
   const [open, setOpen] = useState(false) 
 
   useEffect(() => 
   {
-     setSelected(selectedManufacturer)
+    //  setSelected(selectedManufacturer)
   }, [])
 
 

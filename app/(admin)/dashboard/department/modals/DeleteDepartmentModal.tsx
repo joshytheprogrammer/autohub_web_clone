@@ -9,12 +9,12 @@ type DeleteDepartmentProps =
 {
     onClick: () => void 
     openDepartmentModal: boolean 
-    userType: string
+    userType?: string
     token: string
     data: { id: number, name: string, description: string }
 }    
 
-export const DeleteDepartmentModal = ({onClick, openDepartmentModal, userType, token, data}: DeleteDepartmentProps)  =>
+export const DeleteDepartmentModal = ({onClick, openDepartmentModal, token, data}: DeleteDepartmentProps)  =>
 {
      const [loading, setLoading] = useState<boolean>(false)
  
@@ -25,7 +25,6 @@ export const DeleteDepartmentModal = ({onClick, openDepartmentModal, userType, t
      {
         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
         setErrorMessage("")
-        console.log({ userType, token })
      }, []) 
 
      const deleteDepartment = async () => 

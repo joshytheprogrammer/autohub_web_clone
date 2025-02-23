@@ -27,7 +27,7 @@ export const AddCountryModal = ({onClick, openCountryProduct, token}: AddCountry
            setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
            setErrorMessage("")
            setIsLoading(false)
-        }), []
+        }, [])
         
         const AddCountri = () => 
         {

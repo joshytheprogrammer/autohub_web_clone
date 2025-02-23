@@ -34,7 +34,7 @@ export default function TestQuestionaire()
 
     useEffect(() => 
     {
-    }, [open, showingStates])
+    }, [showingStates])
   
     const ShowStates = (page: any) => 
     {
@@ -72,7 +72,7 @@ export default function TestQuestionaire()
         () => [
         {
           header: 'Name',
-          cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+          cell: (row) => (<a href="#" onClick={() => row.cell.row.getValue}><Show display={row.renderValue()} /></a>),
           accessorKey: 'name',
         },
         {
@@ -82,7 +82,7 @@ export default function TestQuestionaire()
         },
         {
            header: 'Desciptions',
-           cell: (row) => (<a onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+           cell: (row) => (<a onClick={() => row.cell.row.getValue}><Show display={row.renderValue()} /></a>),
            accessorKey: 'description',
         },
         {

@@ -8,14 +8,14 @@ type SuspendedMemberModalProps =
 {
     onClick: () => void 
     openSuspendMember: boolean 
-    imageUrl: string 
-    userId: number 
+    imageUrl?: string 
+    userId?: number 
     message: string
-    userType: string
-    token: string
+    userType?: string
+    token?: string
 }    
 
-export const SuspendMemberModal = ({onClick, openSuspendMember, message, imageUrl, userId, userType, token}: SuspendedMemberModalProps)  =>
+export const SuspendMemberModal = ({onClick, openSuspendMember, message}: SuspendedMemberModalProps)  =>
 {
      const [loading] = useState<boolean>(false)
  
@@ -25,7 +25,6 @@ export const SuspendMemberModal = ({onClick, openSuspendMember, message, imageUr
      useEffect(() => 
      {
         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
-        console.log({ imageUrl, userId, userType, token })
      }, []) 
 
      const deleteProduct = async () => 

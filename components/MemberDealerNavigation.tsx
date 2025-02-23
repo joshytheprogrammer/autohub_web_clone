@@ -7,6 +7,7 @@ import { UseStore } from '../state/store'
 import ProfilePicture from '../app/(user)/user/adverts/control/profile-picture'
 import { useRouter } from 'next/navigation'
 import { Logout } from './Logout'
+import { Switch } from './Switch'
 
 
 type MemberDealerNavigation = 
@@ -28,6 +29,8 @@ export default function MemberDealerNavigation({ marketPlace, bg, hover }: Membe
   const [userType, setUserType] = useState<string>("")
   const [page, setPage] = useState<string>("")  
   const [roles, setRoles] = useState<string[]>([]) 
+  const [switchUserType, setSwitchUserType] = useState<boolean>(false)
+  const [current, setCurrent] = useState<string>("")
 
   useEffect(() => 
   {
@@ -74,12 +77,16 @@ export default function MemberDealerNavigation({ marketPlace, bg, hover }: Membe
                                 }
                             </span>
                             {/* <img src='' className='h-[200px] w-[200px] mx-auto rounded-full bg-blue-200 mb-3' /> */}
-                            <ProfilePicture />
-                            <span 
-                                className='w-full flex justify-center mx-auto font-bold text-lg mb-3'
+                            <div 
+                                className='d-flex justify-center item-center'
                             >
-                                {firstname} {surname}
-                            </span>
+                                <ProfilePicture />
+                                <span 
+                                    className='w-full flex justify-center mx-auto font-bold text-lg mb-3 -ml-7'
+                                >
+                                    {firstname} {surname}
+                                </span>
+                            </div>
                             <span 
                                 className='w-full flex justify-center mx-auto font-bold text-md uppercase text-blue-600 -mb-1'
                             >
@@ -88,12 +95,26 @@ export default function MemberDealerNavigation({ marketPlace, bg, hover }: Membe
                                         return (
                                             <span 
                                                 key={index}
-                                                className='font-bold text-sm px-5 py-1 whitespace-nowrap rounded-lg cursor-pointer text-black mr-5 hover:text-red-600 border-2 border-green-300'
+                                                className={`font-bold text-sm px-5 py-1 whitespace-nowrap rounded-lg ${(role === 'student') ? 'cursor-pointer' : ''} text-black mr-5 hover:text-red-600 border-2 border-green-300`}
                                                 onClick={
                                                     () => {
-                                                        Session.setSideType(role)
-                                                        router.push(`/user/dashboard`)
-                                                        setPage(`/user/dashboard`)
+                                                        if(role === "student")
+                                                        {
+                                                            setCurrent(role)
+                                                            // router.push(`/user/dashboard`)
+                                                            setPage(`/user/dashboard`)
+                                                            setSwitchUserType(true)
+                                                            setCurrent(role)
+                                                        }
+                                                        // const allow: string[] = ['MEMBER', 'DEALER', 'ADMIN']
+                                                        // if(roles.length > 1 && ((allow.includes(current))))
+                                                        // {
+                                                        //     setSwitchUserType(false)
+                                                        // } 
+                                                        // if(roles.length > 1 && current === "STUDENT")
+                                                        // {
+                                                        //     setSwitchUserType(true)
+                                                        // }    
                                                     }
                                                 }
                                             >
@@ -207,6 +228,19 @@ export default function MemberDealerNavigation({ marketPlace, bg, hover }: Membe
                             </ul>                    
                         </section>
                     </div>
+                    {
+                        switchUserType && <Switch 
+                                            onClick={() => {
+                                                setSwitchUserType(false)
+                                            } } 
+                                            switchDialog={switchUserType} 
+                                            p1='You are about to leave market place' 
+                                            p2="Do you want to visit the classroom"
+                                            color="blue"
+                                            current={current}
+                                            where={'Class Room'}
+                                        />
+                    }
 
                     {
                         openLoggedOut && 

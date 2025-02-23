@@ -34,19 +34,22 @@ export default function Portal()
    const [loading, setLoading] = useState<boolean>(false)
    const [isStudent, setIsStudent] = useState<boolean>(false)
    const [theStudent, setTheStudent] = useState<string>('')
+
+   const uD: any = userToken.getUserRoles()
+   
+   setTimeout(() => 
+   {
+     userData.setRegistered("")  
+      // setUserIsRegistered("")           
+   }, 10000)
       
 
    useEffect(() => 
    {
       setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-2 -mt-1 px-2')
       //    setUserIsRegistered(userData.getRegistered())
-      setTimeout(() => 
-      {
-        userData.setRegistered("")  
-         // setUserIsRegistered("")           
-      }, 10000)
 
-      if(userToken.getUserRoles().includes("student"))
+      if(uD.includes("student"))
       {
          setTheStudent('student')
          setIsStudent(true)

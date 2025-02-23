@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Modal } from "../../../../../components/modal/Modal"
 import { USAGE_PATH } from "../../../../../constant/Path"
 
@@ -30,8 +31,15 @@ export const StudentReceipt = ({ onClick, seeResult, student }: StudentReceiptPr
                         <div 
                            className="flex justify-center items-center font-bold text-lg text-center w-full p-5 pb-10 border-2 border-gray-200"
                         >
-                           <img 
+                           {/* <img 
                               src={`${USAGE_PATH?.AVATAR}${student?.passport}`} 
+                              alt={`${student?.fullname}`} 
+                              className="rounded-xl flex justify-center"
+                           /> */}
+                           <Image 
+                              src={`${USAGE_PATH?.AVATAR}${student?.passport}`} 
+                              width={100}
+                              height={100} 
                               alt={`${student?.fullname}`} 
                               className="rounded-xl flex justify-center"
                            />

@@ -11,6 +11,7 @@ import { HiAcademicCap, HiBookOpen, HiOutlineTag } from 'react-icons/hi'
 import { BsFillTelephoneInboundFill, BsXCircle } from 'react-icons/bs'
 import { FiMenu } from 'react-icons/fi'
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import clsx from 'clsx'
 import { UseStore } from '../../../state/store'
 import { Logout } from '../../../components/Logout'
@@ -34,15 +35,15 @@ export default function DashboardLayout(
       const Session = UseStore((state) => state)
       const token = Session.getUserToken()
       const [openLoggedOut, setOpenLoggedOut] = useState<boolean>(false)
-      const [firstname, setFirstName] = useState<string>("")
-      const [surname, setSurname] = useState<string>("")
-      const [member, setMember] = useState<string>("") 
+      const [firstname, setFirstName] = useState<string>(Session.getFName())
+      const [surname, setSurname] = useState<string>(Session.getSName())
+      const [member, setMember] = useState<string>(Session.getUType()) 
 
       useEffect(() => 
       {
-         setFirstName(Session.getFName())
-         setSurname(Session.getSName())
-         setMember(Session.getUType())
+        //  setFirstName(Session.getFName())
+        //  setSurname(Session.getSName())
+        //  setMember(Session.getUType())
       }, [])
 
       useEffect(() => 
@@ -223,7 +224,8 @@ export default function DashboardLayout(
                                             <div 
                                                     className='w-5/12'
                                             >
-                                                <img src='' className='h-[90px] w-[90px] flex justify-left rounded-full bg-blue-200 mb-1' />                                                        
+                                                {/* <img src='' className='h-[90px] w-[90px] flex justify-left rounded-full bg-blue-200 mb-1' /> */}
+                                                <Image src={``} alt={`nothing`} width={65} height={65} className='h-[90px] w-[90px] flex justify-left rounded-full bg-blue-200 mb-1' />
                                             </div>
                                             <div 
                                                     className='w-7/12'
@@ -299,7 +301,8 @@ export default function DashboardLayout(
                                 <div 
                                         className='w-4/12'
                                 >
-                                    <img src='' className='h-[80px] w-[110px] flex justify-left rounded-full bg-blue-200 mb-3' />                                                        
+                                    {/* <img src='' className='h-[80px] w-[110px] flex justify-left rounded-full bg-blue-200 mb-3' /> */}
+                                    <Image src={``} alt={`nothing`} width={65} height={65} className='h-[80px] w-[110px] flex justify-left rounded-full bg-blue-200 mb-3' />
                                 </div>
                                 <div 
                                         className='w-8/12'

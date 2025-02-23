@@ -9,31 +9,25 @@ type SuspendDealerModalProps =
 {
     onClick: () => void 
     openSuspendDealer: boolean 
-    imageUrl: string 
-    userId: number 
+    imageUrl?: string 
+    userId?: number 
     message: string
-    userType: string
-    token: string
+    userType?: string
+    token?: string
 }    
 
-export const SuspendDealerModal = ({onClick, openSuspendDealer, message, imageUrl, userId, userType, token}: SuspendDealerModalProps)  =>
+export const SuspendDealerModal = ({onClick, openSuspendDealer, message}: SuspendDealerModalProps)  =>
 {
      const [loading] = useState<boolean>(false)
  
      const [errMsgStyle, setErrMsgStyle] = useState<string>('')
      const [errorMessage, setErrorMessage] = useState<string>("")
-     const [nothing] = useState<boolean>(false)
 
      useEffect(() => 
      {
         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
         setErrorMessage("")
      }, []) 
-
-     useEffect(() => 
-     {
-        console.log({ imageUrl, userId, userType, token })  
-     }, [nothing])
 
      const deleteProduct = async () => 
      { 

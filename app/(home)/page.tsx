@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query'
 import Product from '../../components/Product'
 import { PuffLoader } from 'react-spinners'
+import Image from 'next/image'
 import MobileCategory from '../../components/category/MobileCategory'
 import WebCategory from '../../components/category/WebCategory'
 import Banner from '../../components/Banner'
@@ -65,9 +66,15 @@ export default function Home()
                         <div 
                             className='col-span-3 bg-red-200 md:block hidden border-shadow shadow-lg'
                         >
-                            <img 
+                            {/* <img 
                                 className=''
                                 src='/swap-car.png'
+                            /> */}
+                            <Image 
+                                src={`/swap-car.png`} 
+                                alt={`banner-two`} 
+                                width={400}
+                                height={200}
                             />
                         </div>
                     </div>

@@ -11,16 +11,16 @@ import { UseStore } from '../../../../state/store'
 export default function Page() 
 {
       const adverState = UseStore((state) => state)
-      const [section, setSection] = useState<number>(-1)
+      const [section, setSection] = useState<number>(adverState?.getDealerAgreement())
 
       useEffect(() => 
       {
-         setSection(adverState.getDealerAgreement())  
+      //    setSection(adverState?.getDealerAgreement())  
       }, [])
 
       useEffect(() => 
       {
-         setSection(adverState.getDealerAgreement())  
+         setSection(adverState?.getDealerAgreement())  
       }, [adverState])
     
       return (

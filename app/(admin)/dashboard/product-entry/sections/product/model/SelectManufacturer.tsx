@@ -15,12 +15,12 @@ type SelectManufacturerProps =
 const SelectManufacturer = ({ placeholder, selectedManufacturer, manufacturers, id, onClick }: SelectManufacturerProps) => 
 {
   const [inputValue, setInputValue] = useState<string>("")
-  const [selected, setSelected] = useState<string>("")
+  const [selected, setSelected] = useState<string>(selectedManufacturer)
   const [open, setOpen] = useState(false) 
 
   useEffect(() => 
   {
-     setSelected(selectedManufacturer)
+    //  setSelected(selectedManufacturer)
      console.log(id)
   }, [])
 

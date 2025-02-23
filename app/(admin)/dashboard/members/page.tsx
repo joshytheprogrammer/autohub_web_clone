@@ -2,6 +2,7 @@
 
 import { ColumnDef } from '@tanstack/react-table'
 import { useEffect, useMemo, useState } from "react"
+import Image from 'next/image'
 import { Show } from '../../../../components/shared/Show'
 import { Icons } from '../../../../components/shared/Icons'
 import { Table } from '../../../../components/shared/Table'
@@ -72,10 +73,14 @@ export default function Members()
        setRefresh(false)
     }, [open, showModal, employeeId, isItThis, openModal, showingStates, refresh])
   
-
-    useEffect(() => 
+    const refetcch = () => 
     {
        refetch()
+    }
+        
+    useEffect(() => 
+    {
+       refetcch()
     }, [perPage, searchQuery])
   
     const ShowStates = (page: any) => 
@@ -101,12 +106,13 @@ export default function Members()
         status: string
         data: { id: number, passport: string, fullname: string, rc_number: string, company_name: string, company_address: string }
     }
+    // <img src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} width={65} height={65} className='rounded-full' />
   
     const Member = useMemo<ColumnDef<AllMembers>[]>(
           () => [            
             {
                   header: 'Picture',
-                  cell: (row) => (<a href="#"><img src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} width={65} height={65} className='rounded-full' /></a>),
+                  cell: (row) => (<a href="#"><Image src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} alt={`${row.renderValue()}`} width={65} height={65} className='rounded-full' /></a>),
                   accessorKey: 'passport',
                   maxSize: 20
             },

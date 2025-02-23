@@ -28,8 +28,7 @@ export const PreLoadingModal = ({onClick, preLoadModal, slug, mode}: PreloadProp
      useEffect(() => 
      {
         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
-        setErrorMessage("")     
-        GetSelectedProduct()
+        setErrorMessage("")
      }, []) 
 
      const GetSelectedProduct = async () => 
@@ -54,7 +53,9 @@ export const PreLoadingModal = ({onClick, preLoadModal, slug, mode}: PreloadProp
             
         })
      }
-
+     
+     GetSelectedProduct()
+     
      const populateFields = (product: any, manufacturerModels: any, modelTrims: any, trimEngines: any) => 
      {    
         advertState.setOnEdit(mode)
@@ -113,7 +114,7 @@ export const PreLoadingModal = ({onClick, preLoadModal, slug, mode}: PreloadProp
                                 className="items-center gap-5 mt-2 sm:flex flex justify-center mb-2 mx-5 mt-5 y-20"
                             >                        
                                 
-                                {   loading ? ( <PuffLoader size={50} className="text-black" />) : ( "" ) } 
+                                {   loading ? ( <PuffLoader size={9} className="text-black" />) : ( "" ) } 
                             </div>
                         </div>
                 </Modal>  

@@ -9,32 +9,25 @@ type DeleteDealerModalProps =
 {
     onClick: () => void 
     openDeleteDealer: boolean 
-    imageUrl: string 
-    userId: number 
-    message: string
-    userType: string
-    token: string
+    imageUrl?: string 
+    userId?: number 
+    message?: string
+    userType?: string
+    token?: string
 }    
 
-export const DeleteDealerModal = ({onClick, openDeleteDealer, message, imageUrl, userId, userType, token}: DeleteDealerModalProps)  =>
+export const DeleteDealerModal = ({onClick, openDeleteDealer, message}: DeleteDealerModalProps)  =>
 {
      const [loading] = useState<boolean>(false)
  
      const [errMsgStyle, setErrMsgStyle] = useState<string>('')
      const [errorMessage, setErrorMessage] = useState<string>("")
-     const [nothing] = useState<boolean>(false)
 
      useEffect(() => 
      {
         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
         setErrorMessage("")
-        console.log({ imageUrl, userId, userType, token })
      }, []) 
-
-     useEffect(() => 
-     {
-        console.log({ imageUrl, userId, userType, token })  
-     }, [nothing])
 
      const deleteProduct = async () => 
      { 

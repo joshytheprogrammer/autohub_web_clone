@@ -135,12 +135,19 @@ export default function CreateAdvert()
     {
        setErrMsgStyle('text-md text-red-600 font-bold')
        setErrorMessage("")
-    }, [])    
+       console.log({ theTrimId, theEngineId, yearMessage, theCountry, theCategoryOption, category, theManufacturer, theDescription, theModelId, theManufacturerName, theModelName, theTrimName, theTrimNameMessage, theEngineName})
+    }, [])   
+    
+    const updateDescription = (value: string) =>
+    {
+        advertState.setDescription(value)
+    }
 
     useEffect(() => 
     {
-        setTheDescription(value)   
-        advertState.setDescription(value)
+        setTheDescription(value)  
+        // advertState.setDescription(value)
+        updateDescription(value) 
     }, [value])
 
     useEffect(() => 
@@ -158,7 +165,7 @@ export default function CreateAdvert()
 
     useEffect(() => 
     {
-        console.log({ theTrimId, theEngineId, yearMessage, theCountry, theCategoryOption, category, theManufacturer, theDescription, theModelId, theManufacturerName, theModelName, theTrimName, theTrimNameMessage, theEngineName})
+        
     }, [theState, stateId])
 
     const SaveAdvert = async (option: string) => 

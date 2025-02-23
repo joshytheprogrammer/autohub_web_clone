@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { BeatLoader } from "react-spinners"
+import Image from 'next/image'
 import Message from "../../../../components/shared/Message"
 import { UseStore } from "../../../../state/store"
 import { reduceImageSize } from "../../../../components/util/image"
@@ -17,7 +18,7 @@ export default function ChangePassport()
 
 
     const [isUploading, setIsUploading] = useState<boolean>(false)
-    const [picture, setPicture] = useState<string>("")
+    const [picture, setPicture] = useState<string>(userState.getPassport())
     const [imgUrl, setUrl] = useState<string>("")
     const [rawImage, setRawImage] = useState<string>("")
     const [errMsgStyle, setErrMsgStyle] = useState<string>('')
@@ -26,19 +27,30 @@ export default function ChangePassport()
 
     useEffect(() => 
     {
-       setPicture(userState.getPassport())
+    //    setPicture(userState.getPassport())
        setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
        setErrorMessage("")
     }, [])
+
+    const chngPix = (pic: string) => 
+    {
+        userState.setPassport(pic)
+    }
+
+    const chngImgrl = (pic: string) => 
+    {
+        userState.setPassport(pic)
+    }
     
     useEffect(() => 
     {
-        userState.setPassport(picture)
+        chngPix(picture)
     }, [picture])
     
     useEffect(() => 
     {
-        userState.setPassport(picture)
+        chngImgrl(picture)
+        // userState.setPassport(picture)
     }, [imgUrl])
 
     useEffect(() => 
@@ -115,8 +127,11 @@ export default function ChangePassport()
                     <div 
                         className="flex justify-left w-10/12 md:w-4/12 rounded-lg mx-auto"
                     >
-                        { picture && <img src={`${USAGE_PATH.AVATAR}${picture}`} className='flex justify-left  bg-blue-200 mb-3 rounded-xl' />  }
-                        { imgUrl && <img src={`${imgUrl}`} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />  }
+                        {/* { picture && <img src={`${USAGE_PATH.AVATAR}${picture}`} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />  } */}
+                        { picture && <Image src={`${USAGE_PATH.AVATAR}${picture}`} alt={`${picture}`} width={400} height={400} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />   }
+                        
+                        {/* { imgUrl && <img src={`${imgUrl}`} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />  } */}
+                        { imgUrl && <Image src={`${imgUrl}`} alt={`${imgUrl}`} width={400} height={400} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />   }
 
                         {/* { picture && <img src={`${picture}`} className='flex justify-left  bg-blue-200 mb-3 rounded-xl' />  } */}
                         {/* { imgUrl && <img src={`${imgUrl}`} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />  } */}

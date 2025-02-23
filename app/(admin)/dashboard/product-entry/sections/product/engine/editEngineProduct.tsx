@@ -37,6 +37,9 @@ export const EditEngineProduct = ({onClick, openEngineProduct, data, token}: Edi
         const [allModels, setAllModels] = useState<any>([])
         const [allTrims, setAllTrims] = useState<any>([])
         const [theModelOption, setTheModelOption] = useState<string>('invalid')
+
+        const [manuId] = useState<number>(data?.manufacturer_id)
+        const [modId] = useState<number>(data?.model_id)
         
         useEffect(() => 
         {
@@ -57,8 +60,10 @@ export const EditEngineProduct = ({onClick, openEngineProduct, data, token}: Edi
         {
            setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
            _Manufacturers()
-           _Models(data?.manufacturer_id)  
-           _Trims(data?.model_id)  
+        //    _Models(data?.manufacturer_id)  
+        //    _Trims(data?.model_id)  
+           _Models(manuId)  
+           _Trims(modId)  
            console.log(selectedModel, theModelOption)
         }, [])
 

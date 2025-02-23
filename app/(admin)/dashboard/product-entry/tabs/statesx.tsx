@@ -9,21 +9,11 @@ export default function States()
 {
     const [openCategoryModal, setCategoryModalOpen] = useState<boolean>(false)
     const [viewTransactionDetail, setVeiwTransactionDetail] = useState<boolean>(false)
-
-    const [showingStates, setShowStates] = useState<boolean>(false)
     
-
     useEffect(() => 
     {
        console.log({ viewTransactionDetail, openCategoryModal })
-    }, [])
-
-    const ShowStates = (page: any) => 
-    {
-        console.log(showingStates)
-        console.log(page)
-        setShowStates(true)
-    }
+    }, [openCategoryModal, viewTransactionDetail])
 
     type StateProps =
     {
@@ -76,13 +66,13 @@ export default function States()
         () => [
         {
           header: 'Name',
-          cell: (row: CellContext<StateProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+          cell: (row: CellContext<StateProps, unknown>) => (<a href="#" onClick={() => row.cell.row.getValue}><Show display={row.renderValue()} /></a>),
           accessorKey: 'category',
           size: 100,
         },
         {
             header: 'Description',
-            cell: (row: CellContext<StateProps, unknown>) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            cell: (row: CellContext<StateProps, unknown>) => (<a href="#" onClick={() => row.cell.row.getValue}><Show display={row.renderValue()} /></a>),
             accessorKey: 'seller',
             size: 1200,
         },

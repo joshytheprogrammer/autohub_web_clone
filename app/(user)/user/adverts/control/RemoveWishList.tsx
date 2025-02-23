@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Image from 'next/image'
 import { BeatLoader } from "react-spinners"
 import { Modal } from "../../../../../components/modal/Modal"
 import { USAGE_PATH } from "../../../../../constant/Path"
@@ -63,11 +64,23 @@ export const RemoveWishList = ({onClick, deleteModal, imageProductUrl='', produc
                              className='col-span-12 pt-1 pb-5 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
                         >
                                 { errorMessage && <Message msg={errorMessage} status={errMsgStyle} /> }
-                                <span className='mb-5 w-full flex justify-center items-center font-bold mt-3 text-2xl text-green-600 uppercase'>{productName}</span>
-                                <span className='mb-5 w-full flex justify-center items-center font-bold mt-3 text-md text-red-600 uppercase'>{message}</span>                               
+                                <span 
+                                     className='mb-5 w-full flex justify-center items-center font-bold mt-3 text-2xl text-green-600 uppercase'
+                                >
+                                   {productName}
+                                </span>
+                                <span 
+                                    className='mb-5 w-full flex justify-center items-center font-bold mt-3 text-md text-red-600 uppercase'
+                                >
+                                   {message}
+                                </span>
                                 {
-                                        imageProductUrl && imageProductUrl !="" && <div className="max-w-sm rounded overflow-hidden shadow-lg m-auto">
-                                                <img className="w-full" src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} alt="Sunset in the mountains" />
+                                        imageProductUrl && imageProductUrl !="" && 
+                                                <div 
+                                                    className="max-w-sm rounded overflow-hidden shadow-lg m-auto"
+                                                >
+                                                {/* <img className="w-full" src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} alt="Sunset in the mountains" /> */}
+                                                <Image src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} alt={`${imageProductUrl}`} width={200} height={200} className='rounded-full' /> 
                                         </div>
                                 }
                                 <div 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Image from 'next/image'
 import { Modal } from "../../../../../components/modal/Modal"
 import { BeatLoader } from "react-spinners"
 import { USAGE_PATH } from "../../../../../constant/Path"
@@ -73,6 +74,14 @@ export const ConfirmStudent = ({ onClick, confirmAccess, student, token }: Confi
                               width={400}
                               height={400}
                               className="rounded-xl flex justify-center"
+                           />
+                           
+                           <Image 
+                              src={`${USAGE_PATH?.AVATAR}${student?.passport}`} 
+                              alt={`${student?.fullname}`} 
+                              width={140} 
+                              height={140} 
+                              className='rounded-full border-2 border-blue-200' 
                            />
                         </div>
                       {/* <Image 

@@ -7,6 +7,7 @@ import { PuffLoader } from "react-spinners"
 import { useEffect, useState } from "react"
 import Result from "./result"
 import PaymentPage from "../PaymentPage"
+import Marketi from "./marketi"
 
 
 export default function Dashboard() 
@@ -18,12 +19,12 @@ export default function Dashboard()
    const [isLoaded, setIsLoaded] = useState<boolean>(false) 
   
    const [approvalRequest, setApprovalRequest] = useState<string>("")
- 
+   const rls: any = userToken.getUserRoles()
+   const rols: any = 
 
    useEffect(() => 
    {
-     setRoles(userToken.getUserRoles())
-     console.log(roles)
+     setRoles(rls)
      if(roles.includes("student"))
      {
        setIsStudent(true)
@@ -118,7 +119,10 @@ export default function Dashboard()
                     </div> */}
                     <div className="h-[30px]"></div>
                     {
-                        userToken.getUserRoles().includes('student') && <Result />
+                        userToken.getUserRoles().includes('member') && ((userToken.getSideType() === 'member') || userToken.getSideType() === 'dealer') && <Marketi ads={data?.additions} />
+                    }
+                    {
+                        userToken.getUserRoles().includes('student') && (userToken.getSideType() === 'student') && <Result />
                     }
                 </div>
             }
