@@ -8,6 +8,14 @@ const nextConfig = {
     ENV: ''
   },
   images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'autohub.africa',
+        port: '',
+        pathname: '/**'
+      }
+    ]
   },
   
 }
