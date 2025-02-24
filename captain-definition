@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "build": {
+    "buildCommand": "npm run build",
+    "buildArgs": {}
+  },
+  "run": {
+    "startCommand": "npm run start",
+    "port": 3000
+  },
+  "environment": {
+    "NODE_ENV": "production"
+  }
+}
