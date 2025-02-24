@@ -1,7 +1,7 @@
 {
     "schemaVersion": 2,
+    "imageName": "Dockerfile",
     "build": {
-        "dockerfilePath": "Dockerfile",
       "buildCommand": "npm run build",
       "buildArgs": {}
     },
