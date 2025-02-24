@@ -8,14 +8,6 @@ const nextConfig = {
     ENV: ''
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '',
-        port: '',
-        pathname: '/**'
-      }
-    ]
   },
   
 }
