@@ -3,20 +3,20 @@ const nextConfig = {
   // output: "export",
   reactStrictMode: false,
   env: {
-    URL: '',
+    URL: 'https://api.autohub.africa/',
     SECRET_KEY: '',
     ENV: ''
   },
   images: {
     remotePatterns: [
       {
-        protocol: '',
-        hostname: '',
+        protocol: 'https',
+        hostname: 'api.autohub.africa',
         port: '',
         pathname: '/**'
       }
     ]
-  },
+  }
   
 }
 

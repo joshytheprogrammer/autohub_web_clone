@@ -124,6 +124,12 @@ export default function Registration({ onClick }: RegistrationProp)
       return validity
   }
   
+      
+  const SubmitData = (event: any) => 
+  {
+      event.preventDefault();
+      DealerDetail()
+  }  
 
   return (
       
@@ -131,6 +137,9 @@ export default function Registration({ onClick }: RegistrationProp)
             
       <div 
             className="w-full p-4 md:px-9 md:pt-10 md:pb-5 pb-14 d-flex items-center justify-center rounded-md md:rounded-xl bg-[#23913b] hover:text-white mb-20 md:mb-0 border-2 border-green-700"
+      >
+      <form
+          onSubmit={SubmitData}
       >
             <div  
                   className='w-full d-flex md:flex gap-10 md:mb-3'
@@ -504,7 +513,9 @@ export default function Registration({ onClick }: RegistrationProp)
                         { loading ? <BeatLoader size={10} color="white" className="" /> : "Next"}
                         </button>
                   </div>
-            </div>
+        </form>
+      </div>
+
    
   )
 }

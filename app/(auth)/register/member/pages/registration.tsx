@@ -45,21 +45,32 @@ export default function Registration({ onClick }: RegistrationProp)
 
   const [confirmPassword, setConfirmPassword] = useState<string>("")
   const [confirmPasswordMessage, setConfirmPasswordMessage] = useState<string>("")
+  const [matchError, setMatchError] = useState<string>("")
   const [passwordType, setPasswordType] = useState<string>("password")
   const [confirmPasswordType, setConfirmPasswordType] = useState<string>("password")
-  const [matchError, setMatchError] = useState<string>("")
  
   const [errMsgStyle, setErrMsgStyle] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>("")
   const [dom, setDom] = useState<boolean>(false)
 
+  const [nothing, setNothing] = useState<boolean>(false)
+
   useEffect(() => 
   {
      setErrMsgStyle('text-sm text-white font-bold bg-red-600 rounded-lg py-2 -mt-1 px-2')
      setErrorMessage("")
+     setNothing(false)
      setDom(true)
   }, [])
   
+  useEffect(() => 
+  {
+     setFirstname(firstname)
+     setSurname(surname)
+     setEmail(email)
+     setPhone(phone)
+  }, [nothing]) 
+
 
   const Detail = async () => 
   {
@@ -208,8 +219,7 @@ export default function Registration({ onClick }: RegistrationProp)
                                         <input  
                                                 defaultValue={advertState.getPhone()} 
                                                 className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                                                type="text" name="phone" id="phone" 
-                                                placeholder="Enter Phone Number"
+                                                type="text" name="phone" id="phone" placeholder="Enter Phone Number"
                                                 onChange={(e: any) => 
                                                 {
                                                     let value: string = e.target.value
@@ -236,7 +246,7 @@ export default function Registration({ onClick }: RegistrationProp)
                                     className="mb-4 md:w-full relative"
                                 >
                                         <input  
-                                            className="w-full border font-bold rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
+                                            className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                             type={passwordType} name="password" id="password" placeholder="Enter Password" 
                                             onChange={(e: any) => 
                                             {
@@ -293,13 +303,13 @@ export default function Registration({ onClick }: RegistrationProp)
                                             }
                                             
                                         </div>
-                                        { passwordMessage && <Message msg={passwordMessage} status={errMsgStyle} /> }
+                                    { passwordMessage && <Message msg={passwordMessage} status={errMsgStyle} /> }
                                 </div>
                                 <div 
                                     className="mb-4 md:w-full relative"
                                 >
                                         <input  
-                                            className="w-full border font-bold rounded-md font-bolder p-3 bg-gray-100 bg-opacity-75 rounded border mb-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
+                                            className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border mb-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                             type={confirmPasswordType} name="cPassword" id="cPassword" placeholder="Enter Passowrd Again" 
                                             onChange={(e: any) => 
                                             {
@@ -352,8 +362,7 @@ export default function Registration({ onClick }: RegistrationProp)
                                                         <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z" clip-rule="evenodd" />
                                                         </svg>
                                                     </>
-                                            }
-                                            
+                                            }                                            
                                         </div>
                                     { confirmPasswordMessage && <Message msg={confirmPasswordMessage} status={errMsgStyle} /> }
                                 </div>
@@ -390,13 +399,12 @@ export default function Registration({ onClick }: RegistrationProp)
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                                     </svg>
                                 </div>
-                                <button
-                                    type="submit"
-                                    className="block w-fit bg-green-500 hover:bg-green-800 border-shadow text-white font-bold p-4 rounded-lg ring-2 ring-white ring-inset"
-                                    onClick={() => 
-                                    {
-                                        Detail()
-                                    }}
+                                <button 
+                                        className="block w-fit bg-green-500 hover:bg-green-800 border-shadow text-white font-bold p-4 rounded-lg ring-2 ring-white ring-inset"
+                                        onClick={() => 
+                                        {
+                                            Detail()
+                                        }}
                                 >
                                     { loading ? <BeatLoader size={10} color="white" className="" /> : "Next"}
                                 </button>
