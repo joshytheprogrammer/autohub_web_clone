@@ -127,8 +127,11 @@ export default function Registration({ onClick }: RegistrationProp)
       
   const SubmitData = (event: any) => 
   {
-      event.preventDefault();
-      DealerDetail()
+      if(event.key === "Enter")
+      {
+          event.preventDefault();
+          DealerDetail()
+      }
   }  
 
   return (

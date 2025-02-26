@@ -119,7 +119,7 @@ export default function Dashboard()
                     </div> */}
                     <div className="h-[30px]"></div>
                     {
-                        userToken.getUserRoles().includes('member') && ((userToken.getSideType() === 'member') || userToken.getSideType() === 'dealer') && <Marketi ads={data?.additions} />
+                        (userToken.getUserRoles().includes('member') || userToken.getUserRoles().includes('dealer')) && ((userToken.getSideType() === 'member') || userToken.getSideType() === 'dealer') && <Marketi ads={data?.additions} />
                     }
                     {
                         userToken.getUserRoles().includes('student') && (userToken.getSideType() === 'student') && <Result />
