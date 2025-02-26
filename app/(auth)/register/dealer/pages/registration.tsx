@@ -23,6 +23,7 @@ export default function Registration({ onClick }: RegistrationProp)
   const COMPANY_NAME_MESSAGE = 'Enter Company Name'
   const COMPANY_ADDRESS_MESSAGE = 'Enter Company Address'
   const RC_NUMBER_MESSAGE = 'Enter RC Number'
+  const RC_NUMBER_MESSAGE_VALID = 'Only Numbers Allowed'
   const FIRST_NAME_MESSAGE = 'Enter Firstname'
   const SURNAME_MESSAGE = 'Enter Surname'
 //   const MIDDLENAME_MESSAGE = 'Enter Middlename'
@@ -110,6 +111,7 @@ export default function Registration({ onClick }: RegistrationProp)
       if(advertState.getCompanyName() === ""){ setCompanyNameMessage(COMPANY_NAME_MESSAGE); validity = 'invalid' }
       if(advertState.getCompanyAddress() === ""){ setCompanyAddressMessage(COMPANY_ADDRESS_MESSAGE); validity = 'invalid' }
       if(advertState.getRCNumber() === ""){ setRcNumberMessage(RC_NUMBER_MESSAGE); validity = 'invalid' }
+      if(isNaN(advertState.getRCNumber())){ setRcNumberMessage(RC_NUMBER_MESSAGE_VALID); validity = 'invalid' }
       if(advertState.getFirstname() === ""){ setFirstnameMessage(FIRST_NAME_MESSAGE); validity = 'invalid' }
       if(advertState.getSurname() === ""){ setSurnameMessage(SURNAME_MESSAGE); validity = 'invalid' }
       // if(advertState.getMiddlename() === ""){ setMiddlenameMessage(MIDDLENAME_MESSAGE); validity = 'invalid' }
@@ -127,11 +129,8 @@ export default function Registration({ onClick }: RegistrationProp)
       
   const SubmitData = (event: any) => 
   {
-      if(event.key === "Enter")
-      {
-          event.preventDefault();
-          DealerDetail()
-      }
+      event.preventDefault();
+      DealerDetail()
   }  
 
   return (

@@ -112,11 +112,8 @@ export default function Registration({ onClick }: RegistrationProp)
       
   const SubmitData = (event: any) => 
   {
-    if(event.key === "Enter")
-    {
         event.preventDefault();
         Detail()
-    }
   }  
 
   return (
