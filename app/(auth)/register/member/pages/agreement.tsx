@@ -8,8 +8,29 @@ type AgreementProp =
     onClick: (currentSection: number) => void
 }
 
-export async function Agreement({onClick}: AgreementProp) 
-{  
+export function Agreement({onClick}: AgreementProp) 
+{
+
+  const THANK_YOU = `Thank you for choosing us. AutoHub Nigeria is the first automobile inter-business company in Nigeria and Africa at
+                  large. We wish to do business with you as we provide both online and offline sales services to all our members. Our
+                  goal is to integrate your goals into our dream and give your business a great turnover.`
+  const CERTIFY = `
+                  Please, carefully read our membership agreement below because upon signing up with us, it would be accepted that
+                  you have read and agreed to it. Meanwhile, this sales agreement is subject to change of which a prior notification
+                  would be sent to you.`
+
+  
+  const agreementList: string[] = 
+  [
+    `All members registering as a company must be CAC certified: A non-individual account must be a registered company with CAC. However, an individual who is into automobile business but has not registered his/her company with CAC can be profiled by us and get registered as an Affiliate Dealer with us but must register his/her company with CAC within a span of three months.`,
+    `Thank you for choosing us. AutoHub Nigeria is the first automobile inter-business company in Nigeria and Africa at large. We wish to do business with you as we provide both online and offline sales services to all our members. Our goal is to integrate your goals into our dream and give your business a great turnover.`,
+    ` No false declaration of the condition of a vehicle: The condition of all vehicles must be stated exactly the way they are. Under no condition should you conceal the condition of a given vehicle in your description. This we consider misleading and criminally intended. If discovered, such an ad would be immediately declined by our moderator.`,
+  ]
+
+  const MEMBERSHIP_AGREEMENT = 'MEMBERSHIP AGREEMENT'
+  const THANKS = 'Thank you.'
+  const AGREE = `Agree`
+  
   const advertState = UseStore((state) => state)  
   const [sellSmarter, setSellSmarter] = useState<string>("")
   const [register, setRegister] = useState<string>("")
@@ -20,32 +41,10 @@ export async function Agreement({onClick}: AgreementProp)
   const [agreeList, setAgreementList] = useState<string[]>([])
   const [agree, setAgree] = useState<string>("")
   const [dom, setDom] = useState<boolean>(false)
-  
-  advertState.setRegistered("")
  
 
   useEffect(() => 
   {
-      const MEMBERSHIP_AGREEMENT = 'MEMBERSHIP AGREEMENT'
-      const THANKS = 'Thank you.'
-      const AGREE = `Agree`
-
-      const THANK_YOU = `Thank you for choosing us. AutoHub Nigeria is the first automobile inter-business company in Nigeria and Africa at
-      large. We wish to do business with you as we provide both online and offline sales services to all our members. Our
-      goal is to integrate your goals into our dream and give your business a great turnover.`
-
-      const CERTIFY = `
-        Please, carefully read our membership agreement below because upon signing up with us, it would be accepted that
-        you have read and agreed to it. Meanwhile, this sales agreement is subject to change of which a prior notification
-        would be sent to you.`
-
-      const agreementList: string[] = 
-      [
-        `All members registering as a company must be CAC certified: A non-individual account must be a registered company with CAC. However, an individual who is into automobile business but has not registered his/her company with CAC can be profiled by us and get registered as an Affiliate Dealer with us but must register his/her company with CAC within a span of three months.`,
-        `Thank you for choosing us. AutoHub Nigeria is the first automobile inter-business company in Nigeria and Africa at large. We wish to do business with you as we provide both online and offline sales services to all our members. Our goal is to integrate your goals into our dream and give your business a great turnover.`,
-        ` No false declaration of the condition of a vehicle: The condition of all vehicles must be stated exactly the way they are. Under no condition should you conceal the condition of a given vehicle in your description. This we consider misleading and criminally intended. If discovered, such an ad would be immediately declined by our moderator.`,
-      ]
-
       setSellSmarter("Sell smarter, buy smarter")
       setRegister("Register For Free")
       setThankYou(THANK_YOU)
@@ -54,7 +53,7 @@ export async function Agreement({onClick}: AgreementProp)
       setAgreementList(agreementList)
       setThank(THANKS)
       setAgree(AGREE)
-      // advertState.setRegistered("")
+      advertState.setRegistered("")
       setDom(true)
   }, [])
 

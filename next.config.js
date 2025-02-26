@@ -11,7 +11,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'autohub.africa',
+        hostname: 'api.autohub.africa',
         port: '',
         pathname: '/**'
       }

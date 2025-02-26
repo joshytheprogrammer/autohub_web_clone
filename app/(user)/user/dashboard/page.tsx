@@ -119,7 +119,7 @@ export default function Dashboard()
                     </div> */}
                     <div className="h-[30px]"></div>
                     {
-                        userToken.getUserRoles().includes('member') && ((userToken.getSideType() === 'member') || userToken.getSideType() === 'dealer') && <Marketi ads={data?.additions} />
+                        (userToken.getUserRoles().includes('member') || userToken.getUserRoles().includes('dealer')) && ((userToken.getSideType() === 'member') || userToken.getSideType() === 'dealer') && <Marketi ads={data?.additions} />
                     }
                     {
                         userToken.getUserRoles().includes('student') && (userToken.getSideType() === 'student') && <Result />
@@ -130,9 +130,8 @@ export default function Dashboard()
             
             { approvalRequest && <p className={`font-bold text-lg text-white rounded-md col-span-12 ${(approvalRequest === "") ? " " : "p-3 bg-blue-600"}`}>{approvalRequest}</p> }
 
-        
             {
-               !isLoading && (data?.plus?.payment_status === "not-paid") && <>
+               !isLoading && (userToken.getSideType() === 'student') && (data?.plus?.payment_status === "not-paid") && <>
                   <PaymentPage 
                       onClick={(e: boolean | string) => {
                                 if(e === true)

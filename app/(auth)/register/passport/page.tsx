@@ -47,83 +47,76 @@ export default function Page()
 
    const Register = async () => 
    {                   
-      setLoading(true)
-      await delay(1000)
-      if(!passport)
-      {
-        setErrorMessage("Kindly, upload passport")
-        setLoading(false)
-        setTimeout(() => 
-        {
-          setErrorMessage("")
-        }, 10000)    
-        return        
-      }
-      let data: Member | Dealer
-      if(advertState.getPassportFor() === "member")
-      {
-            data = {
-                  firstname: advertState.getFirstname(),
-                  surname: advertState.getSurname(),
-                  phone: advertState.getPhone(),
-                  email: advertState.getEmail(),
-                  password: advertState.getPassword(),
-                  passport: passport,
-                  type: 'member',
-                  url: 'signup-member'
+      if(passport)
+      { 
+            setLoading(true)
+            await delay(1000)
+            let data: Member | Dealer
+            if(advertState.getPassportFor() === "member")
+            {
+                  data = {
+                        firstname: advertState.getFirstname(),
+                        surname: advertState.getSurname(),
+                        phone: advertState.getPhone(),
+                        email: advertState.getEmail(),
+                        password: advertState.getPassword(),
+                        passport: passport,
+                        type: 'member',
+                        url: 'signup-member'
+                  }
+            } else {
+                  data = {
+                        company_name: advertState.getCompanyName(),
+                        company_address: advertState.getCompanyAddress(),
+                        rc_number: advertState.getRCNumber(),
+                        firstname: advertState.getFirstname(),
+                        surname: advertState.getSurname(),
+                        middlename: advertState.getMiddlename(),
+                        phone: advertState.getPhone(),
+                        email: advertState.getEmail(),
+                        password: advertState.getPassword(),
+                        passport: passport,
+                        type: 'dealer',
+                        url: 'signup-dealer'
+                  }
             }
-      } else {
-            data = {
-                  company_name: advertState.getCompanyName(),
-                  company_address: advertState.getCompanyAddress(),
-                  rc_number: advertState.getRCNumber(),
-                  firstname: advertState.getFirstname(),
-                  surname: advertState.getSurname(),
-                  middlename: advertState.getMiddlename(),
-                  phone: advertState.getPhone(),
-                  email: advertState.getEmail(),
-                  password: advertState.getPassword(),
-                  passport: passport,
-                  type: 'dealer',
-                  url: 'signup-dealer'
-            }
-      }
-      const SignUp = AutoHubSignUp(data)
-      SignUp.then((response) => 
-      {
-          if(response?.status === 200)
-          {
-              advertState.setCompanyName(""),
-              advertState.setCompanyAddress(""),
-              advertState.setRCNumber(""),
-              advertState.setFirstname(""),
-              advertState.setSurname(""),
-              advertState.setMiddlename(""),
-              advertState.setPhone(""),
-              advertState.setEmail(""),
-              advertState.setPassword("")
-              advertState.setMemberAgreement(0)
-              advertState.setRegistered(response?.message)
-              setUserIsRegistered(response?.message) 
-              setTimeout(() => 
-                { 
+            const SignUp = AutoHubSignUp(data)
+            SignUp.then((response) => 
+            {
+            if(response?.status === 200)
+            {
+                  advertState.setCompanyName(""),
+                  advertState.setCompanyAddress(""),
+                  advertState.setRCNumber(""),
+                  advertState.setFirstname(""),
+                  advertState.setSurname(""),
+                  advertState.setMiddlename(""),
+                  advertState.setPhone(""),
+                  advertState.setEmail(""),
+                  advertState.setPassword("")
+                  advertState.setMemberAgreement(0)
+                  advertState.setRegistered(response?.message)
                   setUserIsRegistered(response?.message) 
+                  setTimeout(() => 
+                  { 
+                        setUserIsRegistered(response?.message) 
+                        setLoading(false)
+                        router.push(`/login`)                  
+                  }, 2000
+                  )
+            } else {
+                  setErrorMessage(response?.message)
                   setLoading(false)
-                  router.push(`/login`)                  
-                }, 2000
-              )
-          } else {
-              setErrorMessage(response?.message)
-              setLoading(false)
-              setTimeout(() => 
-              {
-                  setErrorMessage("")
-              }, 10000)
-              return false
-          }
-      }).then(() => {
-          return false
-      })
+                  setTimeout(() => 
+                  {
+                        setErrorMessage("")
+                  }, 10000)
+                  return false
+            }
+            }).then(() => {
+            return false
+            })     
+      }
    }
 
   return (

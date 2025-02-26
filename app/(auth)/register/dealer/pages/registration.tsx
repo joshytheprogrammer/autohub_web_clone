@@ -23,6 +23,7 @@ export default function Registration({ onClick }: RegistrationProp)
   const COMPANY_NAME_MESSAGE = 'Enter Company Name'
   const COMPANY_ADDRESS_MESSAGE = 'Enter Company Address'
   const RC_NUMBER_MESSAGE = 'Enter RC Number'
+  const RC_NUMBER_MESSAGE_VALID = 'Only Numbers Allowed'
   const FIRST_NAME_MESSAGE = 'Enter Firstname'
   const SURNAME_MESSAGE = 'Enter Surname'
 //   const MIDDLENAME_MESSAGE = 'Enter Middlename'
@@ -110,6 +111,7 @@ export default function Registration({ onClick }: RegistrationProp)
       if(advertState.getCompanyName() === ""){ setCompanyNameMessage(COMPANY_NAME_MESSAGE); validity = 'invalid' }
       if(advertState.getCompanyAddress() === ""){ setCompanyAddressMessage(COMPANY_ADDRESS_MESSAGE); validity = 'invalid' }
       if(advertState.getRCNumber() === ""){ setRcNumberMessage(RC_NUMBER_MESSAGE); validity = 'invalid' }
+      if(isNaN(advertState.getRCNumber())){ setRcNumberMessage(RC_NUMBER_MESSAGE_VALID); validity = 'invalid' }
       if(advertState.getFirstname() === ""){ setFirstnameMessage(FIRST_NAME_MESSAGE); validity = 'invalid' }
       if(advertState.getSurname() === ""){ setSurnameMessage(SURNAME_MESSAGE); validity = 'invalid' }
       // if(advertState.getMiddlename() === ""){ setMiddlenameMessage(MIDDLENAME_MESSAGE); validity = 'invalid' }
@@ -124,6 +126,12 @@ export default function Registration({ onClick }: RegistrationProp)
       return validity
   }
   
+      
+  const SubmitData = (event: any) => 
+  {
+      event.preventDefault();
+      DealerDetail()
+  }  
 
   return (
       
@@ -131,6 +139,9 @@ export default function Registration({ onClick }: RegistrationProp)
             
       <div 
             className="w-full p-4 md:px-9 md:pt-10 md:pb-5 pb-14 d-flex items-center justify-center rounded-md md:rounded-xl bg-[#23913b] hover:text-white mb-20 md:mb-0 border-2 border-green-700"
+      >
+      <form
+          onSubmit={SubmitData}
       >
             <div  
                   className='w-full d-flex md:flex gap-10 md:mb-3'
@@ -504,7 +515,9 @@ export default function Registration({ onClick }: RegistrationProp)
                         { loading ? <BeatLoader size={10} color="white" className="" /> : "Next"}
                         </button>
                   </div>
-            </div>
+        </form>
+      </div>
+
    
   )
 }
