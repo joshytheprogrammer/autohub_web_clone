@@ -81,11 +81,13 @@ export default function Access({ showLogo, goTo } : { showLogo: boolean, goTo: s
                      userData.setSideType(response?.additions[0])
                      userData.setUserToken(response?.plus)
                      profileDB.add(response?.data)
-                     console.log(response?.additions)
+                  //    console.log(response)
+                  //    return
                      if(response?.data?.user_type === 'admin')
                      {                        
                         // window.location.href = '/dashboard'
                         // return false
+                        userData.setSideType('admin')
                         window.location.href = goTo
                      } else {
                         setTimeout(() => {

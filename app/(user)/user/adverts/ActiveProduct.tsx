@@ -1,6 +1,7 @@
 "use client"
 
 import { BsGeoAltFill } from "react-icons/bs"
+import Image from 'next/image'
 import { USAGE_PATH } from "../../../../constant/Path"
 import currencyFormatter from "../../../../components/util/currency-formatter"
 import { HiX } from "react-icons/hi"
@@ -90,6 +91,8 @@ export default function ActiveProduct()
                 <div 
                     className="grid grid-cols-12 gap-5 rounded-md mb-5 gap-2 md:mx-0 mr-2"
                 >
+                    
+                {/* className="border border-4 border-blue-50 h-fit rounded-t-lg bg-no-repeat bg-center bg-cover relative flex justify-center items-center" */}
                 {
                   !isLoading && (data?.data?.product_advert?.product.length > 0) && data?.data?.product_advert?.product.map((product: any, index: number) => 
                             {
@@ -100,18 +103,22 @@ export default function ActiveProduct()
                                         >
                                             <div 
                                                 className="w-2/2 flex h-[235px] md:h-[235px]"
-                                            >     
+                                            >
+                                                {/* className="w-6/12 w-full h-[300px]" */}
                                                 <div 
                                                     className="w-6/12"
                                                 >
-                                                    <img src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
-                                                         width={300} height={300}  
-                                                         onClick={() => 
-                                                         {
-                                                             router.push(`/user/product-preview/${product?.slug}`)
-                                                         }
-                                                         }
-                                                         className="cursor-pointer"
+                                                    <Image 
+                                                        src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
+                                                        width={200}
+                                                        height={300}
+                                                        alt={`${product?.face_image}`}
+                                                        onClick={() => 
+                                                        {
+                                                          router.push(`/product-detail/${product?.slug}`)
+                                                        }
+                                                      }
+                                                      className="cursor-pointer object-fit"
                                                     />    
                                                     <div 
                                                         className="hidden"

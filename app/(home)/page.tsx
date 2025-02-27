@@ -10,25 +10,25 @@ import Banner from '../../components/Banner'
 import SlideShow from '../../components/SlideShow'
 import { Landing } from '../api/home/market/AllProduct'
 import { useEffect, useState } from 'react'
-import useNetwork from '../hook/network'
+// import useNetwork from '../hook/network'
 
 export default function Home() 
 {
-    const isLive = useNetwork()
-    const [ran, setRan] = useState<number>()
-    const { isFetching, refetch, isLoading, ...data } = useQuery({ queryKey: ['landing-page'], queryFn: () => Landing(), refetchOnMount: true, refetchOnWindowFocus: true } )
+    // const isLive = useNetwork()
+    // const [ran, setRan] = useState<number>()
+    const { isFetching, refetch, isLoading, ...data } = useQuery({ queryKey: ['landing-page'], queryFn: () => Landing(), refetchOnWindowFocus: true } )
+
+    // useEffect(() => 
+    // {
+    //     if(isLive)
+    //     {
+    //         refetch()
+    //     }
+    // }, [isLive, ran])
 
     useEffect(() => 
     {
-        if(isLive)
-        {
-            refetch()
-        }
-    }, [isLive, ran])
-
-    useEffect(() => 
-    {
-        setRan((33*111*1984)*(Math.random()))
+        // setRan((33*111*1984)*(Math.random()))
     }, [])
     
     return (

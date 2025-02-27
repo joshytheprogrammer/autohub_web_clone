@@ -54,7 +54,7 @@ export default function Products()
 
             { 
                 data?.data?.pages && 
-                data?.data?.pages.map((products) => products?.map((product: ActiveProduct, index: number) => {
+                data?.data?.pages?.map((products) => products?.map((product: ActiveProduct, index: number) => {
                     return (
                         <ProductCard key={index} product={product} refetchs={() => refetch()} />
                     )

@@ -240,7 +240,19 @@ export default function HeaderNavigation()
                     <Logo />         
                     <div className='md:block hidden md:col-span-8'
                     >
-                        <SearchBox />
+                        { 
+                            ((Session.getSideType() === "member") || (Session.getSideType() === "dealer") || (Session.getSideType() === "admin") || (Session.getSideType() === "super-admin")) && <SearchBox />
+                        }
+
+                        { 
+                            (Session.getSideType() === "student") && <>
+                                <div 
+                                    className='bg-blue-500 px-10 py-5 rounded-lg w-full flex justify-center items-center'
+                                >
+                                    <h1 className='font-bold text-white text-2xl'>Welcome to MACEOS classroom</h1>
+                                </div>
+                            </>
+                        }
                     </div>
                     <RightSide />
                     <PostAdvert />

@@ -48,18 +48,21 @@ export default function ProductCard({ product, refetchs }: ProductDetail)
                                       }
                                     }
                                 /> */}
-                                <Image 
-                                    src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
-                                    alt={`${product?.face_image}`} 
-                                    width={500} 
-                                    height={500} 
-                                    className='object-fit'
-                                    onClick={() => 
-                                      {
-                                         router.push(`/product-detail/${product?.slug}`)
-                                      }
-                                    } 
-                                /> 
+                                <div 
+                                    className='w-full h-[300px]'
+                                >
+                                    <Image 
+                                        src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
+                                        alt={`${product?.face_image}`}
+                                        layout='fill'
+                                        className='object-fit '
+                                        onClick={() => 
+                                        {
+                                            router.push(`/product-detail/${product?.slug}`)
+                                        }
+                                        } 
+                                    /> 
+                                </div>
                                 <div 
                                     className="text-right"
                                 >

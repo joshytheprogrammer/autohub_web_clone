@@ -143,6 +143,7 @@ export function Agreement({onClick}: AgreementProp)
                         {agree}
                       </button>
                   </div>
+                  
               </section>
           </div>
         }

@@ -45,7 +45,7 @@ export const Switch = ({ onClick, switchDialog, p1, p2, color, current, where }:
                               onClick(false)
                            }
                         >
-                           Close
+                           Stay Here
                         </button>
                         <button  
                            className={`w-full mt-2 p-4 text-white hover:font-bold text-sm bg-${color}-600 rounded-md outline-none ring-offset-2 ring-${color}-600 focus:ring-2 justify-start`}

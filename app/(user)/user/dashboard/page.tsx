@@ -33,6 +33,10 @@ export default function Dashboard()
    }, [])
 
    const { data, isLoading, refetch } = useQuery({ queryKey: [`user-summary`], queryFn: () => StudentDashboard(token) })
+   if(!isLoading)
+   {
+      console.log(data)
+   }
 
 //    const overview: { name: string, count: number }[] = 
 //     [
@@ -117,9 +121,10 @@ export default function Dashboard()
                         })
                         }
                     </div> */}
+                    
                     <div className="h-[30px]"></div>
                     {
-                        (userToken.getUserRoles().includes('member') || userToken.getUserRoles().includes('dealer')) && ((userToken.getSideType() === 'member') || userToken.getSideType() === 'dealer') && <Marketi ads={data?.additions} />
+                        (userToken.getUserRoles().includes('member') || userToken.getUserRoles().includes('dealer') || userToken.getUserRoles().includes('admin') || userToken.getUserRoles().includes('super-admin')) && ((userToken.getSideType() === 'member') || (userToken.getSideType() === 'admin') ||  (userToken.getSideType() === 'super-admin') || userToken.getSideType() === 'dealer') && <Marketi ads={data?.additions} />
                     }
                     {
                         userToken.getUserRoles().includes('student') && (userToken.getSideType() === 'student') && <Result />

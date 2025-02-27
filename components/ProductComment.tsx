@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { USAGE_PATH } from '../constant/Path'
 import { PuffLoader, ScaleLoader } from 'react-spinners'
 import { Comments, ProductCommentProps, ProductComments } from '../app/api/home/market/advert/Comments'

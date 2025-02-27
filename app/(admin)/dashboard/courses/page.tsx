@@ -237,12 +237,12 @@ export default function Courses()
               accessorKey: 'remove',
               maxSize: 20
           },
-          {
-                header: 'FAQ',
-                cell: (row) => (<a href="#" onClick={() => CourseQuestions(true, row.renderValue())}><HiMiniSwatch className='text-blue-600' width={6} height={6} /></a>),
-                accessorKey: 'faq',
-                maxSize: 20
-          }
+        //   {
+        //         header: 'FAQ',
+        //         cell: (row) => (<a href="#" onClick={() => CourseQuestions(true, row.renderValue())}><HiMiniSwatch className='text-blue-600' width={6} height={6} /></a>),
+        //         accessorKey: 'faq',
+        //         maxSize: 20
+        //   }
     ],[])
 
     const downloadPdfFile = async (x: any) =>
