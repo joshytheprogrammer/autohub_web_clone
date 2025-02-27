@@ -171,7 +171,7 @@ export default function RightSide()
                               onClick={
                                 () => {
                                     userState.setSideType('member')
-                                    router.push(`/user-change-passport`)
+                                    router.push(`/user/change-passport`)
                                 } 
                               }
                               className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
