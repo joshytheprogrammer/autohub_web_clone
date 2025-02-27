@@ -241,7 +241,11 @@ export default function HeaderNavigation()
                     <div className='md:block hidden md:col-span-8'
                     >
                         { 
-                            ((Session.getSideType() === "member") || (Session.getSideType() === "dealer") || (Session.getSideType() === "admin") || (Session.getSideType() === "super-admin")) && <SearchBox />
+                            token && ((Session.getSideType() === "member") || (Session.getSideType() === "dealer") || (Session.getSideType() === "admin") || (Session.getSideType() === "super-admin")) && <SearchBox />
+                        }
+
+                        { 
+                            !token && Session.getSideType() === "" && <SearchBox />
                         }
 
                         { 
