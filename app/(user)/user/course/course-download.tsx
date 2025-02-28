@@ -40,6 +40,11 @@ export default function CourseDownload()
 
   const { data, isLoading, refetch } = useQuery({ queryKey: [`student-courses`], queryFn: () => Courses(token) })
 
+  if(!isLoading)
+  {
+    console.log(data)
+  }
+
   return (
     <>
           {
@@ -85,14 +90,14 @@ export default function CourseDownload()
             return (
                 <button
                     key={index}
-                    disabled={(x.loadable === 0) ? true : false}
+                    disabled={(x.loadable === "no") ? true : false}
                     onClick={
                         () => {
                            downloadPdfFile(x, token) 
                         }
                       }
                       className={`text-md text-left md:col-span-4 col-span-12 px-2 py-2 mb-1 justify-center w-full font-bold text-black gap-2 ring-2 ring-blue-100 hover:bg-green-100 rounded-lg px-1 border border-solid 
-                                   border-blue-400 flex justify-between px-5 ${(x.loadable === 1) ? 'bg-green-500 text-white hover:bg-green-800' : ''}`}
+                                   border-blue-400 flex justify-between px-5 ${(x.loadable === "yes") ? 'bg-blue-200 text-black hover:text-white hover:bg-green-800' : 'bg-gray-200'}`}
                 >
                    {x.name}
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" className="w-4 h-4">

@@ -251,9 +251,9 @@ export default function HeaderNavigation()
                         { 
                             (Session.getSideType() === "student") && <>
                                 <div 
-                                    className='bg-blue-500 px-10 py-5 rounded-lg w-full flex justify-center items-center'
+                                    className='bg-blue-500 px-10 py-4 rounded-lg w-full flex justify-center items-center'
                                 >
-                                    <h1 className='font-bold text-white text-2xl'>Welcome to MACEOS classroom</h1>
+                                    <h1 className='font-bold text-white text-2xl uppercase'>MACEOS ACADEMY</h1>
                                 </div>
                             </>
                         }
@@ -263,9 +263,27 @@ export default function HeaderNavigation()
                 </nav>
              
               
-                <div className='w-full md:hidden pb-2 mb-2'
+                <div 
+                    className='w-full md:hidden pb-2 mb-2'
                 >        
-                    <SmallScreen />
+                    {/* <SmallScreen /> */}
+                    { 
+                            token && ((Session.getSideType() === "member") || (Session.getSideType() === "dealer") || (Session.getSideType() === "admin") || (Session.getSideType() === "super-admin")) && <SmallScreen />
+                        }
+
+                        { 
+                            !token && Session.getSideType() === "" && <SmallScreen />
+                        }
+
+                        { 
+                            (Session.getSideType() === "student") && <>
+                                <div 
+                                    className='bg-blue-500 px-10 py-4 rounded-lg w-full flex justify-center items-center'
+                                >
+                                    <h1 className='font-bold text-white text-md uppercase'>MACEOS ACADEMY</h1>
+                                </div>
+                            </>
+                        }
                 </div>
 
 

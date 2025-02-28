@@ -74,7 +74,7 @@ export default function ActiveProduct()
                     </>
                 }
                   
-                {  !isLoading && (data?.data?.product_advert?.product.length > 0) && <>
+                {  !isLoading && (data?.data?.product_advert?.noOfPages > 0) && <>
                         <div 
                             className="container px-2 mr-3 border-2 border-gray-200 flex justify-between items-center mb-5"
                         >
@@ -94,7 +94,7 @@ export default function ActiveProduct()
                     
                 {/* className="border border-4 border-blue-50 h-fit rounded-t-lg bg-no-repeat bg-center bg-cover relative flex justify-center items-center" */}
                 {
-                  !isLoading && (data?.data?.product_advert?.product.length > 0) && data?.data?.product_advert?.product.map((product: any, index: number) => 
+                  !isLoading && (data?.data?.product_advert?.noOfPages > 0) && data?.data?.product_advert?.product.map((product: any, index: number) => 
                             {
                                 return (
                                     <>
@@ -194,7 +194,7 @@ export default function ActiveProduct()
                         }
                 </div>
                 
-                {  !isLoading && (data?.data?.product_advert?.product.length > 0) && <>
+                {  !isLoading && (data?.data?.product_advert?.noOfPages > 0) && <>
                         <div 
                             className="container px-2 mr-3 border-2 border-gray-200 flex justify-between items-center mb-5"
                         >
@@ -210,7 +210,7 @@ export default function ActiveProduct()
 
             <div className="mt-14">
                 { 
-                    !isLoading && isRefetching && (data?.data?.product_advert?.product.length > 0) && 
+                    !isLoading && isRefetching && (data?.data?.product_advert?.noOfPages > 0) && 
                             <Pagination onClick={(data) => {
                                       setCurrentPage(data)
                                       setTimeout(() => {
@@ -229,7 +229,7 @@ export default function ActiveProduct()
 
             <div className="mt-14">
                 { 
-                    !isLoading && !isRefetching && (data?.data?.product_advert?.product.length > 0) && 
+                    !isLoading && !isRefetching && (data?.data?.product_advert?.noOfPages > 0) && 
                             <Pagination onClick={(data) => {
                                       setCurrentPage(data)
                                       setTimeout(() => {

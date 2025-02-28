@@ -49,7 +49,7 @@ export default function ProductCard({ product, refetchs }: ProductDetail)
                                     }
                                 /> */}
                                 <div 
-                                    className='w-full h-[300px]'
+                                    className='w-full h-[160px] md:h-[280px]'
                                 >
                                     <Image 
                                         src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 

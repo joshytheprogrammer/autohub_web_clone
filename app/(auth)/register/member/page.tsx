@@ -1,21 +1,26 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import '../../../globals.css'
 import Logo from '../../../../components/shared/Logo'
-import Registration from './pages/registration'
 import { UseStore } from '../../../../state/store'
 import { Agreement } from './pages/agreement'
+// import Registration from './registration'
+import dynamic from 'next/dynamic'
+
+
+const Registration = dynamic(
+      () => import('./pages/registration'),
+      {
+            ssr: false
+      }
+)
 
 
 export default function Page() 
 {
       const adverState = UseStore((state) => state)
       const [section, setSection] = useState<number>(adverState.getMemberAgreement())
-
-      useEffect(() => {
-
-      }, [section])
     
       return (
                   <section 

@@ -96,11 +96,11 @@ export default function Result()
                   return (
                       <div 
                         key={index}
-                        className="flex justify-between mb-2 p-2 bg-white md:col-span-4 col-span-12 text-black font-bold text-sm ring-2 ring-green-100 rounded-lg space-between px-3 border border-solid border-green-900"
+                        className="grid grid-cols-12 justify-between items-center mb-2 p-2 bg-white text-black font-bold text-sm ring-2 ring-green-100 rounded-lg space-between px-3 border border-solid border-green-900"
                       >
-                        <span className="px-3 text-md">{result.name}</span>
-                        <span className="hidden md:block px-3"> -- </span>
-                        <span className={`${(result.taken === "yes" ? 'text-lg block' : 'hidden')} px-3`}>{ result.score }</span>
+                        <span className="px-3 text-md col-span-6">{result.name}</span>
+                        <span className="hidden md:block px-3 col-span-4"> - Total Score - </span>
+                        <span className={`${(result.taken === "yes" ? 'text-lg block' : 'hidden')} px-3 col-span-2`}>{ result.score }</span>
                           <span className={`${(result.taken != "yes" ? 'text-xs text- block' : 'hidden')} px-3`}>{ "Not Taken" }</span>
                         </div>
                       )

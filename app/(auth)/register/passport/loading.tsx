@@ -11,11 +11,11 @@ export default function loading()
           <div 
                 className="w-full md:w-6/12 mx-auto my-4 d-flex items-center justify-center p-10 md:-mt-30 mt-20 gap-5"
           >            
-              <div 
+              {/* <div 
                     className='w-full flex justify-center items-center mb-20'
                 >
                     <Logo /> 
-              </div>
+              </div> */}
               <div 
                     className='w-full d-flex gap-10'
               >

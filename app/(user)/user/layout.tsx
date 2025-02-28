@@ -59,10 +59,10 @@ export default function UserLayout(
               name: "exam",
               url: "/user/exam"
           },
-          {
-              name: "faq",
-              url: "/user/faq"
-          },
+        //   {
+        //       name: "faq",
+        //       url: "/user/faq"
+        //   },
       ]
 
       return (

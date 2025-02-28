@@ -118,7 +118,7 @@ export default function MemberDealerNavigation({ marketPlace, bg, hover }: Membe
                                                     }
                                                 }
                                             >
-                                               { ((role === 'member') || ( role === 'dealer') || ( role === 'admin')) ? 'Market Place' : 'Class Room' }
+                                               { ((role === 'member') || ( role === 'dealer') || ( role === 'admin')  || ( role === 'super-admin')) ? 'Market Place' : 'Class Room' }
                                             </span>
                                         )
                                     })

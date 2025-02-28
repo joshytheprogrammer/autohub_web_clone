@@ -19,7 +19,7 @@ export default function Error({
           className="container flex justify-center items-center ml-20"
           style={{ marginTop: '100px' }}
         >
-            <h2>{error?.message}</h2>
+            {/* <h2>{error?.message}</h2>
             <h2 className='text-xl font-bold'></h2>
             <button
               onClick={
@@ -27,7 +27,7 @@ export default function Error({
               }
             >
               Try again
-            </button>
+            </button> */}
             <PuffLoader color="#1c9236" />
             
         </div>
