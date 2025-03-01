@@ -16,7 +16,7 @@ export default function Error({
       style={{ marginTop: '0px', paddingTop: '50px' }}
     >
         <div 
-          className="container flex justify-center items-center ml-20 border border-blue-300"
+          className="container flex justify-center items-center ml-20"
           style={{ marginTop: '100px' }}
         >
             {/* <h2>{error?.message}</h2> */}
