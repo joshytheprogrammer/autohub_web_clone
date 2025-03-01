@@ -30,17 +30,19 @@ export default function Category()
       refetch,
       isLoading,
       ...data
-    } = useInfiniteQuery({
-      queryKey: [`cagegory-${params?.x}`],
-      queryFn: ({ pageParam }) => CategoryProduct(pageParam, params?.x),
-      initialPageParam: currentPage,
-      getNextPageParam: (lastPage, allPages) => {
-          const nextPage = lastPage.length ? (allPages.length + 1) : undefined 
-          return nextPage
-      },
-      getPreviousPageParam: (firstPage) =>
-        firstPage.prevCursor,
-    })
+    } = useInfiniteQuery(
+        {
+            queryKey: [`cagegory-${params?.x}`],
+            queryFn: ({ pageParam }) => CategoryProduct(pageParam, params?.x),
+            initialPageParam: currentPage,
+            getNextPageParam: (lastPage, allPages) => {
+                const nextPage = lastPage.length ? (allPages.length + 1) : undefined 
+                return nextPage
+            },
+            getPreviousPageParam: (firstPage) => firstPage.prevCursor,
+            refetchOnWindowFocus: true
+        }
+    )
 
     useEffect(() => {
           fetchNextPage()

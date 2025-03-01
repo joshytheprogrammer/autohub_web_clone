@@ -21,13 +21,13 @@ export default function Error({
         >
             {/* <h2>{error?.message}</h2> */}
             {/* <h2 className='text-xl font-bold'>Something went wrong! </h2> */}
-            <button
+            {/* <button
               onClick={
                 () => reset()
               }
             >
               Try again +
-            </button>
+            </button> */}
             <PuffLoader color="#1c9236" />
             
         </div>

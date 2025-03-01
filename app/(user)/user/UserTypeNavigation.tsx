@@ -21,6 +21,8 @@ export default function UserTypeNavigation({ marketPlace = [], classRoom = [] }:
       const Session = UseStore((state) => state)
       const TypeNavitaion = Session.getSideType()
 
+      // alert(TypeNavitaion)
+
       useEffect(() => 
       {
            

@@ -62,9 +62,14 @@ export default function HeaderNavigation()
 
   useEffect(() => 
   {
-     setFirstName(Session.getFName())
-     setSurname(Session.getSName())
-     setMember(Session.getUType())
+     if(!token)
+     {
+        setFirstName(Session.getFName())
+        setSurname(Session.getSName())
+        setMember(Session.getUType())
+     } else {
+        // Session.setSideType("")
+     }
   }, [])
 
   useEffect(() => 
@@ -237,15 +242,15 @@ export default function HeaderNavigation()
                 <nav 
                     className='flex md:grid md:grid-cols-12 pb-4 md:pb-2 justify-center'
                 >
-                    <Logo />         
+                    <Logo /> 
                     <div className='md:block hidden md:col-span-8'
                     >
                         { 
-                            token && ((Session.getSideType() === "member") || (Session.getSideType() === "dealer") || (Session.getSideType() === "admin") || (Session.getSideType() === "super-admin")) && <SearchBox />
+                            ((Session.getSideType() === "member") || (Session.getSideType() === "dealer") || (Session.getSideType() === "admin") || (Session.getSideType() === "super-admin")) && <SearchBox />
                         }
 
                         { 
-                            !token && Session.getSideType() === "" && <SearchBox />
+                            Session.getSideType() === "" && <SearchBox />
                         }
 
                         { 
@@ -268,11 +273,11 @@ export default function HeaderNavigation()
                 >        
                     {/* <SmallScreen /> */}
                     { 
-                            token && ((Session.getSideType() === "member") || (Session.getSideType() === "dealer") || (Session.getSideType() === "admin") || (Session.getSideType() === "super-admin")) && <SmallScreen />
+                            ((Session.getSideType() === "member") || (Session.getSideType() === "dealer") || (Session.getSideType() === "admin") || (Session.getSideType() === "super-admin")) && <SmallScreen />
                         }
 
                         { 
-                            !token && Session.getSideType() === "" && <SmallScreen />
+                            Session.getSideType() === "" && <SmallScreen />
                         }
 
                         { 
