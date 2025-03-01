@@ -287,7 +287,7 @@ export default function RightSide()
                                             Exam
                                           </span>
                                   </span>
-                                  <span 
+                                  {/* <span 
                                         onClick={
                                            () => {
                                               userState.setSideType('student')
@@ -304,7 +304,7 @@ export default function RightSide()
                                           />
                                             FAQ
                                           </span>
-                                  </span>
+                                  </span> */}
                                 </div>
                             </div>
                         }
