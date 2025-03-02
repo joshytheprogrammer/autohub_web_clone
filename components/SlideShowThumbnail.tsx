@@ -73,18 +73,19 @@ export default function SlideShowThumbnail({ data, imageSize, waterMark }: { dat
                 className='relative'
             >
                 {
-                    ((data?.length > 0)) && <Image 
-                                                className="w-full h-full object-fit" 
-                                                src={`${USAGE_PATH.IMAGE_SLIDER}${data[slide]?.image_url}`} 
-                                                alt={`${data[slide]?.image_url}`}
-                                                width={700}
-                                                height={700}
-                                            /> 
-                                            // <img
+                    ((data?.length > 0)) && 
+                                            // <Image 
+                                            //     className="w-full h-full object-fit" 
                                             //     src={`${USAGE_PATH.IMAGE_SLIDER}${data[slide]?.image_url}`} 
-                                            //     src={`${data[slide]?.image_url}`} 
-                                            //     className="w-full h-full object-fit"
-                                            // />
+                                            //     alt={`${data[slide]?.image_url}`}
+                                            //     width={700}
+                                            //     height={700}
+                                            // /> 
+                                            <img
+                                                src={`${USAGE_PATH.IMAGE_SLIDER}${data[slide]?.image_url}`} 
+                                                // src={`${data[slide]?.image_url}`} 
+                                                className="w-full h-full object-fit"
+                                            />
 
                 }
                 <div 
@@ -120,23 +121,38 @@ export default function SlideShowThumbnail({ data, imageSize, waterMark }: { dat
                         className="flex border-2 border-gray-200 mt-2 gap-3 overflow-x-auto py-3 px-2"
                     > 
                         {
+                            // data.map((img: { image_url: string }, index: number) => 
+                            // {
+                            //     return (
+                            //         <Image 
+                            //             key={index}
+                            //             className="w-[200px] h-[140px] object-fit border-2 border-gray-10"
+                            //             src={`${USAGE_PATH.PRODUCT_FACE}${img?.image_url}`} 
+                            //             alt={`${data[slide]?.image_url}`}
+                            //             width={700}
+                            //             height={700}
+                            //             onClick={() => 
+                            //             {
+                            //                setSlide((index))
+                            //             }}
+                            //         /> 
+                            //     )
+                            // })
+
                             data.map((img: { image_url: string }, index: number) => 
-                            {
-                                return (
-                                    <Image 
-                                        key={index}
-                                        className="w-[200px] h-[140px] object-fit border-2 border-gray-10"
-                                        src={`${USAGE_PATH.PRODUCT_FACE}${img?.image_url}`} 
-                                        alt={`${data[slide]?.image_url}`}
-                                        width={700}
-                                        height={700}
-                                        onClick={() => 
-                                        {
-                                           setSlide((index))
-                                        }}
-                                    /> 
-                                )
-                            })
+                                {
+                                    return (
+                                        <img
+                                               key={index}
+                                               src={`${USAGE_PATH.PRODUCT_FACE}${img?.image_url}`} 
+                                               className="w-[200px] h-[140px] object-fit border-2 border-gray-10"
+                                               onClick={() => 
+                                               {
+                                                  setSlide((index))
+                                               }}
+                                        />
+                                    )
+                                })
                         }
                     </div>
                 </>

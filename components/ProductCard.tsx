@@ -39,19 +39,24 @@ export default function ProductCard({ product, refetchs }: ProductDetail)
                             <div 
                                 className="border border-4 border-blue-50 h-fit rounded-t-lg bg-no-repeat bg-center bg-cover relative flex justify-center items-center"
                                 >
-                                {/* <img    
-                                    src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
-                                    src={`${product?.face_image}`} 
-                                    onClick={() => 
-                                      {
-                                         router.push(`/product-detail/${product?.slug}`)
-                                      }
-                                    }
-                                /> */}
                                 <div 
-                                    className='w-full h-[160px] md:h-[280px]'
+                                    className='w-full'
                                 >
-                                    <Image 
+                                    <div 
+                                        className='flex max-h-64 h-full'
+                                    >
+                                        <img    
+                                            src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
+                                            // src={`${product?.face_image}`} 
+                                            className='object-cover'
+                                            onClick={() => 
+                                            {
+                                                router.push(`/product-detail/${product?.slug}`)
+                                            }
+                                            }
+                                        />
+                                    </div>
+                                    {/* <Image 
                                         src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
                                         alt={`${product?.face_image}`}
                                         layout='fill'
@@ -61,7 +66,7 @@ export default function ProductCard({ product, refetchs }: ProductDetail)
                                             router.push(`/product-detail/${product?.slug}`)
                                         }
                                         } 
-                                    /> 
+                                    />  */}
                                 </div>
                                 <div 
                                     className="text-right"

@@ -43,6 +43,11 @@ export default function Products()
        }
       )
 
+      if(!isLoading)
+      {
+         console.log(data)
+      }
+
       useEffect(() => {
             fetchNextPage()
       }, [inView, hasNextPage, fetchNextPage])
@@ -58,7 +63,7 @@ export default function Products()
             } */}
 
             { 
-                data?.data?.pages && data?.data?.pages?.length > 0 && 
+                !isLoading && data?.data?.pages && data?.data?.pages?.length > 0 && 
                 data?.data?.pages?.map((products) => products?.map((product: ActiveProduct, index: number) => {
                     return (
                         <ProductCard key={index} product={product} refetchs={() => refetch()} />
@@ -66,11 +71,12 @@ export default function Products()
                 }))
             }
 
-            {
+            { data?.data?.pages && data?.data?.pages?.length > 0 && 
                 <div ref={ref} className="col-span-12 h-[70px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
                 >
-                    { isFetchingNextPage && hasNextPage && <PuffLoader className='w-12 h-12' />  }
-                    { !isFetchingNextPage && !isRefetching && isFetched && "No Product"  }
+                    { isLoading && isFetchingNextPage && hasNextPage && <PuffLoader className='w-12 h-12' />  }
+                    { !isLoading && !isFetchingNextPage && "No Product"  }
+                    {/* { isFetchingNextPage === true ? "Yes" : "No"  } */}
                     
                 </div>
             }

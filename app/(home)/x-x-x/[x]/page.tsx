@@ -103,7 +103,7 @@ export default function Category()
                 className='container grid grid-cols-12 gap-2 md:gap-5 mx-auto mt-14 px-2 mt-10 md:p-0 relative'
             > 
               { 
-                  !isLoading && data?.data?.pages && 
+                  !isLoading && data?.data?.pages && data?.data?.pages?.length > 0 && 
                   data?.data?.pages.map((products) => products?.map((product: ActiveProduct, index: number) => {
                       return (
                           <ProductCard key={index} product={product} refetchs={() => { refetch() }} />
