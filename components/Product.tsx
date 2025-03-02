@@ -19,8 +19,13 @@ export default function Products()
         isFetchingNextPage,
         isFetchingPreviousPage,
         isFetching,
+        isPending,
+        isSuccess,
+        fetchStatus,
+        isRefetching,
         refetch,
         isLoading,
+        isFetched,
         ...data
       } = useInfiniteQuery(
         {
@@ -53,7 +58,7 @@ export default function Products()
             } */}
 
             { 
-                data?.data?.pages && 
+                data?.data?.pages && data?.data?.pages?.length > 0 && 
                 data?.data?.pages?.map((products) => products?.map((product: ActiveProduct, index: number) => {
                     return (
                         <ProductCard key={index} product={product} refetchs={() => refetch()} />
@@ -65,7 +70,7 @@ export default function Products()
                 <div ref={ref} className="col-span-12 h-[70px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
                 >
                     { isFetchingNextPage && hasNextPage && <PuffLoader className='w-12 h-12' />  }
-                    { !isFetchingNextPage && !isFetching && "No Product"  }
+                    { !isFetchingNextPage && !isRefetching && isFetched && "No Product"  }
                     
                 </div>
             }
