@@ -21,7 +21,7 @@ export async function Landing()
 
 export async function AllProduct(currentPage: number)
 {
-    const perPage: number = 4
+    const perPage: number = 8
     let endPoint = 'active'
     let ApiUrl = `${BASE_URL}${endPoint}/${currentPage}/${perPage}`
     try 

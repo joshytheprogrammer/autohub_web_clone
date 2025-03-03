@@ -27,6 +27,7 @@ export default function Category()
       isFetchingNextPage,
       isFetchingPreviousPage,
       isFetching,
+      isPending,
       refetch,
       isLoading,
       ...data
@@ -88,11 +89,15 @@ export default function Category()
               </div>
             </div>
             {
-                isLoading && <div className="col-span-12 h-[1400px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
-                >
-                    <PuffLoader className='w-12 h-12' />
-                </div>
-            }  
+                isLoading && <div 
+                        className="col-span-12 h-[120px] flex justify-center items-center" style={{ marginTop: '120px', paddingTop: '0px' }}
+                     >
+                        <PuffLoader className='w-12 h-12' />
+                    </div>
+            }
+            
+            
+                        
             {
                 !isLoading && (data?.data?.pages[0].length === 0) && <div className="col-span-12 h-[570px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
                 >
@@ -104,20 +109,28 @@ export default function Category()
             > 
               { 
                   !isLoading && data?.data?.pages && data?.data?.pages?.length > 0 && 
-                  data?.data?.pages.map((products) => products?.map((product: ActiveProduct, index: number) => {
-                      return (
-                          <ProductCard key={index} product={product} refetchs={() => { refetch() }} />
-                      )
-                  }))
-              }
+                           data?.data?.pages?.map((products) => products?.map((product: ActiveProduct, index: number) => {
+                               return (
+                                    <ProductCard key={index} product={product} refetchs={() => refetch()} />
+                                )
+                            }))
+              } 
             </div>
 
-            {
-                !isLoading && (data?.data?.pages[0].length > 0) &&
-                <div ref={ref} className="col-span-12 h-[70px] flex justify-center items-center" style={{ marginTop: '60px', marginBottom: '100px', paddingTop: '0px' }}
+
+            { data?.data?.pages && data?.data?.pages?.length > 0 && 
+                <div ref={ref} className="col-span-12 h-[20px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
                 >
                     { isFetchingNextPage && hasNextPage && <PuffLoader className='w-12 h-12' />  }
-                    { !isFetchingNextPage && !isFetching && "No more product"  }
+                    
+                </div>
+            }
+
+            { data?.data?.pages && data?.data?.pages?.length > 0 && !isPending &&
+                <div ref={ref} className="col-span-12 h-[20px] flex justify-center items-center mb-20" style={{ marginTop: '20px', paddingTop: '0px' }}
+                >
+                    { !hasNextPage &&  "No Product"  }
+                    {/* { isFetchingNextPage === true ? "Yes" : "No"  } */}
                     
                 </div>
             }

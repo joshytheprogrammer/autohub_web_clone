@@ -31,7 +31,7 @@ export default function Products()
         {
             queryKey: ['adverts'],
             queryFn: ({ pageParam }) => AllProduct(pageParam),
-            refetchOnMount: true,
+            // refetchOnMount: true,
             refetchOnWindowFocus: true,
             initialPageParam: currentPage,
             getNextPageParam: (lastPage, allPages) => {
@@ -55,12 +55,12 @@ export default function Products()
 
   return (
         <>
-            {/* {
-                isLoading && <div className="col-span-12 h-[60px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
+            {
+                isLoading && <div className="col-span-12 h-[120px] flex justify-center items-center" style={{ marginTop: '120px', paddingTop: '0px' }}
                 >
                     <PuffLoader className='w-12 h-12' />
                 </div>
-            } */}
+            }
 
             { 
                 !isLoading && data?.data?.pages && data?.data?.pages?.length > 0 && 
@@ -72,10 +72,17 @@ export default function Products()
             }
 
             { data?.data?.pages && data?.data?.pages?.length > 0 && 
-                <div ref={ref} className="col-span-12 h-[70px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
+                <div ref={ref} className="col-span-12 h-[20px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
                 >
-                    { isLoading && isFetchingNextPage && hasNextPage && <PuffLoader className='w-12 h-12' />  }
-                    { !isLoading && !isFetchingNextPage && "No Product"  }
+                    { isFetchingNextPage && hasNextPage && <PuffLoader className='w-12 h-12' />  }
+                    
+                </div>
+            }
+
+            { data?.data?.pages && data?.data?.pages?.length > 0 && !isPending &&
+                <div ref={ref} className="col-span-12 h-[20px] flex justify-center items-center" style={{ marginTop: '20px', paddingTop: '0px' }}
+                >
+                    { !hasNextPage &&  "No Product"  }
                     {/* { isFetchingNextPage === true ? "Yes" : "No"  } */}
                     
                 </div>
