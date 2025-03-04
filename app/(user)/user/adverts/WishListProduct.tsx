@@ -112,7 +112,7 @@ export default function WishListProduct()
                                                     alt={`${product?.face_image}`} 
                                                     width={300} 
                                                     height={300} 
-                                                    className='rounded-full' 
+                                                    className='rounded-md' 
                                                 /> 
                                                 <div 
                                                     className="hidden"

@@ -1,7 +1,5 @@
 
 
-
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // output: "export",
@@ -12,7 +10,7 @@ const nextConfig = {
     ENV: ''
   },
   images: {
-    unoptimized: true,
+   unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',

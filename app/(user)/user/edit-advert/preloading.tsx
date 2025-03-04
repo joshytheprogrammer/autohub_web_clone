@@ -84,7 +84,7 @@ export const PreLoadingModal = ({onClick, preLoadModal, slug, mode}: PreloadProp
         advertState.setFuelName(product?.fuel?.name)
         advertState.setMileage(product?.mileage)
         advertState.setLocation(product?.address)
-        advertState.setChasisNo(product?.Chasis_no)
+        advertState.setChasisNo(product?.chasis_no)
         advertState.setDescription(product?.description)
         advertState.setPrice(product?.price)
         advertState.setOthers("no")

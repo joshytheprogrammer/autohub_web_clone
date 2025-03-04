@@ -59,7 +59,7 @@ export const RemoveWishList = ({onClick, deleteModal, imageProductUrl='', produc
         }
 
         return (
-                <Modal onClick={onClick} isOpen={deleteModal} wrapperWidth={600} margin={'240px auto 0px auto'}>
+                <Modal onClick={onClick} isOpen={deleteModal} wrapperWidth={600} margin={'200px auto 0px auto'}>
                         <div 
                              className='col-span-12 pt-1 pb-5 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
                         >
@@ -77,10 +77,10 @@ export const RemoveWishList = ({onClick, deleteModal, imageProductUrl='', produc
                                 {
                                         imageProductUrl && imageProductUrl !="" && 
                                                 <div 
-                                                    className="max-w-sm rounded overflow-hidden shadow-lg m-auto"
+                                                    className="w-full rounded overflow-hidden shadow-lg m-auto"
                                                 >
                                                 {/* <img className="w-full" src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} alt="Sunset in the mountains" /> */}
-                                                <Image src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} alt={`${imageProductUrl}`} width={200} height={200} className='rounded-full' /> 
+                                                <Image src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} alt={`${imageProductUrl}`} width={500} height={500} className='rounded-md' /> 
                                         </div>
                                 }
                                 <div 

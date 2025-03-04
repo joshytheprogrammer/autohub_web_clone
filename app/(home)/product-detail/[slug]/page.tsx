@@ -279,6 +279,12 @@ export default function ProductDetail({ params } : { params : { slug: string } }
                                     </p>
                                   </div>
                                   <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
+                                    <p>Chasis No:</p>
+                                    <p className="text-brandGreen">
+                                      {`${data?.['chasis_no']}`}
+                                    </p>
+                                  </div>
+                                  <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                                     <p>MileAge:</p>
                                     <p className="text-brandGreen">{((data?.['mileage']) === "" || (data?.['mileage']) === undefined || (data?.['mileage']) === null) ? 'Not Specified' : `${((data?.['mileage'])/1000)}km` }</p>
                                   </div>
