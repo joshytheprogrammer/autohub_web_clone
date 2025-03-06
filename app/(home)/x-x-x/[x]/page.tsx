@@ -90,9 +90,9 @@ export default function Category()
             </div>
             {
                 isLoading && <div 
-                        className="col-span-12 h-[120px] flex justify-center items-center" style={{ marginTop: '120px', paddingTop: '0px' }}
+                        className="col-span-12 h-[70px] flex justify-center items-center" style={{ marginTop: '20px', paddingTop: '0px' }}
                      >
-                        <PuffLoader className='w-12 h-12' />
+                        {/* <PuffLoader className='w-12 h-12' /> */}
                     </div>
             }
             
@@ -116,23 +116,37 @@ export default function Category()
                             }))
               } 
             </div>
+            
+            { 
+                <div 
+                    ref={ref} className="col-span-12 h-[20px] flex justify-center items-center" 
+                    style={{ marginTop: '60px', paddingTop: '0px' }}
+                >
+                    { isFetchingNextPage ? <PuffLoader className='w-12 h-12' />  : isPending ?  <PuffLoader className='w-12 h-12' />  : 'No More Product' }
+                </div>
+            }           
 
 
-            { data?.data?.pages && data?.data?.pages?.length > 0 && 
+            {/* { data?.data?.pages && data?.data?.pages?.length > 0 && 
                 <div ref={ref} className="col-span-12 h-[20px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
                 >
                     { isFetchingNextPage && hasNextPage && <PuffLoader className='w-12 h-12' />  }
                     
                 </div>
-            }
+            } */}
 
-            { data?.data?.pages && data?.data?.pages?.length > 0 && !isPending &&
+            {/* { data?.data?.pages && data?.data?.pages?.length > 0 && !isPending &&
                 <div ref={ref} className="col-span-12 h-[20px] flex justify-center items-center mb-20" style={{ marginTop: '20px', paddingTop: '0px' }}
                 >
                     { !hasNextPage &&  "No Product"  }
-                    {/* { isFetchingNextPage === true ? "Yes" : "No"  } */}
                     
                 </div>
+            } */}
+
+            <div className='h-[100px]'></div>
+
+            {
+                isPending && <div className='h-[400px]'></div>
             }
         </>
   )

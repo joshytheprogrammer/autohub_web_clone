@@ -228,7 +228,7 @@ export default function Access({ showLogo, goTo } : { showLogo: boolean, goTo: s
                                                             }}
                                                       />
                                                       <div 
-                                                      className="absolute inset-y-0 right-0 flex items-center pr-3 -mt-3"
+                                                        className="absolute inset-y-0 right-0 flex items-center pr-3 -mt-3"
                                                       >
                                                             {
                                                                   passwordType === "password" && <>

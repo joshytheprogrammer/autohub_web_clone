@@ -103,7 +103,11 @@ export default function Home()
 
                     <div className='container grid grid-cols-12 gap-2 md:gap-5 mx-auto mt-4 px-2 md:p-0'
                     >
-                        <Product />
+                        <Product onClick={
+                            () => {
+                                refetch()
+                            }
+                        } />
                     </div>
 
                     <div className='p-10'></div>

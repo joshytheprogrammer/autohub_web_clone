@@ -25,7 +25,7 @@ export default function SlideShowThumbnail({ data, imageSize, waterMark }: { dat
             } else {
                 setSlide(0)
             }
-        }, 10000);
+        }, 5000);
     }, [slide])
 
     const nextSlide = () => 

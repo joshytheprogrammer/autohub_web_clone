@@ -32,8 +32,8 @@ export default function SlideShow({ data, imageSize, timer }: { data: any, image
             } else {
                 setSlide(0)
             }
-        }, timing);
-    }, [timing])
+        }, timer);
+    }, [slide])
 
     const nextSlide = () => 
     {
