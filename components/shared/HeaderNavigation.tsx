@@ -166,12 +166,12 @@ export default function HeaderNavigation()
                                                 <div 
                                                     className='w-full flex justify-left font-bold text-[15px] mt-5'
                                                 >
-                                                    {firstname} {surname}
+                                                    {Session.getFName()} {Session.getSName()}
                                                 </div>
                                                 <div 
                                                     className='w-full flex justify-left font-bold text-sm uppercase border-2 border-blue-400 rounded-lg pl-1'
                                                 >
-                                                    {member}
+                                                    {Session.getUType()}
                                                 </div>
                                                 <div 
                                                     className='w-full flex justify-left font-bold text-md'
@@ -210,7 +210,7 @@ export default function HeaderNavigation()
                                             })
                                         }   
                                     </ul>     
-                                    <ul className='w-full mt-2'>
+                                    {/* <ul className='w-full mt-2'>
                                         {
                                             <Link 
                                                     href={`profile`}
@@ -224,7 +224,7 @@ export default function HeaderNavigation()
                                                 </span>
                                             </Link>
                                         }   
-                                    </ul>              
+                                    </ul>  */}
                                 </section>
                                 {/* ends here  */}
                         </div>                      
