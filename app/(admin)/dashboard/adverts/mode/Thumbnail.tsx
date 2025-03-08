@@ -109,6 +109,7 @@ export default function Thumbnail()
                                 <select
                                     value={perPage}
                                     onChange={(e) => {
+                                        setCurrentPage(1)
                                         displayByPageNo(Number(e.target.value));
                                     }} className="appearance-none w-full py-4 pl-3 md:pr-20 pr-14 bg-white" name="whatever" id="frm-whatever">
                                     {pages?.map((pageSize: number) => (

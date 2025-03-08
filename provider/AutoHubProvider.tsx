@@ -4,12 +4,20 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { RotateLoader } from "react-spinners"
 import { useAppData } from "../app/hook/queries/useAppData"
+import { UseStore } from "../state/store"
+import { useEffect } from "react"
 
 
 const AutoHubProvider = ({ children }: { children: React.ReactNode }) => 
 {
+    const typen = UseStore((state) => state)
     const { isLoading, completed } = useAppData()
     const queryClient = new QueryClient();
+
+    useEffect(() => 
+    {        
+        typen.setSideType("member")
+    }, [])
 
     return (
         <>

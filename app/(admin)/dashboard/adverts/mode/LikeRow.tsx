@@ -33,7 +33,7 @@ export default function LikeRow()
     const userToken = UseStore((state) => state)
     const token: string = userToken.getUserToken()
     
-    const pages = [100, 200, 350, 500, 1000]
+    const pages = [50, 100, 200, 350, 500, 1000]
     const [currentPage, setCurrentPage] = useState<number>(1)  
     const [perPage, setPerPage] = useState<number>(pages[0])  
     const [searchQuery, setSearchQuery] = useState("")
@@ -248,6 +248,7 @@ export default function LikeRow()
                                 <select
                                     value={perPage}
                                     onChange={(e) => {
+                                        setCurrentPage(1)
                                         displayByPageNo(Number(e.target.value));
                                     }} className="appearance-none w-full py-4 pl-3 md:pr-20 pr-14 bg-white" name="whatever" id="frm-whatever">
                                     {pages?.map((pageSize: number) => (
