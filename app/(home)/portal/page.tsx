@@ -89,7 +89,7 @@ export default function Portal()
                if(response?.additions.includes('student'))
                {
                   userData.setSideType('student')
-                  window.location.href = '/user/dashboard'
+                  window.location.href = '/class-door'
                } else {
                   setErrorMessage("You are not a student, apply")
                   setLoading(false)

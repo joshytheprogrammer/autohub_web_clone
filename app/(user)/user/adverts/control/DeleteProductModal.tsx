@@ -5,6 +5,7 @@ import { Modal } from "../../../../../components/modal/Modal"
 import { USAGE_PATH } from "../../../../../constant/Path"
 import { DeleteProduct } from "../../../../api/home/market/user/product"
 import Message from "../../../../../components/shared/Message"
+import delay from "delay"
 
 
 type DeleteProductImageProps = 
@@ -36,6 +37,7 @@ export const DeleteProductModal = ({onClick, deleteModal, imageProductUrl='', pr
         const deleteProduct = async () => 
         {    
            setIsLoading(true)
+           await delay(1000)
            const DeleteProductImage = DeleteProduct(productId, userType, token)
            DeleteProductImage.then((response) => 
            {

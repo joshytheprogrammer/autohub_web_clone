@@ -4,6 +4,7 @@ const nextConfig = {
   reactStrictMode: false,
   env: {
     URL: 'https://api.autohub.africa/',
+    ASTURL: 'https://server.trustedmiddleman.app/',
     SECRET_KEY: '',
     ENV: ''
   },

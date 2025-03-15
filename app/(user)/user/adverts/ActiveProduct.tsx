@@ -108,10 +108,10 @@ export default function ActiveProduct()
                                                 <div 
                                                     className="w-6/12"
                                                 >
-                                                    <Image 
+                                                    <img 
                                                         src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
-                                                        width={200}
-                                                        height={300}
+                                                        width={300}
+                                                        height={400}
                                                         alt={`${product?.face_image}`}
                                                         onClick={() => 
                                                         {

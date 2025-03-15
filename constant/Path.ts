@@ -8,13 +8,15 @@ const URL =
         path: process.env.URL, 
         status: false
     },
+    asset: process.env.ASTURL,
     connectTo: 'online'
 }
 
 const DESTINATION = (URL.connectTo === 'offline') ? URL.offline.path : URL.online.path
+const ASSET = URL.asset
 
-export const BASE_URL = `${DESTINATION}api/`;
-export const ASSET_URL = `${DESTINATION}`;
+export const BASE_URL = `${DESTINATION}/api/`;
+export const ASSET_URL = `${ASSET}`;
 
 export const USAGE_PATH = 
 {
@@ -27,6 +29,8 @@ export const USAGE_PATH =
     RECEIPT : `${ASSET_URL}receipt/`,
     DEFAULT_AVATAR : `${ASSET_URL}constant/`,
 }
+
+
 
 
 

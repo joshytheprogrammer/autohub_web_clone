@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { FiMenu } from 'react-icons/fi'
 import { BsFillTelephoneInboundFill } from "react-icons/bs";
+import { useRouter } from 'next/navigation';
 import { BsXCircle } from "react-icons/bs";
 import clsx from 'clsx';
 import Logo from './Logo'
@@ -51,7 +52,7 @@ import SmallScreen from './SmallScreen';
 
 export default function HeaderNavigation() 
 {
-
+  const router = useRouter()
   const Session = UseStore((state) => state)
   const token = Session.getUserToken()
   const [openLoggedOut, setOpenLoggedOut] = useState<boolean>(false)
@@ -64,11 +65,10 @@ export default function HeaderNavigation()
   {
      if(!token)
      {
-        setFirstName(Session.getFName())
-        setSurname(Session.getSName())
-        setMember(Session.getUType())
-     } else {
-        // Session.setSideType("")
+        Session.setFName("")
+        Session.setSName("")
+        Session.setUType("")
+        Session.setSideType("")
      }
   }, [])
 

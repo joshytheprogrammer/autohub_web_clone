@@ -174,7 +174,7 @@ export default function Students()
                             return <Image src={`${USAGE_PATH.DEFAULT_AVATAR}${row.renderValue()}`} alt={`${row.renderValue()}`} width={200} height={200} className='rounded-full border-2 border-blue-200' />
                             // return <img src={`${USAGE_PATH.DEFAULT_AVATAR}${row.renderValue()}`} width={200} height={200} className='rounded-full border-2 border-blue-200' />
                         } else {
-                            return <Image src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} alt={`${row.renderValue()}`} width={200} height={200} className='rounded-full border-2 border-blue-200' />
+                            return <Image src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} alt={`${row.renderValue()}`} width={50} height={80} className='rounded-full border-2 border-blue-200' />
                             // return <img src={`${USAGE_PATH.AVATAR}${row.renderValue()}`} width={200} height={200} className='rounded-full' />                            
                         }
                   },

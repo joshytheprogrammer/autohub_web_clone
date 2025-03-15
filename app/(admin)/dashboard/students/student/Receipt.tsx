@@ -29,20 +29,20 @@ export const Receipt = ({ onClick, seeResult, student }: ReceiptProp)  =>
                            >
                               { student?.fullname }
                            </span>
-                           {/* <img 
+                           <img 
                               src={`${USAGE_PATH?.AVATAR}${student?.passport}`} 
                               alt={`${student?.fullname}`} 
-                              width={100}
-                              height={100}
+                              width={70}
+                              height={70}
                               className="rounded-xl flex justify-center"
-                           /> */}
-                           <Image 
+                           />
+                           {/* <Image 
                               src={`${USAGE_PATH?.AVATAR}${student?.passport}`} 
                               alt={`${student?.fullname}`} 
                               width={100}
                               height={100}
                               className="rounded-xl flex justify-center" 
-                           />
+                           /> */}
                         </div>
                         <div 
                            className="flex justify-center items-center font-bold text-lg text-center w-full p-5 pb-10 border-2 border-gray-200"
@@ -55,8 +55,8 @@ export const Receipt = ({ onClick, seeResult, student }: ReceiptProp)  =>
                            <Image 
                               src={`${USAGE_PATH?.RECEIPT}${student?.receipt}`} 
                               alt={`${student?.fullname}`} 
-                              width={100}
-                              height={100}
+                              width={700}
+                              height={700}
                               className="rounded-xl flex justify-center" 
                            />
                         </div>                  

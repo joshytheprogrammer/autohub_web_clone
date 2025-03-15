@@ -20,6 +20,7 @@ export const ConfirmStudent = ({ onClick, confirmAccess, student, token }: Confi
     const [loading, setIsLoading] = useState<boolean>(false)
     const [errMsgStyle, setErrMsgStyle] = useState<string>('')
     const [errorMessage, setErrorMessage] = useState<string>("")
+    console.log(student)
 
     useEffect(() => 
     {
@@ -76,13 +77,13 @@ export const ConfirmStudent = ({ onClick, confirmAccess, student, token }: Confi
                               className="rounded-xl flex justify-center"
                            />
                            
-                           <Image 
+                           {/* <Image 
                               src={`${USAGE_PATH?.AVATAR}${student?.passport}`} 
                               alt={`${student?.fullname}`} 
                               width={140} 
                               height={140} 
                               className='rounded-full border-2 border-blue-200' 
-                           />
+                           /> */}
                         </div>
                       {/* <Image 
                            src={`${USAGE_PATH?.AVATAR}${student?.passport}`} 
@@ -114,13 +115,23 @@ export const ConfirmStudent = ({ onClick, confirmAccess, student, token }: Confi
                           Close
                         </button>
                         {
-                           (student?.has_paid != "paid") && <>
+                           (student?.receipt != null) && <>
                              <button
                                 disabled={loading}
                                 className="px-5 py-3 bg-blue-600 text-white font-semibold text-sm rounded-xl w-max hover:bg-green-800"
                                 onClick={allowStudent}
                              >
                                 {   loading ? ( <BeatLoader size={9} color="#fff" />) : ( "Confirm Student" )    }
+                             </button>
+                          </>
+                        }
+                        {
+                           (student?.receipt === null) && <>
+                             <button
+                                disabled={loading}
+                                className="px-5 py-3 bg-blue-600 text-white font-semibold text-sm rounded-xl w-max hover:bg-green-800"
+                             >
+                                {   loading ? ( <BeatLoader size={9} color="#fff" />) : ( "User should upload payment receipt" )    }
                              </button>
                           </>
                         }

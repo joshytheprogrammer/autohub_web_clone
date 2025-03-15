@@ -245,6 +245,28 @@ export default function Courses()
         //   }
     ],[])
 
+    // const downloadPdfFile = async (x: any) =>
+    // {
+    //   let id = x?.id
+    //   if(x?.file_name === null)
+    //   {
+    //      alert('Course Material Not Available')
+    //   } else {
+    //      await axios.get(`${BASE_URL}academic/course/download-course-document/${id}`, 
+    //         { 
+    //           headers: {
+    //             'Authorization': token ? `Bearer ${token}` : "",
+    //           } 
+    //         })
+    //       .then((response: any) => 
+    //       {  
+    //          console.log(response)
+    //       }).catch(() => {                      
+    //           return false;
+    //       })
+    //    }
+    // }
+
     const downloadPdfFile = async (x: any) =>
     {
       let id = x?.id
@@ -262,7 +284,7 @@ export default function Courses()
           })
           .then((response: any) => 
           {  
-              window.open(URL.createObjectURL(response.data));
+             window.open(URL.createObjectURL(response.data));
           }).catch(() => {                      
               return false;
           })

@@ -134,7 +134,7 @@ export default function Products({ onClick }: { onClick : () => void })
             { 
                 <div ref={ref} className="col-span-12 h-[20px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
                 >
-                    { isFetchingNextPage ? <PuffLoader className='w-12 h-12' />  : isPending ?  <PuffLoader className='w-12 h-12' />  : isRefetching ? " .. loading product" : isError ? 'No More Product' : !isRefetching ? 'No More Product' : '' }
+                    { isFetchingNextPage ? <PuffLoader className='w-12 h-12' />  : isPending ?  <PuffLoader className='w-12 h-12' />  : isRefetching ? " .. loading product" : isError ? 'No Product' : !isRefetching ? 'No Product' : '' }
                     
                 </div>
             }

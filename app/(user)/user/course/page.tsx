@@ -37,44 +37,57 @@ export default function Course()
                 </div>
             }
             {
-               !isLoading && (data?.data?.payment_status === "not-paid") && <>
-                  <PaymentPage 
-                      onClick={(e: boolean | string) => {
-                        if(e === true)
-                        {          
-                           setApprovalRequest("")
-                           refetch()
-                        } else {            
-                           setApprovalRequest(e.toString())      
-                        }
-                      }
-                     }
-                     refetch={
-                       () => {
-                          refetch()
-                       }
-                    } 
-                    token={token}
-                  />
-              </>
+               !isLoading && (data?.data?.payment_status === "not-paid") 
+                                                          && ((data?.data?.receipt === '') || (data?.data?.receipt === null) || (data?.data?.receipt === undefined)) 
+                                                          && (data?.plus === 'block') 
+                                                          && <>
+                            <PaymentPage 
+                                onClick={(e: boolean | string) => {
+                                  if(e === true)
+                                  {        
+                                    setApprovalRequest("")
+                                    refetch()
+                                  } else {            
+                                    setApprovalRequest(e.toString())      
+                                  }
+                                }
+                              }
+                              refetch={
+                                () => {
+                                    refetch()
+                                }
+                              } 
+                              token={token}
+                            />
+                        </>
             }
     
-            {  !isLoading && data?.data && (data?.data?.payment_status === "paid") && (data?.plus === 'allow') && <CourseDownload /> }
+            {  !isLoading && data?.data 
+                                && (data?.data?.payment_status === "paid") 
+                                && ((data?.data?.receipt != '') || (data?.data?.receipt != null) || (data?.data?.receipt != undefined)) 
+                                && (data?.plus === 'allow') 
+                                && (data?.plus === 'allow') && <CourseDownload /> 
+            }
                     
             {
-                !isLoading && data?.data && (data?.data?.payment_status === "paid") && (data?.addition === 0) && <>
-                    <div 
-                        className="col-span-12 h-[300px] flex justify-center items-center" 
-                        style={{ marginTop: '60px', paddingTop: '20px' }}
+              !isLoading && data?.data 
+                                && (data?.data?.payment_status === "not-paid") 
+                                && ((data?.data?.receipt != '') || (data?.data?.receipt != null) || (data?.data?.receipt != undefined)) 
+                                && (data?.plus === 'allow') 
+                                && <>
+                  <div 
+                      className="col-span-12 bg-green-400 flex d-flex bg-green-50 border-shadow drop-shadow-lg md:block px-3 md:px-10 py-5 mt-3 rounded-2xl md: mb-0 h-[600px] justify-center item-center" 
+                      style={{ marginTop: '0px', paddingTop: '50px' }}
+                  >
+                    <h1 
+                      className="font-bold text-red-500 text-2xl text-center"
+                      style={{ marginTop: '200px' }}
                     >
-                      <h1 
-                        className="font-bold text-red-500 text-2xl"
-                      >
-                        Awaiting Confirmation
-                      </h1>
-                    </div>
-                  </>
-            }
+                      Awaiting Payment Confirmation
+                    </h1>
+                  </div>
+                </>
+          }
                         
           </div>
           

@@ -136,27 +136,48 @@ export default function Dashboard()
             { approvalRequest && <p className={`font-bold text-lg text-white rounded-md col-span-12 ${(approvalRequest === "") ? " " : "p-3 bg-blue-600"}`}>{approvalRequest}</p> }
 
             {
-               !isLoading && (userToken.getSideType() === 'student') && (data?.plus?.payment_status === "not-paid") && <>
-                  <PaymentPage 
-                      onClick={(e: boolean | string) => {
-                                if(e === true)
-                                {          
-                                  setApprovalRequest("")
-                                  refetch()
-                                } else {            
-                                  setApprovalRequest(e.toString())      
-                                }
-                              }
-                            }
-                            refetch={
-                                () => {
-                                   refetch()
-                                }
-                            } 
-                            token={token}
-                          />
-                      </>
+                !isLoading && (data?.plus?.payment_status === "not-paid") 
+                                                                      && ((data?.plus?.receipt === '') || (data?.plus?.receipt === null) || (data?.plus?.receipt === undefined)) 
+                                                                      && <>
+                                        <PaymentPage 
+                                            onClick={(e: boolean | string) => {
+                                              if(e === true)
+                                              {        
+                                                setApprovalRequest("")
+                                                refetch()
+                                              } else {            
+                                                setApprovalRequest(e.toString())      
+                                              }
+                                            }
+                                          }
+                                          refetch={
+                                            () => {
+                                                refetch()
+                                            }
+                                          } 
+                                          token={token}
+                                        />
+                                    </>
             }
+
+            {
+              !isLoading && data?.plus 
+                                && (data?.plus?.payment_status === "not-paid") 
+                                && ((data?.plus?.receipt != '') || (data?.plus?.receipt != null) || (data?.plus?.receipt != undefined)) 
+                                && <>
+                  <div 
+                      className="col-span-12 bg-green-400 flex d-flex bg-green-50 border-shadow drop-shadow-lg md:block px-3 md:px-10 py-5 mt-3 rounded-2xl md: mb-0 h-[600px] justify-center item-center" 
+                      style={{ marginTop: '0px', paddingTop: '50px' }}
+                  >
+                    <h1 
+                      className="font-bold text-red-500 text-2xl text-center"
+                      style={{ marginTop: '200px' }}
+                    >
+                      Awaiting Payment Confirmation
+                    </h1>
+                  </div>
+                </>
+          }
 
             <div className="h-[50px]"></div>
 

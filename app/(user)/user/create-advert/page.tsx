@@ -201,6 +201,7 @@ export default function CreateAdvert()
                     {
                         clearFields()
                         clearFields()
+                        setLoading(false)
                         router.push('/user/adverts')
                     } else {
                         setLoading(false)
@@ -1033,7 +1034,7 @@ export default function CreateAdvert()
                                         SaveAdvert('yes')
                                     }}  
                             >
-                                { loading && (type === 'yes') ? <BeatLoader size={10} color="white" className="py-2" /> : "Save Adver in Draft"}
+                                { loading && (type === 'yes') ? <BeatLoader size={10} color="white" className="py-2" /> : "Save Advert in Draft"}
                             </div>
                             
                             

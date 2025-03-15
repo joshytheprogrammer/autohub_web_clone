@@ -5,6 +5,8 @@ export async function ApplicationData()
 {
     let endPoint = 'landing-data'
     let ApiUrl = `${BASE_URL}${endPoint}`
+    // let ApiUrl = `http://127.0.0.1:8888/api/landing-data`
+    console.log(ApiUrl)
     try 
     {
         let response = await fetch(ApiUrl)
@@ -21,10 +23,10 @@ export async function ApplicationData()
             // return { status: false, data: response } 
         } 
         const result = await response.json() 
-        return { status: true, data: result }
+        return { status: true, data: result, url: ApiUrl }
 
     } catch (error) {
-        return { status: false, data: error } 
+        return { status: false, data: error, url: ApiUrl } 
     }
 }
 
