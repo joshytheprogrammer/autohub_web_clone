@@ -3,7 +3,7 @@ const nextConfig = {
   // output: "export",
   reactStrictMode: false,
   env: {
-    URL: 'https://api.autohub.africa/',
+    URL: 'https://api.autohub.africa',
     ASTURL: 'https://server.trustedmiddleman.app/',
     SECRET_KEY: '',
     ENV: ''
