@@ -82,7 +82,7 @@ export default function SlideShowThumbnail({ data, imageSize, waterMark }: { dat
                                             //     height={700}
                                             // /> 
                                             <img
-                                                src={`${USAGE_PATH.IMAGE_SLIDER}${data[slide]?.image_url}`} 
+                                                src={`${USAGE_PATH.CLOUD_IMAGE_SLIDER}${data[slide]?.image_url}`} 
                                                 // src={`${data[slide]?.image_url}`} 
                                                 className="w-full h-full object-fit"
                                             />
@@ -144,7 +144,7 @@ export default function SlideShowThumbnail({ data, imageSize, waterMark }: { dat
                                     return (
                                         <img
                                                key={index}
-                                               src={`${USAGE_PATH.PRODUCT_FACE}${img?.image_url}`} 
+                                               src={`${USAGE_PATH.CLOUD_PRODUCT_FACE}${img?.image_url}`} 
                                                className="w-[200px] h-[140px] object-fit border-2 border-gray-10"
                                                onClick={() => 
                                                {

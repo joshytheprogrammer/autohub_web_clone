@@ -120,7 +120,7 @@ export const ChangeProductImage = ({onClick, imageModal, imageId, imageUrl, mode
                                                                         <>
                                                                            <div className={`relative d-flex col-span-12 md:col-span-3 rounded-lg shadow-md px-2 pb-3 h-fit ${((selected) ? selected : '')}`} key={index}>
                                                                                 {/* <img src={`${USAGE_PATH.PRODUCT_FACE}${image.image_url}`} alt="product images" className={''} /> */}
-                                                                                <Image src={`${USAGE_PATH.PRODUCT_FACE}${image.image_url}`} alt={`${image.image_url}`} width={200} height={200} className='' /> 
+                                                                                <Image src={`${USAGE_PATH.CLOUD_PRODUCT_FACE}${image.image_url}`} alt={`${image.image_url}`} width={200} height={200} className='' /> 
                                                                                 <div 
                                                                                         className={`${faceAdvert}`}>
                                                                                         {

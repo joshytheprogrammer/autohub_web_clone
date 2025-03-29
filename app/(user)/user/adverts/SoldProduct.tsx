@@ -106,7 +106,7 @@ export default function SoldProduct()
                                                 <div 
                                                     className="w-6/12"
                                                 >
-                                                    {/* <img src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
+                                                    {/* <img src={`${USAGE_PATH.CLOUD_PRODUCT_FACE}${product?.face_image}`} 
                                                          width={300} height={300}  
                                                          onClick={() => 
                                                          {
@@ -116,7 +116,7 @@ export default function SoldProduct()
                                                          className="cursor-pointer"
                                                     />  */}
                                                     <Image 
-                                                        src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`}
+                                                        src={`${USAGE_PATH.CLOUD_PRODUCT_FACE}${product?.face_image}`}
                                                         alt={`${product?.face_image}`}
                                                         width={300} height={300}  
                                                         onClick={() => 
