@@ -10,7 +10,7 @@ const URL =
         image_path: process.env.CLOUD_BASE_URL,
         status: false
     },
-    asset: process.env.CLOUD_BASE_URL,
+    asset: process.env.LIVE_URL,
     connectTo: 'offline'
 }
 

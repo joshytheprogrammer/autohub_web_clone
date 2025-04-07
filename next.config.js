@@ -5,6 +5,7 @@ const nextConfig = {
     URL: 'https://api.autohub.africa',
     SECRET_KEY: '',
     CLOUD_BASE_URL: 'https://server.trustedmiddleman.app/',
+    LIVE_URL: 'https://server.trustedmiddleman.app/',
     ENV: ''
   },
   images: {
