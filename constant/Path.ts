@@ -10,7 +10,7 @@ const URL =
         image_path: process.env.CLOUD_BASE_URL,
         status: false
     },
-    asset: 'https://server.trustedmiddleman.app/',   //process.env.ASTURL,
+    asset: process.env.CLOUD_BASE_URL,
     connectTo: 'offline'
 }
 
@@ -27,7 +27,7 @@ export const USAGE_PATH =
     BASE_URL_FRONT : `${DESTINATION}blog-detail/`,
     IMAGE_SLIDER : `${ASSET_URL}product/`, 
     PRODUCT_FACE : `${ASSET_URL}product/`,
-    AVATAR : `https://server.trustedmiddleman.app/profile_picture/`,
+    AVATAR : `${ASSET_URL}profile_picture/`,
     WATER_MARK : `${BASE_IMG_URL}constant/water/`,
     BLOG_POST : `${ASSET_URL}posts/`,
     RECEIPT : `${ASSET_URL}receipt/`,
