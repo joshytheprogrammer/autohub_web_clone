@@ -4,7 +4,7 @@ const nextConfig = {
   env: {
     URL: 'https://api.autohub.africa',
     SECRET_KEY: '',
-    CLOUD_BASE_URL: 'https://eu2.contabostorage.com/531567a74f5740769e7b8d34e116cadd:autohub/',
+    CLOUD_BASE_URL: 'https://server.trustedmiddleman.app/',
     ENV: ''
   },
   images: {
