@@ -2,12 +2,12 @@ const URL =
 {
     offline: {
         path: process.env.URL,
-        image_path: process.env.CLOUD_BASE_URL,
+        image_path: process.env.LIVE_URL,
         status: true
     },
     online: {
         path: process.env.URL, 
-        image_path: process.env.CLOUD_BASE_URL,
+        image_path: process.env.LIVE_URL,
         status: false
     },
     asset: process.env.LIVE_URL,
