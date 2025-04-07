@@ -357,7 +357,7 @@ export default function RightSide()
                     className="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
                 >         
                     { !token && <HiOutlineUser className='w-6 h-6 font-bold' /> }
-                    { token && <img src="https://server.trustedmiddleman.app/profile_picture/2025-04-07-autohub-67f3e1501f5c9-2.jpg" className='rounded-full w-[50px] h-[45px]' />  }
+                    { token && <img src="https://server.trustedmiddleman.app/profile_picture/2025-04-07-autohub-67f3e1501f5c9-2.jpg" alt='in-here' className='rounded-full w-[50px] h-[45px]' />  }
                 </div>
                 <div 
                     className="ml-2 "
