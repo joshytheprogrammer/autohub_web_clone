@@ -101,7 +101,7 @@ export default function Page()
                   { 
                         setUserIsRegistered(response?.message) 
                         setLoading(false)
-                        router.push(`/login`)                  
+                        // router.push(`/login`)                  
                   }, 2000
                   )
             } else {
