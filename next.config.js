@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
-// const nextConfig = {
-//   // output: "export",
+// const nextConfig = 
+// {
 //   reactStrictMode: false,
 //   env: {
 //     URL: 'http://127.0.0.1:8888',
@@ -19,11 +19,12 @@
 //         pathname: '/**'
 //       }
 //     ]
-//   }
-  
+//   }  
 // }
 
 // module.exports = nextConfig
+
+
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

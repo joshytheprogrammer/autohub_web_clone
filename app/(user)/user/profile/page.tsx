@@ -4,7 +4,7 @@ import delay from "delay"
 import { useState, useEffect } from "react"
 import Message from "../../../../components/shared/Message"
 import { UseStore } from "../../../../state/store"
-import { BeatLoader } from "react-spinners"
+import { BeatLoader, PuffLoader } from "react-spinners"
 import { UserDetail, UserProfile } from "../../../api/auth/profile"
 import { useQuery } from "@tanstack/react-query"
 
@@ -148,7 +148,8 @@ export default function Profile()
                         isLoading &&  <div 
                                           className="flex md:d-flex xl:flex-row h-[500px] justify-center items-center"
                                     >
-                                          { isLoading && <BeatLoader className='w-20 h-20' color="black" /> }
+                                          { isLoading && <PuffLoader className='w-12 h-12' color="black" /> }
+                                          
                                     </div>
                   }
                   { !isLoading && <>

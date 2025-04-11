@@ -7,16 +7,17 @@ const URL =
     },
     online: {
         path: process.env.URL, 
-        image_path: process.env.LIVE_URL,
+        image_path: process.env.CLOUD_BASE_URL,
         status: false
     },
-    asset: process.env.LIVE_URL,
+    asset: process.env.CLOUD_BASE_URL,
     connectTo: 'offline'
 }
 
 const DESTINATION = (URL.connectTo === 'offline') ? URL.offline.path : URL.online.path
 const ASSET = URL.asset
 
+// export const BASE_URL = `http://127.0.0.1:8888/api/`;
 export const BASE_URL = `${DESTINATION}/api/`;
 export const BASE_IMG_URL = `${DESTINATION}/`;
 export const ASSET_URL = `${ASSET}`;
@@ -26,8 +27,8 @@ export const USAGE_PATH =
 {
     BASE_URL_FRONT : `${DESTINATION}blog-detail/`,
     IMAGE_SLIDER : `${ASSET_URL}product/`, 
-    PRODUCT_FACE : `${ASSET_URL}product/`,
-    AVATAR : `${ASSET_URL}profile_picture/`,
+    PRODUCT_FACE : `${ASSET}product/`,
+    AVATAR : `${ASSET}profile_picture/`,
     WATER_MARK : `${BASE_IMG_URL}constant/water/`,
     BLOG_POST : `${ASSET_URL}posts/`,
     RECEIPT : `${ASSET_URL}receipt/`,

@@ -106,9 +106,9 @@ export default function WishListProduct()
                                             <div 
                                                 className="w-6/12"
                                             >
-                                                {/* <img src={`${USAGE_PATH.CLOUD_PRODUCT_FACE}${product?.face_image}`} width={300} height={300} />     */}
+                                                {/* <img src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} width={300} height={300} />     */}
                                                 <Image 
-                                                    src={`${USAGE_PATH.CLOUD_PRODUCT_FACE}${product?.face_image}`} 
+                                                    src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
                                                     alt={`${product?.face_image}`} 
                                                     width={300} 
                                                     height={300} 

@@ -109,7 +109,7 @@ export default function ActiveProduct()
                                                     className="w-6/12"
                                                 >
                                                     <img 
-                                                        src={`${USAGE_PATH.CLOUD_PRODUCT_FACE}${product?.face_image}`} 
+                                                        src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
                                                         width={300}
                                                         height={400}
                                                         alt={`${product?.face_image}`}
