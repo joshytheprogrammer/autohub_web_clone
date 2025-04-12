@@ -157,6 +157,7 @@ export default function ChangePassport()
                 >
                     { errorMessage && <Message msg={errorMessage} status={errMsgStyle} />  }
                 </div> 
+                <div className="w-full p-20 bg-blue-300">The Me</div>
                 { imgUrl &&
                     <div 
                         className="items-center gap-5 mt-2 sm:flex flex justify-left mb-2 mx-5 -ml-1 justify-center flexx"
