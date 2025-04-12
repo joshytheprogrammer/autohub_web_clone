@@ -83,7 +83,7 @@ export const DeleteImageModal = ({onClick, deleteModal, message, imageId, imageP
                                         src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} 
                                         alt="Sunset in the mountains" 
                                     /> */}
-                                    <Image src={`${USAGE_PATH.CLOUD_PRODUCT_FACE}${imageProductUrl}`} alt={`${imageProductUrl}`} width={200} height={200} className='w-full' /> 
+                                    <Image src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} alt={`${imageProductUrl}`} width={200} height={200} className='w-full' /> 
                                 </div>
                                 }
                                 <div 
