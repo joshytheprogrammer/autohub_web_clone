@@ -40,7 +40,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'api.autohub.africa',
+        hostname: 'eu2.contabostorage.com',
         port: '',
         pathname: '/**'
       }
