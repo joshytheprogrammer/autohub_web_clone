@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Message from "../../../../components/shared/Message"
 import { UseStore } from "../../../../state/store"
 import { reduceImageSize } from "../../../../components/util/image"
-import { USAGE_PATH } from "../../../../constant/Path"
+// import { USAGE_PATH } from "../../../../constant/Path"
 import { ChangeProfilePicture } from "../../../api/auth/profile"
 
 
@@ -44,12 +44,12 @@ export default function ChangePassport()
     
     useEffect(() => 
     {
-        chngPix(picture)
+        // chngPix(picture)
     }, [picture])
     
     useEffect(() => 
     {
-        chngImgrl(picture)
+        // chngImgrl(picture)
         // userState.setPassport(picture)
     }, [imgUrl])
 
@@ -126,15 +126,9 @@ export default function ChangePassport()
                 >      
                     <div 
                         className="flex justify-left w-10/12 md:w-4/12 rounded-lg mx-auto"
-                    >Good to know
-                        { picture && <img src={`${USAGE_PATH.AVATAR}${picture}`} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />  }
-                        { picture && <Image src={`https://eu2.contabostorage.com/531567a74f5740769e7b8d34e116cadd:autohub/profile_picture/2025-04-11-profile-image-autohub-image67f975abab473-6.jpg`} alt={`${picture}`} width={400} height={400} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />   }
-                        
-                        {/* { imgUrl && <img src={`${imgUrl}`} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />  } */}
+                    >
+                        { picture && <img src={`${picture}`} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />  }
                         { imgUrl && <Image src={`${imgUrl}`} alt={`${imgUrl}`} width={400} height={400} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />   }
-
-                        {/* { picture && <img src={`${picture}`} className='flex justify-left  bg-blue-200 mb-3 rounded-xl' />  } */}
-                        {/* { imgUrl && <img src={`${imgUrl}`} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />  } */}
                     </div>
                 </div>
                 <div 
@@ -157,7 +151,7 @@ export default function ChangePassport()
                 >
                     { errorMessage && <Message msg={errorMessage} status={errMsgStyle} />  }
                 </div> 
-                <div className="w-full h-[200px] p-20 bg-blue-300">The Me</div>
+                
                 { imgUrl &&
                     <div 
                         className="items-center gap-5 mt-2 sm:flex flex justify-left mb-2 mx-5 -ml-1 justify-center flexx"

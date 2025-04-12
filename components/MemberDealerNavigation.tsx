@@ -70,7 +70,7 @@ export default function MemberDealerNavigation({ marketPlace, bg, hover }: Membe
                                                 key={index}
                                                 className='font-bold text-sm px-5 py-1 whitespace-nowrap rounded-lg cursor-pointer text-black mr-5 hover:text-red-600 border-b-2 border-green-300'
                                             >
-                                                {role} - {' Fine - Hello'}
+                                                {role}
                                             </span>
                                         )
                                     })

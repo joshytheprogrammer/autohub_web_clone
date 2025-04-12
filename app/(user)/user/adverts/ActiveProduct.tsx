@@ -1,8 +1,8 @@
 "use client"
 
 import { BsGeoAltFill } from "react-icons/bs"
-import Image from 'next/image'
-import { USAGE_PATH } from "../../../../constant/Path"
+// import Image from 'next/image'
+// import { USAGE_PATH } from "../../../../constant/Path"
 import currencyFormatter from "../../../../components/util/currency-formatter"
 import { HiX } from "react-icons/hi"
 import AdvertControl from "./control/AdvertControl"
@@ -109,7 +109,7 @@ export default function ActiveProduct()
                                                     className="w-6/12"
                                                 >
                                                     <img 
-                                                        src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
+                                                        src={`${product?.face_image}`} 
                                                         width={300}
                                                         height={400}
                                                         alt={`${product?.face_image}`}

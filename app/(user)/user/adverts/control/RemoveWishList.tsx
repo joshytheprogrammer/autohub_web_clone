@@ -80,7 +80,7 @@ export const RemoveWishList = ({onClick, deleteModal, imageProductUrl='', produc
                                                     className="w-full rounded overflow-hidden shadow-lg m-auto"
                                                 >
                                                 {/* <img className="w-full" src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} alt="Sunset in the mountains" /> */}
-                                                <Image src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} alt={`${imageProductUrl}`} width={500} height={500} className='rounded-md' /> 
+                                                <Image src={`${imageProductUrl}`} alt={`${imageProductUrl}`} width={500} height={500} className='rounded-md' /> 
                                         </div>
                                 }
                                 <div 

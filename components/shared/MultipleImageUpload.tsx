@@ -53,7 +53,6 @@ export default function MultipleImageUpload({width, ICloudColour, onClick}: Imag
                 imagesToSave.push({image: previewUrls[index], position: index, faceImage: 0})
             }
         }
-        console.log(imagesToSave)
         onClick(imagesToSave, mainImagePosition)
     }, [previewUrls])
 

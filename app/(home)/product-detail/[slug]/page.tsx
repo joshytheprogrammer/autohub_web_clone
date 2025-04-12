@@ -6,7 +6,7 @@ import { HiArrowLeft, HiHome, HiMiniPhoneArrowUpRight } from "react-icons/hi2"
 import { useProductDetail } from "../../../hook/queries/useProductDetail"
 // import { PuffLoader } from "react-spinners"
 import Image from 'next/image'
-import { USAGE_PATH } from "../../../../constant/Path"
+// import { USAGE_PATH } from "../../../../constant/Path"
 import currencyFormatter from "../../../../components/util/currency-formatter"
 import WebCategory from "../../../../components/category/WebCategory"
 import SlideShowThumbnail from "../../../../components/SlideShowThumbnail"
@@ -127,7 +127,7 @@ export default function ProductDetail({ params } : { params : { slug: string } }
                                 <section 
                                     className="text-blue-600 flex"
                                 >
-                                  <img src={`${USAGE_PATH.AVATAR}${data?.['passport']}`} className="rounded-full" width={70} height={70} />
+                                  <img src={`${data?.['passport']}`} className="rounded-full" width={70} height={70} />
                                   {/* <Image src={`${USAGE_PATH.AVATAR}${data?.['passport']}`} alt={`${data?.['passport']}`} width={70} height={70} className='rounded-full' />  */}
                                   {/* <img src={`${data?.['passport']}`} className="rounded-full" width={70} height={70} /> */}
                                   <span className="font-bold ml-5 mt-1 md:mt-5">{data?.['firstname']} {data?.['surname']}</span>

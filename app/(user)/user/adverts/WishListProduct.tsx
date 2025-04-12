@@ -8,7 +8,7 @@ import { BsGeoAltFill } from "react-icons/bs"
 import { PuffLoader } from "react-spinners"
 import Pagination from "../../../../components/Pagination"
 import currencyFormatter from "../../../../components/util/currency-formatter"
-import { USAGE_PATH } from "../../../../constant/Path"
+// import { USAGE_PATH } from "../../../../constant/Path"
 import { UseStore } from "../../../../state/store"
 import { WishListProducts } from "../../../api/home/market/user/product"
 import { MarkAsSolModal } from "./control/MarkAsSold"
@@ -108,7 +108,7 @@ export default function WishListProduct()
                                             >
                                                 {/* <img src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} width={300} height={300} />     */}
                                                 <Image 
-                                                    src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
+                                                    src={`${product?.face_image}`} 
                                                     alt={`${product?.face_image}`} 
                                                     width={300} 
                                                     height={300} 

@@ -87,7 +87,7 @@ export const DeleteProductModal = ({onClick, deleteModal, imageProductUrl='', pr
                                               src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} 
                                               alt="Sunset in the mountains" 
                                            /> */}
-                                           <Image src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} alt={`${imageProductUrl}}`} width={600} height={600} className='rounded-md' /> 
+                                           <Image src={`${imageProductUrl}`} alt={`${imageProductUrl}}`} width={600} height={600} className='rounded-md' /> 
                                    </div>
                                 }
                                 <div 

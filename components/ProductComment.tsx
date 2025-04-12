@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 // import Image from 'next/image'
-import { USAGE_PATH } from '../constant/Path'
+// import { USAGE_PATH } from '../constant/Path'
 import { PuffLoader, ScaleLoader } from 'react-spinners'
 import { Comments, ProductCommentProps, ProductComments } from '../app/api/home/market/advert/Comments'
 import Message from './shared/Message'
@@ -214,7 +214,7 @@ export default function ProductComment({ productId, vendorId }: PrdoductCommentP
                           <div 
                               className="flex justify-center items-center gap-3"
                           >                                        
-                              <img src={`${USAGE_PATH.AVATAR}${comments?.passport}`} className="rounded-full" width={50} height={50} />
+                              <img src={`${comments?.passport}`} className="rounded-full" width={50} height={50} />
                               <span className='font-semibold text-[12px] md:text-[16px]'>{comments?.firstname} {comments?.surname}</span>
                           </div>
                           <div 

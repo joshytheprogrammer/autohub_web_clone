@@ -4,7 +4,7 @@ import { PuffLoader, ScaleLoader } from "react-spinners"
 import Image from 'next/image'
 import { Modal } from "../../../../../components/modal/Modal"
 import Message from "../../../../../components/shared/Message"
-import { USAGE_PATH } from "../../../../../constant/Path"
+// import { USAGE_PATH } from "../../../../../constant/Path"
 import { UseStore } from "../../../../../state/store"
 import { FaceImage, Images } from "../../../../api/home/market/images/product-images"
 import { AddProductImage } from "./AddProductImage"
@@ -120,7 +120,7 @@ export const ChangeProductImage = ({onClick, imageModal, imageId, imageUrl, mode
                                                                         <>
                                                                            <div className={`relative d-flex col-span-12 md:col-span-3 rounded-lg shadow-md px-2 pb-3 h-fit ${((selected) ? selected : '')}`} key={index}>
                                                                                 {/* <img src={`${USAGE_PATH.PRODUCT_FACE}${image.image_url}`} alt="product images" className={''} /> */}
-                                                                                <Image src={`${USAGE_PATH.PRODUCT_FACE}${image.image_url}`} alt={`${image.image_url}`} width={200} height={200} className='' /> 
+                                                                                <Image src={`${image.image_url}`} alt={`${image.image_url}`} width={200} height={200} className='' /> 
                                                                                 <div 
                                                                                         className={`${faceAdvert}`}>
                                                                                         {

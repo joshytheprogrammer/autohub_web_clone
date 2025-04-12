@@ -9,7 +9,7 @@ import { HiPaperAirplane } from "react-icons/hi"
 import { PuffLoader } from "react-spinners"
 import Pagination from "../../../../components/Pagination"
 import currencyFormatter from "../../../../components/util/currency-formatter"
-import { USAGE_PATH } from "../../../../constant/Path"
+// import { USAGE_PATH } from "../../../../constant/Path"
 import { UseStore } from "../../../../state/store"
 import { DraftProducts } from "../../../api/home/market/user/product"
 import { SaveDraft } from "./control/SaveDraft"
@@ -121,7 +121,7 @@ export default function DraftedProduct()
                                                          className="cursor-pointer"
                                                     />     */}
                                                     <Image 
-                                                        src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
+                                                        src={`${product?.face_image}`} 
                                                         alt={`${product?.face_image}`} 
                                                         width={300} 
                                                         height={300}  

@@ -54,7 +54,7 @@ export const AddProductImage = ({onClick, imageModal, productId, userType, token
                    onClick()
                 } else {
                    setIsLoading(false)
-                   setErrorMessage("Setting product image failed")
+                   setErrorMessage("Upload product image failed")
                 }
 
             }).then(() => {

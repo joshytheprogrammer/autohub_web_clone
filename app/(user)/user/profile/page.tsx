@@ -48,7 +48,7 @@ export default function Profile()
       const [surname, setSurname] = useState<string>('')
       const [surnameMessage, setSurnameMessage] = useState<string>("")
     
-      const [middlename, setMiddlename] = useState<string>(']')
+      const [middlename, setMiddlename] = useState<string>('')
       const [middlenameMessage, setMiddlenameMessage] = useState<string>("")
     
       const [email, setEmail] = useState<string>('')
@@ -97,7 +97,7 @@ export default function Profile()
                     rc_number: (rcNumber === "") ? data?.data?.dealers?.rc_number : rcNumber,
                     firstname: (firstname === "") ? data?.data?.firstname : firstname,
                     surname: (surname === "") ? data?.data?.surname : surname,
-                    middlename: (middlename === "") ? data?.data?.midddlename : middlename,
+                    middlename: (middlename === "") ? data?.data?.middlename : middlename,
                     phone: (phone === "") ? data?.data?.phone : phone,
                     email: (email === "") ? data?.data?.email : email,
                     url: 'dealer/update-profile'
@@ -105,16 +105,17 @@ export default function Profile()
             } else {
                   user = 
                   {
-                        firstname: (firstname === "") ? data?.data?.firstname : firstname,
-                        surname: (surname === "") ? data?.data?.surname : surname,
-                        middlename: (middlename === "") ? data?.data?.midddlename : middlename,
-                        phone: (phone === "") ? data?.data?.phone : phone,
-                        email: (email === "") ? data?.data?.email : email,
-                        url: 'member/update-profile'
+                     firstname: (firstname === "") ? data?.data?.firstname : firstname,
+                     surname: (surname === "") ? data?.data?.surname : surname,
+                     middlename: (middlename === "") ? data?.data?.middlename : middlename,
+                     phone: (phone === "") ? data?.data?.phone : phone,
+                     email: (email === "") ? data?.data?.email : email,
+                     url: 'member/update-profile'
                    }                        
             }
             // alert(email)
             // setLoading(false)
+            // console.log(user)
             // return
             const updateProfile = UserProfile(user, token)
             updateProfile.then((response) => 
@@ -310,7 +311,7 @@ export default function Profile()
                                                             {
                                                                   let value: string = e.target.value
                                                                   setMiddlename(value)
-                                                                  setMiddlenameMessage("")
+                                                                  setMiddlenameMessage(value)
                                                                   profile.setMiddlename(value)
                                                             }}
                                                       />

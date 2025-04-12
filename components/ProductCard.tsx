@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { BsGeoAltFill } from 'react-icons/bs'
 import { USAGE_PATH } from '../constant/Path'
@@ -46,7 +46,7 @@ export default function ProductCard({ product, refetchs }: ProductDetail)
                                         className='flex max-h-64 h-full'
                                     >
                                         <img    
-                                            src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
+                                            src={`${product?.face_image}`} 
                                             // src={`${product?.face_image}`} 
                                             className='object-cover'
                                             onClick={() => 

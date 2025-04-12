@@ -9,7 +9,7 @@ import { BsGeoAltFill } from "react-icons/bs"
 import { PuffLoader } from "react-spinners"
 import Pagination from "../../../../components/Pagination"
 import currencyFormatter from "../../../../components/util/currency-formatter"
-import { USAGE_PATH } from "../../../../constant/Path"
+// import { USAGE_PATH } from "../../../../constant/Path"
 import { UseStore } from "../../../../state/store"
 import AdvertControl from "./control/AdvertControl"
 
@@ -99,7 +99,7 @@ export default function PendingProduct()
                                                 <div 
                                                     className="w-6/12"
                                                 >
-                                                    {/* <img src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
+                                                    {/* <img src={`${product?.face_image}`} 
                                                          width={300} height={300}  
                                                          onClick={() => 
                                                          {
@@ -109,7 +109,7 @@ export default function PendingProduct()
                                                          className="cursor-pointer"
                                                     />     */}
                                                         <Image 
-                                                            src={`${USAGE_PATH.PRODUCT_FACE}${product?.face_image}`} 
+                                                            src={`${product?.face_image}`} 
                                                             alt={`${product?.face_image}`} 
                                                             width={300} 
                                                             height={300}  

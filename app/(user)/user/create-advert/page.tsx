@@ -135,6 +135,7 @@ export default function CreateAdvert()
     {
        setErrMsgStyle('text-md text-red-600 font-bold')
        setErrorMessage("")
+    //    advertState.setImagePosition(-1)
        console.log({ theTrimId, theEngineId, yearMessage, theCountry, theCategoryOption, category, theManufacturer, theDescription, theModelId, theManufacturerName, theModelName, theTrimName, theTrimNameMessage, theEngineName})
     }, [])   
     
@@ -161,7 +162,7 @@ export default function CreateAdvert()
     useEffect(() => 
     {
 
-    }, [type])
+    }, [type, imagePosition])
 
     useEffect(() => 
     {
@@ -170,6 +171,17 @@ export default function CreateAdvert()
 
     const SaveAdvert = async (option: string) => 
     {
+        // const datas = {
+        //     country: Number(advertState.getCountry()), state: Number(advertState.getStates()), category: Number(advertState.getCategory()),
+        //     others: advertState.getOthers(), manufacturer: Number(advertState.getManufacturer()), model: Number(advertState.getModel()), trim: Number(advertState.getTrim()), engine: Number(advertState.getEngine()),
+        //     theManufacturer:  advertState.getTheManufacturerName(), theModel: advertState.getTheModelName(), theTrim: advertState.getTheTrimName(), theEngine: advertState.getTheEngineName(),
+        //     fuel: Number(advertState.getFuel()), year: advertState.getYear(), colour: Number(advertState.getColour()), transmission: Number(advertState.getTransmission()), 
+        //     condition: Number(advertState.getCondition()), milage: advertState.getMileage(), location: advertState.getLocation(), imagePosition: Number(advertState.getImagePosition()),
+        //     chasis_no: advertState.getChasisNo(), price: advertState.getPrice(), description: advertState.getDescription(), mileage: advertState.getMileage(), address: advertState.getLocation(),
+        //     images: advertImages,
+        //     draft: option
+        // }
+        // console.log(datas)
         setLoading(true)
         setType(option)
         const checkFields: string = allFields()
@@ -185,7 +197,6 @@ export default function CreateAdvert()
                 images: advertImages,
                 draft: option
             }
-            console.log(data)
             
             let endPoint = `${userType}/create`
             let ApiUrl = `${BASE_URL}${endPoint}`
@@ -307,16 +318,18 @@ export default function CreateAdvert()
             setImagePositionMessage("You can`t upload more than 15 images")
             validity = 'invalid'
             console.log("19") 
-        } else {            
+        } else {          
             if(Number(advertState.getImagePosition()) === -1)
-            { 
+            { console.log("20") 
                 setImagePositionMessage(IMAGE_POSITION_MESSAGE); validity = 'invalid' 
-                console.log("20") 
+            } else
+            if(Number(advertState.getImagePosition()) > advertImages.length)
+            {console.log("21") 
+                setImagePositionMessage("Reselect main image or unselect and select back"); validity = 'invalid'
             }
         }
         return validity
     }
-
 
     return (
         <>
@@ -948,16 +961,33 @@ export default function CreateAdvert()
                         </div>
 
                         <MultipleImageUpload width={0} ICloudColour={""} 
-                            onClick={(img: any,) => 
+                            onClick={(img: any) => 
                             {
+                                setImagePositionMessage("")
                                 setAdvertImages(img)
                             }} 
                         />
-
-
-                        { (errorMessage) && <Message msg={errorMessage} status={errMsgStyle} /> }                                               
-                        { (imagePosition) && <Message msg={imagePosition} status={errMsgStyle} /> } 
-
+                        {  errorMessage && 
+                            <div 
+                                className="border-2 border-red-400 w-full p-5 mt-5"
+                            >
+                                <Message msg={errorMessage} status={errMsgStyle} />
+                            </div>  
+                        }
+                        {  (advertState.getImagePosition() === -1) && 
+                            <div 
+                                className={`${imagePosition ? 'border-2 border-red-400 w-full w-full p-5 mt-5' : "" }`}
+                            >
+                                <Message msg={imagePosition} status={errMsgStyle} /> 
+                            </div>  
+                        } 
+                        {  imagePosition  && (advertState.getImagePosition() != -1) &&
+                            <div 
+                                className="border-2 border-red-400 w-full w-full p-5 mt-5"
+                            >
+                                <Message msg={imagePosition} status={errMsgStyle} /> 
+                            </div>  
+                        }                 
 
                         <div 
                             className="w-full d-flex md:flex mb-3 mt-14 hidden md:block"
