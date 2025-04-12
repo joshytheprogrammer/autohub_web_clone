@@ -127,8 +127,8 @@ export default function ChangePassport()
                     <div 
                         className="flex justify-left w-10/12 md:w-4/12 rounded-lg mx-auto"
                     >
-                        {/* { picture && <img src={`${USAGE_PATH.AVATAR}${picture}`} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />  } */}
-                        { picture && <Image src={`${picture}`} alt={`${picture}`} width={400} height={400} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />   }
+                        { picture && <img src={`${USAGE_PATH.AVATAR}${picture}`} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />  }
+                        { picture && <Image src={`https://eu2.contabostorage.com/531567a74f5740769e7b8d34e116cadd:autohub/profile_picture/2025-04-11-profile-image-autohub-image67f975abab473-6.jpg`} alt={`${picture}`} width={400} height={400} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />   }
                         
                         {/* { imgUrl && <img src={`${imgUrl}`} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />  } */}
                         { imgUrl && <Image src={`${imgUrl}`} alt={`${imgUrl}`} width={400} height={400} className='flex justify-left bg-blue-200 mb-3 rounded-xl' />   }
