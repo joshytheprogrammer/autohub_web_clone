@@ -77,7 +77,7 @@ export default function SlideShow({ data, imageSize, timer }: { data: any, image
                 >
                     {
                         ((data?.length > 0)) && <img
-                                                        src={`${USAGE_PATH.IMAGE_SLIDER}${data[slide]?.image_url}`} 
+                                                        src={`${data[slide]?.image_url}`} 
                                                         className="slide absolute w-full h-full object-fit"
                                                         onClick={() => 
                                                         {
