@@ -9,16 +9,16 @@ export default function AboutUs()
                   className='container w-full d-flex justify-between mt-7 mb-4 mx-auto my-10'
             > 
                 <div 
-                  className="w-full d-flex"
+                  className="w-full d-flex px-5"
                 >
                     <div 
-                        className='font-bold text-2xl mt-10'
+                        className='font-bold text-lg md:text-2xl mt-10'
                     >
                         About Us
                     </div>
 
                     <div 
-                      className="text-xl border-shadow py-10"
+                      className="text-lg md:text-xl border-shadow py-10"
                     >
                         <p>
                           Autohub Africa is a Nigerian company poised to revolutionize the automobile industry through a turn-key automobile services, ranging from land-vehicles to aviation, maritime, AI and space exploration. 
