@@ -85,6 +85,11 @@ export default function SlideShowThumbnail({ data, imageSize, waterMark }: { dat
                                                 src={`${data[slide]?.image_url}`} 
                                                 // src={`${data[slide]?.image_url}`} 
                                                 className="w-full h-full object-fit"
+                                                onClick={() => 
+                                                  {
+                                                     navigator.clipboard.writeText(window.location.href)
+                                                  }
+                                                }
                                             />
 
                 }
