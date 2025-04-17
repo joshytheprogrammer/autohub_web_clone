@@ -57,7 +57,7 @@ export default function Follow({ vendorId, user }: FollowProps)
 
     return (
         <>
-            <div className="flex justify-between mt-3"
+            <div className="flex justify-between -mt-3"
             >
               <div 
                  className="flex justify-center items-center space-x-4"
@@ -104,11 +104,11 @@ const Flw = ({ count = 0 }: { count: number }) =>
                 Unfollow
             </span>
             <span 
-                className="font-bold text-blue-600 text-sm flex justify-center items-center"
+                className="font-bold text-blue-600 text-[9px] md:text-[6px] flex justify-center items-center"
             > 
-                {(count === 0) && <div className="flex justify-center items-center">No Follower</div>}
-                {(count === 1) && <div className="flex justify-center items-center"><span className="mr-1">{count} </span> Follower</div>}
-                {(count === 2) && <div className="flex space-x-4"><span className="mr-1">{count} </span>Followers</div>}
+                {(count === 0) && <div className="flex justify-center items-center whitespace-nowrap">No Follower</div>}
+                {(count === 1) && <div className="flex justify-center items-center whitespace-nowrap"><span className="mr-1">{count} </span> Follower</div>}
+                {(count === 2) && <div className="flex space-x-4"><span className="mr-1 whitespace-nowrap">{count} </span>Followers</div>}
             </span>
         </div>
    )
@@ -126,7 +126,7 @@ const UnFlw = ({ count = 0 }: { count: number }) =>
                 Follow
             </span>
             <span 
-                className="font-bold text-blue-600 text-sm flex justify-center items-center"
+                className="font-bold text-blue-600 text-[9px] md:text-[6px] flex justify-center items-center"
             > 
                 {(count === 0) && <div className="flex justify-center items-center">No Follower</div>}
                 {(count === 1) && <div className="flex justify-center items-center"><span className="mr-1">{count} </span> Follower</div>}
@@ -145,7 +145,7 @@ const Follower = ({ count = 0 }: { count: number }) =>
             className="flex justify-center items-center"
         >
             <span 
-                className="p-3 rounded-lg bg-green-700 w-full hover:bg-green-400 mr-4"
+                className="py-3 rounded-lg bg-green-700 w-full hover:bg-green-400 mr-4"
                 onClick={
                     () => {
                         router.push('/login')

@@ -109,7 +109,7 @@ export default function ProductCard({ product, refetchs }: ProductDetail)
                                 }}
                             >
                                 <div 
-                                    className="text-[16px] md:text-[18px] lg:text-[20px] w-full text-green-600 font-bold "
+                                    className="text-[14px] md:text-[15px] lg:text-[18px] w-full text-green-600 font-bold "
                                 >
                                     {product?.title}
                                 </div>

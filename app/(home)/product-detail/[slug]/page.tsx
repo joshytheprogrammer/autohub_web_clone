@@ -94,7 +94,7 @@ export default function ProductDetail({ params } : { params : { slug: string } }
                                           </span> 
                                           {'>>'} 
                                           <span 
-                                            className="font-bold ml-2 text-sm"
+                                            className="font-bold ml-2 text-sm line-clamp-1"
                                           >
                                               {data?.['title']}
                                           </span>
@@ -102,8 +102,8 @@ export default function ProductDetail({ params } : { params : { slug: string } }
                                   </div>
                               </div>
                               <div 
-                                    className="font-bold text-[23px] md:text-[30px] text-gray-500 mt-5 mb-2"
-                                >
+                                className="font-bold text-[21px] md:text-[30px] text-gray-500 mt-5 mb-2"
+                              >
                                    {data?.['title']}
                               </div>
                               <div 
@@ -122,21 +122,33 @@ export default function ProductDetail({ params } : { params : { slug: string } }
                                   </span>
                               </div>
                               <div 
-                                className="font-bold text-md mt-2 flex justify-between items-center"
+                                className="font-bold text-md mt-2 flex justify-between items-right"
                               >
                                 <section 
-                                    className="text-blue-600 flex"
+                                    className="text-blue-600 flex justify-center items-center"
                                 >
-                                  <img src={`${data?.['passport']}`} className="rounded-full" width={70} height={70} />
+                                   <div 
+                                     className=""
+                                   >
+                                      <img src={`${data?.['passport']}`} className="rounded-full" width={45} height={25} />
+                                   </div>
+                                   <div 
+                                     className=""
+                                   >
+                                      <span className="font-bold ml-2 -mt-3">{data?.['firstname']} {data?.['surname']}</span>
+                                   </div>
                                   {/* <Image src={`${USAGE_PATH.AVATAR}${data?.['passport']}`} alt={`${data?.['passport']}`} width={70} height={70} className='rounded-full' />  */}
                                   {/* <img src={`${data?.['passport']}`} className="rounded-full" width={70} height={70} /> */}
-                                  <span className="font-bold ml-5 mt-1 md:mt-5">{data?.['firstname']} {data?.['surname']}</span>
                                 </section>
-                                <span 
+                                <section 
                                     className="text-blue-500 text-sm flex justify-center items-center"
                                 >
-                                    <Follow vendorId={`${data?.['user_id']}`} user={data?.['user_id']!} />
-                                </span>
+                                  <div 
+                                    className=""
+                                  >
+                                      <Follow vendorId={`${data?.['user_id']}`} user={data?.['user_id']!} />
+                                  </div>                                    
+                                </section>
                               </div>
                               <div 
                                   className="font-bold text-dm text-gray-500 mt-5"
