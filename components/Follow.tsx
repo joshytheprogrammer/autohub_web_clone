@@ -152,7 +152,7 @@ const Follower = ({ count = 0 }: { count: number }) =>
                     }
                 }
             >
-                Loin to Follow
+                Login to Follow
             </span>
             <span 
                 className="font-bold text-blue-600 text-sm flex justify-center items-center"
