@@ -97,7 +97,7 @@ export default function ProductPreview({ params } : { params : { slug: string } 
                                 <div 
                                     className="font-bold text-md text-gray-500 mt-5 border-shadow"
                                 >
-                                   <SlideShowThumbnail data={data?.['images']} imageSize={data?.['images']} waterMark={data?.['watermark']} />
+                                   <SlideShowThumbnail data={data?.['images']} imageSize={data?.['images']} waterMark={data?.['watermark']} slug="" />
                                 </div> 
                                 <div className="h-[60px]"></div>                                          
                           </div>

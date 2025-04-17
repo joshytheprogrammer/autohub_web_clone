@@ -146,7 +146,7 @@ export default function ProductDetail({ params } : { params : { slug: string } }
                               <div 
                                   className="font-bold text-md text-gray-500 mt-5 border-shadow"
                               >
-                                 <SlideShowThumbnail data={data?.['images']} imageSize={data?.['images']} waterMark={data?.['watermark']} />
+                                 <SlideShowThumbnail data={data?.['images']} imageSize={data?.['images']} waterMark={data?.['watermark']} slug={params?.slug} />
                               </div>
                               <div 
                                   className="font-bold w-full text-dm text-gray-500 mt-2 h-fit pb-10 rounded-md border-shadow"

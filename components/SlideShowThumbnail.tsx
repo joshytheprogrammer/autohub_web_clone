@@ -5,7 +5,7 @@ import { HiOutlineSpeakerphone } from 'react-icons/hi'
 import Image from 'next/image'
 
 
-export default function SlideShowThumbnail({ data, imageSize, waterMark }: { data: any, imageSize: any, waterMark: string | any }) 
+export default function SlideShowThumbnail({ data, imageSize, waterMark, slug }: { data: any, imageSize: any, waterMark: string | any, slug: string }) 
 {
     const [slide, setSlide] = useState<number>(0)
     let sliderTimeOut: any
@@ -87,7 +87,8 @@ export default function SlideShowThumbnail({ data, imageSize, waterMark }: { dat
                                                 className="w-full h-full object-fit"
                                                 onClick={() => 
                                                   {
-                                                     navigator.clipboard.writeText(window.location.href)
+                                                    let url: string = 'https://autohub.africa/product-detail/'+slug
+                                                     navigator.clipboard.writeText(url)
                                                   }
                                                 }
                                             />
