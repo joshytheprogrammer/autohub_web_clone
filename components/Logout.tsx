@@ -71,7 +71,7 @@ export const Logout = ({onClick, deleteModal, token}: SaveDraftProps)  =>
            UserPics.setForceExamObj('no')
            UserPics.setUserRoles([])
 
-           UserPics.setSideType('')
+           UserPics.setSideType('member')
 
         //    UserPics.setPlusExamObj('')
            window.location.href = '/'

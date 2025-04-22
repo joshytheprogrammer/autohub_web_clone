@@ -129,14 +129,16 @@ export default function Dashboard()
                     {
                         userToken.getUserRoles().includes('student') && (userToken.getSideType() === 'student') && <Result />
                     }
+                    {
+                        userToken.getUserRoles() === 'admin' && <Result />
+                    }
                 </div>
             }
-
-            
+                        
             { approvalRequest && <p className={`font-bold text-lg text-white rounded-md col-span-12 ${(approvalRequest === "") ? " " : "p-3 bg-blue-600"}`}>{approvalRequest}</p> }
-
+            
             {
-                !isLoading && (data?.plus?.payment_status === "not-paid") 
+                !isLoading && (data?.plus?.payment_status === "not-paid") && (userToken.getSideType() === "student")
                                                                       && ((data?.plus?.receipt === '') || (data?.plus?.receipt === null) || (data?.plus?.receipt === undefined)) 
                                                                       && <>
                                         <PaymentPage 
@@ -145,7 +147,8 @@ export default function Dashboard()
                                               {        
                                                 setApprovalRequest("")
                                                 refetch()
-                                              } else {            
+                                              } else {         
+                                                refetch()   
                                                 setApprovalRequest(e.toString())      
                                               }
                                             }
@@ -159,14 +162,15 @@ export default function Dashboard()
                                         />
                                     </>
             }
-
+            <div className="p-1"></div>
             {
-              !isLoading && data?.plus 
+              !isLoading && data?.data 
                                 && (data?.plus?.payment_status === "not-paid") 
-                                && ((data?.plus?.receipt != '') || (data?.plus?.receipt != null) || (data?.plus?.receipt != undefined)) 
-                                && <>
+                                && (data?.plus?.receipt) 
+                                && (data?.plus?.access === 'pending') 
+                                &&  (userToken.getSideType() === "student") &&  <>
                   <div 
-                      className="col-span-12 bg-green-400 flex d-flex bg-green-50 border-shadow drop-shadow-lg md:block px-3 md:px-10 py-5 mt-3 rounded-2xl md: mb-0 h-[600px] justify-center item-center" 
+                      className="col-span-12 bg-green-400 flex d-flex bg-green-50 border-2 border-shadow drop-shadow-lg md:block px-3 md:px-10 py-5 mt-10 rounded-2xl md: mb-0 h-[600px] justify-center item-center" 
                       style={{ marginTop: '0px', paddingTop: '50px' }}
                   >
                     <h1 
@@ -179,10 +183,10 @@ export default function Dashboard()
                 </>
           }
 
-            <div className="h-[50px]"></div>
+          <div className="h-[50px]"></div>
 
 
 
-          </>
+      </>
   )
 }

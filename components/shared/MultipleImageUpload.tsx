@@ -15,7 +15,7 @@ export default function MultipleImageUpload({width, ICloudColour, onClick}: Imag
 {
     const advertState = UseStore((state) => state)
     const [userPassport] = useState<string>("")
-    const [uploadText] = useState<string>("Click to upload pictures")
+    const [uploadText] = useState<string>("Click here to upload images")
     let photograph!: HTMLDivElement
     
     const [previewUrls, setPreviewUrls] = useState<any[]>([]);

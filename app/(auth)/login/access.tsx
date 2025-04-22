@@ -78,7 +78,7 @@ export default function Access({ showLogo, goTo } : { showLogo: boolean, goTo: s
                      userData.setPassport(response?.data?.passport)
                      userData.setUType(response?.data?.user_type)
                      userData.setUserRoles(response?.additions)
-                     userData.setSideType(response?.additions[0])
+                     userData.setSideType('member')
                      userData.setUserToken(response?.plus)
                      profileDB.add(response?.data)
                   //    console.log(response)

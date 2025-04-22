@@ -179,23 +179,23 @@ export default function ProductDetail({ params } : { params : { slug: string } }
                                   <div 
                                       className="flex md:col-span-6 col-span-12 -mb-1 md:mb-0 w-full rounded-md"
                                   >
-                                      <div className="bg-blue-500 py-3 px-4 d-flex sm:pt-5 md:px-2 md:py-2 flex justify-center item-center"> 
+                                      <div className="bg-green-700 py-3 px-4 d-flex sm:pt-5 md:px-2 md:py-2 flex justify-center item-center"> 
                                           <HiMiniPhoneArrowUpRight className="text-white" />
                                       </div>
-                                      <a href={`tel:${data?.['phone']}`} className="bg-green-700 rounded-br-md rounded-tr-md w-full px-3 py-2 text-xs justify-center font-bold text-white col-span-6">
-                                          <span className="text-sm w-full flex justify-center text-center">Advertiser</span>
+                                      <a href={`tel:${data?.['phone']}`} className="bg-blue-700 rounded-br-md rounded-tr-md w-full px-3 py-2 text-xs justify-center font-bold text-white col-span-6">
+                                          <span className="text-sm w-full flex justify-center text-center">Call Advertiser</span>
                                       </a>
                                   </div>
                                   <div 
                                       className="flex md:col-span-6 col-span-12 bg-green-700 -mb-1 md:mb-0 w-full rounded-md"
                                   >
                                       <div 
-                                          className="bg-blue-500 py-3 px-4 d-flex sm:pt-5 md:px-2 md:py-2 flex justify-center item-center"
+                                          className="bg-green-700 py-3 px-4 d-flex sm:pt-5 md:px-2 md:py-2 flex justify-center item-center"
                                       > 
                                           <HiMiniPhoneArrowUpRight className="text-white" />
                                       </div>
-                                      <a href={`tel:${`+23409033333367`}`} className="bg-green-700 rounded-br-md rounded-tr-md w-full px-3 py-2 text-xs justify-center font-bold text-white col-span-6">
-                                          <span className="text-sm w-full flex justify-center text-center">For Complaint</span>
+                                      <a href={`tel:${`+23409033333367`}`} className="bg-blue-700 rounded-br-md rounded-tr-md w-full px-3 py-2 text-xs justify-center font-bold text-white col-span-6">
+                                          <span className="text-sm w-full flex justify-center text-center">Contact Admin For Complaint</span>
                                       </a>
                                   </div>    
                               </div>

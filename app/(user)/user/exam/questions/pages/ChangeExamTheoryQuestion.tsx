@@ -99,7 +99,7 @@ export const ChangeExamTheoryQuestion = ({onClick, question, openExamTheoryAnswe
                 </button>
                 <button
                   // disabled={loading}
-                  className="mt-2 py-3 px-4 bg-brandGreen text-white font-semibold text-sm rounded-xl w-max"
+                  className="mt-2 py-3 px-4 bg-green-500 hover:bg-green-800 text-white font-semibold text-sm rounded-xl w-max"
                   onClick={addQuestion}
                 >                                                
                  {/* {       loading ? ( <BeatLoader size={9} color="#fff" />) : ( "Add" )          } */}

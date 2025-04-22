@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import { BsChevronDown } from "react-icons/bs";
 import { DropDown } from './DropDown'
 import Link from 'next/link';
+import { UseStore } from '../../state/store';
+
 
 export const SubMenuItem = ({ items }: any) =>
 {
+    const Session = UseStore((state) => state)
     const [dropdown, setDropDown] = useState<boolean>(false)
     return (
         <li className='flex mx-auto'
@@ -21,7 +24,17 @@ export const SubMenuItem = ({ items }: any) =>
                         <DropDown submenus={items?.subMenu} dropdown={dropdown} />
                     </div>
                 ) : (
-                    <Link shallow={true} className='mx-2 text-gray-200 font-bold hover:text-black hover:font-bold cursor-pointer text-sm' href={items?.goTo}>
+                    <Link 
+                        shallow={true} 
+                        className='mx-2 text-gray-200 font-bold hover:text-black hover:font-bold cursor-pointer text-sm' 
+                        href={items?.goTo}
+                        onClick={
+                            () => {                  
+                               Session.setSideType('member')
+                            //    setMenu(false)
+                            }
+                         }
+                    >
                         {items?.name}
                     </Link>
                 )

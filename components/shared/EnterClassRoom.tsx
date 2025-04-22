@@ -9,7 +9,7 @@ export default function EnterClassRoom()
    
   return (
       <div 
-            className="md:w-12/12 w-full p-5 flex h-[700px] justify-center items-center border-2 py-10 md:py-5 md:mb-0 mb-5 pb-10 shadow-md"
+            className="md:w-12/12 w-full p-5 flex h-[500px] justify-center items-center border-2 py-10 md:py-5 md:mb-0 mb-5 pb-10 shadow-md"
       >
             {/* <div 
             className='w-full pt-10'
@@ -23,7 +23,7 @@ export default function EnterClassRoom()
                   }
                   }
             >
-                  Enter Classroom
+                  Access Classroom
             </button>
             {/* </div> */}
       </div>

@@ -98,7 +98,7 @@ export const AnswerExamTheoryQuestion = ({ onClick, question, OpenAnswerExamTheo
                      Cancel
                   </button>
                   <button
-                     className="mt-2 py-3 px-4 bg-brandGreen text-white font-semibold text-sm rounded-xl w-max"
+                     className="mt-2 py-3 px-4 bg-green-500 hover:bg-green-800 text-white font-semibold text-sm rounded-xl w-max"
                      onClick={answerTheQuestion}
                   >                                                
                      Save

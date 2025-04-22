@@ -30,7 +30,7 @@ export const Receipt = ({ onClick, seeResult, student }: ReceiptProp)  =>
                               { student?.fullname }
                            </span>
                            <img 
-                              src={`${USAGE_PATH?.AVATAR}${student?.passport}`} 
+                              src={`${student?.passport}`} 
                               alt={`${student?.fullname}`} 
                               width={70}
                               height={70}
@@ -53,7 +53,7 @@ export const Receipt = ({ onClick, seeResult, student }: ReceiptProp)  =>
                               className="rounded-xl flex justify-center"
                            /> */}
                            <Image 
-                              src={`${USAGE_PATH?.RECEIPT}${student?.receipt}`} 
+                              src={`${student?.receipt}`} 
                               alt={`${student?.fullname}`} 
                               width={700}
                               height={700}

@@ -190,7 +190,7 @@ export default function Exam()
              ExamQuestions.setDataLoadedExamTheory(false)
 
              setIsSubmitting(false)
-             router.push('/user/dashbaord')
+             router.push('/user/dashboard')
              // alert("Submitted")
              // return false
            } else {

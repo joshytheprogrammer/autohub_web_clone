@@ -1056,7 +1056,7 @@ export default function CreateAdvert()
                                       SaveAdvert('no')
                                     }}    
                             >
-                                { loading && (type === 'no') ? <BeatLoader size={10} color="white" className="py-2" /> : "Save"} 
+                                { loading && (type === 'no') ? <BeatLoader size={10} color="white" className="py-2" /> : "Publish Ad"} 
                             </div>
                             <div 
                                 className="text-white font-bold bg-blue-800 hover:bg-green-700 py-3 px-4 w-[150px] block whitespace-no-wrap cursor-pointer w-fit rounded-lg"
@@ -1064,7 +1064,7 @@ export default function CreateAdvert()
                                         SaveAdvert('yes')
                                     }}  
                             >
-                                { loading && (type === 'yes') ? <BeatLoader size={10} color="white" className="py-2" /> : "Save Advert in Draft"}
+                                { loading && (type === 'yes') ? <BeatLoader size={10} color="white" className="py-2" /> : "Save As Advert"}
                             </div>
                             
                             

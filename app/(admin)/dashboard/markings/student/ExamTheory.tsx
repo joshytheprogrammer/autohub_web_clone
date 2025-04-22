@@ -15,19 +15,24 @@ type ExamTheoryProps =
 }
 
 export const ExamTheory = ({onClick, openAddExamTheoryMark, student, token}: ExamTheoryProps)  =>
-{
-   const [userId] = useState<number>(student?.user_id)
+{console.log(student)
+   const [userId] = useState<number>(student?.id)
    const [studentScore, setStudentScore] = useState<number>(-1)
    const [loading, setIsLoading] = useState<boolean>(false)
    const [questionId, setQuestionId] = useState<number>(-1)
    const [currentQuestion, setCurrentQuestion] = useState<number>(-1)     
 
-   const { data, isLoading, isRefetching } = useQuery({ queryKey: [`get-all-student-exam-theory-answer`, student?.user_id, token], queryFn: () => MarkStudentExamTheory(student?.user_id, token)})
+   const { data, isLoading, isRefetching } = useQuery({ queryKey: [`get-all-student-exam-theory-answer`, student?.user_id, token], queryFn: () => MarkStudentExamTheory(student?.id, token)})
+   if(!isLoading)
+   {
+      console.log(data)
+   }
    
    const ScoreQuestion = () => 
    {   
       setIsLoading(true)
-      const data = { score: studentScore, questionId: questionId, userId: userId }
+      const data = { score: studentScore, questionId: questionId, userId: student?.id }
+      console.log(data)
       const score = ScoreStudentScoreExam(data, token)
       score.then((response: any) => 
       {

@@ -70,7 +70,7 @@ export const ConfirmStudent = ({ onClick, confirmAccess, student, token }: Confi
                            className="flex justify-center items-center font-bold text-lg text-center w-full p-5 pb-10 border-2 border-gray-200"
                         >
                            <img 
-                              src={`${USAGE_PATH?.AVATAR}${student?.passport}`} 
+                              src={`${student?.passport}`} 
                               alt={`${student?.fullname}`} 
                               width={400}
                               height={400}

@@ -52,14 +52,14 @@ import SmallScreen from './SmallScreen';
 
 export default function HeaderNavigation() 
 {
-  const router = useRouter()
+//   const router = useRouter()
   const Session = UseStore((state) => state)
   const token = Session.getUserToken()
   const [openLoggedOut, setOpenLoggedOut] = useState<boolean>(false)
   const [country] = useState<number>(-1) 
-  const [firstname, setFirstName] = useState<string>("")
-  const [surname, setSurname] = useState<string>("")
-  const [member, setMember] = useState<string>("") 
+//   const [firstname, setFirstName] = useState<string>("")
+//   const [surname, setSurname] = useState<string>("")
+//   const [member, setMember] = useState<string>("") 
 
   useEffect(() => 
   {
@@ -108,9 +108,9 @@ export default function HeaderNavigation()
                         <span className='flex justify-center items-center 10/12 md:absolute z-50 md:-mt-5 mt-1'
                         >
                             <BsFillTelephoneInboundFill 
-                                className='text-white w-16' 
+                                className='text-white w-16 md:-mt-3' 
                             />
-                            <p className='text-white md:text-[14px] font-bold text-lg -ml-4 md:-mt-1'>+23409033333367</p>
+                            <p className='text-white md:text-[15px] font-bold text-lg -ml-4 md:-mt-3'>09133333357</p>
                         </span>
                         <FiMenu 
                                 className='text-4xl text-white cursor-pointer md:hidden' 
@@ -198,7 +198,12 @@ export default function HeaderNavigation()
                                                 <Link 
                                                         href={`${user?.goTo}`}
                                                         key={index}
-                                                        onClick={() => { setMenu(false) }}
+                                                        onClick={
+                                                           () => {                  
+                                                              Session.setSideType('member')
+                                                              setMenu(false)
+                                                           }
+                                                        }
                                                 >
                                                     <span 
                                                             className='flex px-5 py-2 bg-[#1c733d] border-2 border-green-700 hover:bg-green-900 text-white mb-1 cursor-pointer text-left text-[14px] font-bold text-[#bdbcbb] hover:text-white'

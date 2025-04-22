@@ -46,7 +46,7 @@ export default function Page()
                                   </div>
                                   <div className='w-full flex justify-center text-md font-bold ml-2x text-center mt-3 px-5'
                                   >                         
-                                      Register here if you want to sell or buy
+                                      Dealer
                                   </div> 
                             </div>
                         </div>
@@ -72,7 +72,7 @@ export default function Page()
                                 </div>
                                 <div className='w-full flex justify-center text-md font-bold ml-2x text-center mt-3 px-5'
                                 >                         
-                                    Register here if you want to become an Affiliate Dealer with Autohub Nigeria
+                                    Affiliate
                                 </div> 
                           </div>
                         </div>

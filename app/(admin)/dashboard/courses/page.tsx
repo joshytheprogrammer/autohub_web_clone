@@ -131,11 +131,6 @@ export default function Courses()
                 accessorKey: 'name',
           },
           {
-                header: 'File Name',
-                cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
-                accessorKey: 'file_name',
-          },
-          {
                 header: 'Duration',
                 cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
                 accessorKey: 'objective_duration',
@@ -242,7 +237,12 @@ export default function Courses()
         //         cell: (row) => (<a href="#" onClick={() => CourseQuestions(true, row.renderValue())}><HiMiniSwatch className='text-blue-600' width={6} height={6} /></a>),
         //         accessorKey: 'faq',
         //         maxSize: 20
-        //   }
+        //   },
+          {
+            header: 'File Name',
+            cell: (row) => (<a href="#" onClick={() => ShowStates(row.cell.row.getValue)}><Show display={row.renderValue()} /></a>),
+            accessorKey: 'file_name',
+        }
     ],[])
 
     // const downloadPdfFile = async (x: any) =>
@@ -325,6 +325,17 @@ export default function Courses()
                               className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
                           >
                               <PuffLoader className='w-12 h-12' color="black" />
+                          </div>
+              }
+              {
+                  !isLoading  && (data?.data?.length === 0) &&  <div 
+                              className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                          >
+                              <h1
+                                 className='text-2xl font-bold text-gray-400'
+                              >
+                                No course created yet
+                              </h1>
                           </div>
               }
 

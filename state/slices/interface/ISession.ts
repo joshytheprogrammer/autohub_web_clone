@@ -1,14 +1,14 @@
 export interface ISession
 {     
-    FName: ""
+    FName: string
     getFName: () => void
     setFName: (FName: any) => void
     
-    SName: ""
+    SName: string
     getSName: () => void
     setSName: (SName: any) => void
     
-    UType: ""
+    UType: string
     getUType: () => void
     setUType: (UType: any) => void
 
@@ -17,19 +17,19 @@ export interface ISession
     getUserRoles: () => void
     setUserRoles: (userRoles: any) => void
     
-    userToken: ""
+    userToken: string
     getUserToken: () => void
     setUserToken: (token: any) => void
     
-    registered: ""
+    registered: string
     getRegistered: () => void
     setRegistered: (registered: any) => void
     
-    passport: ""
+    passport: string
     getPassport: () => void
     setPassport: (passport: any) => void
     
-    sideType: ""
+    sideType: string
     getSideType: () => void
     setSideType: (sideType: any) => void
     
