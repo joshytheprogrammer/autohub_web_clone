@@ -128,7 +128,7 @@ export default function RightSide()
                                     <HiMiniBars4 
                                               className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
                                     />
-                                      Become AN AFFILIATE
+                                      Become an affiliate
                                     </span>
                             </span>
 

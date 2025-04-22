@@ -188,7 +188,7 @@ export default function MemberDealerNavigation({ marketPlace, bg, hover }: Membe
                                             key={Math.random()} 
                                             className={`px-5 py-2 ${(page === `/user/become-a-dealer`) ? bg : hover} hover:bg-green-900 text-whiterounded-md mb-1 cursor-pointer rounded-lg text-center uppercase text-white font-bold hover:text-white`}
                                         >
-                                            {`Become a Dealer`}
+                                            {`Become An Affiliate`}
                                         </li>
                                     </Link> 
                                 }
