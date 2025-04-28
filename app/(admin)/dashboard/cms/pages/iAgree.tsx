@@ -1,9 +1,11 @@
-import React, { useState, useRef, useMemo } from 'react'
+import React, { useState, useRef, useMemo, useEffect } from 'react'
 import JoditEditor from 'jodit-react'
 import TextArea from '../Editor/TextArea'
 import { BeatLoader } from 'react-spinners'
 import Wysiwyg from '../wysiwyg/Editor'
 import { UseStore } from '../../../../../state/store'
+import dynamic from 'next/dynamic'
+
 
 
 export default function IAgree() 
@@ -21,6 +23,8 @@ export default function IAgree()
     const editor = useRef(null)
     const [content, setContent] = useState("")
 
+    const Jodit = dynamic(() => import('../JoEdit/jedit'), { ssr: false })
+
     
 
     return (
@@ -31,10 +35,11 @@ export default function IAgree()
                 >
                   Agreement
                 </h1>
-                <JoditEditor
-                    ref={editor}
-                    value={content}
-                    onChange={(newContent) => { setContent(newContent) }}
+                <Jodit 
+                    content={'xx'} 
+                    setContent={() => {
+                        
+                    }} 
                 />
             </div>
             { /* <TextArea /> */}
