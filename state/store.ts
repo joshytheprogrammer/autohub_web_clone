@@ -20,6 +20,7 @@ import createExamTheorySlice from './slices/examTheorySlice';
 import { ITestObjective } from './slices/interface/ITestObjective';
 import { IExamObjective } from './slices/interface/IExamObjective';
 import { IExamTheory } from './slices/interface/IExamTheory';
+import CreateContentSlice from './slices/ContentSlice';
 
 
 export const UseStore = create<any, [ ['zustand/persist', [IProductOnHomePage, IAdvert, ISearchSlice, IAuth, ITheme, ISession, IStudentRegistration, ITestObjective, IExamObjective, IExamTheory]], ['zustand/devtools', never] ] >(persist((...a) => 
@@ -34,6 +35,7 @@ export const UseStore = create<any, [ ['zustand/persist', [IProductOnHomePage, I
         ...createStudentRegistrationSlice(...a),
         ...createTestObjectiveSlice(...a),        
         ...createExamObjectiveSlice(...a),        
-        ...createExamTheorySlice(...a)
+        ...createExamTheorySlice(...a),
+        ...CreateContentSlice(...a)
     }
 ), { name: 'autohub' }));

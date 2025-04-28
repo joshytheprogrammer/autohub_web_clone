@@ -17,7 +17,7 @@ export default function Maceos()
                   MACEOS
                 </h1>
             </div>
-            <TextArea />                    
+            {/* <TextArea /> */}
             <button 
                  className="px-5 py-3 bg-blue-600 mt-5 mb-10 text-white font-semibold text-sm rounded-xl w-max hover:bg-green-800"
                  onClick={() => SaveAuth()}

@@ -250,7 +250,7 @@ export const ViewProductDetail = ({onClick, openViewProductDetail, product}: Vie
                                                             {/* <img src={`${USAGE_PATH.PRODUCT_FACE}${img.image_url}`} alt="product images" /> */}
                                                             <Image 
                                                                 className="w-full h-full object-fit" 
-                                                                src={`${USAGE_PATH.PRODUCT_FACE}${img.image_url}`}
+                                                                src={`${img.image_url}`}
                                                                 alt={`${img.image_url}`}
                                                                 width={700}
                                                                 height={700}

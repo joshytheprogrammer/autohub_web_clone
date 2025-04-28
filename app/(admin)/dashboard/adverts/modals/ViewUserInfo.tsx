@@ -32,7 +32,7 @@ export const ViewUserInfo = ({onClick, openViewUserDetailModal, user}: ViewUserI
                                     /> */}
                                     <Image 
                                         className="" 
-                                        src={`${USAGE_PATH.AVATAR}${user?.image}`}
+                                        src={`${user?.image}`}
                                         alt={`${user?.image}`}
                                         width={300}
                                         height={300}

@@ -17,7 +17,7 @@ export default function WebCategory({ data }: { data: any})
                     >
                         <Link
                             href={`/x-x-x/${category.hash}`}
-                            className="h-[39px] duration-300 transition flex items-center justify-between px-4 cursor-pointer rounded-lg"
+                            className="h-[50px] duration-300 transition flex items-center justify-between px-4 cursor-pointer rounded-lg"
                         >
                             <div className="flex gap-3 items-center">
                                 <img src={`${category.icon}`} className='mt-1' alt="" style={{width: "17px", height: "17px"}} />

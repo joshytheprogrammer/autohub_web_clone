@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useQuery } from '@tanstack/react-query'
@@ -7,9 +8,11 @@ import Image from 'next/image'
 import MobileCategory from '../../components/category/MobileCategory'
 import WebCategory from '../../components/category/WebCategory'
 import Banner from '../../components/Banner'
-import SlideShow from '../../components/SlideShow'
+// import SlideShow from '../../components/SlideShow'
 import { Landing } from '../api/home/market/AllProduct'
 import { useEffect, useState } from 'react'
+import SwiperSlider from '../../components/SwiperSlider'
+import SlideShow from '../../components/SlideShow'
 // import useNetwork from '../hook/network'
 
 export default function Home() 
@@ -39,6 +42,7 @@ export default function Home()
                     <PuffLoader className='w-12 h-12' />
                 </div>
             }
+            
 
             {   !isLoading &&
                 <div 
@@ -61,10 +65,11 @@ export default function Home()
                         <div 
                             className='md:col-span-6 col-span-12 bg-green-100'
                         >
-                            <SlideShow data={data?.data?.slider} imageSize={data?.data?.slider?.length} timer={data?.data?.settings?.timer} />
+                            {/* <SlideShow data={data?.data?.slider} imageSize={data?.data?.slider?.length} timer={data?.data?.settings?.timer} /> */}
+                            <SwiperSlider data={data?.data?.slider} imageSize={data?.data?.slider?.length} timer={data?.data?.settings?.timer} />
                         </div>
                         <div 
-                            className='col-span-3 bg-red-200 md:block hidden border-shadow shadow-lg'
+                            className='col-span-3 md:block hidden border-shadow shadow-lg relative'
                         >
                             {/* <img 
                                 className=''
@@ -75,6 +80,7 @@ export default function Home()
                                 alt={`banner-two`} 
                                 width={400}
                                 height={200}
+                                className='h-fit absolute'
                             />
                         </div>
                     </div>

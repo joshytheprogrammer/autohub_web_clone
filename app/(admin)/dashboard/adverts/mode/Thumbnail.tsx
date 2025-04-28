@@ -193,7 +193,7 @@ export default function Thumbnail()
                             {
                                 !isLoading && data?.data?.product_advert?.product?.map((product: any, index: number) => {
                                     return (
-                                        <div className="relative d-flex col-span-12 md:col-span-3 border rounded-lg p-2 bg-green-100 shadow-md" key={index}>
+                                        <div className="relative mx-auto d-flex col-span-12 md:col-span-3 border rounded-lg p-2 bg-green-100 shadow-md" key={index}>
                                             {/* <img src={`${USAGE_PATH.PRODUCT_FACE}${product.image}`} 
                                                  alt="product images" 
                                                  className={`border border-solid border-3 mb-2 border-red-600 p-1 h-auto cursor-pointer`}                                                  
@@ -205,8 +205,8 @@ export default function Thumbnail()
                                             }
                                             /> */}
                                             <Image 
-                                                className={`border border-solid border-3 mb-2 border-red-600 p-1 h-auto cursor-pointer`}  
-                                                src={`${USAGE_PATH.PRODUCT_FACE}${product.image}`}
+                                                className={`border border-solid border-3 mb-2 border-red-600 p-1 h-auto cursor-pointer mx-auto`}  
+                                                src={`${product.image}`}
                                                 alt={`${product.image}`}
                                                 width={300}
                                                 height={300} 
