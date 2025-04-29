@@ -32,9 +32,9 @@ export default function SwiperSlider({ data, imageSize, timer }: { data: any, im
         <>
             { 
                 <Swiper
-                      pagination={{
-                        type: 'fraction',
-                      }}
+                      // pagination={{
+                      //   type: 'fraction',
+                      // }}
                       autoplay={{ delay: 2000 }}
                       slidesPerView={1}
                       navigation={true}

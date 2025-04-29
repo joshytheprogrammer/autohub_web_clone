@@ -63,7 +63,7 @@ export default function Home()
                             </div>
                         </div>
                         <div 
-                            className='md:col-span-6 col-span-12 bg-green-100'
+                            className='md:col-span-6 col-span-12 flex justify-center items-center'
                         >
                             {/* <SlideShow data={data?.data?.slider} imageSize={data?.data?.slider?.length} timer={data?.data?.settings?.timer} /> */}
                             <SwiperSlider data={data?.data?.slider} imageSize={data?.data?.slider?.length} timer={data?.data?.settings?.timer} />
