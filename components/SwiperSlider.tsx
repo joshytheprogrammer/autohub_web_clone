@@ -21,7 +21,10 @@ export default function SwiperSlider({ data, imageSize, timer }: { data: any, im
     console.log(data?.length)
 
     const slides: string[] = [
+        'https://eu2.contabostorage.com/531567a74f5740769e7b8d34e116cadd:autohub//aa/2025-04-16-advert-image-autohub-image67ffcb70149d5-100.jpg',
+        'https://eu2.contabostorage.com/531567a74f5740769e7b8d34e116cadd:autohub//aa/2025-04-16-advert-image-autohub-image67ffc8a0c6870-100.jpg',
         'https://eu2.contabostorage.com/531567a74f5740769e7b8d34e116cadd:autohub//aa/2025-04-26-advert-image-autohub-image680ccec45e560-100.jpg',
+        'https://eu2.contabostorage.com/531567a74f5740769e7b8d34e116cadd:autohub//aa/2025-04-15-advert-image-autohub-image67fe206ee49a6-100.jpg',
         'https://eu2.contabostorage.com/531567a74f5740769e7b8d34e116cadd:autohub//aa/2025-04-13-advert-image-autohub-image67fb801d07b4d-99.jpg'
     ]
 
@@ -51,11 +54,11 @@ export default function SwiperSlider({ data, imageSize, timer }: { data: any, im
                      slides.map((x: string, index: number) => {
                         return (
                           <SwiperSlide key={index}>
-                          <div className='z-40 carousel h-[330px] md:h-[400px] md:h-full lg:h-full w-full m-auto overflow-hidden relative cursor-pointer'>
+                          <div className='z-40 carousel md:h-[400px] md:h-full lg:h-full w-full m-auto overflow-hidden relative cursor-pointer'>
                             <img
                                 src={x} 
                                 alt='dfdfd' 
-                                className="z-40 carousel h-[320px] md:h-[400px] md:h-full lg:h-full w-full m-auto overflow-hidden relative cursor-pointer"
+                                className="z-40 carousel md:h-[400px] md:h-full lg:h-full w-full m-auto overflow-hidden relative cursor-pointer"
                             />
                           </div>
                         </SwiperSlide>

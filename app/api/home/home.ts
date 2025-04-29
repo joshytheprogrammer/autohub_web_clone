@@ -91,13 +91,13 @@ export async function UserInfo(token: string)
           'Authorization': `Bearer ${token}`     
         }
     
-      })     
-      if(!response.ok)
-      {
-         throw new Error(`HTTP Error! status: ${response.status}`)
-      }     
-      const x: any = await response.json() 
-      return x
+    })     
+    if(!response.ok)
+    {
+       throw new Error(`HTTP Error! status: ${response.status}`)
+    }     
+    const x: any = await response.json() 
+    return x
   } else {
       return "anonymous"
   }

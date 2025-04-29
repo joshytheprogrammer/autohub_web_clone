@@ -5,26 +5,48 @@ import { BeatLoader } from 'react-spinners'
 import Wysiwyg from '../wysiwyg/Editor'
 import { UseStore } from '../../../../../state/store'
 import dynamic from 'next/dynamic'
+import { useQuery } from '@tanstack/react-query'
+import { AgreementRegistration, RegistrationAgreement } from '../../../../api/home/cms'
 
 
 
 export default function IAgree() 
 {
-    const Agri = UseStore((state) => state)
-    const DESCRIPTION_MESSAGE = 'Enter Prdoduct Description'
-    const [iAgree, setIAgree] = useState<string>("")    
-    const [iAgreeMessage, setIAgreeMessage] = useState<string>("")    
-    const [description, setDescription] = useState<string>("")
-    // const [description, setDescriptionErrorMsg] = useState<string>("") 
-    const [descriptionMsg, setDescriptionMessage] = useState<string>("") 
+    const user = UseStore((state) => state)
+    const token: string = user.getUserToken()
 
-    const SaveAuth = () => { setIAgree("") }
+    const { data, isLoading, refetch } = useQuery({ queryKey: [`agreement-detail`, token], queryFn: () => AgreementRegistration(token)})
 
-    const editor = useRef(null)
+    const [loading, setIsLoading] = useState<boolean>(false) 
+    const [errorMessage, setErrorMessage] = useState<string>("")
+
     const [content, setContent] = useState("")
 
     const Jodit = dynamic(() => import('../JoEdit/jedit'), { ssr: false })
-
+     
+            
+    const SaveAgreement = async () => 
+    {
+        setIsLoading(true) 
+        const newCourse = RegistrationAgreement(token, user.getAgreement())
+        newCourse.then((response: any) => 
+        {
+           if(response?.status === 200)
+           {
+              refetch()                    
+              setIsLoading(false)    
+           } else {
+               setErrorMessage(response?.message)
+               setIsLoading(false)
+               setTimeout(() => 
+               {
+                  setErrorMessage("")
+               }, 5000)
+            }
+        }).catch(() => {
+         
+        })
+    }
     
 
     return (
@@ -36,51 +58,20 @@ export default function IAgree()
                   Agreement
                 </h1>
                 <Jodit 
-                    content={'xx'} 
-                    setContent={() => {
-                        
-                    }} 
+                    content={data?.data} 
+                    setContent={(data: string) => 
+                        {
+                            setContent(data)
+                        }
+                    } 
                 />
             </div>
-            { /* <TextArea /> */}
-            {/* <TextArea 
-                onClickIt={
-                    (agreement: string) => 
-                    {
-                        console.log(agreement)
-                        if(agreement === "" || agreement === null || agreement === undefined)
-                        {
-                            setDescriptionErrorMsg(DESCRIPTION_MESSAGE)
-                        } else {          
-                            setDescriptionErrorMsg("")
-                        }
-                    }
-                }
-            /> */}
-            {/* <Wysiwyg 
-                id={'iagreement'} name={'iagreement'} content={Agri.getAgreement()} 
-                onClick={(value: string) => {
-                if(value === "<br>")
-                {
-                    setIAgree("")
-                    Agri.setAgreement(value)
-                    setIAgreeMessage("Kindly enter description")
-                } else {
-                    console.log(value)
-                    setIAgree(value)
-                    Agri.setAgreement(value)
-                    setIAgreeMessage("")                                                        
-                }
-              }} 
-            /> */}
-
-            
 
             <button 
                  className="px-5 py-3 bg-blue-600 mt-5 mb-10 text-white font-semibold text-sm rounded-xl w-max hover:bg-green-800"
-                 onClick={() => SaveAuth()}
+                 onClick={() => SaveAgreement()}
             >
-                { iAgreeMessage ? ( <BeatLoader size={9} color="#fff" className="text-white" />) : ( "Save" ) } 
+                { loading ? ( <BeatLoader size={9} color="#fff" className="text-white" />) : ( "Save" ) } 
             </button>
             <div className='p-20'></div>
         </>
