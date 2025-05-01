@@ -2,9 +2,9 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 
 
-export default function IAgree() 
+export default function AffiliateAgreement() 
 {
-    const Jodit = dynamic(() => import('../JoEdit/jedit'), { ssr: false })   
+    const Jodit = dynamic(() => import('../JoEdit/AffiliateEditor'), { ssr: false })   
 
 
     return ( 
@@ -12,3 +12,4 @@ export default function IAgree()
         <Jodit />
     )
 }
+

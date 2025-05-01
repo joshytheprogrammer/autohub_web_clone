@@ -7,7 +7,7 @@ import Agreement from './pages/agreement'
 import Registration from './pages/registration'
 import { UseStore } from '../../../../state/store'
 import { useQuery } from '@tanstack/react-query'
-import { AgreementRegister } from '../../../api/home/cms'
+import { AffiliateAgreementRegister } from '../../../api/home/cms'
 import { PuffLoader } from 'react-spinners'
 
 
@@ -15,7 +15,7 @@ export default function Page()
 {
       const adverState = UseStore((state) => state)
       
-      const { data, isLoading, } = useQuery({ queryKey: [`agreement-register`], queryFn: () => AgreementRegister()})
+      const { data, isLoading, } = useQuery({ queryKey: [`agreement-register`], queryFn: () => AffiliateAgreementRegister()})
 
       const [section, setSection] = useState<number>(adverState?.getDealerAgreement())
 

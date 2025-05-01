@@ -1,11 +1,12 @@
 "use client"
 
 import { useState } from "react";
-import ContactUs from "./pages/contact";
-import AboutUs from "./pages/about";
+// import ContactUs from "./pages/contact";
+// import AboutUs from "./pages/about";
 import IAgree from "./pages/iAgree";
-import Maceos from "./pages/maceos";
-import BankDetail from "./pages/bank";
+// import Maceos from "./pages/maceos";
+// import BankDetail from "./pages/bank";
+import AffiliateAgreement from "./pages/AffiliateAgreement";
 
 
 export default function  Pages()
@@ -13,26 +14,30 @@ export default function  Pages()
       const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
   
       const tabsData = [   
-        {
-          label: "About Us",
-          content: <AboutUs />
-        },
-        {
-          label: "Conact Us",
-          content: <ContactUs />
-        },  
-        {
-          label: "Agreement",
-          content: <IAgree />
-        },
-        {
-          label: "MACEOS",
-          content: <Maceos />
-        },
-        {
-          label: "BANK DETAILS",
-          content: <BankDetail />
-        },
+      //   {
+      //     label: "About Us",
+      //     content: <AboutUs />
+      //   },
+      //   {
+      //     label: "Conact Us",
+      //     content: <ContactUs />
+      //   },  
+      {
+         label: "Member",
+         content: <IAgree />
+      },
+      {
+         label: "Affiliate",
+         content: <AffiliateAgreement />
+      },
+      //   {
+      //     label: "MACEOS",
+      //     content: <Maceos />
+      //   },
+      //   {
+      //     label: "BANK DETAILS",
+      //     content: <BankDetail />
+      //   },
       ]
 
       return (
