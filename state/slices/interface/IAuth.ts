@@ -12,6 +12,10 @@ export interface IAuth
     getDealerAgreement: () => void
     setDealerAgreement: (dealerAgreements: any) => void
     
+    affiliateAgreements: number
+    getAffiliateAgreement: () => void
+    setAffiliateAgreement: (affiliateAgreements: any) => void
+    
     passportForDealer: string
     getPassportForDealer: () => void
     setPassportForDealer: (passportForDealer: any) => void

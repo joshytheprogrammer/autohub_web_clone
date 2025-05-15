@@ -11,7 +11,7 @@ type AgreementProp =
     onClick: (currentSection: number) => void
 }
 
-export function Agreement({data, onClick}: AgreementProp) 
+export function AffAgreement({data, onClick}: AgreementProp) 
 {
     const router = useRouter()
     const AGREE = `Agree`
@@ -62,7 +62,7 @@ export function Agreement({data, onClick}: AgreementProp)
                         className="h-[50px] bg-green-600 text-white px-4 rounded-lg font-semibold border-2 border-blue-300 hover:bg-green-800 mt-2"
                         onClick={() => 
                         { 
-                          advertState.setMemberAgreement(1)
+                          advertState.setAffiliateAgreement(1)
                           onClick(1)
                         }}
                       >

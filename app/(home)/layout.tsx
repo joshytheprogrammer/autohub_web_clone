@@ -9,9 +9,19 @@ import AutoHubProvider from '../../provider/AutoHubProvider'
 
 // const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'AutoHub Home Page',
-  description: 'AutoHub',
+export const metadata = {
+  metadataBase: new URL('https://eu2.contabostorage.com'),
+  openGraph: {
+    title: 'AutoHub Africa',
+    description: 'AutoHub',
+    images: ['https://eu2.contabostorage.com/531567a74f5740769e7b8d34e116cadd:autohub//aa/2025-04-16-advert-image-autohub-image67ffcb70149d5-100.jpg']
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@eMartiiin94',
+    title: 'Title webtsite',
+    description: 'this is the desciption',
+  }
 }
 
 export default function RootLayout(
@@ -24,6 +34,13 @@ export default function RootLayout(
       return (
         <html 
             lang="en">
+          {/* <head>
+              <meta property="og:image" content="" />
+              <meta property="og:image:type" content="" />
+              <meta property="og:image:width" content="" />
+              <meta property="og:image:height" content="" />
+              <meta property="og:image:alt" content="About Acme" />
+          </head> */}
           <body 
               className={`w-12/12`}
           >

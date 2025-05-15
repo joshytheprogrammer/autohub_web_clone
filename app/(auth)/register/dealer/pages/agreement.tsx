@@ -38,7 +38,7 @@ export default function Agreement({data, onClick}: AgreementProp)
             className="w-full mx-auto my-4 d-flex items-center justify-center md:pl-10 md:pr-10 pb-10 md:-mt-30 mt-1 gap-5"
         >   
             <section 
-                  className="max-h-[calc(100vh-400px)] w-full bg-white rounded-[10px] relative flex flex-col justify-between overflow-hidden"
+                  className="max-h-[calc(100vh-280px)] w-full bg-white rounded-[10px] relative flex flex-col justify-between overflow-hidden"
               >
                 <div 
                     className="h-full overflow-y-auto p-10 relative"

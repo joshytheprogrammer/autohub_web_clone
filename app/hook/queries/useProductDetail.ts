@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react"
 import { Detail } from "../../api/home/home"
 import { UseStore } from "../../../state/store"

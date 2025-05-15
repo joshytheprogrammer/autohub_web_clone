@@ -78,7 +78,7 @@ export default function Registration({ onClick }: RegistrationProp)
       const checkFields: string = allFields()
       if(checkFields === 'valid')
       {
-          advertState.setPassportFor("member")                      
+          advertState.setPassportFor("affiliate")                      
           router.push(`/register/passport`)
       } else {      
           setLoading(false)  
@@ -380,10 +380,10 @@ export default function Registration({ onClick }: RegistrationProp)
                                 className='w-full flex justify-between items-center md:flex gap-10 md:mb-3 mt-20 md:mt-14 px-5'
                             >   
                                 <HiArrowSmLeft 
-                                        className='w-9 h-9 md:w-11 md:h-11 bg-blue-100 cursor-pointer rounded-full text-blue-600 hover:text-green-600 p-1'
+                                        className='w-9 h-9 md:w-11 md:h-11 bg-red-100 cursor-pointer rounded-full text-red-500 hover:text-green-600 p-1'
                                         onClick={() => 
                                         { 
-                                            advertState.setDealerAgreement(0)
+                                            advertState.setAffiliateAgreement(0)
                                             onClick(0)
                                         }} 
                                 />     

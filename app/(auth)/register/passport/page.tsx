@@ -64,6 +64,17 @@ export default function Page()
                         type: 'member',
                         url: 'signup-member'
                   }
+            } else if(advertState.getPassportFor() === "affiliate") {
+                  data = {
+                        firstname: advertState.getFirstname(),
+                        surname: advertState.getSurname(),
+                        phone: advertState.getPhone(),
+                        email: advertState.getEmail(),
+                        password: advertState.getPassword(),
+                        passport: passport,
+                        type: 'affiliate',
+                        url: 'signup-affiliate'
+                  }
             } else {
                   data = {
                         company_name: advertState.getCompanyName(),

@@ -23,6 +23,8 @@ export default function ProductDetail({ params } : { params : { slug: string } }
   const router = useRouter()
   const { data, isLoading, completed, category, featured } = useProductDetail(params?.slug)
 
+  console.log(data)
+
   return (
           <>  
               {

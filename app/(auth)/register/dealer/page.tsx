@@ -7,15 +7,23 @@ import Agreement from './pages/agreement'
 import Registration from './pages/registration'
 import { UseStore } from '../../../../state/store'
 import { useQuery } from '@tanstack/react-query'
-import { AffiliateAgreementRegister } from '../../../api/home/cms'
+import { DealerRegister } from '../../../api/home/cms'
 import { PuffLoader } from 'react-spinners'
+import dynamic from 'next/dynamic'
 
+
+const Affiliate = dynamic(
+      () => import('./../affiliate/pages/registration'),
+      {
+            ssr: false
+      }
+)
 
 export default function Page() 
 {
       const adverState = UseStore((state) => state)
       
-      const { data, isLoading, } = useQuery({ queryKey: [`agreement-register`], queryFn: () => AffiliateAgreementRegister()})
+      const { data, isLoading, } = useQuery({ queryKey: [`dealer-agreement-register`], queryFn: () => DealerRegister()})
 
       const [section, setSection] = useState<number>(adverState?.getDealerAgreement())
 
@@ -45,7 +53,7 @@ export default function Page()
             {
                   !isLoading && data?.data && <>
                         <div 
-                              className="w-full md:w-6/12 mx-auto my-4 d-flex items-center  justify-center px-3 py-5 md:p-10 -mt-10 md:-mt-1 mt-20 gap-5"
+                              className="w-full md:w-7/12 mx-auto my-4 d-flex items-center  justify-center px-3 py-5 md:p-10 -mt-10 md:-mt-1 mt-20 gap-5"
                         >            
                               <div 
                                     className='w-full flex justify-center items-center mb-10 -mt-16 md:mt-1'
@@ -61,7 +69,7 @@ export default function Page()
                                           <h3 
                                                 className='flex text-white font-bold justify-center mb-5 uppercase  text-[14px] md:text-[18px]'
                                           >
-                                                Signup to start selling and buying
+                                            Dealer: Signup to start selling and buying
                                           </h3>
                                     </div>
             
@@ -82,7 +90,16 @@ export default function Page()
                                                 }
                                           } />
                                     }
-                                          </div>
+                  
+                                    {
+                                          (section === 2) && <Affiliate onClick={
+                                                (current: number) => 
+                                                {
+                                                      setSection(current)
+                                                }
+                                          } />
+                                    }
+                              </div>
                         </div>
                   </>
             }

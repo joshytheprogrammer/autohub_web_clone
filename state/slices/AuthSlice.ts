@@ -34,6 +34,16 @@ const createAuthSlice: StateCreator<IAuth> = (set, get) => (
             set(() => ({ dealerAgreements: dealerAgreements }))
         },
         
+        affiliateAgreements: 0,
+        getAffiliateAgreement()
+        {
+            return get().affiliateAgreements
+        },
+        setAffiliateAgreement(affiliateAgreements: any)
+        {
+            set(() => ({ affiliateAgreements: affiliateAgreements }))
+        },
+        
         passportForDealer: "",
         getPassportForDealer()
         {

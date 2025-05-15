@@ -7,6 +7,7 @@ import IAgree from "./pages/iAgree";
 // import Maceos from "./pages/maceos";
 // import BankDetail from "./pages/bank";
 import AffiliateAgreement from "./pages/AffiliateAgreement";
+import DealerAgreement from "./pages/DealerAgreement";
 
 
 export default function  Pages()
@@ -29,6 +30,10 @@ export default function  Pages()
       {
          label: "Affiliate",
          content: <AffiliateAgreement />
+      },
+      {
+         label: "Dealer",
+         content: <DealerAgreement />
       },
       //   {
       //     label: "MACEOS",
