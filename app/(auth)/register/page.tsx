@@ -19,7 +19,7 @@ export default function Page()
                   className="w-full md:w-6/12 mx-auto my-4 d-flex items-center justify-center p-10 md:-mt-30 mt-5 gap-5"
             >            
                 <div 
-                      className='w-full flex justify-center items-center mb-10 md:mb-20'
+                      className='w-full flex justify-center items-center mb-5 md:mb-20'
                   >
                       <Logo /> 
                 </div>
@@ -106,7 +106,7 @@ export default function Page()
                     </div>
                 </div>
                 <div  
-                      className='w-full flex justify-center text-center items-center md:flex gap-10 md:mb-3 mt-20 px-5'
+                      className='w-full flex justify-center text-center items-center md:flex gap-10 md:mb-3 mt-10 px-5'
                 >    
                   <div className='text-md text-white hover:text-blue-300 font-bold text-md'>
                         <Link href={'/'}
