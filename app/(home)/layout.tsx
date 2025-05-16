@@ -10,17 +10,7 @@ import AutoHubProvider from '../../provider/AutoHubProvider'
 // const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  metadataBase: new URL('https://eu2.contabostorage.com'),
-  openGraph: {
-    title: 'AutoHub Africa',
-    description: 'AutoHub'
-  },
-  twitter: {
-    card: 'summary_large_image',
-    site: '@eMartiiin94',
-    title: 'Title webtsite',
-    description: 'this is the desciption',
-  }
+  metadataBase: new URL('https://eu2.contabostorage.com')
 }
 
 export default function RootLayout(

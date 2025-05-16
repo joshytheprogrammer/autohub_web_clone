@@ -20,7 +20,7 @@ export async function generateMetadata(
 
   // Optionally access and extend (or override) the parent metadata
   const previousImages = (await parent).openGraph?.images || [];
-  console.log(previousImages)
+  // console.log(previousImages)
 
   return {
     title: post?.data?.product?.title,
