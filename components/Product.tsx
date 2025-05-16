@@ -49,7 +49,7 @@ export default function Products({ onClick }: { onClick : () => void })
 
       if(!isLoading)
       {
-         console.log(data)
+        //  console.log(data)
       }
 
       useEffect(() => {

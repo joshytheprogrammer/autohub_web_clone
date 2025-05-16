@@ -16,9 +16,9 @@ export const useAppData = () =>
     const callApi = async () => 
     {
         const response: any = await ApplicationData()
-        console.log("+++++++++++++++++++++++")
-        console.log(response)
-        console.log("+++++++++++++++++++++++")
+        // console.log("+++++++++++++++++++++++")
+        // console.log(response)
+        // console.log("+++++++++++++++++++++++")
         // return
         if(response?.status === true)
         {

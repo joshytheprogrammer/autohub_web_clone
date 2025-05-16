@@ -32,11 +32,11 @@ export async function AllProduct(currentPage: number)
             throw new Error(`HTTP Error! status: ${response.status}`)
         }            
         const data = await response.json()
-        console.log(data)
+        // console.log(data)
         return data;
 
     } catch (error) {
-        console.log((`HTTP Error! status: ${error}`))
+        // console.log((`HTTP Error! status: ${error}`))
         return error   
     }
 }
@@ -57,7 +57,7 @@ export async function CategoryProduct(currentPage: number, category: string)
         return data;
 
     } catch (error) {
-        console.log((`HTTP Error! status: ${error}`))
+        // console.log((`HTTP Error! status: ${error}`))
         return error   
     }
 }

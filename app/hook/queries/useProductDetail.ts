@@ -24,7 +24,7 @@ export const useProductDetail = (slug: string) =>
     const callApi = async () => 
     {
         const response: any = await Detail(slug, token)
-        console.log(response)
+        // console.log(response)
         if(response?.status === 200)
         {
           setAppData({

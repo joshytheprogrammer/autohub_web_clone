@@ -8,17 +8,21 @@
 // import { settingsDB } from '../app/model/Product';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
+import SwiperCore from 'swiper';
+
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Pagination, Navigation } from 'swiper/modules';
+import 'swiper/css/autoplay';
 import { useRouter } from 'next/navigation';
 
 
 export default function SwiperSlider({ data, imageSize, timer }: { data: any, imageSize: number, timer: number }) 
 {
     const router = useRouter()
-    console.log(data?.length)
+    SwiperCore.use([Autoplay]);
 
     const slides: string[] = [
         'https://eu2.contabostorage.com/531567a74f5740769e7b8d34e116cadd:autohub//aa/2025-04-16-advert-image-autohub-image67ffcb70149d5-100.jpg',
@@ -35,10 +39,11 @@ export default function SwiperSlider({ data, imageSize, timer }: { data: any, im
                       // pagination={{
                       //   type: 'fraction',
                       // }}
-                      autoplay={{ delay: 2000 }}
+                      autoplay={{ delay: 2000, disableOnInteraction: false, pauseOnMouseEnter: true }}
                       slidesPerView={1}
+                      loop={true}
                       navigation={true}
-                      modules={[Pagination, Navigation]}
+                      modules={[Pagination, Navigation, Autoplay]}
                       rewind={true}
                       className='mySwiper'
                 >

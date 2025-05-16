@@ -13,8 +13,7 @@ export const metadata = {
   metadataBase: new URL('https://eu2.contabostorage.com'),
   openGraph: {
     title: 'AutoHub Africa',
-    description: 'AutoHub',
-    images: ['https://eu2.contabostorage.com/531567a74f5740769e7b8d34e116cadd:autohub//aa/2025-04-16-advert-image-autohub-image67ffcb70149d5-100.jpg']
+    description: 'AutoHub'
   },
   twitter: {
     card: 'summary_large_image',

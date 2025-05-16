@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import DOMPurify from "dompurify"
 import { UseStore } from "../../../../../state/store"
 import { useRouter } from "next/navigation"
+// import '../member.module.css'
 
 type AgreementProp = 
 {
