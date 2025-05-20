@@ -124,7 +124,7 @@ export default function Dashboard()
                     
                     <div className="h-[30px]"></div>
                     {
-                        (userToken.getUserRoles().includes('member') || userToken.getUserRoles().includes('dealer') || userToken.getUserRoles().includes('admin') || userToken.getUserRoles().includes('super-admin')) && ((userToken.getSideType() === 'member') || (userToken.getSideType() === 'admin') ||  (userToken.getSideType() === 'super-admin') || userToken.getSideType() === 'dealer') && <Marketi ads={data?.additions} />
+                        (userToken.getUserRoles().includes('member') || (userToken.getUserRoles().includes('affiliate')) || userToken.getUserRoles().includes('dealer') || userToken.getUserRoles().includes('admin') || userToken.getUserRoles().includes('super-admin')) && ((userToken.getSideType() === 'member') || (userToken.getSideType() === 'affiliate') || (userToken.getSideType() === 'admin') ||  (userToken.getSideType() === 'super-admin') || userToken.getSideType() === 'dealer') && <Marketi ads={data?.additions} />
                     }
                     {
                         userToken.getUserRoles().includes('student') && (userToken.getSideType() === 'student') && <Result />

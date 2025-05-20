@@ -83,7 +83,7 @@ export async function Profile(picture: string, token: string)
       return await response.json()
 }
 
-export async function BecomeADealer(companyName: string, companyAddress: string, RcNumber: string, token: string)
+export async function BecomeADealer(companyName: string, companyAddress: string, token: string)
 {
     let endPoint = `member/become-a-dealer`
     let ApiUrl = `${BASE_URL}${endPoint}`
@@ -95,7 +95,7 @@ export async function BecomeADealer(companyName: string, companyAddress: string,
           'Content-Type': 'application/json',   
           'Authorization': `Bearer ${token}`  
         },   
-        body: JSON.stringify({ company_name: companyName, company_address: companyAddress, rc_number: RcNumber }), 
+        body: JSON.stringify({ company_name: companyName, company_address: companyAddress }), 
       })     
       if(!response.ok)
       {

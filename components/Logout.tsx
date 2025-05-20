@@ -73,6 +73,17 @@ export const Logout = ({onClick, deleteModal, token}: SaveDraftProps)  =>
 
            UserPics.setSideType('member')
 
+           UserPics.setCompanyName(""),
+           UserPics.setCompanyAddress(""),
+           UserPics.setRCNumber(""),
+           UserPics.setFirstname(""),
+           UserPics.setSurname(""),
+           UserPics.setMiddlename(""),
+           UserPics.setPhone(""),
+           UserPics.setEmail(""),
+           UserPics.setPassword("")
+           UserPics.setMemberAgreement(0)
+
         //    UserPics.setPlusExamObj('')
            window.location.href = '/'
         //    router.push('/')
@@ -117,7 +128,7 @@ export const Logout = ({onClick, deleteModal, token}: SaveDraftProps)  =>
                                         >
                                             {       (loading === false) ? ( <BeatLoader size={9} color="#fff" className="text-white" />) : ( "Logging Out" ) } 
                                         </button>
-                                        <div>
+                                        <div className="whitespace-unwrap">
                                                 Loggin 
                                                 <span 
                                                         className="text-blue-500 font-bold ml-1 mr-1"

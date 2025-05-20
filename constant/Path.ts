@@ -11,7 +11,7 @@ const URL =
         status: false
     },
     asset: process.env.CLOUD_BASE_URL,
-    connectTo: 'online'
+    connectTo: 'offline'
 }
 
 const DESTINATION = (URL.connectTo === 'offline') ? URL.offline.path : URL.online.path

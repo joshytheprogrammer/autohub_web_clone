@@ -92,7 +92,7 @@ export default function Profile()
             if(type === 'dealer')
             {
                user = {
-                    company_name: (companyAddress === "") ? data?.data?.dealers?.company_name : companyAddress,
+                    company_name: (companyName === "") ? data?.data?.dealers?.company_name : companyName,
                     company_address: (companyAddress === "") ? data?.data?.dealers?.company_address : companyAddress,
                     rc_number: (rcNumber === "") ? data?.data?.dealers?.rc_number : rcNumber,
                     firstname: (firstname === "") ? data?.data?.firstname : firstname,
@@ -101,6 +101,18 @@ export default function Profile()
                     phone: (phone === "") ? data?.data?.phone : phone,
                     email: (email === "") ? data?.data?.email : email,
                     url: 'dealer/update-profile'
+                  }
+            } if(type === 'affiliate') 
+            {
+               user = {
+                    company_name: (companyName === "") ? data?.data?.affiliate?.company_name : companyName,
+                    company_address: (companyAddress === "") ? data?.data?.affiliate?.company_address : companyAddress,
+                    firstname: (firstname === "") ? data?.data?.firstname : firstname,
+                    surname: (surname === "") ? data?.data?.surname : surname,
+                    middlename: (middlename === "") ? data?.data?.middlename : middlename,
+                    phone: (phone === "") ? data?.data?.phone : phone,
+                    email: (email === "") ? data?.data?.email : email,
+                    url: 'affiliate/update-profile'
                   }
             } else {
                   user = 
@@ -169,7 +181,7 @@ export default function Profile()
                               className="w-12/12 md:pt-10 md:pb-5 d-flex items-center justify-center hover:text-white mb-7 md:-mt-10 md:mb-0"
                         >
                         {
-                              !isLoading && (data?.plus === 'dealer') && <>
+                              !isLoading && ((data?.plus === 'dealer') || (data?.plus === 'affiliate')) && <>
                                     <div  
                                           className='w-full d-flex md:flex md:mb-3 px-2 md:px-0'
                                     >                                          
@@ -178,7 +190,7 @@ export default function Profile()
                                                       >
                                                             <label className="font-semibold text-sm text-black">Company Name</label>
                                                             <input 
-                                                                        defaultValue={data?.data?.dealers?.company_name}
+                                                                        defaultValue={data?.plus === 'dealer' ? data?.data?.dealers?.company_name : data?.data?.affiliate?.company_name}
                                                                         className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                                                         type="text" name="companyName" id="companyName" placeholder="Enter Company Name" 
                                                                         onChange={(e: any) => 
@@ -208,7 +220,7 @@ export default function Profile()
                                                       >
                                                             <label className="font-semibold text-sm text-black">Company Address</label>
                                                             <textarea  
-                                                                        defaultValue={data?.data?.dealers?.company_address}
+                                                                        defaultValue={data?.plus === 'dealer' ? data?.data?.dealers?.company_address : data?.data?.affiliate?.company_address}
                                                                         className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                                                         placeholder="Enter Company Address." rows={2}                              
                                                                         onChange={(e: any) => 
@@ -231,15 +243,20 @@ export default function Profile()
                                                             { companyAddressMessage && <Message msg={companyAddressMessage} status={'text-red-600 -mt-1 font-bold rounded-md'} /> }
                                                       </div>
                                     </div>
+                              </>
+                        }
+                        {
+                              !isLoading && (data?.plus === 'dealer') && <>
+                                    
                                     <div 
-                                                      className='w-full d-flex md:flex md:mb-3 px-2 md:px-0 gap-5'
-                                                >                                          
-                                                      <div 
+                                          className='w-full d-flex md:flex md:mb-3 px-2 md:px-0 gap-5'
+                                    >                                          
+                                        <div 
                                                             className="w-full mb-3 md:mb-0"
                                                       >
                                                             <label className="font-semibold text-sm text-black">RC Number</label>
                                                             <input 
-                                                                  defaultValue={data?.data?.dealers?.company_address}
+                                                                  defaultValue={data?.data?.dealers?.rc_number}
                                                                   inputMode="numeric"
                                                                   pattern="[0-9.]+"
                                                                   id="rcNumber" name="rcNumber" placeholder="Enter RC Number"

@@ -66,6 +66,8 @@ export default function Page()
                   }
             } else if(advertState.getPassportFor() === "affiliate") {
                   data = {
+                        company_name: advertState.getCompanyName(),
+                        company_address: advertState.getCompanyAddress(),
                         firstname: advertState.getFirstname(),
                         surname: advertState.getSurname(),
                         phone: advertState.getPhone(),

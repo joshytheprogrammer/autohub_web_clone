@@ -15,7 +15,7 @@ export default function BecomeDealer()
 
   const COMPANY_NAME_MESSAGE = 'Enter Company Name'
   const COMPANY_ADDRESS_MESSAGE = 'Enter Company Address'
-  const RC_NUMBER_MESSAGE = 'Enter RC Number'
+//   const RC_NUMBER_MESSAGE = 'Enter RC Number'
 
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -25,8 +25,8 @@ export default function BecomeDealer()
   const [companyAddress, setCompanyAddress] = useState<string>(become.getCompanyAddress())
   const [companyAddressMessage, setCompanyAddressMessage] = useState<string>("")
 
-  const [rcNumber, setRcNumber] = useState<string>(become.getRCNumber())
-  const [rcNumberMessage, setRcNumberMessage] = useState<string>("")
+//   const [rcNumber, setRcNumber] = useState<string>(become.getRCNumber())
+//   const [rcNumberMessage, setRcNumberMessage] = useState<string>("")
  
   const [errMsgStyle, setErrMsgStyle] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>("")
@@ -50,7 +50,7 @@ export default function BecomeDealer()
       const checkFields: string = allFields()
       if(checkFields === 'valid')
       {
-          const ADealer = BecomeADealer(companyName, companyAddress, rcNumber, token)          
+          const ADealer = BecomeADealer(companyName, companyAddress, token)          
           ADealer.then((response) => 
           {
             setLoading(false) 
@@ -84,7 +84,7 @@ export default function BecomeDealer()
       let validity: string = 'valid'      
       if(become.getCompanyName() === ""){ setCompanyNameMessage(COMPANY_NAME_MESSAGE); validity = 'invalid' }
       if(become.getCompanyAddress() === ""){ setCompanyAddressMessage(COMPANY_ADDRESS_MESSAGE); validity = 'invalid' }
-      if(become.getRCNumber() === ""){ setRcNumberMessage(RC_NUMBER_MESSAGE); validity = 'invalid' }
+      // if(become.getRCNumber() === ""){ setRcNumberMessage(RC_NUMBER_MESSAGE); validity = 'invalid' }
       return validity
   }
 
@@ -95,7 +95,7 @@ export default function BecomeDealer()
                 <h1 
                     className='font-bold uppercase mb-5'
                 >
-                  Become A Dealer
+                  Become An Affiliate
                 </h1>         
                 <div  
                     className='w-full d-flex gap-10 md:mb-3 pt-4 mb-3'
@@ -166,7 +166,7 @@ export default function BecomeDealer()
                                           { companyAddressMessage && <Message msg={companyAddressMessage} status={'text-red-600 -mt-1 font-bold rounded-md'} /> }
                                     </div>
                               </div>
-                              <div 
+                              {/* <div 
                                     className='w-full d-flex md:flex gap-10 md:mb-3'
                               >                                          
                                     <div 
@@ -196,7 +196,7 @@ export default function BecomeDealer()
                                           />
                                           { rcNumberMessage && <Message msg={rcNumberMessage} status={'text-red-600 -mt-1 font-bold rounded-md'} /> }
                                     </div>
-                              </div>
+                              </div> */}
                               <div 
                                     className="mb-4 w-fit"
                               >   
@@ -204,7 +204,7 @@ export default function BecomeDealer()
                                           onClick={Become} 
                                           className="block w-full bg-green-600 hover:bg-green-800 border-shadow text-white font-bold py-4 px-10 rounded-lg"
                                     >
-                                    { loading ? <BeatLoader size={10} color="white" className="" /> : "Become Dealer"}
+                                    { loading ? <BeatLoader size={10} color="white" className="" /> : "Become An Affiliate"}
                                     </button>
                               </div>
                 </div>
