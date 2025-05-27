@@ -7,7 +7,7 @@ import Message from "../../../../../../../components/shared/Message";
 import { useQuery } from "@tanstack/react-query";
 import { GetCountry } from "../../../../../../api/admin/market/country";
 import delay from "delay";
-import { productsDB } from "../../../../../../model/Product";
+import { countryDB, stateDB } from "../../../../../../model/Product";
 
 
 type AddStateProductProps = 
@@ -21,7 +21,7 @@ type AddStateProductProps =
 
 export const AddStateModal = ({onClick, openStateProduct, callAgain, token}: AddStateProductProps)  =>
 {
-        const { data, isLoading, isRefetching } = useQuery({ queryKey: [`get-all-country`, token], queryFn: () => GetCountry(token), refetchOnWindowFocus: true })
+        // const { data, isLoading, isRefetching } = useQuery({ queryKey: [`get-all-country`, token], queryFn: () => GetCountry(token), refetchOnWindowFocus: true })
 
         const [loading, setIsLoading] = useState<boolean>(false)
         const [countryId, setCountryId] = useState<number>(-1)
@@ -29,11 +29,20 @@ export const AddStateModal = ({onClick, openStateProduct, callAgain, token}: Add
         const [stateRate, setStateRate] = useState<number>(-1)
         const [errMsgStyle, setErrMsgStyle] = useState<string>('')
         const [errorMessage, setErrorMessage] = useState<string>("")
+        const [allCountry, setAllCountry] = useState<any>([])
+        const [theModelOption, setTheModelOption] = useState<string>('invalid')
 
         useEffect(() => 
         {
            setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
+           _Country()   
         }, [])
+                
+        const _Country = async ()  => 
+        {
+           const country = await countryDB.toArray()
+           setAllCountry(country)   
+        }
 
         useEffect(() => 
         {
@@ -57,8 +66,8 @@ export const AddStateModal = ({onClick, openStateProduct, callAgain, token}: Add
             {
                 if(response?.status === 200)
                 {
-                   productsDB.clear()
-                   productsDB.bulkAdd(response?.data)
+                   stateDB.clear()
+                   stateDB.bulkAdd(response?.data)
                    toast.success(response?.message, {
                        position: "top-center",
                    });
@@ -93,7 +102,8 @@ export const AddStateModal = ({onClick, openStateProduct, callAgain, token}: Add
                                 <div 
                                                 className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
                                 >
-                                        {
+                                        <h1>Add State</h1>
+                                        {/* {
                                                 isLoading && !isRefetching &&  <div 
                                                         className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
                                                         >
@@ -126,9 +136,10 @@ export const AddStateModal = ({onClick, openStateProduct, callAgain, token}: Add
                                                 >
                                                         Add State
                                                 </h1>
-                                        }
+                                        } */}
                                         {  
-                                            !isLoading && (data?.data?.length > 0) &&  
+                                        //     !isLoading && (data?.data?.length > 0) &&  
+                                           (allCountry?.length > 0) &&  
                                             <>
                                                 <div 
                                                         className="w-12/12 mb-4 border border-gray-200"
@@ -143,10 +154,10 @@ export const AddStateModal = ({onClick, openStateProduct, callAgain, token}: Add
                                                                 className="appearance-none w-full py-4 pl-3 md:pr-20 pr-14 bg-white" name="whatever" id="frm-whatever">
                                                                 <option value={-1}>- Select Country -</option>
                                                                 {
-                                                                data?.data.map((country: { id: number, name: string }, index: number) => {
+                                                                allCountry?.map((country: { tb_id: number, name: string }, index: number) => {
                                                                         return (
                                                                         <option 
-                                                                                key={index} value={country?.id}
+                                                                                key={index} value={country?.tb_id}
                                                                         >
                                                                                 {country?.name}
                                                                         </option>

@@ -63,6 +63,26 @@ const createAdvertSlice: StateCreator<IAdvert> = (set, get) => (
         {
             return get().stateName
         },
+        
+        LGA: -1,
+        setLGA(LGA)
+        {
+            set(() => ({LGA: LGA}))
+        },
+        getLGA()
+        {
+            return get().LGA
+        },
+        
+        LgaName: "",
+        setLgaName(LgaName)
+        {
+            set(() => ({LgaName: LgaName}))
+        },
+        getLgaName()
+        {
+            return get().LgaName
+        },
 
         category: -1,
         setCategory(category)
@@ -402,6 +422,16 @@ const createAdvertSlice: StateCreator<IAdvert> = (set, get) => (
         getStateModel()
         {
             return get().statesModels
+        }, 
+
+        LGAModel: [],
+        setLGAModel(LGAModel)
+        {
+            set(() => ({LGAModel: LGAModel}))
+        },
+        getLGAModel()
+        {
+            return get().LGAModel
         },  
 
         imagePosition: -1,

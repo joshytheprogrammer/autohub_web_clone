@@ -128,8 +128,8 @@ export default function WishListProduct()
                                                     className="flex justify-left items-center mt-1"
                                                 >
                                                     <BsGeoAltFill className='w-3 h-3 text-red-600 md:mt-1 mr-1' />
-                                                    <span className="md:text-[16px] text-[13px] text-red-500 font-bold">{product?.country} - </span>
-                                                    <span className="text-[13px] ml-1 font-semibold"> {product?.state}</span>
+                                                    <span className="md:text-[16px] text-[13px] text-red-500 font-bold">{product?.state} - </span>
+                                                    <span className="text-[13px] ml-1 font-semibold"> {product?.lga}</span>
                                                 </div>                                                
                                                 <div 
                                                         className="w-fit px-2 py-2 rounded-md cursor-pointer mt-2 flex justify-left items-center hover:bg-green-600 hover:text-white bg-white border-2 border-green-200"

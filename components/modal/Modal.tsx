@@ -15,11 +15,12 @@ type ModalPropos =
     heading?: string,
     centralize?: boolean,
     wrapperWidth?: number,
+    wrapperHeight?: number,
     margin?: string, 
     content?: string
 }
 
-export const Modal = ({children, overLay = 'react-modal-overlay', isOpen, onClick, wrapperWidth=500, margin, content=''}: ModalPropos)  =>
+export const Modal = ({children, overLay = 'react-modal-overlay', isOpen, onClick, wrapperWidth=500, margin, content='', wrapperHeight = 0}: ModalPropos)  =>
 {
     const overlay = overLay
     
@@ -34,7 +35,7 @@ export const Modal = ({children, overLay = 'react-modal-overlay', isOpen, onClic
                     <div 
                         className="react-modal-wrapper rounded-none" 
                         onClick={(e) => e.stopPropagation()} 
-                        style={{maxWidth: `${wrapperWidth}px`, margin: `${margin}`}}
+                        style={{maxWidth: `${wrapperWidth}px`, maxHeight: `${wrapperHeight}px`, margin: `${margin}`}}
                     >
                       <div 
                         className={`react-modal-content mx-3 ${content}`}

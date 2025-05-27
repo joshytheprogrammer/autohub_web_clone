@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { Modal } from "../../../../../../../components/modal/Modal"
 import Message from "../../../../../../../components/shared/Message";
-import SelectManufacturer from "../model/SelectManufacturer";
 import { manufacturerDB, modelDB, productsDB, trimDB } from "../../../../../../model/Product";
 import toast from "react-hot-toast";
 import { UpdateEngine } from "../../../../../../api/admin/market/product-entry/engine";
-import SelectModel from "../model/SelectModel";
-import SearchTrim from "../trim/SearchTrim";
+import EditSelectManufacturer from "./EditSelectManufacturer";
+import EditSelectModel from "./EditSelectModel";
+import EditSearchTrim from "./EditSearchTrim";
 
 
 type EditProductEngineProps = 
@@ -22,24 +22,34 @@ export const EditEngineProduct = ({onClick, openEngineProduct, data, token}: Edi
 {
         const [loading, setIsLoading] = useState<boolean>(false)
         const [id] = useState<number>(data?.id)
-        const [manufacturerId, setManufacturerId] = useState<number>(data?.manufacturer_id)
-        const [modelId, setModelId] = useState<number>(data?.model_id)
-        const [trimId, setTrimId] = useState<number>(data?.trim_id)
+        
         const [name, setName] = useState<string>(data?.name)
-        const [manufacturerName] = useState<string>(data?.manufacturer_name)
-        const [modelName] = useState<string>(data?.model_name)
+
+        const [manufacturerId, setManufacturerId] = useState<number>(data?.manufacturer_id)
+        const [manufacturerName, setManufacturerName] = useState<string>(data?.manufacturer_name)
+        
+        const [modelId, setModelId] = useState<number>(data?.model_id)
+        const [modelName, setModelName] = useState<string>(data?.model_name)
+
+        const [trimId, setTrimId] = useState<number>(data?.trim_id)
+        const [trimName, setTrimName] = useState<string>(data?.trim_name)
+
+        
+        const [theModelOption, setTheModelOption] = useState<string>('invalid')
+        const [theTrimOption, setTheTrimOption] = useState<string>('invalid')
+
         const [trimRate, setTrimRate] = useState<number>(data?.rate)
         const [selectedModel, setSelectedModel] = useState<string>("")
-        const [selectedTrim] = useState<string>(data?.trim_name)
+        
         const [errMsgStyle, setErrMsgStyle] = useState<string>('')
         const [errorMessage, setErrorMessage] = useState<string>("")
         const [allManufactures, setAllManufactures] = useState<any>([])
         const [allModels, setAllModels] = useState<any>([])
         const [allTrims, setAllTrims] = useState<any>([])
-        const [theModelOption, setTheModelOption] = useState<string>('invalid')
 
         const [manuId] = useState<number>(data?.manufacturer_id)
         const [modId] = useState<number>(data?.model_id)
+        
         
         useEffect(() => 
         {
@@ -55,6 +65,11 @@ export const EditEngineProduct = ({onClick, openEngineProduct, data, token}: Edi
         {
                 
         }, [allModels, allTrims])
+
+        useEffect(() => 
+        {
+                
+        }, [modelName])
 
         useEffect(() => 
         {
@@ -95,6 +110,7 @@ export const EditEngineProduct = ({onClick, openEngineProduct, data, token}: Edi
         const UpdateTriim = () => 
         {
             setIsLoading(true)
+            console.log(id, manufacturerId, modelId, trimId, name, trimRate, token)
             const modelProduct = UpdateEngine(id, manufacturerId, modelId, trimId, name, trimRate, token)
             modelProduct.then((response) => 
             {
@@ -141,68 +157,103 @@ export const EditEngineProduct = ({onClick, openEngineProduct, data, token}: Edi
                                         <div 
                                                 className="w-12/12 mb-4 border border-gray-200"
                                         >
-                                                <SelectManufacturer 
+                                                <EditSelectManufacturer
                                                         placeholder={"-Select Manufacturer -"} 
                                                         selectedManufacturer={manufacturerName} 
                                                         id={-1}
                                                         onClick={
-                                                            (x) => {
-                                                                if(x === -1)
-                                                                {
-                                                                   setSelectedModel("")
-                                                                } else {
-                                                                    setTimeout(() =>  
-                                                                    {
-                                                                        setTheModelOption('reset-state')
-                                                                        setSelectedModel(x.toString())  
-                                                                        setManufacturerId(x) 
-                                                                    })
-                                                                }
-                                                            }
-                                                          } 
-                                                        manufacturers={allManufactures} 
+                                                          (manId: number, manName: string) => {
+                                                          if(manId === -1)
+                                                          {
+                                                             setTheModelOption('reset-model')
+                                                             setManufacturerId(manId)
+                                                             setManufacturerName("")
+                                                             setModelId(-1)   
+                                                             setModelName("") 
+                                                             setTrimId(-1)   
+                                                             setTrimName("") 
+                                                          } else {
+                                                             setTimeout(() =>  
+                                                             {
+                                                                setTheModelOption('re-reset')
+                                                                setManufacturerId(manId) 
+                                                                setManufacturerName(manName)
+                                                                setModelId(-1)   
+                                                                setModelName("") 
+                                                                setTrimId(-1)   
+                                                                setTrimName("") 
+                                                             }, 100)
+                                                          }
+                                                        }
+                                                    }  
+                                                    manufacturers={allManufactures} 
                                                 />
                                         </div>  
                                         <div 
                                                 className="w-12/12 mb-4 border border-gray-200"
                                         >
-                                                <SelectModel
-                                                        placeholder={"-Select Model -"} 
-                                                        selectedModel={modelName} 
-                                                        id={-1}
-                                                        onClick={
-                                                           (x) => {
-                                                              setTimeout(() => 
-                                                              {
-                                                                setModelId(x)
-                                                              })
-                                                           }
-                                                        } 
-                                                        models={allModels}
-                                                        modelOption="" 
+                                                <EditSelectModel
+                                                    placeholder={"-Select Model -"} 
+                                                    selectedManufacturerName={manufacturerName} 
+                                                    selectedModelName={modelName}
+                                                    id={-1}
+                                                    onClick={
+                                                       (modelId: number, modelName: string) => {
+                                                          if(modelId === -1)
+                                                           {
+                                                             setTheTrimOption('reset-trim')   
+                                                             setModelId(-1)   
+                                                             setModelName("") 
+                                                             setTrimId(-1)   
+                                                             setTrimName("") 
+                                                           } else {
+                                                              setTimeout(() =>  
+                                                              {  
+                                                                 setModelId(modelId)   
+                                                                 setModelName(modelName) 
+                                                                 setTheTrimOption('re-reset')                                                                                
+                                                                 setTrimId(-1)   
+                                                                 setTrimName("") 
+                                                              }, 100)
+                                                            }
+                                                        }
+                                                     } 
+                                                     models={allModels}
+                                                     modelOption={theModelOption}
                                                 />
                                         </div> 
                                         <div 
                                              className="w-12/12 mb-4 border border-gray-200"
                                         >
-                                            <SearchTrim
-                                                   placeholder={"-Select Trim -"} 
-                                                   selectedTrim={selectedTrim} 
-                                                   onClick={
-                                                        (x: string | number) => {
-                                                           setTimeout(() => 
-                                                           {
-                                                               setTrimId(Number(x))
-                                                            })
+                                                <EditSearchTrim
+                                                    placeholder={"-Select Trim -"} 
+                                                    selectedTrim={trimName} 
+                                                    onClick={
+                                                        (trimId: number, trimName: string) => {
+                                                          if(trimId === -1)
+                                                          {
+                                                            setTrimId(-1)   
+                                                            setTrimName("") 
+                                                          } else {
+                                                            setTimeout(() =>  
+                                                            {  
+                                                               setTrimId(trimId)   
+                                                               setTrimName(trimName) 
+                                                            }, 100)
+                                                          }
                                                         }
-                                                   } 
-                                                   selectedModel={modelId}
-                                                   trims={allTrims}
-                                            />
+                                                     } 
+                                                     modelId={modelId}
+                                                     trims={allTrims}
+                                                     trimOption={theTrimOption}
+                                                     selectedManufacturerName={manufacturerName} 
+                                                     selectedModelName={modelName} 
+                                                /> 
                                         </div>
                                         <div 
                                                 className="mb-4 md:w-full"
                                         >
+                                                {/* {manufacturerName} - {modelName} - {trimName} */}
                                                 <input  
                                                         defaultValue={name}
                                                         onChange={(e) => {

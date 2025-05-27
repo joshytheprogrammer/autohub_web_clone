@@ -3,7 +3,7 @@ import { BeatLoader } from "react-spinners"
 import Message from "../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../components/modal/Modal"
 import { RemoveCategory } from "../../../../../api/admin/market/categories"
-import { productsDB } from "../../../../../model/Product"
+import { categoryDB } from "../../../../../model/Product"
 
 type TCategory = 
 {
@@ -44,8 +44,8 @@ export const DeletCategoryModal = ({onClick, openDeleteCategory, data, token}: D
          {
              if(response?.status === 200)
              {
-                productsDB.clear()
-                productsDB.bulkAdd(response?.data) 
+                categoryDB.clear()
+                categoryDB.bulkAdd(response?.data) 
                 setIsLoading(false)
                 onClick()
              } else {

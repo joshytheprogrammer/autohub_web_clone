@@ -35,7 +35,7 @@ export const PreLoadingModal = ({onClick, preLoadModal, slug, mode}: PreloadProp
      const GetSelectedProduct = async () => 
      {    
         setIsLoading(true)
-        await delay(1000)
+        await delay(200)
         const GetUserProductDetail = AdvertWithSpecificData(slug)
         GetUserProductDetail.then((response) => 
         { 
@@ -62,6 +62,8 @@ export const PreLoadingModal = ({onClick, preLoadModal, slug, mode}: PreloadProp
         advertState.setCountryName(product?.country?.name)
         advertState.setStates(product?.state?.id)
         advertState.setStateName(product?.state?.name)
+        advertState.setLGA(product?.lga?.id)
+        advertState.setLgaName(product?.lga?.name)
         advertState.setCategory(product?.category?.id)
         advertState.setCategoryName(product?.category?.name)
         advertState.setManufacturer(product?.manufacturer.id)
@@ -96,6 +98,7 @@ export const PreLoadingModal = ({onClick, preLoadModal, slug, mode}: PreloadProp
         advertState.setTheModelTrim(modelTrims)
         advertState.setTrimEngine(trimEngines)
         advertState.setStateModel([])
+        advertState.setLGAModel([])
         advertState.setImagePosition(-1)
         advertState.setSaveOption("")
         router.push(`/user/edit-advert?ytedpfpiemfi986emgogietwbfmvlvjedd=${slug}&kfiirnmoeiuuyyh3u4i5pfmnvijurmfjvhrfyfhufyfb=${product?.id}`) 

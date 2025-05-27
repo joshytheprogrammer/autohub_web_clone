@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BeatLoader } from "react-spinners";
+import { BeatLoader, PuffLoader } from "react-spinners";
 import Message from "../../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../../components/modal/Modal"
 import { AddModel } from "../../../../../../api/admin/market/product-entry/model";
@@ -8,6 +8,8 @@ import toast from "react-hot-toast";
 import SelectManufacturer from "./SelectManufacturer";
 // import { GetAllManufacturer } from "../../../../../../api/admin/market/product-entry/manufacturer";
 import { manufacturerDB, productsDB } from "../../../../../../model/Product";
+import { useQuery } from "@tanstack/react-query";
+import { GetAllManufacturer } from "../../../../../../api/admin/market/product-entry/manufacturer";
 
 
 type AddModalProductProps = 
@@ -19,8 +21,8 @@ type AddModalProductProps =
 
 export const AddModelProduct = ({onClick, openModelProduct, token}: AddModalProductProps)  =>
 {
-        // const { data, isLoading, isRefetching } = useQuery({ queryKey: [`get-all-model`, token], queryFn: () => GetAllManufacturer(token), refetchOnWindowFocus: true })        
-
+        const { data, isLoading, isRefetching } = useQuery({ queryKey: [`get-all-model`, token], queryFn: () => GetAllManufacturer(token), refetchOnWindowFocus: true })     
+        
         const [loading, setIsLoading] = useState<boolean>(false)
         const [manufacturerId, setManufacturerId] = useState<number>(-1)
         const [name, setName] = useState<string>("")
@@ -82,31 +84,26 @@ export const AddModelProduct = ({onClick, openModelProduct, token}: AddModalProd
                         >
                                 <div 
                                    className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center px-5'
-                                >
-                                        <h1 
-                                           className="font-bold text-md uppercase text-blue-600 mb-3"
-                                        >
-                                           Add Model
-                                        </h1>
+                                >                                        
                                         { errorMessage && <Message msg={errorMessage} status={errMsgStyle} />  }
-                                        {/* {
+                                        {
                                                 isLoading && !isRefetching &&  <div 
-                                                        className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                                                        className="flex md:d-flex xl:flex-row h-[300px] justify-center items-center mt-20"
                                                         >
                                                         <PuffLoader className='w-12 h-12' color="black" />
                                                         </div>
                                         }
                                         {
                                                 isLoading && isRefetching  &&  <div 
-                                                        className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                                                        className="flex md:d-flex xl:flex-row h-[300px] justify-center items-center mt-20"
                                                         >
                                                         <PuffLoader className='w-12 h-12' color="black" />
                                                         </div>
                                         }
                                                 
-                                        {  !isLoading && (data?.length === 0) && <>
+                                        {  !isLoading && (data?.data?.length === 0) && <>
                                                 <div 
-                                                        className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
+                                                        className="flex md:d-flex xl:flex-row h-[300px] justify-center items-center mt-20"
                                                 >
                                                         <div 
                                                         className="w-full d-flex justify-center items-center"
@@ -122,9 +119,9 @@ export const AddModelProduct = ({onClick, openModelProduct, token}: AddModalProd
                                                 >
                                                         Add Model
                                                 </h1>
-                                        } */}
+                                        }
                                         {  
-                                           (allManufactures?.length > 0) &&  
+                                           (data?.data?.length > 0) &&  
                                            <>
                                                 <div 
                                                         className="w-12/12 mb-4 border border-gray-200"
@@ -134,14 +131,14 @@ export const AddModelProduct = ({onClick, openModelProduct, token}: AddModalProd
                                                                         selectedManufacturer={""} 
                                                                         id={-1}
                                                                         onClick={
-                                                                             (x) => {
+                                                                             (x: number) => {
                                                                                 setTimeout(() => 
                                                                                 {
                                                                                    setManufacturerId(x)
                                                                                 })
                                                                              }
                                                                         } 
-                                                                        manufacturers={allManufactures} 
+                                                                        manufacturers={data?.data} 
                                                                 />
                                                 </div>  
                                                 <div 

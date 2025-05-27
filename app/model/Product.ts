@@ -5,6 +5,7 @@ export class Product extends Dexie
   productsDB!: Table<ActiveProduct, number>;
   countryDB!: Table<Country, number>;
   stateDB!: Table<State, number>;
+  lgaDB!: Table<State, number>;
   categoryDB!: Table<Category, number>;
   manufacturerDB!: Table<Manufacturer, number>;
   modelDB!: Table<Model, number>;
@@ -27,6 +28,7 @@ export class Product extends Dexie
         productsDB: '++id, tb_id, user_id, title, face_image, slug, description, price, min_price, max_price, chasis_no, mileage, year, address, views, water_mark, category_id, category_name, hash, country, state, manufacturer, model, trim, colour, condition, transmission, engine, images, firstname, middlename, surname, phone, email',
         countryDB: '++id, tb_id, name, rate',
         stateDB: '++id, tb_id, country_id, name, rate',
+        lgaDB: '++id, tb_id, country_id, state_id, name, rate',
         categoryDB: '++id, tb_id, name, icon, link, mobile, rate, hash',
         manufacturerDB: '++id, tb_id, name, icon, link, rate',
         modelDB: '++id, tb_id, manufacturer_id, name, rate',
@@ -62,6 +64,7 @@ export const {
                 productsDB, 
                 countryDB, 
                 stateDB, 
+                lgaDB,
                 categoryDB, 
                 manufacturerDB, 
                 modelDB, 

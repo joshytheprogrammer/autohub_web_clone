@@ -41,7 +41,7 @@ export default function Model()
     }, [])
     
     const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`get-all-models`, currentPage, perPage, token], queryFn: () => GetModel(currentPage, perPage, searchQuery, theType, token), refetchOnWindowFocus: true })
-
+    
     
     const [openAddModel, setOpenAddModel] = useState<boolean>(false)
     const [openEditModel, setOpenEditModel] = useState<boolean>(false)
@@ -55,6 +55,7 @@ export default function Model()
     const ManufactuerModels = async () => 
     {
        const manufacturers = await manufacturerDB.toArray()
+       console.log(manufacturers)
        setModels(manufacturers)
     }
 
@@ -365,10 +366,12 @@ export default function Model()
                     openAddModel &&  <AddModelProduct 
                             openModelProduct={openAddModel} 
                             token={token} 
-                            onClick={() => {
-                                refetch()
-                                setOpenAddModel(false)
-                              }
+                            onClick={
+                                () => 
+                                {
+                                    refetch()
+                                    setOpenAddModel(false)
+                                }
                             }
                     />
                 }

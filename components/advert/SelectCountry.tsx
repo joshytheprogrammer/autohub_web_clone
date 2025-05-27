@@ -129,6 +129,8 @@ const SelectCountry = ({ placeholder, countries, states, selectedCountry, edit, 
                                 advertState.setCountry(-1)
                                 advertState.setStates(-1)
                                 advertState.setStateName("")
+                                advertState.setLGA(-1)
+                                advertState.setLgaName("")
                                 setRefresh(Math.random()*(317*953))
                             }}
                         >
@@ -158,6 +160,10 @@ const SelectCountry = ({ placeholder, countries, states, selectedCountry, edit, 
                                     setInputValue("")
                                     advertState.setCountry(x?.tb_id)
                                     advertState.setCountryName(x?.name)
+                                    advertState.setStates(-1)
+                                    advertState.setStateName("")
+                                    advertState.setLGA(-1)
+                                    advertState.setLgaName("")
                                     setRefresh(Math.random()*(317*953))                                
                                 }
                                 }

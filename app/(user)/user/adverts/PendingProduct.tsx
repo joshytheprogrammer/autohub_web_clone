@@ -134,8 +134,8 @@ export default function PendingProduct()
                                                         className="flex justify-left items-center mt-1"
                                                     >
                                                         <BsGeoAltFill className='w-3 h-3 text-red-600 md:mt-1' />
-                                                        <span className="md:text-[16px] text-[13px] text-red-500 font-bold">{product?.country} - </span>
-                                                        <span className="text-[13px] ml-1 font-semibold"> {product?.state}</span>
+                                                        <span className="md:text-[16px] text-[13px] text-red-500 font-bold">{product?.state} - </span>
+                                                        <span className="text-[13px] ml-1 font-semibold"> {product?.lga}</span>
                                                     </div>
                                                     <div 
                                                         className="md:d-flex flex gap-5"

@@ -1,6 +1,26 @@
 import { BASE_URL } from "../../../../../constant/Path"
 
 
+export async function GetAllModel(token: string)
+{     
+    let endPoint = `product-entry/model/all`
+    let ApiUrl = `${BASE_URL}${endPoint}`
+
+    const response = await fetch(ApiUrl, 
+    {
+        method: 'GET',    
+        headers: {    
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`   
+        },   
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      return await response.json()
+}
+
 export async function GetModel(currentPage: number, perPage: number, searchQuery: string, type: number | string, token: string)
 {     
     let theQuery: string = searchQuery.trim()

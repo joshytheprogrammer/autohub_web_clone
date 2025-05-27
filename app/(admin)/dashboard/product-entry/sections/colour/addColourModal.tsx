@@ -4,7 +4,7 @@ import { Modal } from "../../../../../../components/modal/Modal";
 import { AddColour } from "../../../../../api/admin/market/colour";
 import toast from "react-hot-toast";
 import Message from "../../../../../../components/shared/Message";
-import { productsDB } from "../../../../../model/Product";
+import { colourDB } from "../../../../../model/Product";
 
 
 type AddColourModalProps = 
@@ -37,8 +37,8 @@ export const AddColourModal = ({onClick, openColourlProduct, token}: AddColourMo
             {
                 if(response?.status === 200)
                 {  
-                   productsDB.clear()
-                   productsDB.bulkAdd(response?.data)
+                   colourDB.clear()
+                   colourDB.bulkAdd(response?.data)
                    setIsLoading(false)
                    toast.success('Created', {
                        position: "top-center",

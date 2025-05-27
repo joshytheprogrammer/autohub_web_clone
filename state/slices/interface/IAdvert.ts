@@ -16,6 +16,14 @@ export interface IAdvert
     setCountryName: (countryName: string) => void
     getCountryName: () => void
 
+    LGA: number,
+    setLGA: (LGA: number) => void
+    getLGA: () => void
+
+    LgaName: string,
+    setLgaName: (LgaName: string) => void
+    getLgaName: () => void
+
     states: number,
     setStates: (states: number) => void
     getStates: () => void
@@ -159,6 +167,10 @@ export interface IAdvert
     statesModels: [],
     setStateModel: (statesModels: []) => void
     getStateModel: () => void
+    
+    LGAModel: [],
+    setLGAModel: (LGAModel: []) => void
+    getLGAModel: () => void
     
     imagePosition: number,
     setImagePosition: (imagePosition: number) => void

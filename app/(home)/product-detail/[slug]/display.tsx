@@ -6,6 +6,7 @@ import { HiArrowLeft, HiHome, HiMiniPhoneArrowUpRight } from "react-icons/hi2"
 import { useProductDetail } from "../../../hook/queries/useProductDetail"
 // import { PuffLoader } from "react-spinners"
 import Image from 'next/image'
+import { MdOutlineWhatsapp } from "react-icons/md"
 // import { USAGE_PATH } from "../../../../constant/Path"
 import currencyFormatter from "../../../../components/util/currency-formatter"
 import WebCategory from "../../../../components/category/WebCategory"
@@ -16,6 +17,8 @@ import Featured from "../../../../components/Featured"
 import Follow from "../../../../components/Follow"
 import ProductComment from "../../../../components/ProductComment"
 import Link from "next/link"
+import { isMobile } from "react-device-detect"
+
 
 type displayProps = {
    url: string
@@ -25,7 +28,7 @@ type displayProps = {
 export default function Display(url: displayProps) 
 {
   const router = useRouter()
-  const { data, isLoading, completed, category, featured } = useProductDetail(url?.url)
+  const { data, isLoading, completed, category, featured, plus } = useProductDetail(url?.url)
 
   return (
       
@@ -64,7 +67,7 @@ export default function Display(url: displayProps)
                                <Image className="object-cover" src={swap} alt={"banner-2"} />
                           </div>
                           <div 
-                              className="col-span-12 md:col-span-6 p-5 d-flex justify-between border-shadow border-2 border-gray-100"
+                              className="col-span-12 md:col-span-6 p-5 pb-56 d-flex justify-between border-shadow border-2 border-gray-100"
                           >
                               <div 
                                   className="w-full flex justify-between items-center "
@@ -127,7 +130,7 @@ export default function Display(url: displayProps)
                                   </span>
                               </div>
                               <div 
-                                className="font-bold text-md mt-2 flex justify-between items-right"
+                                className="font-bold text-md mt-3 flex justify-between items-right"
                               >
                                 <section 
                                     className="text-blue-600 flex justify-center items-center"
@@ -138,9 +141,11 @@ export default function Display(url: displayProps)
                                       <img src={`${data?.['passport']}`} className="rounded-full" width={45} height={25} />
                                    </div>
                                    <div 
-                                     className=""
+                                     className="d-flex gap-10 ml-2"
                                    >
-                                      <span className="font-bold ml-2 -mt-3">{data?.['firstname']} {data?.['surname']}</span>
+                                      <div className="w-full font-bold -mt-3 text-sm md:text-md">{data?.['firstname']} {data?.['surname']}</div>
+                                      <div className="w-full font-bold text-sm md:text-[12px] uppercase">{plus} </div>
+                                      {/* <div className="w-full font-bold ml-2 text-center w-fit mx-3 px-5 -mt-1 text-sm md:text-md">{plus} </div> */}
                                    </div>
                                   {/* <Image src={`${USAGE_PATH.AVATAR}${data?.['passport']}`} alt={`${data?.['passport']}`} width={70} height={70} className='rounded-full' />  */}
                                   {/* <img src={`${data?.['passport']}`} className="rounded-full" width={70} height={70} /> */}
@@ -182,7 +187,7 @@ export default function Display(url: displayProps)
                               <div 
                                   className="grid md:grid-cols-12 grid-cols-12 gap-5 -mt-5 mb-2">
                                   <div 
-                                      className="flex md:col-span-6 col-span-12 -mb-1 md:mb-0 w-full rounded-md"
+                                      className="flex md:col-span-5 col-span-12 -mb-1 md:mb-0 w-full rounded-md"
                                   >
                                       <div className="bg-green-700 py-3 px-4 d-flex sm:pt-5 md:px-2 md:py-2 flex justify-center item-center"> 
                                           <HiMiniPhoneArrowUpRight className="text-white" />
@@ -192,7 +197,7 @@ export default function Display(url: displayProps)
                                       </a>
                                   </div>
                                   <div 
-                                      className="flex md:col-span-6 col-span-12 bg-green-700 -mb-1 md:mb-0 w-full rounded-md"
+                                      className="flex md:col-span-5 col-span-12 bg-green-700 -mb-1 md:mb-0 w-full rounded-md"
                                   >
                                       <div 
                                           className="bg-green-700 py-3 px-4 d-flex sm:pt-5 md:px-2 md:py-2 flex justify-center item-center"
@@ -202,6 +207,29 @@ export default function Display(url: displayProps)
                                       <a href={`tel:${`+23409033333367`}`} className="bg-blue-700 rounded-br-md rounded-tr-md w-full px-3 py-2 text-xs justify-center font-bold text-white col-span-6">
                                           <span className="text-sm w-full flex justify-center text-center">Contact Admin For Complaint</span>
                                       </a>
+                                  </div>  
+                                  <div 
+                                      className="flex justify-center cursor-pointer hover:bg-gray-100 items-center md:col-span-2 col-span-12 sm:border sm:border-gray-200 sm:border md:border-0 -mb-1 md:mb-0 w-full rounded-md"
+                                      onClick={
+                                        () => {
+                                          let phone: any = data?.['phone']
+                                          let messageIt: string = phone?.trim().substring(1, 11)
+                                          let convertToNumber: number = Number(messageIt)     
+                                          if(isMobile)
+                                          {
+                                             window.open(`https://whatsapp://send?phone=${convertToNumber}`)
+                                          } else {        
+                                             window.open(`https://web.whatsapp.com/send?phone=${convertToNumber}`, "_blank")
+                                          }          
+                                        }
+                                      }
+                                  >
+                                     <div 
+                                        className="flex gap-5 justify-center items-center p-5 md:p-0 lg:p-0"
+                                      >                                          
+                                        <div className="w-fit px-7 md:hidden lg:hidden">Chat {plus}</div>
+                                        <MdOutlineWhatsapp className="w-7 h-7 text-green-600 hover:text-green-800" />
+                                     </div>
                                   </div>    
                               </div>
 
@@ -212,7 +240,7 @@ export default function Display(url: displayProps)
                                       className="px-1 my-4 flex-col flex gap-2"
                                   >
                                     <div 
-                                        className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center"
+                                        className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center shadow-md shadow-green-100"
                                     >
                                       <p>Manufacturer:</p>
                                       <p className="text-brandGreen">
@@ -220,43 +248,43 @@ export default function Display(url: displayProps)
                                       </p>
                                     </div>
                                     <div 
-                                        className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center"
+                                        className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center shadow-md shadow-blue-100"
                                     >
                                       <p>Model:</p>
                                       <p className="text-brandGreen">
                                         {`${data?.['model']}`}
                                       </p>
                                     </div>                        
-                                    <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
+                                    <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center shadow-md shadow-green-100">
                                         <p>Trim:</p>
                                         { data?.['trim'] ? `${data?.['trim']}` : 'Not Specififed' }
                                     </div>                     
-                                    <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
+                                    <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center shadow-md shadow-blue-100">
                                         <p>Engine:</p>
                                         { data?.['engine'] ? `${data?.['engine']}` : 'Not Specififed' }
                                     </div>
-                                    <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
+                                    <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center shadow-md shadow-green-100">
                                       <p>Colour:</p>
                                       <p className="text-brandGreen">
                                         {`${data?.['colour']}`}
                                       </p>
                                     </div>
                                     {/* Transmission */}
-                                    <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
+                                    <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center shadow-md shadow-blue-100">
                                       <p>Transmission:</p>
                                       <p className="text-brandGreen">
                                         {`${data?.['transmission']}`}
                                       </p>
                                     </div>
                                     {/* Year */}
-                                    <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
+                                    <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center shadow-md shadow-green-100">
                                       <p>Year:</p>
                                       <p className="text-brandGreen">
                                         {`${data?.['year']}`}
                                       </p>
                                     </div>
                                     {/* Price */}
-                                    <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
+                                    <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center shadow-md shadow-blue-100">
                                       <p>Price:</p>
                                       <p className="text-brandGreen">
                                         {currencyFormatter(data?.['price'])}
@@ -275,33 +303,33 @@ export default function Display(url: displayProps)
                                         </>                          
                                     }
                                   </div> */}
-                                  {/* Door */}
-                                  <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
+                                  {/* Door  #fdfdfd */}
+                                  <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center shadow-md shadow-green-100">
                                     <p>Country</p>
                                     <p className="text-brandGreen">
                                       {`${data?.['country']}`}
                                     </p>
                                   </div>
-                                  <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
+                                  <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center shadow-md shadow-blue-100">
                                     <p>State</p>
                                     <p className="text-brandGreen">
                                       {`${data?.['state']}`}
                                     </p>
                                   </div>
                                   {/* Seat */}
-                                  <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
+                                  <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center shadow-md shadow-green-100">
                                     <p>Location:</p>
                                     <p className="text-brandGreen">
-                                      {`${data?.['location']}`}
+                                      {`${data?.['lga']}`}
                                     </p>
                                   </div>
-                                  <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
+                                  <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center shadow-md shadow-blue-100">
                                     <p>Chasis No:</p>
                                     <p className="text-brandGreen">
                                       {`${data?.['chasis_no']}`}
                                     </p>
                                   </div>
-                                  <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
+                                  <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center shadow-md shadow-green-100">
                                     <p>MileAge:</p>
                                     <p className="text-brandGreen">{((data?.['mileage']) === "" || (data?.['mileage']) === undefined || (data?.['mileage']) === null) ? 'Not Specified' : `${((data?.['mileage'])/1000)}km` }</p>
                                   </div>

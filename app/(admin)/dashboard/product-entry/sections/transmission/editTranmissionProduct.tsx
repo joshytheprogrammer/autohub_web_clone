@@ -4,7 +4,7 @@ import { Modal } from "../../../../../../components/modal/Modal";
 import { UpdateTransmission } from "../../../../../api/admin/market/transmission";
 import toast from "react-hot-toast";
 import Message from "../../../../../../components/shared/Message";
-import { productsDB } from "../../../../../model/Product";
+import { transmissionDB } from "../../../../../model/Product";
 
 type EditProductCategoryProps = 
 {
@@ -36,8 +36,8 @@ export const EditTranmissionProduct = ({onClick, openTransmissionProduct, data, 
             {
                 if(response?.status === 200)
                 {
-                   productsDB.clear()
-                   productsDB.bulkAdd(response?.data)
+                   transmissionDB.clear()
+                   transmissionDB.bulkAdd(response?.data)
                    setIsLoading(false)
                    toast.success('Updated', {
                       position: "top-center",

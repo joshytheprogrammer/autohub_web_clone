@@ -8,15 +8,16 @@ type SelectStateProps =
 {
     countryId: number
     placeholder: string
-    incomingData: any[]
+    states: any[]
+    LGA: any
     stateOption: string
     selectedState: string
     edit: boolean
-    onClick: (countrId: number) => void
+    onClick: (selectedLGA: any, stateId: number) => void
 }
 
 
-const SelectState = ({ placeholder, incomingData, countryId, stateOption, selectedState, edit, onClick }: SelectStateProps) => 
+const SelectState = ({ placeholder, states, LGA, countryId, stateOption, selectedState, edit, onClick }: SelectStateProps) => 
 {
   const advertState = UseStore((state) => state)
   
@@ -24,6 +25,7 @@ const SelectState = ({ placeholder, incomingData, countryId, stateOption, select
   const [selected, setSelected] = useState("")
   const [open, setOpen] = useState<boolean>(false)
   const [choosen, setChoosen] = useState<string>(stateOption) 
+  const [stat8Id, setStateId] = useState<number>(-1)
   
   useEffect(() => 
   {
@@ -42,6 +44,27 @@ const SelectState = ({ placeholder, incomingData, countryId, stateOption, select
     }, 500)
   }, [countryId])
 
+  const callData = (x: number) => 
+  {
+     const toDisplayLGA = LGA && LGA?.filter((lga: any) => Number(lga.state_id === Number(x)))
+     // sorting
+     let sortedLgas = toDisplayLGA.sort((p1: { rate: number; }, p2: { rate: number; }) => (p1.rate < p2.rate) ? 1 : (p1.rate > p2.rate) ? -1 : 0)
+     //  setSelectedStates(sortedLgas)
+     advertState.setLGAModel(sortedLgas)
+    //  console.log(sortedLgas)
+     onClick(sortedLgas, stat8Id)
+  }  
+
+  useEffect(() => 
+  {
+    if(stat8Id === -1)
+    {
+       onClick([], -1)
+    } else {
+       callData(stat8Id)
+    }
+  }, [stat8Id])
+
 
   return (
         <div 
@@ -51,9 +74,9 @@ const SelectState = ({ placeholder, incomingData, countryId, stateOption, select
                 (countryId === -1) && <><div className="bg-white p-3">You have to select a country first</div></>
             }
             {
-                ((incomingData.length === 0) && (countryId != -1)) && <><div className="bg-white p-3">No State is under this country</div></>
+                ((states.length === 0) && (countryId != -1)) && <><div className="bg-white p-3">No State is under this country</div></>
             }
-            { incomingData && (incomingData.length > 0) && (countryId != -1) &&
+            { states && (states.length > 0) && (countryId != -1) &&
                 <>
                     <div
                         onClick={() => setOpen(!open)}
@@ -99,14 +122,15 @@ const SelectState = ({ placeholder, incomingData, countryId, stateOption, select
                                     setInputValue("")
                                     advertState.setStates(-1)
                                     advertState.setStateName("")
-                                    onClick(-1)
+                                    setStateId(-1)
+                                    advertState.setLgaName("")
                                 }}
                             >
                                 - Select State -
                             </li>
                         }
                         {
-                            incomingData?.map((x: any, index: number) => (
+                            states?.map((x: any, index: number) => (
                                 <li
                                     key={index}
                                     className={`p-2 text-md hover:bg-sky-600 border-2 border-gray-200 hover:border-2 hover:border-green-200 hover:text-white cursor-pointer py-3
@@ -128,7 +152,7 @@ const SelectState = ({ placeholder, incomingData, countryId, stateOption, select
                                         setOpen(false)
                                         advertState.setStates(x?.tb_id)
                                         advertState.setStateName(x?.name)
-                                        onClick(x?.id)
+                                        setStateId(x?.tb_id)
                                     }}
                                 >
                                     {x?.name}

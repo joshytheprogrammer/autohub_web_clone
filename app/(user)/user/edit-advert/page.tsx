@@ -22,6 +22,9 @@ import TextArea from "./Editor/TextArea"
 import axios from "axios"
 import { BASE_URL } from "../../../../constant/Path"
 import { useRouter, useSearchParams } from "next/navigation"
+import SelectLGA from "../../../../components/advert/SelectLGA"
+import { HiArrowLeft, HiHome } from "react-icons/hi2"
+import Link from "next/link"
 
 
 export default function EditAdvert() 
@@ -35,9 +38,11 @@ export default function EditAdvert()
     const { data,  isLoading, completed } = useCreateAd()
     
 
-    // const COUNTRY_MESSAGE = 'Select Country'
+    const COUNTRY_MESSAGE = 'Select Country'
     const STATE_MESSAGE = 'Select State'
-    // const MANUFACTURER_MESSAGE = 'Select Manufacturer'
+    const LGA_MESSAGE = 'Select Lga'
+
+    const MANUFACTURER_MESSAGE = 'Select Manufacturer'
     // const RESET_MANUFACTURER_MESSAGE = 'Reset Manufacture'
     const MODEL_MESSAGE = 'Select Model'
     // const RESET_MODEL_MESSAGE = 'Reset Model'
@@ -50,13 +55,21 @@ export default function EditAdvert()
     const PRICE_MESSAGE = 'Select price'
     const DESCRIPTION_MESSAGE = 'Enter Prdoduct Description'
     const ERROR_MESSAGE = 'Ensure all compulsory fields are attended to'
+
+
+    const [manufacturerMessage, setManufacturerMessage] = useState<string>("")
     
 
     const [countryId, setCountryId] = useState<number>(advertState.getCountry())
-    // const [countryMessage, setCountryMessage] = useState<string>("")
+    const [countryMessage, setCountryMessage] = useState<string>("")
     const [stateId, setTheStateId] = useState<number>(advertState.getStates())
+    const [lgaId, setTheLGAId] = useState<number>(advertState.getLGA())
+
+    const [theLGAOption, setTheLGAOption] = useState<string>('invalid')
+    const [theLgaModel, setTheLgaModel] = useState<any[]>(advertState.getLGAModel())
     const [stateMessage, setStateMessage] = useState<string>("")
     const [theState, setTheState] = useState<any[]>(advertState.getStateModel())
+    const [lgaeMessage, setLGAMessage] = useState<string>("")
     const [theStateOption, setTheStateOption] = useState<string>('invalid')
     const [category, setCategory] = useState<number>(advertState.getCategory())    
     const [theManufacturer, setTheManufacturer] = useState<number>(advertState.getManufacturer())
@@ -109,7 +122,7 @@ export default function EditAdvert()
         if(checkFields === 'valid')
         {
             const data = {
-                country: Number(advertState.getCountry()), state: Number(advertState.getStates()), category: Number(advertState.getCategory()),
+                country: Number(advertState.getCountry()), state: Number(advertState.getStates()), lga: Number(advertState.getLGA()), category: Number(advertState.getCategory()),
                 others: advertState.getOthers(), manufacturer: Number(advertState.getManufacturer()), model: Number(advertState.getModel()), trim: Number(advertState.getTrim()), 
                 engine: Number(advertState.getEngine()), fuel: Number(advertState.getFuel()), year: advertState.getYear(), colour: Number(advertState.getColour()), 
                 transmission: Number(advertState.getTransmission()),  condition: Number(advertState.getCondition()), location: advertState.getLocation(),
@@ -156,11 +169,15 @@ export default function EditAdvert()
     const allFields = () => 
     {
         let validity: string = 'valid'
+        if(advertState.getCountry() === -1){ setCountryMessage(COUNTRY_MESSAGE); validity = 'invalid' }
         if(advertState.getStates() === -1){ setStateMessage(STATE_MESSAGE); validity = 'invalid' }
+        // if(advertState.getLGA() === -1){ setStateMessage(LGA_MESSAGE); validity = 'invalid' }
+
+        if(advertState.getManufacturer() === -1){ setManufacturerMessage(MANUFACTURER_MESSAGE); validity = 'invalid';  }
         if(advertState.getModel() === -1){ setModelMessage(MODEL_MESSAGE); validity = 'invalid' }
         // if(advertState.getTrim() === -1){ setTrimMessage(TRIM_MESSAGE); validity = 'invalid' }
         // if(advertState.getEngine() === -1){ setEngineMessage(ENGINE_MESSAGE); validity = 'invalid' }           
-        if(advertState.getLocation() === ""){ setLocationMessage(LOCATION_MESSAGE); validity = 'invalid' }
+        // if(advertState.getLocation() === ""){ setLocationMessage(LOCATION_MESSAGE); validity = 'invalid' }
         if(advertState.getPrice() === ""){ setPriceMessage(PRICE_MESSAGE); validity = 'invalid' }
         if(advertState.getDescription() === ""){ setDescriptionErrorMsg(DESCRIPTION_MESSAGE); validity = 'invalid' }
         return validity
@@ -172,6 +189,8 @@ export default function EditAdvert()
         advertState.setCountry(-1)
         advertState.setCountryName("")
         advertState.setStates(-1)
+        advertState.setLGA(-1)
+        advertState.setLgaName("")
         advertState.setStateName("")
         advertState.setCategory(-1)
         advertState.setCategoryName("")
@@ -207,6 +226,7 @@ export default function EditAdvert()
         advertState.setTheModelTrim([])
         advertState.setTrimEngine([])
         advertState.setStateModel([])
+        advertState.setLGAModel([])
         advertState.setImagePosition(-1)
         advertState.setSaveOption("")
     }
@@ -229,13 +249,30 @@ export default function EditAdvert()
                             </div>
             }
             {   ((isLoading === false) && (completed === "yes")) && 
+                <>
                 <div 
                     className='md:col-span-9 col-span-12 bg-green-400 d-flex bg-green-50 border-shadow drop-shadow-lg md:block h-[fit] px-5 md:px-10 py-5 mt-3 rounded-2xl -mb-24 md:mb-0'
                 > 
+                    <div 
+                        className="container mx-auto mb-20"
+                    >
+                        <div 
+                            className="col-span-9 mx-auto mt-2 border-2 border-gray-200 border-shadow bg-white px-5 py-2 flex justify-between items-center fixed text-lg z-4 md:rounded-xl mb-10"
+                        >
+                            <div 
+                                className="flex justify-between items-center bg-white rounded-md cursor-pointer"
+                                onClick={() => { router.back() }}
+                            >
+                                <HiArrowLeft className="font-bold rounded-full hover:border-4 hover:border-green-300" style={{ fontSize: '30px', fontWeight: 'bolder', padding: '3px' }} />
+                                <span className="ml-2 font-bold text-blue-500 uppercase text-sm">Go Back</span>
+                            </div>
+                        </div>
+                    </div>
+
                         <h1 
                             className='font-bold uppercase mb-5'
                         >
-                            Update
+                            Update Product
                         </h1>
                         { (errorMessage) && <Message msg={errorMessage} status={errMsgStyle} /> }
 
@@ -243,7 +280,7 @@ export default function EditAdvert()
                             className="w-full d-flex md:flex gap-0 md:gap-10 mb-3"
                         >
                             <div 
-                                className="w-2/2 md:w-1/2 mb-5 md:mb-0"
+                                className="w-full"
                             >
                                 <label className="font-semibold text-xs">Country</label>
                                 <SelectCountry countries={data?.['country']} states={data?.['state']} selectedCountry={advertState.getCountryName()} edit={false}  placeholder={"- Select Country -"} onClick={
@@ -254,22 +291,35 @@ export default function EditAdvert()
                                             setTheState(selectedX)
                                             setCountryId(cId)
                                             setTheStateId(-1)
-                                            // setCountryMessage("")
+                                            setCountryMessage("")
                                             // advertState.setStates(-1)
                                             setTheStateOption('reset-state')
                                         } else {
                                             setCountryId(-1)
                                             setTheState([])
-                                            // setCountryMessage(COUNTRY_MESSAGE)
+                                            setCountryMessage(COUNTRY_MESSAGE)
                                         }
                                     }
                                 } />
+                                { countryMessage && <Message msg={COUNTRY_MESSAGE} status={errMsgStyle} /> }
                             </div>
+                        </div>
+
+                        <div 
+                            className="w-full d-flex md:flex gap-0 md:gap-10 mb-3"
+                        >
                             <div 
                                 className="w-2/2 md:w-1/2 mb-5 md:mb-0"
                             >
                                 <label className="font-semibold text-xs">State</label>
-                                <SelectState countryId={countryId} stateOption={theStateOption} selectedState={advertState.getStateName()} incomingData={theState} edit={true}  placeholder={"- Select State -"} onClick={
+                                <SelectState    
+                                    countryId={countryId} 
+                                    stateOption={theStateOption} 
+                                    selectedState={advertState.getStateName()} 
+                                    states={theState} 
+                                    edit={true}  
+                                    placeholder={"- Select State -"} 
+                                    onClick={
                                     (cId) => 
                                     {
                                         if(cId === -1)
@@ -280,8 +330,37 @@ export default function EditAdvert()
                                             setStateMessage("")                                            
                                         }
                                     }
-                                } />
+                                 } 
+                                 LGA={data?.['lga']}
+                                 />
                                 { stateMessage && <Message msg={STATE_MESSAGE} status={errMsgStyle} /> }
+                            </div>
+                            <div 
+                                className="w-2/2 md:w-1/2 mb-5 md:mb-0"
+                            >
+                                <label className="font-semibold text-xs">LGA</label>
+                                <SelectLGA 
+                                    LGA={advertState.getLGAModel()}
+                                    stateId={advertState.getStates()} 
+                                    lgaOption={theLGAOption}
+                                    selectedLGA={advertState.getLgaName()}
+                                    edit={true}  
+                                    placeholder={"- Select State -"} 
+                                    onClick={
+                                      (cId) => 
+                                      {
+                                        if(cId === -1)
+                                        {                                            
+                                            setTheLGAId(cId)
+                                            setLGAMessage(LGA_MESSAGE)
+                                        } else {                       
+                                            setTheLGAId(cId)
+                                            setLGAMessage("")                                            
+                                        }
+                                      }
+                                    } 
+                                  />
+                                { lgaeMessage && <Message msg={LGA_MESSAGE} status={errMsgStyle} /> }
                             </div>
                         </div>
 
@@ -292,30 +371,43 @@ export default function EditAdvert()
                                 className="w-2/2 md:w-1/2 mb-5 md:mb-0"
                             >
                                 <label className="font-semibold text-xs">Category</label>
-                                <SelectCategory incomingData={data?.['category']} selectedCategory={advertState.getCategoryName()}  placeholder={"Select Category"} edit={false} onClick={
-                                                    (cId) => 
-                                                    {
-                                                        setCategory(cId)
-                                                    }
-                                                } 
+                                <SelectCategory 
+                                    incomingData={data?.['category']} 
+                                    selectedCategory={advertState.getCategoryName()}  
+                                    placeholder={"Select Category"} 
+                                    edit={false} 
+                                    onClick={
+                                      (cId) => 
+                                       {
+                                          setCategory(cId)
+                                       }
+                                    } 
                                 />
+                                { lgaeMessage && <Message msg={LGA_MESSAGE} status={errMsgStyle} /> }
                             </div>
                             <div 
                                 className="w-2/2 md:w-1/2 mb-5 md:mb-0"
                             >
                                 <label className="font-semibold text-xs">Manufacturer</label>
-                                <SelectManufacturer manufacturers={data?.['manufacturer']} models={data?.['model']} selectedManufacturer={advertState.getManufacturerName()} edit={false} placeholder={"- Select Manufacturer -"} onClick={
+                                <SelectManufacturer 
+                                    manufacturers={data?.['manufacturer']} 
+                                    models={data?.['model']} 
+                                    selectedManufacturer={advertState.getManufacturerName()} 
+                                    edit={false} 
+                                    placeholder={"- Select Manufacturer -"} 
+                                    onClick={
                                     (selectedX, cId) => 
-                                    {
-                                        setTheModel(selectedX)
-                                        setTheManufacturer(cId)
-                                        setTheModelOption('reset-model')
-                                        setTheModelId(-1)
-                                        setTheTrimId(-1)
-                                        setTheEngineId(-1)
-                                    }
+                                     {
+                                       setTheModel(selectedX)
+                                       setTheManufacturer(cId)
+                                       setTheModelOption('reset-model')
+                                       setTheModelId(-1)
+                                       setTheTrimId(-1)
+                                       setTheEngineId(-1)
+                                     }
                                     } 
                                 />
+                                { manufacturerMessage && <Message msg={MANUFACTURER_MESSAGE} status={errMsgStyle} /> }
                             </div>
                         </div>
                         
@@ -326,7 +418,14 @@ export default function EditAdvert()
                                 className="w-2/2 md:w-1/2 mb-5 md:mb-0"
                             >
                                 <label className="font-semibold text-xs">Model</label>
-                                <SelectModel manufacturerId={advertState.getManufacturer()} modelOption={theModelOption} models={theModel} selectedModel={advertState.getModelName()} trims={data?.['trim']} edit={true} placeholder={"- Select Model -"} 
+                                <SelectModel 
+                                    manufacturerId={advertState.getManufacturer()} 
+                                    modelOption={theModelOption} 
+                                    models={theModel} 
+                                    selectedModel={advertState.getModelName()} 
+                                    trims={data?.['trim']} 
+                                    edit={true} 
+                                    placeholder={"- Select Model -"} 
                                              onClick={
                                                 (selectedX, cId) => 
                                                 {
@@ -344,7 +443,7 @@ export default function EditAdvert()
                                                 }
                                             }
                                         />
-                                    { modelMessage && <Message msg={MODEL_MESSAGE} status={`${errMsgStyle}`} /> }
+                                { modelMessage && <Message msg={MODEL_MESSAGE} status={`${errMsgStyle}`} /> }
                             </div>
                             <div 
                                 className="w-2/2 md:w-1/2 mb-5 md:mb-0"
@@ -507,7 +606,7 @@ export default function EditAdvert()
                         </div>
                         
 
-                        <div 
+                        {/* <div 
                             className="w-full d-flex md:flex gap-0 md:gap-10 mb-3"
                         >
                             <div 
@@ -534,7 +633,7 @@ export default function EditAdvert()
                                 />
                                 { locationMessage && <Message msg={LOCATION_MESSAGE} status={errMsgStyle} /> }
                             </div>
-                        </div>
+                        </div> */}
                         
 
                         <div 
@@ -687,6 +786,7 @@ export default function EditAdvert()
                         <div className="p-10"></div>
 
                 </div>
+                </>
             }
         </>
     )

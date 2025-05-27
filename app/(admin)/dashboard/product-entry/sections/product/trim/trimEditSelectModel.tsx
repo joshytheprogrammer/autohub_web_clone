@@ -1,0 +1,174 @@
+import React, { useEffect, useState } from "react";
+import { BiChevronDown } from "react-icons/bi";
+import { AiOutlineSearch } from "react-icons/ai";
+import { UseStore } from "../../../../../../../state/store";
+
+
+type SelectModelProps = 
+{
+    placeholder: string
+    selectedManufacturerName: string
+    selectedModelName: string
+    onClick: (manufacturerId: number) => void
+    models: { id: number, tb_id: number, manufacturer_id: number, name: string }[]
+    id: number
+    modelOption: string
+    selectedManufacturer: string
+}
+
+
+const TrimEditSelectModel = ({ placeholder, selectedManufacturerName, models, selectedModelName, selectedManufacturer, id, onClick, modelOption }: SelectModelProps) => 
+{
+  const advertState = UseStore((state) => state)  
+  const [inputValue, setInputValue] = useState<string>("")
+  const [selected, setSelected] = useState<string>(selectedModelName)
+  const [open, setOpen] = useState<boolean>(false) 
+  const [theOption, setTheOption] = useState<string>(modelOption) 
+  const [choosen, setChoosen] = useState<string>(selectedModelName)
+  const [change, setChange] = useState<string>("")
+
+  useEffect(() => 
+  {
+    //  setSelected(selectedModel)
+     console.log(id)
+  }, [])
+  
+  useEffect(() => 
+  {     
+    //  setChoosen('reset-model')
+    setChange("")
+  }, [selectedManufacturerName])
+
+  useEffect(() => 
+  {
+  }, [choosen])
+
+  useEffect(() => 
+  {
+  }, [theOption])
+
+  useEffect(() => 
+  {
+    
+  }, [change])
+
+  useEffect(() => 
+  {
+  }, [selectedManufacturer])
+  
+  return (
+        <>
+            <div 
+                className="border border-3 shadow-md relative md:mb-0 mb-1 col-span-12 md:col-span-12"
+            >
+            {
+                (selectedManufacturerName === "") && <><div className="bg-white p-3 border-b-2 border-blue-300">You have to select a manufacturer first</div></>
+            }
+            {
+                ((selectedManufacturerName != "") && (models?.length === 0)) && <><div className="bg-white p-3 border-b-2 border-blue-300">No Model yet</div></>
+            }
+            {/* {`selected - ${choosen}`} */}
+            {/* {`option - ${theOption}`} */}
+            {/* {`manufacturer - ${selectedManufacturerName}`} */}
+            {/* {`model - ${selectedModelName}`} */}
+            { 
+                ((selectedManufacturerName != "") && (models?.length > 0)) &&  <>
+                    <div
+                        onClick={() => setOpen(!open)}
+                        className={`bg-white w-full h-[50px] pt-2 md:pb-2 h-[40px] pb-3 px-3 flex items-center justify-between rounded ${
+                        !selected && "text-gray-700"
+                        }`}
+                    >   
+                    {
+                        choosen  ?  choosen?.length > 25 ? choosen?.substring(0, 25) + "..." : (modelOption === 'reset') ?  (change === 'renew') ? choosen : '- Select Model -' : choosen  : placeholder
+                    }
+
+                    {/* {
+                        choosen && (theOption === 'reset-state') ? 
+                                    choosen?.length > 25
+                                                        ?  choosen?.substring(0, 25) + "..."  
+                                                        : (modelOption === 'reset-state') ? 
+                                                                                            '- Select Model -' : choosen
+                                : placeholder
+                    } */}
+                        <BiChevronDown size={20} className={`${open && "rotate-180"}`} />
+                    </div>
+                    <ul
+                        className={`bg-gray-100 overflow-y-auto -mt-2 absolute w-full ${
+                        open ? "max-h-80 z-40" : "max-h-0 z-5"
+                        } `}
+                        onMouseLeave={() => {
+                            setOpen(false)
+                        }}
+                    >
+                        <div className="flex items-center px-2 sticky top-0 bg-white border border-3 shadow-md border-2 border-blue-100"
+                        >
+                            <AiOutlineSearch size={18} className="text-gray-700" />
+                            <input
+                                type="text"
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value.toLowerCase())}
+                                placeholder="Enter model name"
+                                className="placeholder:text-gray-200 p-2 outline-none w-full text-sm"
+                            />
+                        </div>
+                            <li
+                            className={`p-2 text-md hover:bg-sky-600 border-2 border-gray-200 hover:border-2 hover:border-green-200 hover:text-white cursor-pointer py-3`}
+                            onClick={() => 
+                                {                        
+                                    setChoosen("reset-model")
+                                    // advertState.setManufacturer("")
+                                    advertState.setModelName("")
+                                    setInputValue("")
+                                    setOpen(false)
+                                    onClick(-1)
+                                }
+                            }
+                        >
+                            - Select Model -
+                        </li>
+                           { models &&
+                            models?.map((x: { id: number, tb_id: number, manufacturer_id: number, name: string }, index: number) => 
+                            (
+                                <li
+                                    key={index}
+                                    className={`p-2 text-sm text-black hover:bg-sky-600 border-2 border-gray-200 hover:border-2 hover:border-green-200 hover:text-white cursor-pointer py-3
+                                    ${
+                                        x?.name?.toLowerCase() === selectedModelName.toLocaleLowerCase() &&
+                                        "bg-sky-600 text-white"
+                                    }
+                                    ${
+                                        x?.name?.toLowerCase().startsWith(inputValue)
+                                            ? "block"
+                                            : "hidden"
+                                        }
+                                    `}
+                                    onClick=
+                                    {
+                                      () => 
+                                        {
+                                          setChoosen(x?.name)
+                                          setInputValue("")
+                                          setChange("renew")
+                                          advertState.setModelName(x?.name)
+                                        //   setTheOption(x?.name)
+                                        //   advertState.setManufacturerName(x?.name)
+                                          setOpen(!open)
+                                          onClick(x?.tb_id)
+                                        }
+                                    }
+                                >
+                                    {x?.name}
+                                </li>
+                            ))}
+                    </ul>
+                </>
+            }
+            </div>
+            
+            
+        </>
+  );
+};
+
+export default TrimEditSelectModel;

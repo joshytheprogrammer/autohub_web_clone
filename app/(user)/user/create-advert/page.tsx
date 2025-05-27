@@ -24,6 +24,7 @@ import axios from "axios"
 import { BASE_URL } from "../../../../constant/Path"
 import { useRouter } from "next/navigation"
 import currencyFormatter from "../../../../components/util/currency-formatter"
+import SelectLGA from "../../../../components/advert/SelectLGA"
 
 
 export default function CreateAdvert() 
@@ -38,6 +39,7 @@ export default function CreateAdvert()
     ///
     const COUNTRY_MESSAGE = 'Select Country'
     const STATE_MESSAGE = 'Select State'
+    const LGA_MESSAGE = 'Select Lga'
     const CATEGORY_MESSAGE = 'Select Category'
     const MANUFACTURER_MESSAGE = 'Select Manufacturer'
     // const RESET_MANUFACTURER_MESSAGE = 'Reset Manufacture'
@@ -53,7 +55,7 @@ export default function CreateAdvert()
     const TRANSMISSION_MESSAGE = 'Select Transmission'
     const CONDITION_MESSAGE = 'Select Condition'
     const MILEAGE_MESSAGE = 'Select Mileage'
-    const LOCATION_MESSAGE = 'Select Location'
+    // const LOCATION_MESSAGE = 'Select Location'
     const CHAISIS_NO_MESSAGE = 'Select Chasis Number'
     const PRICE_MESSAGE = 'Select price'
     const MANUFACTURER_NAME_MESSAGE = 'Enter Manufacturer Name'
@@ -66,12 +68,17 @@ export default function CreateAdvert()
     ///
     const [countryId, setCountryId] = useState<number>(advertState.getCountry())
     const [countryMessage, setCountryMessage] = useState<string>("")
+    
     const [stateId, setTheStateId] = useState<number>(advertState.getStates())
     const [stateMessage, setStateMessage] = useState<string>("")
     ///
     const [theCountry] = useState<number>(advertState.getCountry())
     const [theState, setTheState] = useState<any[]>(advertState.getStateModel())
     const [theStateOption, setTheStateOption] = useState<string>('invalid')
+    
+    const [LGAId, setTheLGAId] = useState<number>(advertState.getStates())
+    const [lgaeMessage, setLGAMessage] = useState<string>("")
+    const [theLGAOption, setTheLGAOption] = useState<string>('invalid')
 
     const [category, setCategory] = useState<number>(advertState.getCategory())
     const [categoryMessage, setCategoryMessage] = useState<string>("")
@@ -104,7 +111,7 @@ export default function CreateAdvert()
     const [engineMessage, setEngineMessage] = useState<string>("")
     const [conditionMessage, setConditionMessage] = useState<string>("")
     const [mileageMessage] = useState<string>("")
-    const [locationMessage, setLocationMessage] = useState<string>("")
+    // const [locationMessage, setLocationMessage] = useState<string>("")
     const [chasisNoMessage, setChasisNoMessage] = useState<string>("")
     const [priceMessage, setPriceMessage] = useState<string>("")    
     const [description, setDescriptionErrorMsg] = useState<string>("")  
@@ -166,8 +173,38 @@ export default function CreateAdvert()
 
     useEffect(() => 
     {
+
+    }, [countryId])
+
+    useEffect(() => 
+    {
+
+    }, [stateId])
+
+    useEffect(() => 
+    {
         
-    }, [theState, stateId])
+    }, [theState])
+
+    useEffect(() => 
+    {
+
+    }, [LGAId])
+
+    useEffect(() => 
+    {
+
+    }, [theManufacturer])
+
+    useEffect(() => 
+    {
+
+    }, [theModelId])
+
+    useEffect(() => 
+    {
+
+    }, [LGAId])
 
     const SaveAdvert = async (option: string) => 
     {
@@ -188,7 +225,7 @@ export default function CreateAdvert()
         if(checkFields === 'valid')
         {
             const data = {
-                country: Number(advertState.getCountry()), state: Number(advertState.getStates()), category: Number(advertState.getCategory()),
+                country: Number(advertState.getCountry()), state: Number(advertState.getStates()),  lga: Number(advertState.getLGA()), category: Number(advertState.getCategory()),
                 others: advertState.getOthers(), manufacturer: Number(advertState.getManufacturer()), model: Number(advertState.getModel()), trim: Number(advertState.getTrim()), engine: Number(advertState.getEngine()),
                 theManufacturer:  advertState.getTheManufacturerName(), theModel: advertState.getTheModelName(), theTrim: advertState.getTheTrimName(), theEngine: advertState.getTheEngineName(),
                 fuel: Number(advertState.getFuel()), year: advertState.getYear(), colour: Number(advertState.getColour()), transmission: Number(advertState.getTransmission()), 
@@ -244,6 +281,8 @@ export default function CreateAdvert()
         advertState.setCountryName("")
         advertState.setStates(-1)
         advertState.setStateName("")
+        advertState.setLGA(-1)
+        advertState.setLgaName("")
         advertState.setCategory(-1)
         advertState.setCategoryName("")
         advertState.setManufacturer(-1)
@@ -278,6 +317,7 @@ export default function CreateAdvert()
         advertState.setTheModelTrim([])
         advertState.setTrimEngine([])
         advertState.setStateModel([])
+        advertState.setLGAModel([])
         advertState.setImagePosition(-1)
         advertState.setSaveOption("")
     }
@@ -287,6 +327,7 @@ export default function CreateAdvert()
         let validity: string = 'valid'
         if(advertState.getCountry() === -1){ setCountryMessage(COUNTRY_MESSAGE); validity = 'invalid'; console.log("1") }
         if(advertState.getStates() === -1){ setStateMessage(STATE_MESSAGE); validity = 'invalid'; console.log("2")  }
+        // if(advertState.getLGA() === -1){ setLGAMessage(LGA_MESSAGE); validity = 'invalid'; console.log("211")  }
         if(advertState.getCategory() === -1){ setCategoryMessage(CATEGORY_MESSAGE); validity = 'invalid'; console.log("3")  }
         if(advertState.getOthers() === "no")
         {
@@ -307,7 +348,7 @@ export default function CreateAdvert()
         if(advertState.getTransmission() === -1){ setTransmissionMessage(TRANSMISSION_MESSAGE); validity = 'invalid'; console.log("13")  }
         if(advertState.getCondition() === -1){ setConditionMessage(CONDITION_MESSAGE); validity = 'invalid'; console.log("14")  }
         // if(advertState.getMileage() === ""){ setMileageMessage(MILEAGE_MESSAGE); validity = 'invalid' }
-        if(advertState.getLocation() === ""){ setLocationMessage(LOCATION_MESSAGE); validity = 'invalid'; console.log("15")  }
+        // if(advertState.getLocation() === ""){ setLocationMessage(LOCATION_MESSAGE); validity = 'invalid'; console.log("15")  }
         // if(advertState.getChasisNo() === ""){ setChasisNoMessage(MILEAGE_MESSAGE); validity = 'invalid' }
         if(advertState.getPrice() === ""){ setPriceMessage(PRICE_MESSAGE); validity = 'invalid'; console.log("16")  }
         if(advertState.getDescription() === ""){ setDescriptionErrorMsg(DESCRIPTION_MESSAGE); validity = 'invalid'; console.log("17")  }
@@ -335,7 +376,7 @@ export default function CreateAdvert()
         <>
             {
                 ((isLoading === false) && ((completed === "no") || (completed === ""))) &&  <div 
-                                className="flex md:d-flex xl:flex-row w-full h-[500px] justify-center items-center"
+                                className="flex md:d-flex xl:flex-row w-full h-[250px] justify-center items-center"
                     >
                         { isLoading && <PuffLoader className='w-12 h-12' color="white" /> }
                     </div>
@@ -359,10 +400,10 @@ export default function CreateAdvert()
                         { (errorMessage) && <Message msg={errorMessage} status={errMsgStyle} /> }
 
                         <div 
-                            className="w-full d-flex md:flex gap-0 md:gap-10 mb-3"
+                            className="w-full flex md:flex gap-0 md:gap-10 mb-3"
                         >
                             <div 
-                                className="w-2/2 md:w-1/2 mb-5 md:mb-0"
+                                className="w-full md:mb-0"
                             >
                                 <label className="font-semibold text-xs">Country</label>
                                 <SelectCountry 
@@ -379,35 +420,84 @@ export default function CreateAdvert()
                                            setTheState(selectedX)
                                            setCountryId(cId)
                                            setTheStateId(-1)
+                                           setTheLGAId(-1)
                                            setCountryMessage("")
                                            setTheStateOption('reset-state')
                                          } else {
                                            setCountryId(-1)
+                                           setTheStateId(-1)
+                                           setTheLGAId(-1)
                                            setTheState([])
                                            setCountryMessage(COUNTRY_MESSAGE)
                                          }
                                        }
                                     } 
-                                    />
+                                />
                                 { countryMessage && <Message msg={COUNTRY_MESSAGE} status={errMsgStyle} /> }
                             </div>
+                        </div>
+
+                        <div 
+                            className="w-full d-flex md:flex gap-0 md:gap-10 mb-3"
+                        >
                             <div 
                                 className="w-2/2 md:w-1/2 mb-5 md:mb-0"
                             >
                                 <label className="font-semibold text-xs">State</label>
-                                <SelectState countryId={countryId} stateOption={theStateOption} selectedState={advertState.getStateName()} incomingData={theState} edit={true}  placeholder={"- Select State -"} onClick={
-                                    (cId) => 
-                                    {
+                                <SelectState 
+                                    countryId={countryId} 
+                                    stateOption={theStateOption} 
+                                    selectedState={advertState.getStateName()} 
+                                    states={advertState.getStateModel()} 
+                                    LGA={data?.['lga']}
+                                    edit={true}  
+                                    placeholder={"- Select State -"} 
+                                    onClick={
+                                      (selectedLGA: any, stateId: number) => 
+                                      {
+                                        if(stateId === -1)
+                                        {                                            
+                                           setTheStateId(stateId)
+                                           setStateMessage(STATE_MESSAGE)
+                                           setTheLGAId(-1)
+                                           setTheLGAOption("re-reset")   
+                                        } else {                   
+                                           setTheStateId(stateId) 
+                                           setStateMessage("")  
+                                           setTheLGAId(-1)
+                                           setTheLGAOption("re-reset")                                                                                  
+                                        }
+                                      }
+                                    } 
+                                  />
+                                {/* { stateMessage && <Message msg={STATE_MESSAGE} status={errMsgStyle} /> } */}
+                            </div>
+                            <div 
+                                className="w-2/2 md:w-1/2 mb-5 md:mb-0"
+                            >
+                                <label className="font-semibold text-xs">LGA</label>
+                                <SelectLGA 
+                                    LGA={advertState.getLGAModel()}
+                                    stateId={advertState.getStates()} 
+                                    lgaOption={theLGAOption}
+                                    selectedLGA={advertState.getLgaName()}
+                                    edit={true}  
+                                    placeholder={"- Select State -"} 
+                                    onClick={
+                                      (cId) => 
+                                      {
                                         if(cId === -1)
                                         {                                            
-                                            setTheStateId(cId)
-                                            setStateMessage(STATE_MESSAGE)
-                                        } else {
-                                            setStateMessage("")                                            
+                                            setTheLGAId(cId)
+                                            setLGAMessage(LGA_MESSAGE)
+                                        } else {                       
+                                            setTheLGAId(cId)
+                                            setLGAMessage("")                                            
                                         }
-                                    }
-                                } />
-                                { stateMessage && <Message msg={STATE_MESSAGE} status={errMsgStyle} /> }
+                                      }
+                                    } 
+                                  />
+                                { lgaeMessage && <Message msg={LGA_MESSAGE} status={errMsgStyle} /> }
                             </div>
                         </div>
 
@@ -439,7 +529,13 @@ export default function CreateAdvert()
                                 className="w-2/2 md:w-1/2 mb-5 md:mb-0"
                             >
                                 <label className="font-semibold text-xs">Manufacturer</label>
-                                <SelectManufacturer manufacturers={data?.['manufacturer']} models={data?.['model']} selectedManufacturer={advertState.getManufacturerName()} edit={true} placeholder={"- Select Manufacturer -"} onClick={
+                                <SelectManufacturer 
+                                        manufacturers={data?.['manufacturer']} 
+                                        models={data?.['model']} 
+                                        selectedManufacturer={advertState.getManufacturerName()} 
+                                        edit={true} 
+                                        placeholder={"- Select Manufacturer -"} 
+                                  onClick={
                                     (selectedX, cId) => 
                                     {
                                         if(cId === -1)
@@ -453,10 +549,13 @@ export default function CreateAdvert()
                                             // setTrimMessage(TRIM_MESSAGE)
                                             // setEngineMessage(ENGINE_MESSAGE)
                                         } else {
-                                            setTheModel(selectedX)
-                                            setTheManufacturer(cId)
-                                            setTheModelOption('reset-model')
-                                            setManufacturerMessage("")
+                                            setTimeout(
+                                               () => {                                                    
+                                                    setTheModel(selectedX)
+                                                    setTheManufacturer(cId)
+                                                    setTheModelOption('reset-model')
+                                                    setManufacturerMessage("")
+                                            }, 100)
                                         }
                                     }
                                 } />
@@ -473,7 +572,13 @@ export default function CreateAdvert()
                                         className="w-2/2 md:w-1/2 mb-5 md:mb-0"
                                     >
                                         <label className="font-semibold text-xs">Model</label>
-                                        <SelectModel manufacturerId={advertState.getManufacturer()} modelOption={theModelOption} models={theModel} selectedModel={advertState.getModelName()} edit={true} trims={data?.['trim']} placeholder={"- Select Model -"} 
+                                        <SelectModel 
+                                            manufacturerId={advertState.getManufacturer()} 
+                                            modelOption={theModelOption} 
+                                            models={theModel} 
+                                            selectedModel={advertState.getModelName()} 
+                                            edit={true} trims={data?.['trim']} 
+                                            placeholder={"- Select Model -"} 
                                                     onClick={
                                                         (selectedX, cId) => 
                                                         {
@@ -830,7 +935,7 @@ export default function CreateAdvert()
                         </div>
                         
 
-                        <div 
+                        {/* <div 
                             className="w-full d-flex md:flex gap-0 md:gap-10 mb-3"
                         >
                             <div 
@@ -866,7 +971,7 @@ export default function CreateAdvert()
                                 />
                             { locationMessage && <Message msg={LOCATION_MESSAGE} status={errMsgStyle} /> }
                             </div>
-                        </div>
+                        </div> */}
                         
 
                         <div 
@@ -897,7 +1002,7 @@ export default function CreateAdvert()
                                             }
                                         }}
                                     />
-                                { chasisNoMessage && <Message msg={CHAISIS_NO_MESSAGE} status={errMsgStyle} /> }
+                                {/* { chasisNoMessage && <Message msg={CHAISIS_NO_MESSAGE} status={errMsgStyle} /> } */}
                                 </div>
                             </div>
                             <div 

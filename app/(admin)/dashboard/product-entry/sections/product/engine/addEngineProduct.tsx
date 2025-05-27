@@ -5,9 +5,9 @@ import { Modal } from "../../../../../../../components/modal/Modal"
 import toast from "react-hot-toast";
 import { AddEngine } from "../../../../../../api/admin/market/product-entry/engine";
 import { manufacturerDB, modelDB, productsDB, trimDB } from "../../../../../../model/Product";
-import SelectManufacturer from "../model/SelectManufacturer";
-import SelectModel from "../model/SelectModel";
-import SearchTrim from "../trim/SearchTrim";
+import SelectManufacturer from "./SelectManufacturer";
+import SelectModel from "./SelectModel";
+import SearchTrim from "./SearchTrim";
 
 
 type AddEngineProductProps = 
@@ -20,12 +20,19 @@ type AddEngineProductProps =
 export const AddEngineProduct = ({onClick, openEngineProduct, token}: AddEngineProductProps)  =>
 {
         const [loading, setIsLoading] = useState<boolean>(false)
-        const [manufacturerId, setManufacturerId] = useState<number>(-1)
-        const [modelId, setModelId] = useState<number>(-1)
-        const [trimId, setTrimId] = useState<number>(-1)
+        
         const [name, setName] = useState<string>("")
         const [trimRate, setTrimRate] = useState<number>(-1)
-        const [selectedModel, setSelectedModel] = useState<string>("")
+
+        const [manufacturerId, setManufacturerId] = useState<number>(-1)
+        const [manufacturerName, setManufacturerName] = useState<string>("")
+
+        const [modelId, setModelId] = useState<number>(-1)
+        const [modelName, setModelName] = useState<string>("")
+
+        const [trimId, setTrimId] = useState<number>(-1)
+        const [trimName, setTrimName] = useState<string>("")
+
         const [selectedTrim, setSelectedTrim] = useState<string>("")
         const [errMsgStyle, setErrMsgStyle] = useState<string>('')
         const [errorMessage, setErrorMessage] = useState<string>("")
@@ -50,10 +57,17 @@ export const AddEngineProduct = ({onClick, openEngineProduct, token}: AddEngineP
                 
         }, [selectedTrim])
 
+        useEffect(() => 
+        {
+        }, [modelName])
 
         useEffect(() => 
         {
-        }, [selectedModel, selectedTrim])
+        }, [trimId])
+
+        useEffect(() => 
+        {
+        }, [trimName])
 
         useEffect(() => 
         {
@@ -92,6 +106,7 @@ export const AddEngineProduct = ({onClick, openEngineProduct, token}: AddEngineP
         const AddEnginee = () => 
         {
             setIsLoading(true)
+            console.log({manufacturerId, modelId, trimId, name, trimRate, token})
             const productTrim = AddEngine(manufacturerId, modelId, trimId, name, trimRate, token)
             productTrim.then((response: any) => 
             {
@@ -125,7 +140,7 @@ export const AddEngineProduct = ({onClick, openEngineProduct, token}: AddEngineP
                                 className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
                         >
                                 <div 
-                                   className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center px-5'
+                                   className='col-span-12 pt-1 pb-1 h-[565px] justify-center item-center px-5'
                                 >
                                         <h1 
                                            className="font-bold text-md uppercase text-blue-600 mb-3"
@@ -144,17 +159,27 @@ export const AddEngineProduct = ({onClick, openEngineProduct, token}: AddEngineP
                                                                 selectedManufacturer={""} 
                                                                 id={-1}
                                                                 onClick={
-                                                                    (x) => {
-                                                                        if(x === -1)
+                                                                    (manId: number, manName: string) => {
+                                                                        if(manId === -1)
                                                                         {
-                                                                           setSelectedModel("")
+                                                                           setTheModelOption('reset-model')
+                                                                           setManufacturerId(manId)
+                                                                           setManufacturerName("")
+                                                                           setModelId(-1)   
+                                                                           setModelName("") 
+                                                                           setTrimId(-1)   
+                                                                           setTrimName("") 
                                                                         } else {
                                                                             setTimeout(() =>  
                                                                             {
-                                                                                setTheModelOption('reset-state')
-                                                                                setSelectedModel(x.toString())  
-                                                                                setManufacturerId(x) 
-                                                                            })
+                                                                                setTheModelOption('reset-model')
+                                                                                setManufacturerId(manId) 
+                                                                                setManufacturerName(manName)
+                                                                                setModelId(-1)   
+                                                                                setModelName("") 
+                                                                                setTrimId(-1)   
+                                                                                setTrimName("") 
+                                                                            }, 100)
                                                                         }
                                                                     }
                                                                   } 
@@ -166,25 +191,27 @@ export const AddEngineProduct = ({onClick, openEngineProduct, token}: AddEngineP
                                                 >
                                                         <SelectModel
                                                                 placeholder={"-Select Model -"} 
-                                                                selectedModel={selectedModel} 
+                                                                selectedManufacturerName={manufacturerName} 
                                                                 id={-1}
                                                                 onClick={
-                                                                   (x) => {
-                                                                        if(x === -1)
+                                                                   (modelId: number, modelName: string) => {
+                                                                        if(modelId === -1)
                                                                         {
-                                                                           setSelectedTrim("")
+                                                                           setTheTrimOption('reset-trim')   
+                                                                           setModelId(-1)   
+                                                                           setModelName("") 
+                                                                           setTrimId(-1)   
+                                                                           setTrimName("") 
                                                                         } else {
                                                                             setTimeout(() =>  
-                                                                            {
-                                                                                setTheTrimOption('reset-trim')
-                                                                                setSelectedTrim(x.toString())  
-                                                                                setModelId(x) 
-                                                                            })
+                                                                            {  
+                                                                                setModelId(modelId)   
+                                                                                setModelName(modelName) 
+                                                                                setTheTrimOption('re-reset')                                                                                
+                                                                                setTrimId(-1)   
+                                                                                setTrimName("") 
+                                                                            }, 100)
                                                                         }
-                                                                //       setTimeout(() => 
-                                                                //       {
-                                                                //         setModelId(x)
-                                                                //       })
                                                                    }
                                                                 } 
                                                                 models={allModels}
@@ -198,15 +225,25 @@ export const AddEngineProduct = ({onClick, openEngineProduct, token}: AddEngineP
                                                                 placeholder={"-Select Trim -"} 
                                                                 selectedTrim={selectedTrim} 
                                                                 onClick={
-                                                                   (x: string | number) => {
-                                                                      setTimeout(() => 
-                                                                      {
-                                                                        setTrimId(Number(x))
-                                                                      })
+                                                                   (trimId: number, trimName: string) => {
+                                                                        if(trimId === -1)
+                                                                        {
+                                                                           setTrimId(-1)   
+                                                                           setTrimName("") 
+                                                                        } else {
+                                                                            setTimeout(() =>  
+                                                                            {  
+                                                                                setTrimId(trimId)   
+                                                                                setTrimName(trimName) 
+                                                                            }, 100)
+                                                                        }
                                                                    }
                                                                 } 
+                                                                modelId={modelId}
                                                                 trims={allTrims}
                                                                 trimOption={theTrimOption}
+                                                                selectedManufacturerName={manufacturerName} 
+                                                                selectedModelName={modelName} 
                                                         />
                                                 </div>
                                                 <div 
@@ -217,7 +254,7 @@ export const AddEngineProduct = ({onClick, openEngineProduct, token}: AddEngineP
                                                                         setName(e.target.value) 
                                                                 }}
                                                                 className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                                                                type="text" name="trim" id="trim" placeholder="Enter Trim Name" 
+                                                                type="text" name="engine" id="engine" placeholder="Enter Engine Name" 
                                                         />
                                                 </div>     
                                                 <div 
@@ -225,14 +262,14 @@ export const AddEngineProduct = ({onClick, openEngineProduct, token}: AddEngineP
                                                 >
                                                         <input  
                                                                 className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
-                                                                type="text" name="rate" id="rate" placeholder="Enter Trim Rate" 
+                                                                type="text" name="rate" id="rate" placeholder="Enter Engine Rate" 
                                                                 onChange={(e) => {
                                                                         setTrimRate(Number(e.target.value)) 
                                                                 }}
                                                         />
                                                 </div>
                                                 <div 
-                                                   className="items-center gap-5 mt-5 sm:flex flex justify-between mx-1 mt-5"
+                                                   className="items-center gap-5 sm:flex flex justify-between mx-1 mt-20"
                                                 >                                       
                                                         {
                                                                 <button 

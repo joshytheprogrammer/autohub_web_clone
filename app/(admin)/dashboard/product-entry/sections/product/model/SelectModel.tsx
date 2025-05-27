@@ -47,7 +47,7 @@ const SelectModel = ({ placeholder, selectedModel, models, id, onClick, modelOpt
                 (selectedModel === "") && <><div className="bg-white p-3 border-b-2 border-blue-300">You have to select a manufacturer first</div></>
             }
             { 
-                (models.length > 0) &&  <>
+                (selectedModel.length > 0) &&  <>
                     <div
                         onClick={() => setOpen(!open)}
                         className={`bg-white w-full h-[50px] pt-2 md:pb-2 h-[40px] pb-3 px-3 flex items-center justify-between rounded ${
@@ -65,7 +65,7 @@ const SelectModel = ({ placeholder, selectedModel, models, id, onClick, modelOpt
                     </div>
                     <ul
                         className={`bg-gray-100 overflow-y-auto -mt-2 absolute w-full ${
-                        open ? "max-h-80 z-40" : "max-h-0 z-40"
+                        open ? "max-h-80 z-40" : "max-h-0 z-5"
                         } `}
                         onMouseLeave={() => {
                             setOpen(false)
@@ -118,7 +118,7 @@ const SelectModel = ({ placeholder, selectedModel, models, id, onClick, modelOpt
                                           setSelected(x?.name)
                                           setInputValue("")
                                           setOpen(!open)
-                                          onClick(x?.tb_id)
+                                          onClick(x?.id)
                                         }
                                     }
                                 >

@@ -4,7 +4,7 @@ import { Modal } from "../../../../../../components/modal/Modal";
 import { AddFuel } from "../../../../../api/admin/market/fuel";
 import Message from "../../../../../../components/shared/Message";
 import toast from "react-hot-toast";
-import { productsDB } from "../../../../../model/Product";
+import { fuelDB } from "../../../../../model/Product";
 
 type AddFuelProductProps = 
 {
@@ -35,8 +35,8 @@ export const AddFuelProduct = ({onClick, openFuelProduct, token}: AddFuelProduct
             {
                 if(response?.status === 200)
                 {
-                   productsDB.clear()
-                   productsDB.bulkAdd(response?.data)
+                   fuelDB.clear()
+                   fuelDB.bulkAdd(response?.data)
                    toast.success('Created', {
                        position: "top-center",
                    });

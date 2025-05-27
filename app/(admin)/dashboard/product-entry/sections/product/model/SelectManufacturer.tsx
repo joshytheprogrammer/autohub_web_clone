@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
+import { UseStore } from "../../../../../../../state/store";
 
 
 type SelectManufacturerProps = 
@@ -98,7 +99,7 @@ const SelectManufacturer = ({ placeholder, selectedManufacturer, manufacturers, 
                                     setSelected(x?.name)
                                     setInputValue("")
                                     onClick(x?.tb_id)
-                                    setOpen(!open)
+                                    setOpen(false)
                                 }
                                 }
                             >

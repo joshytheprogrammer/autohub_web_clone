@@ -20,6 +20,7 @@ type ActiveProduct =
     hash: string,
     country: string,
     state: string,
+    lga: string,
     manufacturer: string,
     model: string,
     trim: string,

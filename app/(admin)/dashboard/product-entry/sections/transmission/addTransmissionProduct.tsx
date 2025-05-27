@@ -4,7 +4,7 @@ import { Modal } from "../../../../../../components/modal/Modal";
 import toast from "react-hot-toast";
 import { AddTransmission } from "../../../../../api/admin/market/transmission";
 import Message from "../../../../../../components/shared/Message";
-import { productsDB } from "../../../../../model/Product";
+import { transmissionDB } from "../../../../../model/Product";
 
 type AddTransmissionProductProps = 
 {
@@ -35,8 +35,8 @@ export const AddTransmissionProduct = ({onClick, openTransmissionProduct, token}
             {
                 if(response?.status === 200)
                 {
-                   productsDB.clear()
-                   productsDB.bulkAdd(response?.data)  
+                   transmissionDB.clear()
+                   transmissionDB.bulkAdd(response?.data)  
                    setIsLoading(false)
                    toast.success('Created', {
                        position: "top-center",

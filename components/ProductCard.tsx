@@ -128,12 +128,12 @@ export default function ProductCard({ product, refetchs }: ProductDetail)
                                     <span 
                                         className='uppercase font-bold ml-1 md:text-[13px] text-[11px]'
                                     >
-                                        {product?.country}
+                                        {product?.state}
                                     </span>
                                     <span 
                                         className='ml-2'
                                     >
-                                        {product?.state}
+                                        {`${(product?.lga === "Not specified" ? "" : product?.lga  )}`}
                                     </span>
                                 </div>
                                 <div 

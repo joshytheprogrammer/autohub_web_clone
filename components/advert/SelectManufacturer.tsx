@@ -36,7 +36,7 @@ const SelectManufacturer = ({ placeholder, manufacturers, models, selectedManufa
   {
      const toDisplayModel = models && models?.filter((model: any) => Number(model.manufacturer_id) === Number(x))
      // sorting
-     let sortedModels = toDisplayModel.sort((p1: { rate: number; }, p2: { rate: number; }) => (p1.rate < p2.rate) ? 1 : (p1.rate > p2.rate) ? -1 : 0)
+     let sortedModels: any = toDisplayModel.sort((p1: { rate: number; }, p2: { rate: number; }) => (p1.rate < p2.rate) ? 1 : (p1.rate > p2.rate) ? -1 : 0)
      advertState.setTheMakerModels(sortedModels)        
      advertState.setTheModelTrim([])
      advertState.setTrimEngine([])

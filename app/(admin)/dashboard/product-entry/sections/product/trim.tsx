@@ -178,7 +178,7 @@ export default function Trim()
       <div 
             className="w-full"
       > 
-            <div 
+            {/* <div 
                 className='grid grid-cols-12 font-bold text-2xl justify-center items-center text-green-600 ml-5 mb-4 mt-5 gap-10'
             >
                     <SearchTrim 
@@ -199,7 +199,7 @@ export default function Trim()
                         } 
                         trims={allTrim}
                     />
-            </div> 
+            </div>  */}
             <div 
                className='grid grid-cols-12 my-1 gap-5 mx-5 flex justify-center items-center'
             >

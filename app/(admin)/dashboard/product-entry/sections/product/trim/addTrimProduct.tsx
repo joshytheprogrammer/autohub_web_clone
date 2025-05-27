@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import Message from "../../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../../components/modal/Modal"
-import { manufacturerDB, modelDB, productsDB } from "../../../../../../model/Product";
-import SelectManufacturer from "../model/SelectManufacturer";
+import { manufacturerDB, modelDB, trimDB } from "../../../../../../model/Product";
 import toast from "react-hot-toast";
 import { AddTrim } from "../../../../../../api/admin/market/product-entry/trim";
-import SelectModel from "../model/SelectModel";
+import SelectManufacturer from "./SelectManufacturer";
+import SelectModel from "./SelectModel";
+import { UseStore } from "../../../../../../../state/store";
 
 
 type AddTrrimProductProps = 
@@ -18,11 +19,12 @@ type AddTrrimProductProps =
 
 export const AddTrimProduct = ({onClick, openTrimProduct, token}: AddTrrimProductProps)  =>
 {
+        const advertState = UseStore((state) => state)  
         const [loading, setIsLoading] = useState<boolean>(false)
         const [manufacturerId, setManufacturerId] = useState<number>(-1)
         const [modelId, setModelId] = useState<number>(-1)
         const [name, setName] = useState<string>("")
-        const [manufacturerRate, setTrimRate] = useState<number>(-1)
+        const [trimRate, setTrimRate] = useState<number>(-1)
         const [selectedModel, setSelectedModel] = useState<string>("")
         const [errMsgStyle, setErrMsgStyle] = useState<string>('')
         const [errorMessage, setErrorMessage] = useState<string>("")
@@ -41,7 +43,7 @@ export const AddTrimProduct = ({onClick, openTrimProduct, token}: AddTrrimProduc
 
         useEffect(() => 
         {
-        }, [selectedModel])
+        }, [selectedModel, theModelOption])
 
         useEffect(() => 
         {
@@ -69,40 +71,54 @@ export const AddTrimProduct = ({onClick, openTrimProduct, token}: AddTrrimProduc
         const AddTriim = () => 
         {
             setIsLoading(true)
-            const productTrim = AddTrim(manufacturerId, modelId, name, manufacturerRate, token)
-            productTrim.then((response: any) => 
+            console.log({manufacturerId, modelId, name, trimRate, token})
+            
+            if(manufacturerId === -1 || modelId === -1 || name === "" || trimRate === -1)
             {
-                if(response?.status === 200)
-                {
-                   productsDB.clear()
-                   productsDB.bulkAdd(response?.data)
-                   toast.success('Created', {
-                       position: "top-center",
-                   });
-                   onClick(false)  
-                } else {
-                   setErrorMessage(response?.message)
-                   setTimeout(() => 
-                   {
-                      setErrorMessage("")
-                   }, 5000)
-                }
+                setErrorMessage("Attend to all fields")
                 setIsLoading(false)
-            }).then(() => {
+                setTimeout(() => 
+                {
+                   setErrorMessage("")
+                }, 3000)
+                return false
+            } else {                
+                const productTrim = AddTrim(manufacturerId, modelId, name, trimRate, token)
+                productTrim.then((response: any) => 
+                {
+                        if(response?.status === 200)
+                        {
+                        trimDB.clear()
+                        trimDB.bulkAdd(response?.data)
+                        toast.success('Created', {
+                        position: "top-center",
+                        });
+                        onClick(false)  
+                        } else {
+                        setErrorMessage(response?.message)
+                        setTimeout(() => 
+                        {
+                        setErrorMessage("")
+                        }, 5000)
+                        }
+                        setIsLoading(false)
+                }).then(() => {
 
-            })
+                })
+            }
         }
 
 
         return (
                 <Modal 
-                        onClick={onClick} isOpen={openTrimProduct} wrapperWidth={800} margin={'120px auto 0px auto'}
+                        onClick={onClick} isOpen={openTrimProduct} wrapperWidth={700} margin={'120px auto 0px auto'}
                 >
                         <div 
-                                className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
+                           className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center'
                         >
                                 <div 
                                    className='col-span-12 pt-1 pb-1 overflow-y-auto xm:overflow-y-scroll justify-center item-center px-5'
+                                   style={{ zIndex: 999 }}
                                 >
                                         <h1 
                                            className="font-bold text-md uppercase text-blue-600 mb-3"
@@ -114,47 +130,52 @@ export const AddTrimProduct = ({onClick, openTrimProduct, token}: AddTrrimProduc
                                            (allManufactures?.length > 0) &&  
                                            <>
                                                 <div 
-                                                        className="w-12/12 mb-4 border border-gray-200"
+                                                        className="w-12/12 mb-4 mt-3 border border-gray-200"
                                                 >
                                                         <SelectManufacturer 
                                                                 placeholder={"-Select Manufacturer -"} 
                                                                 selectedManufacturer={""} 
                                                                 id={-1}
                                                                 onClick={
-                                                                    (x) => {
-                                                                        if(x === -1)
+                                                                    (id: number) => {
+                                                                        if(id === -1)
                                                                         {
                                                                            setSelectedModel("")
+                                                                           setModelId(-1)
+                                                                           setManufacturerId(-1) 
                                                                         } else {
                                                                             setTimeout(() =>  
                                                                             {
-                                                                                setTheModelOption('reset-state')
-                                                                                setSelectedModel(x.toString())  
-                                                                                setManufacturerId(x) 
-                                                                            })
+                                                                                setSelectedModel(advertState.getManufacturerName())
+                                                                                setTheModelOption('reset-model')
+                                                                                setManufacturerId(id) 
+                                                                            }, 100)
                                                                         }
                                                                     }
                                                                   } 
                                                                 manufacturers={allManufactures} 
                                                         />
-                                                </div>  
+                                                </div>
+                                                
                                                 <div 
-                                                        className="w-12/12 mb-4 border border-gray-200"
+                                                   className="w-12/12 mb-4 border border-gray-200"
+                                                   style={{ zIndex: 999 }}
                                                 >
+                                                        {/* {selectedModel} */}
                                                         <SelectModel
                                                                 placeholder={"-Select Model -"} 
-                                                                selectedModel={selectedModel} 
+                                                                selectedManufacturer={selectedModel} 
                                                                 id={-1}
                                                                 onClick={
                                                                    (x) => {
                                                                       setTimeout(() => 
                                                                       {
                                                                         setModelId(x)
-                                                                      })
+                                                                      }, 100)
                                                                    }
                                                                 } 
                                                                 models={allModels}
-                                                                modelOption="" 
+                                                                modelOption={theModelOption} 
                                                         />
                                                 </div>
                                                 <div 
@@ -192,10 +213,10 @@ export const AddTrimProduct = ({onClick, openTrimProduct, token}: AddTrrimProduc
                                                         }
                                                         {
                                                         <button 
-                                                                        className="py-3 px-4 bg-green-800 hover:bg-green-700 text-white font-semibold text-sm rounded-xl w-max"
-                                                                        onClick={() => AddTriim()}
-                                                                                >
-                                                                        {       (loading === true) ? ( <BeatLoader size={9} color="#fff" />) : ( "Create" )          }
+                                                                className="py-3 px-4 bg-green-800 hover:bg-green-700 text-white font-semibold text-sm rounded-xl w-max"
+                                                                onClick={() => AddTriim()}
+                                                        >
+                                                              {       (loading === true) ? ( <BeatLoader size={9} color="#fff" />) : ( "Create" )          }
                                                         </button>
                                                         }
                                                 </div>

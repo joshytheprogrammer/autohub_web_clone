@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Country from '../sections/location/country'
 import States from '../sections/location/states'
+import LGA from '../sections/location/lga';
 
 
 export default function Location()
@@ -15,6 +16,10 @@ export default function Location()
         {
           label: "States",
           content: <States />
+        },
+        {
+          label: "LGA",
+          content: <LGA />
         }
       ]
 

@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import Message from "../../../../../../../components/shared/Message"
 import { Modal } from "../../../../../../../components/modal/Modal"
-import { manufacturerDB, modelDB, productsDB } from "../../../../../../model/Product";
+import { manufacturerDB, modelDB, trimDB } from "../../../../../../model/Product";
 import { UpdateTrim } from "../../../../../../api/admin/market/product-entry/trim";
 import toast from "react-hot-toast";
-import SelectManufacturer from "../model/SelectManufacturer";
-import SelectModel from "../model/SelectModel";
+import { UseStore } from "../../../../../../../state/store";
+import TrimEditSelectModel from "./trimEditSelectModel";
+import SelectManufacturer from "./SelectManufacturer";
 
 
 type EditProductTrimProps = 
@@ -19,25 +20,30 @@ type EditProductTrimProps =
 
 export const EditTrimProduct = ({onClick, openTrimProduct, pdata, token}: EditProductTrimProps)  =>
 {
+        const advertState = UseStore((state) => state)  
         const [loading, setIsLoading] = useState<boolean>(false)
         const [id] = useState<number>(pdata?.id)
         const [manufacturerId, setManufacturerId] = useState<number>(pdata?.manufacturer_id)
         const [modelId, setModelId] = useState<number>(pdata?.model_id)
         const [name, setName] = useState<string>(pdata?.name)
-        const [manufacturerName] = useState<string>(pdata?.manufacturer_name)
-        const [modelName] = useState<string>(pdata?.model_name)
+        const [manufacturerName, setManufacturerName] = useState<string>(pdata?.manufacturer_name)
+        const [modelName, setModelName] = useState<string>(pdata?.model_name)
         const [trimRate, setTrimRate] = useState<number>(pdata?.rate)
-        const [selectedModel, setSelectedModel] = useState<string>("")
+        const [selectedManufacturer, setSelectedManufacturer] = useState<string>("")
         const [errMsgStyle, setErrMsgStyle] = useState<string>('')
         const [errorMessage, setErrorMessage] = useState<string>("")
         const [allManufactures, setAllManufactures] = useState<any>([])
         const [allModels, setAllModels] = useState<any>([])
-        const [theModelOption, setTheModelOption] = useState<string>('invalid')        
-        const [modId, setModId] = useState<number>(pdata?.model_id)
+        const [theModelOption, setTheModelOption] = useState<string>('invalid')    
         
         useEffect(() => 
         {
-            _Models(manufacturerId)           
+           if(manufacturerId === -1)
+           {
+              setAllModels([])
+           } else {
+             _Models(manufacturerId) 
+           }          
         }, [manufacturerId])
 
         useEffect(() => 
@@ -46,15 +52,23 @@ export const EditTrimProduct = ({onClick, openTrimProduct, pdata, token}: EditPr
 
         useEffect(() => 
         {
+        }, [theModelOption])
+
+        useEffect(() => 
+        {
+                
         }, [allModels])
+        
+        useEffect(() => 
+        {
+                
+        }, [manufacturerName])
 
         useEffect(() => 
         {
            setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
            _Manufacturers()
-           //     _Models(pdata?.model_id)  
-           console.log({ selectedModel, theModelOption })
-           _Models(modId)  
+           _Models(pdata?.manufacturer_id)  
         }, [])
 
         const _Manufacturers = async () => 
@@ -65,23 +79,30 @@ export const EditTrimProduct = ({onClick, openTrimProduct, pdata, token}: EditPr
 
         const _Models = async (x: number) => 
         {
-            const mods = await modelDB.where("manufacturer_id").equals(x).toArray()
-            setAllModels(mods)
+            
+            if(manufacturerId === -1)
+            {
+                setAllModels([])
+            } else {
+                const mods = await modelDB.where("manufacturer_id").equals(x).toArray()
+                setAllModels(mods)
+            }
         }
         
         const UpdateTriim = () => 
         {
             setIsLoading(true)
+            console.log({id, manufacturerId, modelId, name, trimRate, token})
             const modelProduct = UpdateTrim(id, manufacturerId, modelId, name, trimRate, token)
             modelProduct.then((response) => 
             {
                 if(response?.status === 200)
                 {
-                   productsDB.clear()
-                   productsDB.bulkAdd(response?.data)
+                   trimDB.clear()
+                   trimDB.bulkAdd(response?.data)
                    toast.success('Updated', {
                        position: "top-center",
-                   });
+                   });                   
                    onClick(false)  
                 } else {
                    setErrorMessage(response?.message)
@@ -127,37 +148,47 @@ export const EditTrimProduct = ({onClick, openTrimProduct, pdata, token}: EditPr
                                                             (x) => {
                                                                 if(x === -1)
                                                                 {
-                                                                   setSelectedModel("")
+                                                                   setSelectedManufacturer("")
+                                                                   setManufacturerId(-1)
+                                                                   setManufacturerName("")
+                                                                   setTheModelOption('')
+                                                                   setTheModelOption('invalid')
                                                                 } else {
                                                                     setTimeout(() =>  
                                                                     {
-                                                                        setTheModelOption('reset-state')
-                                                                        setSelectedModel(x.toString())  
+                                                                        setTheModelOption('reset')
+                                                                        setManufacturerName(advertState.getManufacturerName())
+                                                                        setSelectedManufacturer(x.toString())  
                                                                         setManufacturerId(x) 
+                                                                        setModelName("")
                                                                     })
                                                                 }
                                                             }
                                                           } 
                                                         manufacturers={allManufactures} 
                                                 />
-                                        </div>  
+                                        </div> 
+                                        {/* {manufacturerId}  */}
                                         <div 
                                                 className="w-12/12 mb-4 border border-gray-200"
                                         >
-                                                <SelectModel
-                                                        placeholder={"-Select Model -"} 
-                                                        selectedModel={modelName} 
-                                                        id={-1}
-                                                        onClick={
-                                                           (x) => {
-                                                              setTimeout(() => 
-                                                              {
-                                                                setModelId(x)
-                                                              })
-                                                           }
-                                                        } 
-                                                        models={allModels}
-                                                        modelOption="" 
+                                                <TrimEditSelectModel
+                                                     placeholder={"-Select Model -"} 
+                                                     selectedManufacturerName={manufacturerName} 
+                                                     selectedModelName={modelName} 
+                                                     id={pdata?.id}
+                                                     onClick={
+                                                       (x) => {
+                                                          setTimeout(() => 
+                                                          {
+                                                             setModelName(advertState.getModelName())
+                                                             setModelId(x)
+                                                          })
+                                                       }
+                                                     } 
+                                                     models={allModels}
+                                                     modelOption={theModelOption} 
+                                                     selectedManufacturer={selectedManufacturer}
                                                 />
                                         </div>
                                         <div 
