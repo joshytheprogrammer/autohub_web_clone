@@ -214,12 +214,13 @@ export default function Display(url: displayProps)
                                         () => {
                                           let phone: any = data?.['phone']
                                           let messageIt: string = phone?.trim().substring(1, 11)
-                                          let convertToNumber: number = Number(messageIt)     
+                                          let convertToNumber: number = Number(messageIt)   
+                                          let talk: string = encodeURIComponent(convertToNumber)  
                                           if(isMobile)
                                           {
-                                             window.open(`https://whatsapp://send?phone=${convertToNumber}`)
+                                              window.open(`https://wa.me/${convertToNumber}?text=${talk}`)
                                           } else {        
-                                             window.open(`https://web.whatsapp.com/send?phone=${convertToNumber}`, "_blank")
+                                             window.open(`https://web.whatsapp.com/send?phone=${convertToNumber}?text=${talk}`, "_blank")
                                           }          
                                         }
                                       }
