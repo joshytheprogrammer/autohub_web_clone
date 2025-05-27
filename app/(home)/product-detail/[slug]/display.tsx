@@ -218,7 +218,7 @@ export default function Display(url: displayProps)
                                           let talk: string = encodeURIComponent(convertToNumber)  
                                           if(isMobile)
                                           {
-                                              window.open(`https://wa.me/${data?.['phone']}?text=${talk}`)
+                                              window.open(`https://wa.me/${convertToNumber}?text=${talk}`)
                                           } else {        
                                              window.open(`https://web.whatsapp.com/send?phone=${convertToNumber}?text=${talk}`, "_blank")
                                           }          
