@@ -144,7 +144,7 @@ export default function Display(url: displayProps)
                                      className="d-flex gap-10 ml-2"
                                    >
                                       <div className="w-full font-bold -mt-3 text-sm md:text-md">{data?.['firstname']} {data?.['surname']}</div>
-                                      <div className="w-full font-bold text-sm md:text-[12px] uppercase">{plus} </div>
+                                      <div className="w-full font-bold text-sm md:text-[12px] uppercase text-black">{plus} </div>
                                       {/* <div className="w-full font-bold ml-2 text-center w-fit mx-3 px-5 -mt-1 text-sm md:text-md">{plus} </div> */}
                                    </div>
                                   {/* <Image src={`${USAGE_PATH.AVATAR}${data?.['passport']}`} alt={`${data?.['passport']}`} width={70} height={70} className='rounded-full' />  */}
