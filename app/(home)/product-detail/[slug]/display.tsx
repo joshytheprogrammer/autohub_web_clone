@@ -228,7 +228,7 @@ export default function Display(url: displayProps)
                                      <div 
                                         className="flex gap-5 justify-center items-center p-5 md:p-0 lg:p-0"
                                       >                                          
-                                        <div className="w-fit px-7 md:hidden lg:hidden">Chat {plus}</div>
+                                        <div className="w-fit px-7 md:hidden lg:hidden capitalize">Chat {plus}</div>
                                         <MdOutlineWhatsapp className="w-7 h-7 text-green-600 hover:text-green-800" />
                                      </div>
                                   </div>    
