@@ -28,7 +28,8 @@ const SelectManufacturer = ({ placeholder, manufacturers, models, selectedManufa
   useEffect(() => 
   {
      setSelected(selectedManufacturer)
-     setData(manufacturers)
+     const manufacturerToDisplay = manufacturers.sort((p1: { rate: number; }, p2: { rate: number; }) => (p1.rate < p2.rate) ? 1 : (p1.rate > p2.rate) ? -1 : 0)
+     setData(manufacturerToDisplay)
   }, [])
 
 
@@ -37,6 +38,7 @@ const SelectManufacturer = ({ placeholder, manufacturers, models, selectedManufa
      const toDisplayModel = models && models?.filter((model: any) => Number(model.manufacturer_id) === Number(x))
      // sorting
      let sortedModels: any = toDisplayModel.sort((p1: { rate: number; }, p2: { rate: number; }) => (p1.rate < p2.rate) ? 1 : (p1.rate > p2.rate) ? -1 : 0)
+     console.log(sortedModels)
      advertState.setTheMakerModels(sortedModels)        
      advertState.setTheModelTrim([])
      advertState.setTrimEngine([])
