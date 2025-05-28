@@ -28,7 +28,7 @@ export default function SearchBox({ deviceWidth = true } : SearchProps)
 
     const product = async (keyword: string) => 
     {
-        const found = await productsDB.where("manufacturer").startsWithAnyOfIgnoreCase(keyword).or('model').startsWithAnyOfIgnoreCase(keyword).or('year').startsWithAnyOfIgnoreCase(keyword).or('colour').startsWithAnyOfIgnoreCase(keyword).toArray()
+        const found = await productsDB.where("manufacturer").startsWithAnyOfIgnoreCase(keyword).or('model').startsWithAnyOfIgnoreCase(keyword).or('year').startsWithAnyOfIgnoreCase(keyword).or('colour').startsWithAnyOfIgnoreCase(keyword).or('search_1').startsWithAnyOfIgnoreCase(keyword).or('search_2').startsWithAnyOfIgnoreCase(keyword).or('search_3').startsWithAnyOfIgnoreCase(keyword).or('search_4').startsWithAnyOfIgnoreCase(keyword).or('search_5').startsWithAnyOfIgnoreCase(keyword).or('search_6').startsWithAnyOfIgnoreCase(keyword).or('search_7').startsWithAnyOfIgnoreCase(keyword).or('search_8').startsWithAnyOfIgnoreCase(keyword).or('search_9').startsWithAnyOfIgnoreCase(keyword).or('search_10').startsWithAnyOfIgnoreCase(keyword).or('search_11').startsWithAnyOfIgnoreCase(keyword).or('search_12').startsWithAnyOfIgnoreCase(keyword).or('search_13').startsWithAnyOfIgnoreCase(keyword).or('search_14').startsWithAnyOfIgnoreCase(keyword).or('search_15').startsWithAnyOfIgnoreCase(keyword).or('search_16').startsWithAnyOfIgnoreCase(keyword).or('search_17').startsWithAnyOfIgnoreCase(keyword).or('search_18').startsWithAnyOfIgnoreCase(keyword).or('search_19').startsWithAnyOfIgnoreCase(keyword).toArray()
         setSearch(found)
     }
 
@@ -73,7 +73,7 @@ export default function SearchBox({ deviceWidth = true } : SearchProps)
             </div>
             {   showSuggestion && keyword && 
                 <div 
-                        className='absolute w-full bg-white px-5 pt-3 pb-4 z-50 mt-1 rounded-xl border border-blue-100 overflow-auto overflow-y-scroll min-h-fit max-h-[550px] border-2 border-blue-100'                        
+                        className='absolute w-full bg-white px-5 pt-3 pb-4 z-50 mt-1 rounded-xl border border-blue-100 overflow-auto overflow-y-scroll min-h-fit max-h-[365px] border-2 border-blue-100'                        
                         onMouseLeave={() => {
                             setShowSuggestion(false)
                         }}
@@ -124,12 +124,12 @@ export default function SearchBox({ deviceWidth = true } : SearchProps)
                                         <span 
                                             className='uppercase font-bold ml-1'
                                         >
-                                            {search?.country}
+                                            {search?.state}
                                         </span>
                                         <span 
                                             className='ml-2'
                                         >
-                                            {search?.state}
+                                            {search?.lga}
                                         </span>
                                     </div>
                                 </div>
