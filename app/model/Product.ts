@@ -25,7 +25,7 @@ export class Product extends Dexie
     super('AutoHubNigerias');
     this.version(1).stores(
       {
-        productsDB: '++id, tb_id, user_id, title, face_image, slug, description, price, min_price, max_price, chasis_no, mileage, year, address, views, water_mark, category_id, category_name, hash, country, state, manufacturer, model, trim, colour, condition, transmission, engine, images, firstname, middlename, surname, phone, email, search_1, search_2, search_3, search_4, search_5, search_6, search_7, search_8, search_9, search_10, search_11, search_12, search_13, search_14, search_15, search_16, search_17, search_18, search_19',
+        productsDB: '++id, tb_id, user_id, title, face_image, slug, description, price, min_price, max_price, chasis_no, mileage, year, address, views, water_mark, category_id, category_name, hash, country, state, manufacturer, model, trim, colour, condition, transmission, engine, images, firstname, middlename, surname, phone, email, search_1, search_2, search_3, search_4, search_5, search_6, search_7, search_8, search_9, search_10, search_11, search_12, search_13, search_14, search_15, search_16, search_17, search_18, search_19, search_20',
         countryDB: '++id, tb_id, name, rate',
         stateDB: '++id, tb_id, country_id, name, rate',
         lgaDB: '++id, tb_id, country_id, state_id, name, rate',
