@@ -21,9 +21,10 @@ interface ReactTableProps<T extends object>
     pageNos?: number[]
     onClick: (pageNo: number) => void
     searchTerm: (keyword: string) => void
+    visible?: any
 }
 
-export const Table = <T extends object>({ data, columns, headerNavigation=true, showFooter = false, removeHeader, showNavigation = false, searchPlaceHolder = '', headerColor, space, from='nothing', headerTextColor, pageNos, onClick, searchTerm }: ReactTableProps<T>) => 
+export const Table = <T extends object>({ data, columns, headerNavigation=true, visible, showFooter = false, removeHeader, showNavigation = false, searchPlaceHolder = '', headerColor, space, from='nothing', headerTextColor, pageNos, onClick, searchTerm }: ReactTableProps<T>) => 
 {
     const [openModal, setOpenModal] = useState<boolean>(false)
 
@@ -35,7 +36,10 @@ export const Table = <T extends object>({ data, columns, headerNavigation=true, 
             columns,
             getCoreRowModel: getCoreRowModel(),
             getPaginationRowModel: getPaginationRowModel(),
-            manualPagination: true
+            manualPagination: true,
+            initialState: {
+                columnVisibility: visible,
+            },
         },
     );
    

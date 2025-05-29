@@ -19,6 +19,7 @@ export default function Country()
     const userToken = UseStore((state) => state)
     const token: string = userToken.getUserToken()
     
+    
     const [open] = useState<boolean>(false)
     const [showModal] = useState<boolean>(false)
     const [employeeId] = useState<string>('')
@@ -35,6 +36,11 @@ export default function Country()
 
     const [refresh, setRefresh] = useState<boolean>(false)
 
+    const visible: any = 
+    {
+        delete: userToken.getFName() != "Data-Operator"
+    }
+    
     useEffect(() => 
     {
       setRefresh(false)
@@ -92,7 +98,7 @@ export default function Country()
             cell: (row) => (<a href="#" onClick={() => DeleteCountry(true, row.renderValue())}><Icons iconName="delete" color='red' width={4} height={4}/></a>),
             accessorKey: 'delete',
             maxSize: 20
-          }
+        }
     ],[])
 
     return (
@@ -157,7 +163,8 @@ export default function Country()
                             from='transactions'
                             headerTextColor="white" 
                             onClick={() => console.log('')}
-                            searchTerm={() => console.log('')}                
+                            searchTerm={() => console.log('')}   
+                            visible={visible}             
                         /> 
                     </div>
             }

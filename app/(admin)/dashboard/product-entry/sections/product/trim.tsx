@@ -50,6 +50,11 @@ export default function Trim()
         ModelsTrim()
         TrimModels()
     }, [])
+
+    const visible: any = 
+    {
+        delete: userToken.getFName() != "Data-Operator"
+    }
     
     const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`get-all-trims`, currentPage, perPage, token], queryFn: () => GetTrim(currentPage, perPage, searchQuery, theType, token), refetchOnWindowFocus: true })
     
@@ -335,6 +340,7 @@ export default function Trim()
                         } searchTerm={
                             () => console.log('')
                         } 
+                        visible={visible}
                     /> 
                 </div>
             }

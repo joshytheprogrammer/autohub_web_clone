@@ -59,6 +59,11 @@ export default function Model()
        setModels(manufacturers)
     }
 
+    const visible: any = 
+    {
+        delete: userToken.getFName() != "Data-Operator"
+    }
+
     const refetcch = () => 
     {
         refetch()        
@@ -322,6 +327,7 @@ export default function Model()
                                 } searchTerm={
                                     () => console.log('')
                                 } 
+                                visible={visible}
                             /> 
                     </div>
                 }

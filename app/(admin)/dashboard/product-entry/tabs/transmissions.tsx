@@ -32,6 +32,11 @@ export default function Transmissions()
       const [transmissionData, setTransmissionData] = useState<{ id: number, name: string }>({ id: -1, name: "" })
     
       const [refresh, setRefresh] = useState<boolean>(false)
+      
+      const visible: any = 
+      {
+          delete: userToken.getFName() != "Data-Operator"
+      }
 
       useEffect(() => 
       {
@@ -151,6 +156,7 @@ export default function Transmissions()
                               } searchTerm={
                                     () => console.log('')
                               } 
+                              visible={visible}    
                         /> 
                   </div>
             }

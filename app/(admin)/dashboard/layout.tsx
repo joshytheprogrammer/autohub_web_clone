@@ -62,102 +62,122 @@ export default function DashboardLayout(
           {
               name: "Dashboard",
               url: "/dashboard",
-              icon: <HiHome className='mr-2 mt-1 text-md' />
+              icon: <HiHome className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Adverts",
               url: "/dashboard/adverts",
-              icon: <HiMiniUserCircle className='mr-2 mt-1 text-md' />
+              icon: <HiMiniUserCircle className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Dealers",
               url: "/dashboard/dealers",
-              icon: <HiMiniHashtag className='mr-2 mt-1 text-md' />
+              icon: <HiMiniHashtag className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Members",
               url: "/dashboard/members",
-              icon: <HiMiniUser className='mr-2 mt-1 text-md' />
+              icon: <HiMiniUser className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Staffs",
               url: "/dashboard/staffs",
-              icon: <HiMiniUser className='mr-2 mt-1 text-md' />
+              icon: <HiMiniUser className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Product Entry",
               url: "/dashboard/product-entry",
-              icon: <HiMiniShoppingCart className='mr-2 mt-1 text-md' />
+              icon: <HiMiniShoppingCart className='mr-2 mt-1 text-md' />,
+              resource: "not"
           },
           {
               name: "Users",
               url: "/dashboard/users",
-              icon: <HiMiniUsers className='mr-2 mt-1 text-md' />
+              icon: <HiMiniUsers className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Department",
               url: "/dashboard/department",
-              icon: <HiMapPin className='mr-2 mt-1 text-md' />
+              icon: <HiMapPin className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "CMS",
               url: "/dashboard/cms",
-              icon: <HiMiniAdjustmentsHorizontal className='mr-2 mt-1 text-md' />
+              icon: <HiMiniAdjustmentsHorizontal className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Plans/Packages",
               url: "/dashboard/plans",
-              icon: <HiOutlineTag className='mr-2 mt-1 text-md' />
+              icon: <HiOutlineTag className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Test Questionaire",
               url: "/dashboard/test-questionaires",
-              icon: <HiBookOpen className='mr-2 mt-1 text-md' />
+              icon: <HiBookOpen className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Exam Questionaire",
               url: "/dashboard/exam-questionaires",
-              icon: <HiBookOpen className='mr-2 mt-1 text-md' />
+              icon: <HiBookOpen className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Students",
               url: "/dashboard/students",
-              icon: <HiAcademicCap className='mr-2 mt-1 text-md' />
+              icon: <HiAcademicCap className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Markings",
               url: "/dashboard/markings",
-              icon: <HiMiniPencil className='mr-2 mt-1 text-md' />
+              icon: <HiMiniPencil className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Courses",
               url: "/dashboard/courses",
-              icon: <HiBookOpen className='mr-2 mt-1 text-md' />
+              icon: <HiBookOpen className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Blog",
               url: "/dashboard/blog",
-              icon: <HiMiniPencilSquare className='mr-2 mt-1 text-md' />
+              icon: <HiMiniPencilSquare className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Modules",
               url: "/dashboard/modules",
-              icon: <HiMiniViewColumns className='mr-2 mt-1 text-md' />
+              icon: <HiMiniViewColumns className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "FAQS",
               url: "/dashboard/faqs",
-              icon: <HiBookmarkSquare className='mr-2 mt-1 text-md' />
+              icon: <HiBookmarkSquare className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Contact Messages",
               url: "/dashboard/contact-messages",
-              icon: <HiEnvelope className='mr-2 mt-1 text-md' />
+              icon: <HiEnvelope className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
           {
               name: "Settings",
               url: "/dashboard/settings",
-              icon: <HiCog6Tooth className='mr-2 mt-1 text-md' />
+              icon: <HiCog6Tooth className='mr-2 mt-1 text-md' />,
+              resource: "allow"
           },
       ]
 
@@ -250,8 +270,11 @@ export default function DashboardLayout(
                                                 {
                                                     
                                                     admin.map((user, index) => {
+                                                        let isDataOperator: string = Session.getFName()
+                                                        let allow: string = (isDataOperator === "Data-Operator") ? "not" : "allow"
+
                                                         return (
-                                                            <Link 
+                                                            (user?.resource === allow) && <Link 
                                                                 href={`${user?.url}`}
                                                                 key={index}
                                                                 onClick={() => { setMenu(false) }}
@@ -324,11 +347,35 @@ export default function DashboardLayout(
                                     </div>
                                 </div>
                                 <ul className='w-full mt-2'>
+                                    {                                        
+                                        admin.map((user, index) => {
+
+                                            let isDataOperator: string = Session.getFName()
+
+                                            return (
+                                                (isDataOperator != "Data-Operator") && <Link 
+                                                    href={`${user?.url}`}
+                                                    key={index}
+                                                    shallow={true}
+                                                >
+                                                    {/* [#bdbcbb] */}
+                                                    <li 
+                                                        className='flex px-5 py-2 bg-[#1c733d] hover:bg-green-900 mb-1 cursor-pointer text-left text-[14px] font-bold text-white hover:text-white'
+                                                    >                                                
+                                                        {user?.icon} {user?.name}
+                                                    </li>
+                                                </Link>
+                                            )
+                                        })
+                                    }
                                     {
                                         
                                         admin.map((user, index) => {
+                                            let isDataOperator: string = Session.getFName()
+                                            let allow: string = (isDataOperator === "Data-Operator") ? "not" : "allow"
+
                                             return (
-                                                <Link 
+                                                (user?.resource === allow) && <Link 
                                                     href={`${user?.url}`}
                                                     key={index}
                                                     shallow={true}

@@ -33,6 +33,12 @@ export default function Fuel()
       const [fuelData, setFuelData] = useState<{ id: number, name: string }>({ id: -1, name: "" })
   
       const [refresh, setRefresh] = useState<boolean>(false)
+    
+
+      const visible: any = 
+      {
+            delete: userToken.getFName() != "Data-Operator"
+      }
 
       useEffect(() => 
       {
@@ -150,7 +156,8 @@ export default function Fuel()
                                     () => console.log('')
                               } searchTerm={
                                     () => console.log('')
-                              } 
+                              }                               
+                              visible={visible}    
                         /> 
                   </div>
             }

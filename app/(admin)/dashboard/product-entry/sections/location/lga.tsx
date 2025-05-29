@@ -47,6 +47,11 @@ export default function LGA()
         product()
     }, [])
 
+    const visible: any = 
+    {
+        delete: userToken.getFName() != "Data-Operator"
+    }
+
 //     useEffect(() => 
 //     {
 //         refetch()
@@ -213,6 +218,7 @@ export default function LGA()
                               } searchTerm={
                                     () => console.log('')
                               } 
+                            visible={visible}             
                         /> 
                   </div>
             }

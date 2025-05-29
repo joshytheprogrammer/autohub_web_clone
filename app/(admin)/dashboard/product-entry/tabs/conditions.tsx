@@ -33,6 +33,13 @@ export default function Conditions()
   
       const [refresh, setRefresh] = useState<boolean>(false)
 
+      
+
+      const visible: any = 
+      {
+          delete: userToken.getFName() != "Data-Operator"
+      }
+
       useEffect(() => 
       {
         setRefresh(false)
@@ -151,7 +158,8 @@ export default function Conditions()
                                  () => console.log('')
                               } searchTerm={
                                  () => console.log('')
-                              } 
+                              }                            
+                            visible={visible}    
                         /> 
                   </div>
             }

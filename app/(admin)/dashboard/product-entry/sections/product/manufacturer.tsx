@@ -42,6 +42,12 @@ export default function Manufacturer()
 
     const [refresh, setRefresh] = useState<boolean>(false)
 
+
+    const visible: any = 
+    {
+        delete: userToken.getFName() != "Data-Operator"
+    }
+    
     useEffect(() => 
     {
       setRefresh(false)
@@ -275,6 +281,7 @@ export default function Manufacturer()
                         } searchTerm={
                             () => console.log('')
                         } 
+                        visible={visible}
                     /> 
                 </div>
             }

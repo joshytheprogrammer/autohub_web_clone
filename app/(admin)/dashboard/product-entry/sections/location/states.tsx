@@ -42,6 +42,11 @@ export default function States()
         product()
     }, [])
 
+    const visible: any = 
+    {
+        delete: userToken.getFName() != "Data-Operator"
+    }
+
 //     useEffect(() => 
 //     {
 //         refetch()
@@ -198,6 +203,7 @@ export default function States()
                               } searchTerm={
                                     () => console.log('')
                               } 
+                            visible={visible}             
                         /> 
                   </div>
             }

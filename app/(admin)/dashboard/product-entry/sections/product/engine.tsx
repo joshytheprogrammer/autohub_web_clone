@@ -68,6 +68,11 @@ export default function Engine()
 //        setTrims(trimss)
 //     }
 
+    const visible: any = 
+    {
+        delete: userToken.getFName() != "Data-Operator"
+    }
+
     const refetcch = () => 
     {
        refetch()        
@@ -307,6 +312,7 @@ export default function Engine()
                             } searchTerm={
                                () => console.log('')
                             } 
+                            visible={visible}             
                      /> 
                   </div>
             }

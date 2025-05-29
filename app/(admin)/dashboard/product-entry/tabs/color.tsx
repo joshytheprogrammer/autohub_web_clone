@@ -33,6 +33,13 @@ export default function Color()
   
       const [refresh, setRefresh] = useState<boolean>(false)
 
+      
+
+      const visible: any = 
+      {
+            delete: userToken.getFName() != "Data-Operator"
+      }
+
       useEffect(() => 
       {
         setRefresh(false)
@@ -157,7 +164,8 @@ export default function Color()
                                           () => console.log('')
                                     } searchTerm={
                                           () => console.log('')
-                                    } 
+                                    }                               
+                            visible={visible}    
                         /> 
                   </div>
             }

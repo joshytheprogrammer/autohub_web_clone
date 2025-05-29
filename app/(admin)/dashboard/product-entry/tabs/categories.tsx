@@ -37,6 +37,12 @@ export default function Categories()
     const [categData, setCategData] = useState<TCateg>(CategInitialData)
     
 
+
+    const visible: any = 
+    {
+        deleted: userToken.getFName() != "Data-Operator"
+    }
+
     const ChangeCateg = (x: boolean, data: any) => 
     {
         setCategData(data)
@@ -167,7 +173,8 @@ export default function Categories()
                                 () => console.log('')
                             } searchTerm={
                                 () => console.log('')
-                            }               
+                            }            
+                            visible={visible}       
                     />        
                 </div> 
             } 
