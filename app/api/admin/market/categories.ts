@@ -54,7 +54,7 @@ export async function UpdateCategory(data: TCategory, token: string)
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`   
         },   
-        body: JSON.stringify({ id: data?.id, name: data?.name, icon: data?.icon, link: data?.link, mobile: data?.link, rate: data?.rate })
+        body: JSON.stringify({ id: data?.id, name: data?.name, icon: data?.icon, link: data?.link, mobile: data?.mobile, rate: data?.rate })
       })     
       if(!response.ok)
       {

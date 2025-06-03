@@ -22,13 +22,13 @@ export default function MobileCategory({ data }: { data: any})
                         role="button"
                     >
                         <div 
-                            className="flex justify-center gap-3 items-center bg-brandGray w-full h-[30px] rounded-lg"
+                            className="flex justify-center gap-3 items-center bg-brandGray w-full h-[30px] rounded-lg mt-2"
                         >
                             <img aria-hidden="true" src={category.mobile} alt="" />
                         </div>
 
                         <p 
-                            className="text-center text-sm text-gray-500 text-ellipsis truncate w-full"
+                            className="text-center text-sm mt-3 text-gray-500 text-ellipsis truncate w-full"
                         >
                             {category.name}
                         </p>

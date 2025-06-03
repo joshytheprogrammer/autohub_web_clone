@@ -178,7 +178,7 @@ export default function ProductComment({ productId, vendorId }: PrdoductCommentP
               } */}
               {
                   !isLoadingComment && (data.length === 0) &&  <div 
-                                  className="d-flex h-[30px] justify-center items-center pt-10 pb-30"
+                                  className="d-flex h-[30px] justify-center items-center pt-1 pb-30"
                               >                                   
                                     <div className='w-full'
                                     >

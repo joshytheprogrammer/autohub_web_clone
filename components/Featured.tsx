@@ -26,13 +26,13 @@ export default function Featured(product: any)
                     <div 
                         className="border border-4 border-blue-50 h-fit rounded-t-lg bg-no-repeat bg-center bg-cover relative flex justify-center items-center"
                         >
-                        <img src={`${USAGE_PATH.PRODUCT_FACE}${product?.product?.face_image}`} />
+                        <img src={`${product?.product?.face_image}`} />
                         <div 
                             className="text-right"
                         >
                         </div>
                         <img 
-                                src={`${USAGE_PATH.WATER_MARK}${product?.product?.water_mark}`}
+                                src={`${USAGE_PATH.WATER_MARK}${product?.product?.watermark}`}
                                 className='absolute top-center w-27 h-10' 
                         />
                     </div>

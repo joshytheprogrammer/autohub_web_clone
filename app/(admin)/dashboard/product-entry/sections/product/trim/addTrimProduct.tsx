@@ -88,20 +88,20 @@ export const AddTrimProduct = ({onClick, openTrimProduct, token}: AddTrrimProduc
                 {
                         if(response?.status === 200)
                         {
-                        trimDB.clear()
-                        trimDB.bulkAdd(response?.data)
-                        toast.success('Created', {
-                        position: "top-center",
-                        });
-                        onClick(false)  
+                                trimDB.clear()
+                                trimDB.bulkAdd(response?.data)
+                                toast.success('Created', {
+                                position: "top-center",
+                                });
+                                onClick(false)  
                         } else {
-                        setErrorMessage(response?.message)
-                        setTimeout(() => 
-                        {
-                        setErrorMessage("")
-                        }, 5000)
-                        }
-                        setIsLoading(false)
+                                setErrorMessage(response?.message)
+                                setTimeout(() => 
+                                {
+                                setErrorMessage("")
+                                }, 5000)
+                                }
+                                setIsLoading(false)
                 }).then(() => {
 
                 })
