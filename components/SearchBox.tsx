@@ -73,7 +73,7 @@ export default function SearchBox({ deviceWidth = true } : SearchProps)
             </div>
             {   showSuggestion && keyword && 
                 <div 
-                        className='absolute w-full bg-white px-5 pt-3 pb-4 z-50 mt-1 rounded-xl border border-blue-100 scrollbar scrollbar-blue-600 scrollbar-thumb-rounded overflow-y-scroll min-h-fit max-h-[165px] border-2 border-blue-100'                        
+                        className='absolute w-full bg-white px-5 pt-3 pb-4 z-50 mt-1 rounded-xl border border-blue-100 scrollbar scrollbar-blue-600 scrollbar-thumb-rounded overflow-y-scroll min-h-fit max-h-[365px] border-2 border-blue-100'                        
                         onMouseLeave={() => {
                             setShowSuggestion(false)
                         }}
