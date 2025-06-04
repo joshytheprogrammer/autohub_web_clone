@@ -100,7 +100,7 @@ export default function Home()
                     </div> */}
                                 
                     <div 
-                        className='mx-2 flex justify-center items-center font-bold'
+                        className='mx-2 flex justify-center items-center font-bold -mt-4 md:mt-4'
                     >
                         <MobileCategory data={data?.data?.category} />
                     </div>

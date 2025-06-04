@@ -376,18 +376,28 @@ export default function Display(url: displayProps)
                         </div>
                     </div>
 
-                    {/* <div 
-                      className="w-full container p-20 bg-blue-100 p-5 mx-auto"
+                    <div 
+                      className="w-full container mx-auto mb-20"
                     >
-                        {
+                        <div 
+                          className="grid grid-cols-12 gap-5"
+                        >
+                            <p 
+                                className="col-span-12 px-4 py-3 text-[13px] md:text-[15px] lg:text-[17px] uppercase font-bold border border-2 border-gray-200 rounded-xl mb-3"
+                            >
+                              Other posts by <span className="text-blue-600"> {data?.['firstname']} {data?.['surname']} </span>, the advertiser
+                            </p>
+
+                        </div>
+                        {/* {
                             featured?.map((product: any, index: number) => 
                             {
                               return (
                                     <ProductCard key={index} product={product} refetchs={() => ('') } />
                                 )
                               })
-                        }                                            
-                    </div> */}
+                        }                                             */}
+                    </div>
                   </>
               }
           </>

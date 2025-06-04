@@ -7,85 +7,60 @@ import { HiMiniPhoneArrowUpRight } from "react-icons/hi2"
 
 export default function ContactUs() 
 {
-  // const data: any =  [
-	// 	{
-	// 		"id": 195369,
-	// 		"value": "L 4dr Sedan (2.5L 4cyl 6A)",
-	// 		"id_name": 195369
-	// 	},
-	// 	{
-	// 		"id": 195370,
-	// 		"value": "L 4dr Sedan w/Prod. End 11/13 (2.5L 4cyl 6A)",
-	// 		"id_name": 195370
-	// 	},
-	// 	{
-	// 		"id": 195371,
-	// 		"value": "LE 4dr Sedan (2.5L 4cyl 6A)",
-	// 		"id_name": 195371
-	// 	},
-	// 	{
-	// 		"id": 195372,
-	// 		"value": "LE 4dr Sedan w/Prod. End 11/13 (2.5L 4cyl 6A)",
-	// 		"id_name": 195372
-	// 	},
-	// 	{
-	// 		"id": 195373,
-	// 		"value": "SE 4dr Sedan (2.5L 4cyl 6A)",
-	// 		"id_name": 195373
-	// 	},
-	// 	{
-	// 		"id": 195374,
-	// 		"value": "SE 4dr Sedan (3.5L 6cyl 6A)",
-	// 		"id_name": 195374
-	// 	},
-	// 	{
-	// 		"id": 195375,
-	// 		"value": "SE 4dr Sedan w/Prod. End 11/13 (2.5L 4cyl 6A)",
-	// 		"id_name": 195375
-	// 	},
-	// 	{
-	// 		"id": 195376,
-	// 		"value": "SE 4dr Sedan w/Prod. End 11/13 (3.5L 6cyl 6A)",
-	// 		"id_name": 195376
-	// 	},
-	// 	{
-	// 		"id": 195377,
-	// 		"value": "SE Sport 4dr Sedan (2.5L 4cyl 6A)",
-	// 		"id_name": 195377
-	// 	},
-	// 	{
-	// 		"id": 195378,
-	// 		"value": "SE Sport 4dr Sedan w/Prod. End 11/13 (2.5L 4cyl 6A)",
-	// 		"id_name": 195378
-	// 	},
-	// 	{
-	// 		"id": 195379,
-	// 		"value": "XLE 4dr Sedan (2.5L 4cyl 6A)",
-	// 		"id_name": 195379
-	// 	},
-	// 	{
-	// 		"id": 195380,
-	// 		"value": "XLE 4dr Sedan (3.5L 6cyl 6A)",
-	// 		"id_name": 195380
-	// 	},
-	// 	{
-	// 		"id": 195381,
-	// 		"value": "XLE 4dr Sedan w/Prod. End 11/13 (2.5L 4cyl 6A)",
-	// 		"id_name": 195381
-	// 	},
-	// 	{
-	// 		"id": 195382,
-	// 		"value": "XLE 4dr Sedan w/Prod. End 11/13 (3.5L 6cyl 6A)",
-	// 		"id_name": 195382
-	// 	}
-	// ]
-  //  let nameOnly = []
-  // for (let index = 0; index < data.length; index++) 
-  // {
-  //    nameOnly.push(data[index]['value'])    
-  // }
-  // console.log(nameOnly)
-  // console.log(nameOnly?.length)
+  
+	 
+	 const data: any = [
+		{
+			"id": 1459262,
+			"value": "LE",
+			"id_name": 1459262
+		},
+		{
+			"id": 1459263,
+			"value": "SE",
+			"id_name": 1459263
+		},
+		{
+			"id": 1459264,
+			"value": "SE Nightshade",
+			"id_name": 1459264
+		},
+		{
+			"id": 1459267,
+			"value": "TRD V6",
+			"id_name": 1459267
+		},
+		{
+			"id": 1459265,
+			"value": "XLE",
+			"id_name": 1459265
+		},
+		{
+			"id": 1459268,
+			"value": "XLE V6",
+			"id_name": 1459268
+		},
+		{
+			"id": 1459266,
+			"value": "XSE",
+			"id_name": 1459266
+		},
+		{
+			"id": 1459269,
+			"value": "XSE V6",
+			"id_name": 1459269
+		}
+	]
+
+
+
+   let nameOnly = []
+  for (let index = 0; index < data.length; index++) 
+  {
+     nameOnly.push(data[index]['value'])    
+  }
+  console.log(nameOnly)
+  console.log(nameOnly?.length)
 
 
 
