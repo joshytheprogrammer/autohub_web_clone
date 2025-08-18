@@ -63,7 +63,7 @@ export default function SlideThumbnail({ data, imageSize, waterMark, slug }: { d
                                 className="relative flex justify-center items-center"
                             >
                                 <img src={image?.image_url} />
-                                <img src={`https://api.autohub.africa/constant/water/water_mark.png`} width={200} height={50} className="absolute z-5 h-[50px]" />
+                                <img src={`https://eu2.contabostorage.com/531567a74f5740769e7b8d34e116cadd:autohub//aa/2025-08-18-profile-image-autohub-image68a34af2cd40f-1.jpg`} width={200} height={50} className="absolute z-5 h-[50px]" />
                             </div>
                         </SwiperSlide>
                         )
@@ -89,7 +89,7 @@ export default function SlideThumbnail({ data, imageSize, waterMark, slug }: { d
                     <SwiperSlide key={index}
                     >
                         <img src={image?.image_url} />
-                        <img src={`${USAGE_PATH.WATER_MARK}${waterMark}`} width={500} height={500} className="absolute cursor-pointer" />
+                        {/* <img src={`${USAGE_PATH.WATER_MARK}${waterMark}`} width={500} height={500} className="absolute cursor-pointer" /> */}
                     </SwiperSlide>
                 )
             })
