@@ -10,7 +10,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 
 
 // Import Swiper styles
@@ -39,34 +39,40 @@ export default function SlideThumbnail({ data, imageSize, waterMark, slug }: { d
         <div 
             className="relative"
         >
+            {/* <div 
+              className="py-1 px-2 border-2 border-blue-500 text-white round-md absolute w-fit h-fit m-3 z-50"
+            >
+               View enlarged image
+            </div> */}
             {                    
             <Swiper
                     style={{
-                    '--swiper-navigation-color': '#fff',
+                    '--swiper-navigation-color': '#6545f7ff',
                     '--swiper-pagination-color': '#fff',
-                    'marginBottom': '5px'
+                    'marginBottom': '10px',
                     } as CSSProperties}
                     spaceBetween={10}
                     navigation={true}
                     thumbs={{ swiper: thumbsSwiper }}
                     modules={[FreeMode, Navigation, Thumbs]}
-                    className="mySwiper2"
+                    className="mySwiper2 h-[300px] md:h-[550px] lg:h-[550px]"
                 >
                     
                     {
                         data?.length > 0 && data?.map((image: any, index: number) => 
                         {
                         return (
-                                <SwiperSlide key={index}
-                        >
-                            <div 
-                                className="relative flex justify-center items-center"
+                            <SwiperSlide 
+                                key={index}
                             >
-                                <img src={image?.image_url} />
-                                <img src={`https://eu2.contabostorage.com/531567a74f5740769e7b8d34e116cadd:autohub//aa/2025-08-18-profile-image-autohub-image68a34af2cd40f-1.jpg`} width={200} height={50} className="absolute z-5 h-[50px]" />
-                            </div>
-                        </SwiperSlide>
-                        )
+                                <div 
+                                    className="h-fit flex justify-center items-center"
+                                >
+                                    <img src={image?.image_url} className="object-fit"/>
+                                    <img src={`https://eu2.contabostorage.com/531567a74f5740769e7b8d34e116cadd:autohub//aa/2025-08-18-profile-image-autohub-image68a34af2cd40f-1.jpg`} width={200} height={50} className="absolute z-5 h-[50px]" />
+                                </div>
+                            </SwiperSlide>
+                           )
                         })
                     }
             </Swiper>
