@@ -24,6 +24,7 @@ import api from "../../../api/api"
 import { PuffLoader } from "react-spinners"
 import { RequestPoint } from "../../../api/endPoint"
 import { useProduct } from "../../../hook/market-place/useProduct"
+import { USAGE_PATH } from "../../../../constant/Path"
 
 
 type displayProps = 
@@ -177,7 +178,7 @@ export default function Display(url: displayProps)
                                 <div 
                                     className="font-bold text-md text-gray-500 mt-5 border-shadow"
                                 >
-                                  <SlideThumbnail data={data?.data?.data?.product?.images} imageSize={data?.data?.data?.product?.images} waterMark={data?.data?.data?.product?.water_mark} slug={url?.url} />
+                                  <SlideThumbnail data={data?.data?.data?.product?.images} imageSize={data?.data?.data?.product?.images} waterMark={`${USAGE_PATH.WATER_MARK}${data?.data?.data?.product?.water_mark}`} slug={url?.url} />
                                 </div>
                                 <div 
                                     className="font-bold w-full text-dm text-gray-500 mt-2 h-fit pb-10 rounded-md border-shadow"
