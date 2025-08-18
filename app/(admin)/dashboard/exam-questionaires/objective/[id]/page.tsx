@@ -82,11 +82,11 @@ export default function TestQuestionaire({ params } : { params : { id: string } 
                 <div 
                     className="w-full p-1 -mb-7 rounded-lg"
                 >
-                    {
+                    {/* {
                     isLoading && <div className="col-span-12 h-[500px] flex justify-center items-center" style={{ marginTop: '30px', paddingTop: '20px' }}>
                         <BeatLoader color="#1c9236" />
                         </div>
-                    }
+                    } */}
                     {
                         !isLoading && (data?.data?.length === 0) && <div className="col-span-12 h-[500px] flex justify-center items-center border border-3 border-shadow border-green-200 bg-[#f5fbf7]" style={{ marginTop: '30px', paddingTop: '20px' }}>
                         <h1 

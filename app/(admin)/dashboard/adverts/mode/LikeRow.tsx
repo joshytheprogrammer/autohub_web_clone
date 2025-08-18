@@ -65,6 +65,7 @@ export default function LikeRow()
     const displayByPageNo = (page: any) => 
     {   
        setPerPage(Number(page)) 
+       setCurrentPage(1) 
        setTimeout(() => 
        {          
           refetch()
@@ -226,7 +227,7 @@ export default function LikeRow()
               cell: (row) => (<a href="#" onClick={() => DeleteProduct(true, row.renderValue())}><Icons iconName="delete" color='red' width={4} height={4}/></a>),
               accessorKey: 'product',
               maxSize: 20
-            }
+          }
       ],[])
 
     return (

@@ -57,7 +57,6 @@ export default function Course()
                                     refetch()
                                 }
                               } 
-                              token={token}
                             />
                         </>
             }

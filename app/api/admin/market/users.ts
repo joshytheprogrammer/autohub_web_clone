@@ -64,6 +64,27 @@ export async function GetMembers(currentPage: number, perPage: number, searchQue
       return await response.json()
 }
 
+export async function GetAffiliates(currentPage: number, perPage: number, searchQuery: string, token: string)
+{
+    let theQuery: string = searchQuery.trim()
+    let endPoint = (theQuery.length === 0) ? `user/affiliate/${currentPage}/${perPage}` :  `user/affiliate/${currentPage}/${perPage}/${theQuery}`
+    let ApiUrl = `${BASE_URL}${endPoint}`
+
+    const response = await fetch(ApiUrl, 
+    {
+        method: 'GET',    
+        headers: {    
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`   
+        },   
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      return await response.json()
+}
+
 export async function GetDealers(currentPage: number, perPage: number, searchQuery: string, token: string)
 {
     let theQuery: string = searchQuery.trim()

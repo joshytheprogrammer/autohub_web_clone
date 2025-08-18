@@ -3,15 +3,11 @@
 import { useState, useEffect } from "react"
 import { BeatLoader } from "react-spinners"
 import Message from "../../../../components/shared/Message"
-import { ChangeUserPassword } from "../../../api/auth/auth"
-import { UseStore } from "../../../../state/store"
+import api from "../../../api/api"
 
 
 export default function ChangePassword() 
 {      
-      const userToken = UseStore((state) => state)
-      const token: string = userToken.getUserToken()
-
       const PASSWORD_MESSAGE = 'Enter Password'
       const CONFIRM_PASSWORD_MESSAGE = 'Enter Confirm Password'  
       const CURRENT_PASSWORD_MESSAGE = 'Enter Current Password'  
@@ -44,42 +40,38 @@ export default function ChangePassword()
       const ChangePasswordForUser = async () => 
       {
           setIsLoading(true)
-          const checkFields: string = allFields()
-          
+          const checkFields: string = allFields()          
 
           if(checkFields === 'valid')
           {
-             const change = ChangeUserPassword(password, confirmPassword, currentPassword, token)
-             change.then((res: any) => 
-             {
-                setIsLoading(false) 
-                if(res.status === 200)
-                { 
-                   setSuccessMsg(res.message)
-                   setTimeout(() => {
-                    setSuccessMsg("")
-                   }, 10000)  
-                   return false
+              let ApiUrl = '/api/auth/change-password'            
+              await api.put(ApiUrl,  { password: password, confirm_password: confirmPassword, current_password: currentPassword } )
+              .then((response: any) => 
+              {
+                if(response?.data?.status === 200)
+                {
+                    setIsLoading(false)
+                    setSuccessMsg(response?.data?.message)
+                    setTimeout(() => 
+                    {
+                        setSuccessMsg("")
+                    }, 10000)  
+                    return false                    
                 } else {
-                   setValidationMessage(res.message)
-                   setTimeout(() => {
-                     setValidationMessage("")
-                   }, 10000)  
-                }      
-                return false
-              }).catch(() => {
-                   setValidationMessage("Connection failed")
-                   setIsLoading(false)
-                   setTimeout(() => {
-                      setValidationMessage("")
-                   }, 10000)   
-               })
-            } else {       
-                  setIsLoading(false)    
-                  setValidationMessage('')       
-                  setTimeout(() => {
-                     setValidationMessage('')
-                  }, 5000)         
+                    setValidationMessage(response?.data?.message)
+                    setTimeout(() => 
+                    {
+                        setValidationMessage("")
+                    }, 10000)                     
+                    setIsLoading(false)             
+                }
+              })
+           } else {       
+                setIsLoading(false)    
+                setValidationMessage('')       
+                setTimeout(() => {
+                   setValidationMessage('')
+                }, 5000)         
             }
             return false
       }

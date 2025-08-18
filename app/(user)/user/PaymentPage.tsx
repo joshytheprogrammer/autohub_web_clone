@@ -5,10 +5,9 @@ type clickOn =
 {
     onClick: (e: boolean | string) => void
     refetch: () => void
-    token: string
 }
 
-export default function PaymentPage({ onClick, refetch, token } : clickOn)  
+export default function PaymentPage({ onClick, refetch } : clickOn)  
 {
     const [openCourseModal, setOpenCourseModal] = useState<boolean>(false)
 
@@ -118,7 +117,6 @@ export default function PaymentPage({ onClick, refetch, token } : clickOn)
                         refetch()
                     }
                 }
-                token={token}
             />
         </>
     );

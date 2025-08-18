@@ -3,20 +3,21 @@ import { BeatLoader } from "react-spinners"
 import { Modal } from "./modal/Modal"
 import Message from "./shared/Message"
 import { UseStore } from "../state/store"
-// import { LogOutUser } from "../app/api/home/home"
 import { useRouter } from "next/navigation"
 import delay from "delay"
+import api from "../app/api/api"
+import Cookies from 'js-cookie';
 
 
 type SaveDraftProps = 
 {
     onClick: () => void 
     deleteModal: boolean 
-    token: string 
 }    
 
-export const Logout = ({onClick, deleteModal, token}: SaveDraftProps)  =>
+export const Logout = ({onClick, deleteModal}: SaveDraftProps)  =>
 {
+        console.log(Cookies.get('user-in-use'))
         const router = useRouter()
         const UserPics = UseStore((state) => state)
         const [loading, setIsLoading] = useState<boolean>(false)
@@ -26,50 +27,46 @@ export const Logout = ({onClick, deleteModal, token}: SaveDraftProps)  =>
    
         useEffect(() => 
         {
-           setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
+           setErrMsgStyle('text-md text-white font-bold bg-blue-600 rounded-lg py-3 px-5')
            setErrorMessage("")
            LogUserOut()
+        //    callIt()
         }, []) 
+
+        const callIt = async () => 
+        {            
+           let ApiUrl = '/api/auth/logout'
+           await api.post(ApiUrl)
+           .then((response: any) => 
+            {
+               if(response?.data?.status === 200)
+               {
+                  setIsLoading(false)
+                  setErrorMessage("")
+                  UserPics.setUserToken("")
+                  UserPics.setFName("")
+                  UserPics.setSName("")
+                  UserPics.setUType("")
+                  router.push('/login')   
+                //   window.location.href = '/'                    
+               } else {
+                  setIsLoading(false)
+                  setErrorMessage("User session ended, click away")
+                  setTimeout(() => 
+                  {
+                    setErrorMessage("")                                
+                  }, 10000)                 
+               }
+            })
+        }
+        
 
         const LogUserOut = async () => 
         { 
-           await delay(2000)
-           UserPics.setUserToken("")
-           UserPics.setFName("")
+           await delay(1000)
            UserPics.setSName("")
            UserPics.setUType("")
-
-           UserPics.setForce("no")     
-           UserPics.setEmptyTestObjective([])
-           UserPics.setDataLoaded(false)
-
-           
-           UserPics.setFirstDataLoadedExamObj([])
-           UserPics.setAdditionExamObj('')
-           UserPics.setDurationExamObj('')
-           UserPics.setQuestionIdExamObj('')
-
-           // objective
-           UserPics.setSelectedExamObjectiveOption([])
-           UserPics.setEmptyExamObjective([])
-           UserPics.setDefaultExamObjectiveAnswer([])
-           UserPics.setExamObjectiveIdentifier('')
-           UserPics.setDataLoadedExamObj(false)
-           UserPics.setFirstDataLoadedExamObj('')
-           UserPics.setAdditionExamObj('')
-           UserPics.setDurationExamObj('')
-           UserPics.setQuestionIdExamObj('')
-           
-           // theory
-           UserPics.setSelectedExamTheoryOption([])
-           UserPics.setEmptyExamTheory([])
-           UserPics.setSelectedExamTheoryAnswerValue('')
-           UserPics.setForceExamTheory('')
-           UserPics.setDefaultExamTheoryAnswer([])
-           UserPics.setExamTheoryIdentifier('')
-           UserPics.setDataLoadedExamTheory(false)
-           UserPics.setForceExamObj('no')
-           UserPics.setUserRoles([])
+           UserPics.setUserToken("")           
 
            UserPics.setSideType('member')
 
@@ -84,13 +81,16 @@ export const Logout = ({onClick, deleteModal, token}: SaveDraftProps)  =>
            UserPics.setPassword("")
            UserPics.setMemberAgreement(0)
 
+           UserPics.setProductId(-1)
            UserPics.setOnEdit("no")
+           UserPics.setUserToken("")
            UserPics.setCountry(-1)
            UserPics.setCountryName("")
            UserPics.setStates(-1)
+           UserPics.setStateName("")
            UserPics.setLGA(-1)
            UserPics.setLgaName("")
-           UserPics.setStateName("")
+           UserPics.setOurLgaName("")
            UserPics.setCategory(-1)
            UserPics.setCategoryName("")
            UserPics.setManufacturer(-1)
@@ -99,12 +99,14 @@ export const Logout = ({onClick, deleteModal, token}: SaveDraftProps)  =>
            UserPics.setModelName("")
            UserPics.setTrim(-1)
            UserPics.setTrimName("")
-           UserPics.setEngine(-1)
-           UserPics.setEngineName("")
+           UserPics.setGeneration(-1)
+           UserPics.setGenerationName("")
            UserPics.setColour(-1)
            UserPics.setColourName("")
-           UserPics.setYear("x")
+           UserPics.setYear("")
            UserPics.setYearName("")
+           UserPics.setSerie(-1)
+           UserPics.setSerieName("")
            UserPics.setTransmission(-1)
            UserPics.setTransmissionName("")
            UserPics.setCondition(-1)
@@ -120,42 +122,89 @@ export const Logout = ({onClick, deleteModal, token}: SaveDraftProps)  =>
            UserPics.setTheManufacturerName("")
            UserPics.setTheModelName("")
            UserPics.setTheTrimName("")
-           UserPics.setTheEngineName("")
-           UserPics.setTheMakerModels([])
-           UserPics.setTheModelTrim([])
-           UserPics.setTrimEngine([])
-           UserPics.setStateModel([])
-           UserPics.setLGAModel([])
+
+
+           UserPics.setCategories([])
+           UserPics.setCountries([])
+           UserPics.setStatess([])
+           UserPics.setLGAS([])
+           UserPics.setManufactuers([])
+           UserPics.setModels([])
+           UserPics.setGenerations([])
+           UserPics.setSeries([])
+           UserPics.setTrims([])
+           UserPics.setColours([])
+           UserPics.setFuels([])
+           UserPics.setTransmissions([])
+           UserPics.setConditions([])
+           UserPics.setProductDetail([])
+
+           UserPics.setTheSerieName("")
+           UserPics.setTheGenerationName("")
+
            UserPics.setImagePosition(-1)
            UserPics.setSaveOption("")
 
+
+           UserPics.setForce("no")     
+           UserPics.setEmptyTestObjective([])
+           UserPics.setDataLoaded(false)
+
+           
+           UserPics.setFirstDataLoadedExamObj([])
+        //    UserPics.setAdditionExamObj('')
+           UserPics.setDurationExamObj('')
+           UserPics.setQuestionIdExamObj('')
+
+           // objective
+           UserPics.setSelectedExamObjectiveOption([])
+           UserPics.setEmptyExamObjective([])
+           UserPics.setDefaultExamObjectiveAnswer([])
+           UserPics.setExamObjectiveIdentifier('')
+           UserPics.setDataLoadedExamObj(false)
+           UserPics.setFirstDataLoadedExamObj('')
+        //    UserPics.setAdditionExamObj('')
+           UserPics.setDurationExamObj('')
+           UserPics.setQuestionIdExamObj('')
+           
+           // theory
+           UserPics.setSelectedExamTheoryOption([])
+           UserPics.setEmptyExamTheory([])
+           UserPics.setSelectedExamTheoryAnswerValue('')
+           UserPics.setForceExamTheory('')
+           UserPics.setDefaultExamTheoryAnswer([])
+           UserPics.setExamTheoryIdentifier('')
+           UserPics.setDataLoadedExamTheory(false)
+           UserPics.setForceExamObj('no')
+           UserPics.setUserRoles([])
+
         //    UserPics.setPlusExamObj('')
-           window.location.href = '/'
-        //    router.push('/')
-        //    const loggingUserOut = LogOutUser(token)
-        //    loggingUserOut.then((response) => 
-        //    {
-        //         setErrorMessage("")
-        //       if(response?.status === 200)
-        //       {
-        //          setIsLoading(false)
-        //          setErrorMessage("")
-        //          UserPics.setUserToken("")
-        //          UserPics.setFName("")
-        //          UserPics.setSName("")
-        //          UserPics.setUType("")
-        //          router.push('/login')                 
-        //       } else {
-        //          setIsLoading(false)
-        //          setErrorMessage("Difficulty logging you out")
-        //          setTimeout(() => 
-        //          {
-        //              setErrorMessage("")                                
-        //          }, 10000)
-        //       }
-        //     }).then(() => {
-                
-        //     })
+        //    window.location.href = '/' 
+                     
+           let ApiUrl = '/api/auth/logout'
+           await api.post(ApiUrl)
+           .then((response: any) => 
+            {
+               if(response?.data?.status === 200)
+               {
+                  setIsLoading(false)
+                  setErrorMessage("")
+                  UserPics.setUserToken("")
+                  UserPics.setFName("")
+                  UserPics.setSName("")
+                  UserPics.setUType("")                  
+                  Cookies.remove('user-in-use')
+                  router.push('/login')   
+                //   window.location.href = '/'                    
+               } else {
+                  setIsLoading(false)
+                  setErrorMessage("User session ended, click away")
+                  setTimeout(() => 
+                  {
+                    setErrorMessage("")                                
+                  }, 10000)                 
+               }
+            })
         }
 
         return (

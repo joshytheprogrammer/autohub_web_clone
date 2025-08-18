@@ -6,6 +6,7 @@ import { Modal } from '../../../../../components/modal/Modal';
 import { reduceImageSize } from '../../../../../components/util/image';
 import { AddImage } from '../../../../api/home/market/images/product-images';
 import Message from '../../../../../components/shared/Message';
+import api from '../../../../api/api';
 
 type AddProductImageProp = 
 {
@@ -13,11 +14,9 @@ type AddProductImageProp =
    imageModal: boolean 
    productId: number 
    adverProductId?: number
-   userType: string
-   token: string
 }
 
-export const AddProductImage = ({onClick, imageModal, productId, userType, token}: AddProductImageProp)  =>
+export const AddProductImage = ({ onClick, imageModal, productId }: AddProductImageProp)  =>
 {  
         const [imgUrl, setUrl] = useState<string>("")
         const [loading, setIsLoading] = useState<boolean>(false)
@@ -44,21 +43,20 @@ export const AddProductImage = ({onClick, imageModal, productId, userType, token
         const uploadImage = async () =>
         {
             setIsLoading(true)
-            const AddProductImage = AddImage(productId, rawImage, userType, token)
-            AddProductImage.then((response) => 
+            let ApiUrl = '/api/users/add-product-image'            
+            await api.post(ApiUrl,  { product_id: productId, picture: rawImage } )
+            .then((response: any) => 
             {
-                if(response?.status === 200)
-                {
-                   setIsLoading(false)
-                   setErrorMessage("")
-                   onClick()
-                } else {
-                   setIsLoading(false)
-                   setErrorMessage("Upload product image failed")
-                }
-
-            }).then(() => {
-
+              if(response?.data?.status === 200)
+              {
+                 setIsLoading(false)
+                 setErrorMessage("")
+                 onClick()                   
+              } else {
+                 setIsLoading(false)
+                 setErrorMessage("Upload product image failed")
+                 return false              
+              }
             })
             console.log(rawImage)
         }

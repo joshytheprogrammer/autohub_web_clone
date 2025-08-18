@@ -5,10 +5,10 @@ import Image from 'next/image'
 import { Modal } from "../../../../../components/modal/Modal"
 import Message from "../../../../../components/shared/Message"
 // import { USAGE_PATH } from "../../../../../constant/Path"
-import { UseStore } from "../../../../../state/store"
-import { FaceImage, Images } from "../../../../api/home/market/images/product-images"
 import { AddProductImage } from "./AddProductImage"
 import { DeleteImageModal } from "./DeleteModal"
+import { useProduct } from "../../../../hook/market-place/useProduct"
+import api from "../../../../api/api"
 
 
 type ChangeProductImageProps = 
@@ -25,64 +25,66 @@ type ChangeProductImageProps =
 
 export const ChangeProductImage = ({onClick, imageModal, imageId, imageUrl, mode='view', productId, title, callAgain}: ChangeProductImageProps)  =>
 {
-        
-        const user = UseStore((state) => state)
-        const token: string = user.getUserToken()
-        const usertype: string = user.getUType()
-
-        const { data, isLoading, refetch } = useQuery({ queryKey: [`product-images-${imageId}`, imageId], queryFn: () => Images(Number(imageId), usertype, token) })
+    const { ProductImages } = useProduct()
+    const { data, isLoading, refetch } = useQuery(
+                                                   { 
+                                                      queryKey: [`product-images`], 
+                                                      queryFn: () => ProductImages(Number(productId)),
+                                                      refetchOnWindowFocus: true,
+                                                      refetchOnMount: true, 
+                                                      gcTime: 0, staleTime: 0  
+                                                   }
+                                                )
        
-        const [ imageOpenModal, setImageOpenModal] = useState(false)   
-        const [deleteOpenModal, setDeleteModal] = useState(false)
-        const [imageIdImage, setImageIdImage] = useState<number>(-1) 
-        const [productToDeleteMessage, setProductToDeleteMessage] = useState("")
-        const [userProductId] = useState(productId)
-        const [imageProductUrl, setImageProductUrl] = useState(imageUrl)
+    const [ imageOpenModal, setImageOpenModal] = useState(false)   
+    const [deleteOpenModal, setDeleteModal] = useState(false)
+    const [imageIdImage, setImageIdImage] = useState<number>(-1) 
+    const [productToDeleteMessage, setProductToDeleteMessage] = useState("")
+    const [userProductId] = useState(productId)
+    const [imageProductUrl, setImageProductUrl] = useState(imageUrl)
  
-        const [errMsgStyle, setErrMsgStyle] = useState<string>('')
-        const [errorMessage, setErrorMessage] = useState<string>("")
-        const [facingImage, setFacingImage] = useState<boolean>(false)
+    const [errMsgStyle, setErrMsgStyle] = useState<string>('')
+    const [errorMessage, setErrorMessage] = useState<string>("")
+    const [facingImage, setFacingImage] = useState<boolean>(false)
 
-        useEffect(() => 
+    useEffect(() => 
+    {
+       setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
+       setErrorMessage("")
+    }, []) 
+
+    // useEffect(() => {
+    //     if(imageOpenModal === false)
+    //     {
+    //         getImages()
+    //     }
+    // }, [imageOpenModal, deleteOpenModal])
+
+    const setImageFaceAdvert = async (image: { id: number, product_id: number}) => 
+    { 
+        let ApiUrl = '/api/users/face-image'            
+        await api.put(ApiUrl,  { image_id: image?.id,  product_id: image?.product_id} )
+        .then((response: any) => 
         {
-           setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-3 px-5')
-           setErrorMessage("")
-        }, []) 
+          if(response?.data?.status === 200)
+          {
+             setFacingImage(false)
+             setErrorMessage("")
+             callAgain()
+             refetch()                  
+          } else {
+             setFacingImage(false)
+             setErrorMessage("Setting product image failed")
+             setTimeout(() => 
+             {
+               setErrorMessage("")                                
+             }, 10000)
+             return false              
+          }
+        })
+      }
 
-        // useEffect(() => {
-        //     if(imageOpenModal === false)
-        //     {
-        //         getImages()
-        //     }
-        // }, [imageOpenModal, deleteOpenModal])
-
-
-        const setImageFaceAdvert = async (image: { id: number, product_id: number}) => 
-        { 
-            const ProductFaceImage = FaceImage(image.id, image.product_id, usertype, token)
-            ProductFaceImage.then((response) => 
-            {
-                setFacingImage(true)
-                if(response?.status === 200)
-                {
-                   setFacingImage(false)
-                   setErrorMessage("")
-                   callAgain()
-                   refetch()
-                } else {
-                   setFacingImage(false)
-                   setErrorMessage("Setting product image failed")
-                   setTimeout(() => 
-                   {
-                       setErrorMessage("")                                
-                   }, 10000)
-                }
-            }).then(() => {
-                
-            })
-        }
-
-        return (
+      return (
                 <>
                         <Modal onClick={onClick} isOpen={imageModal} wrapperWidth={1300} margin={'230px auto 0px auto'} color='green'>
                            <div 
@@ -111,9 +113,9 @@ export const ChangeProductImage = ({onClick, imageModal, imageId, imageUrl, mode
                                     !isLoading && data?.data &&
                                         <div className="grid md:grid-cols-12 grid-cols-12 gap-5 mt-5 justify-center item-center overflow-y-auto xm:overflow-y-scroll justify-center item-center h-[400px] px-5">
                                                 {
-                                                        data?.data &&
-                                                        (data?.data?.length > 0) &&
-                                                        data?.data?.map((image: { image_url: string, cover_page: number, product_id: number, id: number, face_image: number }, index: number) => {
+                                                        data?.data?.data &&
+                                                        (data?.data?.data?.length > 0) &&
+                                                        data?.data?.data?.map((image: { image_url: string, cover_page: number, product_id: number, id: number, face_image: number }, index: number) => {
                                                                 let selected = (image.face_image === 1) ?  `border border-10 border-green-400 p-1 bg-blue-200 h-auto` : `border-2 border-md border-shadow`
                                                                 let faceAdvert = (image.cover_page === 0) ?  `p-3 flex justify-between` : `p-3 flex justify-between`
                                                                 return (
@@ -188,8 +190,6 @@ export const ChangeProductImage = ({onClick, imageModal, imageId, imageUrl, mode
                                         callAgain={() => {
                                                 refetch()
                                         } }
-                                        userType={usertype}
-                                        token={token}
                                 />
                         }
 
@@ -203,9 +203,7 @@ export const ChangeProductImage = ({onClick, imageModal, imageId, imageUrl, mode
                                                         } 
                                                         imageModal={imageOpenModal} 
                                                         productId={productId} 
-                                                        adverProductId={userProductId} 
-                                                        userType={usertype}
-                                                        token={token}
+                                                        adverProductId={userProductId}
                                 />
                         }
                 </> 

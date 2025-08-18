@@ -8,15 +8,12 @@ import { UseStore } from "../../../../state/store"
 import { reduceImageSize } from "../../../../components/util/image"
 // import { USAGE_PATH } from "../../../../constant/Path"
 import { ChangeProfilePicture } from "../../../api/auth/profile"
+import api from "../../../api/api"
 
 
 export default function ChangePassport() 
 {    
     const userState = UseStore((state) => state)
-    const token: string = userState.getUserToken()
-    const userType: string = userState.getUType()
-
-
     const [isUploading, setIsUploading] = useState<boolean>(false)
     const [picture, setPicture] = useState<string>(userState.getPassport())
     const [imgUrl, setUrl] = useState<string>("")
@@ -61,23 +58,21 @@ export default function ChangePassport()
     const ChangeImage = async () =>
     {
         setIsUploading(true)
-        const UploadImage = ChangeProfilePicture(rawImage, userType, token)
-        UploadImage.then((response) => 
+        let ApiUrl = '/api/users/change-picture'            
+        await api.put(ApiUrl,  { passport: rawImage } )
+        .then((response: any) => 
         {
-            setIsUploading(true)
-            if(response?.status === 200)
-            {
-               setIsUploading(false)  
-               setUrl("")             
-               setPicture(response?.data?.passport)
-               userState.setPassport(response?.data?.passport)
-            } 
-            else {
-               setIsUploading(false)
-               setErrorMessage("Updating Profile failed")
-            }
-        }).then(() => {
-
+          if(response?.data?.status === 200)
+          {
+             setIsUploading(false)  
+             setUrl("")             
+             setPicture(response?.data?.data?.passport)
+             userState.setPassport(response?.data?.data?.passport)                   
+          } else {
+             setIsUploading(false)
+             setErrorMessage("Updating Profile failed")
+             return false              
+          }
         })
     }
 

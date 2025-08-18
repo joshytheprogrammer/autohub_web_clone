@@ -6,18 +6,16 @@ import { ProductComments } from "../../../../../components/advert/ProductComment
 import { useState } from "react"
 import { ChangeProductImage } from "./ChangeProductImage"
 import { DeleteProductModal } from "./DeleteProductModal"
-import { PreLoadingModal } from "../../edit-advert/preloading"
+import { PreLoadingModal } from "../../update-advert/preloading"
 
 
 type ActiveProductProps =
 {
     product: ActiveProduct 
     refetch: () => void
-    token: string
-    usertype: string
 }
 
-export default function AdvertControl({ product, refetch, token, usertype }: ActiveProductProps) 
+export default function AdvertControl({ product, refetch }: ActiveProductProps) 
 {    
     const [closeCommentDialog, setCloseCommentDialog] = useState<boolean>(false)
     const [openProductImages, setOpenProductImages] = useState<boolean>(false)
@@ -115,9 +113,7 @@ export default function AdvertControl({ product, refetch, token, usertype }: Act
                           () => {
                             refetch()
                           }
-                        } 
-                        userType={usertype}      
-                        token={token}          
+                        }        
                     /> 
                 }
 

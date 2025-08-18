@@ -67,7 +67,7 @@ export default function SingleImageUpload({width, space, ICloudColour, onClick}:
         photo.style.height = '300px'
         cloud.style.display = 'none'
         cloud.style.fontSize = '10px'
-        setUploadText("Click to change profile picture")
+        setUploadText("Click to change")
         photo.style.backgroundImage = `url(${passportUrl})`
 
         const image = Array.from(e.target.files)

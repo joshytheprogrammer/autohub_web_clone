@@ -10,11 +10,9 @@ type WishListControlProps =
 {
     product: ActiveProduct 
     refetch: () => void
-    token: string
-    usertype: string
 }
 
-export default function WishControl({product, refetch, token, usertype }: WishListControlProps ) 
+export default function WishControl({product, refetch }: WishListControlProps ) 
 {
     const [closeCommentDialog, setCloseCommentDialog] = useState<boolean>(false)
     const [productId, setProductId] = useState<number>(-1)     
@@ -81,8 +79,6 @@ export default function WishControl({product, refetch, token, usertype }: WishLi
                                                     } 
                                                     deleteModal={openDeleteProduct}
                                                     callAgain={() => { } }
-                                                    userType={usertype}
-                                                    token={token}
                         />
                     }
             </>

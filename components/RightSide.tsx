@@ -26,7 +26,21 @@ export default function RightSide()
        setPassport(userState.getPassport())
        setUserType(userState.getUType())
        setRoles(userState.getUserRoles())
-       console.log(userState.getUserRoles())
+      //  console.log("111111111111111")
+      //  console.log(userType)
+      //  console.log("222222222222222")
+      //  console.log(token)
+      //  console.log("33333333333333")
+      //  console.log(userState.getUType())
+      //  console.log("44444444444444")
+      //  console.log(userState.getUserRoles())
+      //  if(ROLES.includes(userType))
+      //  {
+      //     console.log("Yes")
+      //     console.log(ROLES)
+      //  } else {
+      //     console.log("No")        
+      //  }
     }, [])
 
     useEffect(() => 
@@ -58,14 +72,16 @@ export default function RightSide()
                   {    
                       token && <>
                         { (ROLES.includes(userType)) &&
-                          <span 
-                                onClick={
-                                  () => {
-                                      userState.setSideType('member')
-                                      router.push(`/dashboard`)
-                                  } 
-                                }
-                                className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 -ml-3 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
+                          <Link
+                              href={`/dashboard`} 
+                              prefetch={true}
+                              onClick={
+                                () => {
+                                    userState.setSideType('member')
+                                    router.push(`/dashboard`)
+                                } 
+                              }
+                              className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 -ml-3 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
                           >
                             <span 
                                 className="ml-2 flex justify-center items-center text-[15px]"
@@ -75,16 +91,18 @@ export default function RightSide()
                               />
                               Dashboard
                             </span>
-                          </span>                          
+                          </Link>                          
                         } 
-                        <span
-                              onClick={
-                               () => {
-                                    userState.setSideType('member')
-                                    router.push(`/user/profile`)
-                                } 
-                              }
-                              className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
+                        <Link
+                            href={`/user/profile`} 
+                            prefetch={true}
+                            onClick={
+                              () => {
+                                  userState.setSideType('member')
+                                  router.push(`/user/profile`)
+                              } 
+                            }
+                            className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
                         >
                           <span 
                               className="ml-2 flex justify-center items-center text-[15px]"
@@ -94,15 +112,17 @@ export default function RightSide()
                             />
                             Profile
                           </span>
-                        </span>        
-                        <span 
-                              onClick={
-                                () => {
-                                    userState.setSideType('member')
-                                    router.push(`/user/adverts`)
-                                 } 
-                              }
-                              className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
+                        </Link>        
+                        <Link 
+                            href={`/user/adverts`} 
+                            prefetch={true}
+                            onClick={
+                              () => {
+                                  userState.setSideType('member')
+                                  router.push(`/user/adverts`)
+                              } 
+                            }
+                            className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
                         >
                               <span 
                                   className="ml-2 flex justify-center items-center text-[15px]"
@@ -110,17 +130,19 @@ export default function RightSide()
                                 <HiMiniBookmarkSquare className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold' />
                                   My Adverts
                               </span>
-                        </span>
+                        </Link>
                         { 
                           (roles.includes('member')) &&  
-                            <span 
-                                  onClick={
-                                    () => {
-                                        userState.setSideType('member')
-                                        router.push(`/user/become-a-dealer`)
-                                    } 
-                                  }
-                                  className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outspan focus:outline-none"
+                            <Link 
+                                href={`/user/become-a-dealer`} 
+                                prefetch={true}
+                                onClick={
+                                  () => {
+                                      userState.setSideType('member')
+                                      router.push(`/user/become-a-dealer`)
+                                  } 
+                                }
+                                className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outspan focus:outline-none"
                             >
                                   <span 
                                       className="ml-2 flex justify-center items-center text-[15px]"
@@ -130,10 +152,12 @@ export default function RightSide()
                                     />
                                       Become an affiliate
                                     </span>
-                            </span>
+                            </Link>
 
                         }
-                        <span                         
+                        <Link   
+                            href={`/user/create-advert`} 
+                            prefetch={true}                      
                             onClick={
                               () => {
                                   userState.setSideType('member')
@@ -150,15 +174,17 @@ export default function RightSide()
                             />
                                 Create Advert
                           </span>
-                        </span>                               
-                        <span 
-                             onClick={
-                                () => {
-                                    userState.setSideType('member')
-                                    router.push(`/user/change-password`)
-                                } 
-                              }
-                              className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
+                        </Link>                               
+                        <Link 
+                            href={`/user/change-password`} 
+                            prefetch={true}  
+                            onClick={
+                              () => {
+                                  userState.setSideType('member')
+                                  router.push(`/user/change-password`)
+                              } 
+                            }
+                            className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
                         >
                               <span 
                                   className="ml-2 flex justify-center items-center text-[15px]"
@@ -166,23 +192,25 @@ export default function RightSide()
                                 <HiMiniBookmarkSquare className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold' />
                                   Change Password
                               </span>
-                        </span>                              
-                        <span 
-                              onClick={
-                                () => {
-                                    userState.setSideType('member')
-                                    router.push(`/user/change-passport`)
-                                } 
-                              }
-                              className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
+                        </Link>                              
+                        <Link 
+                            href={`/user/change-passport`} 
+                            prefetch={true}  
+                            onClick={
+                              () => {
+                                  userState.setSideType('member')
+                                  router.push(`/user/change-passport`)
+                              } 
+                            }
+                            className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none"
                         >
-                              <span 
-                                  className="ml-2 flex justify-center items-center text-[15px]"
-                              >
-                                <HiMiniBookmarkSquare className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold' />
-                                  Change Passport
-                              </span>
-                        </span>
+                            <span 
+                              className="ml-2 flex justify-center items-center text-[15px]"
+                            >
+                              <HiMiniBookmarkSquare className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold' />
+                                Change Passport
+                            </span>
+                        </Link>
                         
                         { 
                           (roles.includes('student')) &&  
@@ -197,44 +225,50 @@ export default function RightSide()
                               <div 
                                 className='pl-5'
                               >
-                                  <span 
-                                        onClick={
-                                           () => {
-                                              userState.setSideType('student')
-                                              router.push(`/user/dashboard`)
-                                           } 
-                                        }
-                                        className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outLink focus:outline-none"
+                                  <Link 
+                                      href={`/user/dashboard`} 
+                                      prefetch={true} 
+                                      onClick={
+                                         () => {
+                                            userState.setSideType('student')
+                                            router.push(`/user/dashboard`)
+                                         } 
+                                      }
+                                      className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outLink focus:outline-none"
                                   >
-                                        <span 
-                                            className="ml-2 flex justify-center items-center text-[15px]"
-                                        >
-                                          <HiMiniBars4 
-                                                    className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
-                                          />
-                                            Dashboard
-                                          </span>
-                                  </span>
-                                  <span 
-                                        onClick={
-                                           () => {
-                                              userState.setSideType('student')
-                                              router.push(`/user/course`)
-                                           } 
-                                        }
-                                        className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outspan focus:outline-none"
+                                      <span 
+                                         className="ml-2 flex justify-center items-center text-[15px]"
+                                      >
+                                        <HiMiniBars4 
+                                            className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
+                                        />
+                                           Dashboard
+                                        </span>
+                                  </Link>
+                                  <Link 
+                                      href={`/user/course`} 
+                                      prefetch={true}
+                                      onClick={
+                                        () => {
+                                           userState.setSideType('student')
+                                           router.push(`/user/course`)
+                                        } 
+                                      }
+                                      className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outspan focus:outline-none"
                                   >
-                                        <span 
-                                            className="ml-2 flex justify-center items-center text-[15px]"
-                                        >
-                                          <HiMiniBars4 
-                                                    className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
-                                          />
-                                            Courses
-                                          </span>
-                                  </span>
-                                  <span 
-                                        onClick={
+                                      <span 
+                                         className="ml-2 flex justify-center items-center text-[15px]"
+                                      >
+                                        <HiMiniBars4 
+                                            className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
+                                        />
+                                        Courses
+                                      </span>
+                                  </Link>
+                                  <Link 
+                                      href={`/user/time-table`} 
+                                      prefetch={true}
+                                      onClick={
                                            () => {
                                               userState.setSideType('student')
                                               router.push(`/user/time-table`)
@@ -250,43 +284,47 @@ export default function RightSide()
                                           />
                                             Time Table
                                           </span>
-                                  </span>
-                                  <span 
-                                        onClick={
-                                           () => {
-                                              userState.setSideType('student')
-                                              router.push(`/user/test`)
-                                           } 
-                                        }
-                                        className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outspan focus:outline-none"
+                                  </Link>
+                                  <Link 
+                                      href={`/user/test`} 
+                                      prefetch={true}
+                                      onClick={
+                                         () => {
+                                            userState.setSideType('student')
+                                            router.push(`/user/test`)
+                                         } 
+                                      }
+                                      className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outspan focus:outline-none"
                                   >
-                                        <span 
-                                            className="ml-2 flex justify-center items-center text-[15px]"
-                                        >
-                                          <HiMiniBars4 
-                                                    className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
-                                          />
-                                            Test
-                                          </span>
-                                  </span>
-                                  <span 
-                                        onClick={
-                                           () => {
-                                              userState.setSideType('student')
-                                              router.push(`/user/exam`)
-                                           } 
-                                        }
-                                        className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outspan focus:outline-none"
+                                      <span 
+                                         className="ml-2 flex justify-center items-center text-[15px]"
+                                      >
+                                        <HiMiniBars4 
+                                            className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
+                                        />
+                                          Test
+                                      </span>
+                                  </Link>
+                                  <Link 
+                                      href={`/user/exam`} 
+                                      prefetch={true}
+                                      onClick={
+                                        () => {
+                                           userState.setSideType('student')
+                                           router.push(`/user/exam`)
+                                        } 
+                                      }
+                                      className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outspan focus:outline-none"
                                   >
-                                        <span 
-                                            className="ml-2 flex justify-center items-center text-[15px]"
-                                        >
-                                          <HiMiniBars4 
-                                                    className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
-                                          />
-                                            Exam
-                                          </span>
-                                  </span>
+                                      <span 
+                                         className="ml-2 flex justify-center items-center text-[15px]"
+                                      >
+                                        <HiMiniBars4 
+                                           className='mr-2 -ml-5 text-green-500 mt-1 cursor-pointer hover:text-blue-600 hover:font-bold'
+                                        />
+                                          Exam
+                                      </span>
+                                  </Link>
                                   {/* <span 
                                         onClick={
                                            () => {
@@ -329,6 +367,7 @@ export default function RightSide()
                   {    
                       !token && <>
                         <Link 
+                            prefetch={true}
                             href={`/login`} 
                             className="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 ml-2 hover:text-red-600 flex items-center focus:text-indigo-700 focus:outline-none"
                         >
@@ -374,11 +413,10 @@ export default function RightSide()
               {
                  openLoggedOut && <Logout onClick={
                                               () => {
-
+                                                setOpenLoggedOut(false)
                                             }
                                           } 
                                           deleteModal={openLoggedOut} 
-                                          token={token} 
                                   />
               }
             </div>

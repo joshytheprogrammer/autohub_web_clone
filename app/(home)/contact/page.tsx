@@ -3,68 +3,15 @@
 
 import { HiLocationMarker } from "react-icons/hi"
 import { HiMiniPhoneArrowUpRight } from "react-icons/hi2"
+import { Select } from "./Select"
+import { useState } from "react"
 
 
 export default function ContactUs() 
 {
-  
-	 
-	 const data: any = [
-		{
-			"id": 1459262,
-			"value": "LE",
-			"id_name": 1459262
-		},
-		{
-			"id": 1459263,
-			"value": "SE",
-			"id_name": 1459263
-		},
-		{
-			"id": 1459264,
-			"value": "SE Nightshade",
-			"id_name": 1459264
-		},
-		{
-			"id": 1459267,
-			"value": "TRD V6",
-			"id_name": 1459267
-		},
-		{
-			"id": 1459265,
-			"value": "XLE",
-			"id_name": 1459265
-		},
-		{
-			"id": 1459268,
-			"value": "XLE V6",
-			"id_name": 1459268
-		},
-		{
-			"id": 1459266,
-			"value": "XSE",
-			"id_name": 1459266
-		},
-		{
-			"id": 1459269,
-			"value": "XSE V6",
-			"id_name": 1459269
-		}
-	]
-
-
-
-   let nameOnly = []
-  for (let index = 0; index < data.length; index++) 
-  {
-     nameOnly.push(data[index]['value'])    
-  }
-  console.log(nameOnly)
-  console.log(nameOnly?.length)
-
-
 
   return (
+      <>
         <div 
               className='container w-full d-flex justify-center mt-7 mb-4 mx-auto my-10'
         > 
@@ -97,5 +44,6 @@ export default function ContactUs()
 
             <div className="h-[170px] md:h-[370px]"></div>
         </div>
+      </>
   )
 }

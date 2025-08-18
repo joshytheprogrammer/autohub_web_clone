@@ -2,6 +2,7 @@
 
 import toast from "react-hot-toast"
 import { UserWishList } from "../app/api/home/market/advert/Comments"
+import api from "../app/api/api"
 
 type WishProp = 
 {
@@ -15,15 +16,14 @@ type WishListProps =
     data: WishProp[]
     onClick: (res: string) => void
     token: string
-    type: string
 }
 
-export default function WishList({ productId, data, onClick, token, type }: WishListProps) 
+export default function WishList({ productId, data, onClick, token }: WishListProps) 
 {
   let result = data?.filter((product) => Number(product?.product_id) === Number(productId))
   let isWishList = (result?.length > 0) ? "yes" : "no"
 
-  const AddToWishList = () => 
+  const AddToWishList = async () => 
   {
     if(!token)
     {
@@ -34,28 +34,27 @@ export default function WishList({ productId, data, onClick, token, type }: Wish
         },
        );       
     } else {
-        const AddToWishList = UserWishList(productId, token, type)
-        AddToWishList.then((response) => 
+          
+        let ApiUrl = '/api/users/wish-list'
+        await api.post(ApiUrl, { product_id: productId })
+        .then((response: any) => 
         {
-            if(response?.status === 200)
-            {
+          if(response?.data?.status === 200)
+          {
               toast.success(response?.message, {
                 position: "top-center",
-              });
-            } else {
+              });                     
+          } else {
               toast.error(response?.message,
                 {
                     position: "top-center",
                     style: customStyle
                 },
-               );
-            }
-            onClick('')
-        }).then(() => {
-
+              );                  
+          }          
+          onClick('')
         })
-    }
-      
+    }      
   }
 
   const customStyle = 

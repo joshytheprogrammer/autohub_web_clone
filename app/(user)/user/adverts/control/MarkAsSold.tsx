@@ -2,9 +2,8 @@ import { useEffect, useState } from "react"
 import { BeatLoader } from "react-spinners"
 import Image from 'next/image'
 import { Modal } from "../../../../../components/modal/Modal"
-import { USAGE_PATH } from "../../../../../constant/Path"
-import { MarkProductSold } from "../../../../api/home/market/user/product"
 import Message from "../../../../../components/shared/Message"
+import api from "../../../../api/api"
 
 
 type MarkAsSolModalProps = 
@@ -16,11 +15,9 @@ type MarkAsSolModalProps =
     message: string
     productName: string
     callAgain: () => void
-    userType: string
-    token: string
 }    
 
-export const MarkAsSolModal = ({onClick, asSoldModal, imageProductUrl='', productId, productName, message, callAgain, userType, token }: MarkAsSolModalProps)  =>
+export const MarkAsSolModal = ({onClick, asSoldModal, imageProductUrl='', productId, productName, message, callAgain }: MarkAsSolModalProps)  =>
 {
         const [loading, setIsLoading] = useState<boolean>(false)
     
@@ -35,22 +32,25 @@ export const MarkAsSolModal = ({onClick, asSoldModal, imageProductUrl='', produc
 
         const deleteProduct = async () => 
         {    
-           setIsLoading(true)
-           const DeleteProductImage = MarkProductSold(productId, userType, token)
-           DeleteProductImage.then((response) => 
-           {
-              if(response?.status === 200)
-              {
+           setIsLoading(true)           
+           let ApiUrl = '/api/users/mark-as-sold'
+           await api.post(ApiUrl, { product_id: productId })
+           .then((response: any) => 
+            {
+               if(response?.data?.status === 200)
+               {
                  setIsLoading(false)
                  setErrorMessage("")
                  callAgain()
-                 onClick()
-              } else {
+                 onClick()                      
+               } else {
                  setIsLoading(false)
-                 setErrorMessage("Setting product image failed")
-              }
-            }).then(() => {
-                console.log(message)
+                 setErrorMessage("Deleting product failed")
+                 setTimeout(() => 
+                 {
+                     setErrorMessage("")                                
+                 }, 10000)                  
+               }
             })
         }
 
@@ -80,7 +80,7 @@ export const MarkAsSolModal = ({onClick, asSoldModal, imageProductUrl='', produc
                                                src={`${USAGE_PATH.PRODUCT_FACE}${imageProductUrl}`} 
                                                alt="Sunset in the mountains" 
                                            /> */}
-                                           <Image src={`${imageProductUrl}`}  alt={`${imageProductUrl}`} width={600} height={600} className='rounded-full' /> 
+                                           <Image src={`${imageProductUrl}`}  alt={`${imageProductUrl}`} width={600} height={600} className='rounded-md' /> 
                                         </div>
                                 }
                                 <div 

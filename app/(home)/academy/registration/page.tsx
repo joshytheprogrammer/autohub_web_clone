@@ -1025,8 +1025,7 @@ export default function MACEOSRegistration()
                       () => {
                           }
                     } 
-                  deleteModal={openLoggedOut} 
-                  token={token} 
+                  deleteModal={openLoggedOut}
                 />
           }
 

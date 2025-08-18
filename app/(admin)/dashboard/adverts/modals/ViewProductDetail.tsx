@@ -84,7 +84,7 @@ export const ViewProductDetail = ({onClick, openViewProductDetail, product}: Vie
                                 className='col-span-12 pt-1 pb-5 pb-2 overflow-auto overflow-y-scroll justify-center h-[700px] px-5 item-center'
                             >        
                                     <div 
-                                        className="mb-4 md:w-full d-flex md:flex gap-5 "
+                                        className="mb-4 md:w-full d-flex md:flex gap-5"
                                     >
                                         <div 
                                             className="w-full md:w-1/2 border-2 border-shadow rounded-lg py-2 px-5 mb-5 md:mb-0"

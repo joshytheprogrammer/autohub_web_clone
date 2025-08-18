@@ -8,12 +8,13 @@ import { useEffect, useState } from "react"
 import Result from "./result"
 import PaymentPage from "../PaymentPage"
 import Marketi from "./marketi"
+import { useProduct } from "../../../hook/market-place/useProduct"
 
 
 export default function Dashboard() 
 {
    const userToken = UseStore((state) => state)
-   const token: string = userToken.getUserToken() 
+   const { Dashboard } = useProduct()
    const [roles, setRoles] = useState<string[]>([]) 
    const [isStudent, setIsStudent] = useState<boolean>(false) 
    const [isLoaded, setIsLoaded] = useState<boolean>(false) 
@@ -32,7 +33,13 @@ export default function Dashboard()
      setIsLoaded(true)
    }, [])
 
-   const { data, isLoading, refetch } = useQuery({ queryKey: [`user-summary`], queryFn: () => StudentDashboard(token) })
+    const { data, isLoading, refetch, isRefetching } = useQuery(
+                                                                    { queryKey: [`market-student-dashboard`], 
+                                                                      queryFn: () => Dashboard(),
+                                                                      refetchOnWindowFocus: true,
+                                                                      refetchOnMount: true, 
+                                                                      gcTime: 0, staleTime: 0  
+                                                                    })
    if(!isLoading)
    {
       console.log(data)
@@ -124,7 +131,7 @@ export default function Dashboard()
                     
                     <div className="h-[30px]"></div>
                     {
-                        (userToken.getUserRoles().includes('member') || (userToken.getUserRoles().includes('affiliate')) || userToken.getUserRoles().includes('dealer') || userToken.getUserRoles().includes('admin') || userToken.getUserRoles().includes('super-admin')) && ((userToken.getSideType() === 'member') || (userToken.getSideType() === 'affiliate') || (userToken.getSideType() === 'admin') ||  (userToken.getSideType() === 'super-admin') || userToken.getSideType() === 'dealer') && <Marketi ads={data?.additions} />
+                        (userToken.getUserRoles().includes('member') || (userToken.getUserRoles().includes('affiliate')) || userToken.getUserRoles().includes('dealer') || userToken.getUserRoles().includes('admin') || userToken.getUserRoles().includes('super-admin')) && ((userToken.getSideType() === 'member') || (userToken.getSideType() === 'affiliate') || (userToken.getSideType() === 'admin') ||  (userToken.getSideType() === 'super-admin') || userToken.getSideType() === 'dealer') && <Marketi ads={data?.data?.additions} />
                     }
                     {
                         userToken.getUserRoles().includes('student') && (userToken.getSideType() === 'student') && <Result />
@@ -138,8 +145,8 @@ export default function Dashboard()
             { approvalRequest && <p className={`font-bold text-lg text-white rounded-md col-span-12 ${(approvalRequest === "") ? " " : "p-3 bg-blue-600"}`}>{approvalRequest}</p> }
             
             {
-                !isLoading && (data?.plus?.payment_status === "not-paid") && (userToken.getSideType() === "student")
-                                                                      && ((data?.plus?.receipt === '') || (data?.plus?.receipt === null) || (data?.plus?.receipt === undefined)) 
+                !isLoading && (data?.data?.plus?.payment_status === "not-paid") && (userToken.getSideType() === "student")
+                                                                      && ((data?.data?.plus?.receipt === '') || (data?.data?.plus?.receipt === null) || (data?.data?.plus?.receipt === undefined)) 
                                                                       && <>
                                         <PaymentPage 
                                             onClick={(e: boolean | string) => {
@@ -158,16 +165,15 @@ export default function Dashboard()
                                                 refetch()
                                             }
                                           } 
-                                          token={token}
                                         />
                                     </>
             }
             <div className="p-1"></div>
             {
-              !isLoading && data?.data 
-                                && (data?.plus?.payment_status === "not-paid") 
-                                && (data?.plus?.receipt) 
-                                && (data?.plus?.access === 'pending') 
+              !isLoading && data?.data?.data 
+                                && (data?.data?.plus?.payment_status === "not-paid") 
+                                && (data?.data?.plus?.receipt) 
+                                && (data?.data?.plus?.access === 'pending') 
                                 &&  (userToken.getSideType() === "student") &&  <>
                   <div 
                       className="col-span-12 bg-green-400 flex d-flex bg-green-50 border-2 border-shadow drop-shadow-lg md:block px-3 md:px-10 py-5 mt-10 rounded-2xl md: mb-0 h-[600px] justify-center item-center" 

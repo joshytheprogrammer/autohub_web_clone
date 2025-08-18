@@ -57,7 +57,6 @@ export default function TimeTable()
                       refetch()
                    }
                 } 
-                token={token}
               />
           </>
         }

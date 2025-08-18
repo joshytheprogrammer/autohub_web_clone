@@ -14,7 +14,7 @@ export const useProductDetail = (slug: string) =>
     const userToken = UseStore((state) => state)
     const token: string = userToken.getUserToken()
     
-    const [appData, setAppData] = useState({ data: null, isLoading: false, isSuccess: false, isError: false, error: "", completed: '', category: null, featured: [], plus: "" })
+    const [appData, setAppData] = useState({ data: null, isLoading: false, isSuccess: false, isError: false, error: "", completed: '', category: null, featured: [], otherUserProduct: [], otherProduct: [], plus: "" })
     useEffect(() => 
     {
         setAppData((data) => ({ ...data, isLoading: true}))
@@ -36,6 +36,8 @@ export const useProductDetail = (slug: string) =>
                         completed: "yes",
                         category: response?.data?.category,
                         featured: response?.data?.featured,
+                        otherUserProduct: response?.data?.other_user_product,
+                        otherProduct: response?.data?.other_product,
                         plus: response?.plus
                       }
                     )
@@ -49,11 +51,13 @@ export const useProductDetail = (slug: string) =>
                                 completed: "no",
                                 category: null,
                                 featured: [],
+                                otherUserProduct: [],
+                                otherProduct: [],
                                 plus: ""
                               }
                   )
         } 
     }
-    const { data, isLoading, isSuccess, isError, error, completed, category, featured, plus } = appData
-    return { data, isLoading, isSuccess, isError, error, completed, category, featured, plus }
+    const { data, isLoading, isSuccess, isError, error, completed, category, featured, otherUserProduct, otherProduct, plus } = appData
+    return { data, isLoading, isSuccess, isError, error, completed, category, featured, otherUserProduct, otherProduct, plus }
 }

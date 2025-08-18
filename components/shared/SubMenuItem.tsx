@@ -26,6 +26,7 @@ export const SubMenuItem = ({ items }: any) =>
                 ) : (
                     <Link 
                         shallow={true} 
+                        prefetch={true}
                         className='mx-2 text-gray-200 font-bold hover:text-black hover:font-bold cursor-pointer text-sm' 
                         href={items?.goTo}
                         onClick={

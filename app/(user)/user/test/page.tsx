@@ -57,7 +57,6 @@ export default function Test()
                           refetch()
                        }
                     } 
-                    token={token}
                   />
               </>
             }

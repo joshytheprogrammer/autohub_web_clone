@@ -12,11 +12,12 @@ type PrdoductCommentProps =
 {
     productId: string
     vendorId: string 
+    onClick : () => void
 }
 
 
-export default function ProductComment({ productId, vendorId }: PrdoductCommentProps) 
-{
+export default function ProductComment({ productId, vendorId, onClick }: PrdoductCommentProps) 
+{console.log({productId, vendorId})
   const userToken = UseStore((state) => state)
   const token: string = userToken.getUserToken()
   const userType: string = userToken.getUType()
@@ -49,6 +50,7 @@ export default function ProductComment({ productId, vendorId }: PrdoductCommentP
 
   const SendMessage = async () => 
   {
+      setIsLoading(true)
       const data: ProductCommentProps = 
       {
         product_id: productId,
@@ -74,11 +76,12 @@ export default function ProductComment({ productId, vendorId }: PrdoductCommentP
                 setIsLoading(false)
                 setComment("")
                 refetch()
+                onClick()
                 setTimeout(
                   () => 
                   {
                     setSuccessMessage("")
-                  }, 5000)
+                  }, 2000)
               }
     
           }).catch(() => {
@@ -96,7 +99,7 @@ export default function ProductComment({ productId, vendorId }: PrdoductCommentP
   return (
         <>
             <div 
-                className="px-1 py-3 flex justify-between items-center border border-1 rounded-lg px-4"
+                className="px-1 py-3 flex justify-between items-center border border-1 rounded-lg px-4 mb-5"
             >
                 <span className="text-sm text-blue-700 font-bold">Leave a comment</span>
                 <span 

@@ -16,14 +16,6 @@ export interface IAdvert
     setCountryName: (countryName: string) => void
     getCountryName: () => void
 
-    LGA: number,
-    setLGA: (LGA: number) => void
-    getLGA: () => void
-
-    LgaName: string,
-    setLgaName: (LgaName: string) => void
-    getLgaName: () => void
-
     states: number,
     setStates: (states: number) => void
     getStates: () => void
@@ -32,12 +24,24 @@ export interface IAdvert
     setStateName: (stateName: string) => void
     getStateName: () => void
 
+    LGA: number,
+    setLGA: (LGA: number) => void
+    getLGA: () => void
+
+    LgaName: string,
+    setLgaName: (LgaName: string) => void
+    getLgaName: () => void
+
+    OurLgaName: string,
+    setOurLgaName: (OurLgaName: string) => void
+    getOurLgaName: () => void
+
     category: number,
     setCategory: (category: number) => void
     getCategory: () => void
 
     categoryName: string,
-    setCategoryName: (category: string) => void
+    setCategoryName: (categoryName: string) => void
     getCategoryName: () => void
 
     manufacturer: number,
@@ -56,6 +60,22 @@ export interface IAdvert
     setModelName: (modelName: string) => void
     getModelName: () => void
 
+    generation: number,
+    setGeneration: (generation: number) => void
+    getGeneration: () => void
+
+    generationName: string,
+    setGenerationName: (generationName: string) => void
+    getGenerationName: () => void
+
+    serie: number,
+    setSerie: (serie: number) => void
+    getSerie: () => void
+
+    serieName: string,
+    setSerieName: (serieName: string) => void
+    getSerieName: () => void
+
     trim: number,
     setTrim: (trim: number) => void
     getTrim: () => void
@@ -64,20 +84,12 @@ export interface IAdvert
     setTrimName: (trimName: string) => void
     getTrimName: () => void
 
-    engine: number,
-    setEngine: (engine: number) => void
-    getEngine: () => void
-
-    engineName: string,
-    setEngineName: (engine: string) => void
-    getEngineName: () => void
-
     colour: number,
     setColour: (colour: number) => void
     getColour: () => void
 
     colourName: string,
-    setColourName: (colour: string) => void
+    setColourName: (colourName: string) => void
     getColourName: () => void
 
     year: string,
@@ -93,7 +105,7 @@ export interface IAdvert
     getTransmission: () => void
 
     transmissionName: string,
-    setTransmissionName: (transmission: string) => void
+    setTransmissionName: (transmissionName: string) => void
     getTransmissionName: () => void
 
     condition: number,
@@ -101,7 +113,7 @@ export interface IAdvert
     getCondition: () => void
 
     conditionName: string,
-    setConditionName: (condition: string) => void
+    setConditionName: (conditionName: string) => void
     getConditionName: () => void
 
     fuel: number,
@@ -148,29 +160,71 @@ export interface IAdvert
     setTheTrimName: (theTrimName: string) => void
     getTheTrimName: () => void
 
-    theEngineName: string,
-    setTheEngineName: (theEngineName: string) => void
-    getTheEngineName: () => void
-    
-    makerModels: [],
-    setTheMakerModels: (makerModels: []) => void
-    getTheMakerModels: () => void
-    
-    modelTrim: [],
-    setTheModelTrim: (modelTrim: []) => void
-    getTheModelTrim: () => void
+    categories: [],
+    setCategories: (categories: []) => void
+    getCategories: () => void
 
-    trimEgine: [],
-    setTrimEngine: (trimEgine: []) => void
-    getTrimEngine: () => void
+    countries: [],
+    setCountries: (countries: []) => void
+    getCountries: () => void
+
+    statess: [],
+    setStatess: (statess: []) => void
+    getStatess: () => void
+
+    lgas: [],
+    setLGAS: (lgas: []) => void
+    getLGAS: () => void
+
+    manufacturers: [],
+    setManufactuers: (manufacturers: []) => void
+    getManufacturers: () => void
+
+    models: [],
+    setModels: (models: []) => void
+    getModels: () => void
+
+    //
+    generations: [],
+    setGenerations: (generations: []) => void
+    getGenerations: () => void    
+
+    series: [],
+    setSeries: (series: []) => void
+    getSeries: () => void
+
+    trims: [],
+    setTrims: (trims: []) => void
+    getTrims: () => void
+
+    colours: [],
+    setColours: (colours: []) => void
+    getColours: () => void
+
+    fuels: [],
+    setFuels: (fuels: []) => void
+    getFuels: () => void
+
+    transmissions: [],
+    setTransmissions: (transmissions: []) => void
+    getTransmissions: () => void
+
+    conditions: [],
+    setConditions: (conditions: []) => void
+    getConditions: () => void
+
+    productDetail: [],
+    setProductDetail: (productDetail: []) => void
+    getProductDetail: () => void
+
+    //    
+    theSerieName: string,
+    setTheSerieName: (theSerieName: string) => void
+    getTheSerieName: () => void
     
-    statesModels: [],
-    setStateModel: (statesModels: []) => void
-    getStateModel: () => void
-    
-    LGAModel: [],
-    setLGAModel: (LGAModel: []) => void
-    getLGAModel: () => void
+    theGenerationName: string,
+    setTheGenerationName: (theGenerationName: string) => void
+    getTheGenerationName: () => void
     
     imagePosition: number,
     setImagePosition: (imagePosition: number) => void

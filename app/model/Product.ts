@@ -22,7 +22,7 @@ export class Product extends Dexie
   
   constructor() 
   {
-    super('AutoHubNigeriass');
+    super('AutoHubNigeeriasssx');
     this.version(1).stores(
       {
         productsDB: '++id, tb_id, user_id, title, face_image, slug, description, price, min_price, max_price, chasis_no, mileage, year, address, views, water_mark, category_id, category_name, hash, country, state, manufacturer, model, trim, colour, condition, transmission, engine, images, firstname, middlename, surname, phone, email, search_1, search_2, search_3, search_4, search_5, search_6, search_7, search_8, search_9, search_10, search_11, search_12, search_13, search_14, search_15, search_16, search_17, search_18, search_19, search_20, search_21',
@@ -38,14 +38,14 @@ export class Product extends Dexie
         colourDB: '++id, tb_id, name, rate',
         transmissionDB: '++id, tb_id, name',
         conditionDB: '++id, tb_id, name',
-        sliderDB: '++id, tb_id, product_id, title, price, slug, image_url, face_image, country, state',
+        sliderDB: '++id, tb_id, name, image_url, slide, status',
         advertImageDB: '++id, tb_id, image, position, faceImage',
         profileDB: '++id, firstname, surname, phone, email, verified, reset, passport',
         settingsDB: '++id, id, auth, plan, contact_1, contact_2, address_1, address_2, x, facebook, tiktok, instagram, vacancy, career, blog_comment, post_comment, timer'
       }
     );
   }
-
+  
   deleteFromProductsDB = (id: number) => 
   {
       this.transaction('rw', productsDB, function () 

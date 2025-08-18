@@ -98,7 +98,7 @@ const SelectManufacturer = ({ placeholder, selectedManufacturer, manufacturers, 
                                 {
                                     setSelected(x?.name)
                                     setInputValue("")
-                                    onClick(x?.tb_id)
+                                    onClick(x?.id)
                                     setOpen(false)
                                 }
                                 }

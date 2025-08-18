@@ -1,4 +1,4 @@
-import { categoryDB, countryDB, engineDB, manufacturerDB, modelDB, productsDB, settingsDB, stateDB, trimDB } from "../model/Product"
+import { categoryDB, countryDB, engineDB, manufacturerDB, modelDB, productsDB, settingsDB, sliderDB, stateDB, trimDB } from "../model/Product"
 
 export const useAddApplicationData = () =>
   {    
@@ -15,12 +15,12 @@ export const useAddApplicationData = () =>
             stateDB.bulkAdd(data?.state)
             manufacturerDB.bulkAdd(data?.manufacturer)
             modelDB.bulkAdd(data?.model)
-            trimDB.bulkAdd(data?.trim)
-            engineDB.bulkAdd(data?.engine)
-            settingsDB.bulkAdd(data?.settings)
+            // trimDB.bulkAdd(data?.trim)
+            // engineDB.bulkAdd(data?.engine)
+            sliderDB.bulkAdd(data?.slider)
+            // settingsDB.bulkAdd(data?.settings)
           }        
           const allProduct = await productsDB.toArray() 
-          console.log(allProduct)
           const productLength = await productsDB.count()
           let ids: any[] = []
           for (let index = 0; index < productLength; index++) 

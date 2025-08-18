@@ -72,6 +72,12 @@ export default function DashboardLayout(
               resource: "allow"
           },
           {
+              name: "Advert Slider",
+              url: "/dashboard/advert-slider",
+              icon: <HiMiniUserCircle className='mr-2 mt-1 text-md' />,
+              resource: "allow"
+          },
+          {
               name: "Dealers",
               url: "/dashboard/dealers",
               icon: <HiMiniHashtag className='mr-2 mt-1 text-md' />,
@@ -86,6 +92,12 @@ export default function DashboardLayout(
           {
               name: "Staffs",
               url: "/dashboard/staffs",
+              icon: <HiMiniUser className='mr-2 mt-1 text-md' />,
+              resource: "allow"
+          },
+          {
+              name: "Affiliate",
+              url: "/dashboard/affiliate",
               icon: <HiMiniUser className='mr-2 mt-1 text-md' />,
               resource: "allow"
           },
@@ -167,12 +179,12 @@ export default function DashboardLayout(
               icon: <HiBookmarkSquare className='mr-2 mt-1 text-md' />,
               resource: "allow"
           },
-          {
-              name: "Contact Messages",
-              url: "/dashboard/contact-messages",
-              icon: <HiEnvelope className='mr-2 mt-1 text-md' />,
-              resource: "allow"
-          },
+        //   {
+        //       name: "Contact Messages",
+        //       url: "/dashboard/contact-messages",
+        //       icon: <HiEnvelope className='mr-2 mt-1 text-md' />,
+        //       resource: "allow"
+        //   },
           {
               name: "Settings",
               url: "/dashboard/settings",
@@ -206,8 +218,8 @@ export default function DashboardLayout(
                                     className='text-4xl mr-1 text-white cursor-pointer md:hidden z-5' 
                                     onClick={() => 
                                     {
-                                    setMenu(true)
-                                    callOpen()
+                                        setMenu(true)
+                                        callOpen()
                                     }}
                             />
                         </section>  
@@ -274,7 +286,7 @@ export default function DashboardLayout(
                                                         let allow: string = (isDataOperator === "Data-Operator") ? "not" : "allow"
 
                                                         return (
-                                                            (user?.resource === allow) && <Link 
+                                                            <Link prefetch={true}
                                                                 href={`${user?.url}`}
                                                                 key={index}
                                                                 onClick={() => { setMenu(false) }}
@@ -353,7 +365,7 @@ export default function DashboardLayout(
                                             let isDataOperator: string = Session.getFName()
 
                                             return (
-                                                (isDataOperator != "Data-Operator") && <Link 
+                                                <Link prefetch={true}
                                                     href={`${user?.url}`}
                                                     key={index}
                                                     shallow={true}
@@ -368,19 +380,18 @@ export default function DashboardLayout(
                                             )
                                         })
                                     }
-                                    {
+                                    {/* {
                                         
                                         admin.map((user, index) => {
                                             let isDataOperator: string = Session.getFName()
                                             let allow: string = (isDataOperator === "Data-Operator") ? "not" : "allow"
 
                                             return (
-                                                (user?.resource === allow) && <Link 
+                                                <Link prefetch={true} 
                                                     href={`${user?.url}`}
                                                     key={index}
                                                     shallow={true}
                                                 >
-                                                    {/* [#bdbcbb] */}
                                                     <li 
                                                         className='flex px-5 py-2 bg-[#1c733d] hover:bg-green-900 mb-1 cursor-pointer text-left text-[14px] font-bold text-white hover:text-white'
                                                     >                                                
@@ -389,7 +400,7 @@ export default function DashboardLayout(
                                                 </Link>
                                             )
                                         })
-                                    }   
+                                    }    */}
                                 </ul>                    
                             </div>
                         </div>
@@ -403,8 +414,7 @@ export default function DashboardLayout(
 
                                                     }
                                                 } 
-                                                deleteModal={openLoggedOut} 
-                                                token={token} 
+                                                deleteModal={openLoggedOut}
                                         />
                     }
                 </AutoHubProvider>

@@ -7,30 +7,39 @@ import { PuffLoader } from "react-spinners"
 import SlideShowThumbnail from "../../../../../components/SlideShowThumbnail"
 import currencyFormatter from "../../../../../components/util/currency-formatter"
 import { useProductDetail } from "../../../../hook/queries/useProductDetail"
+import { useQuery } from "@tanstack/react-query"
+import SlideThumbnail from "../../../../../components/SlideThumbnail"
 
+
+type displayProps = 
+{
+   url: string
+}
+
+const UseProductDetail = async (url: string) => 
+{
+    let endPoint = `/api/detail/`
+    let ApiUrl = `${process.env.URL}${endPoint}${url}`
+    return await fetch(ApiUrl).then((res) => res.json());
+}
 
 export default function ProductPreview({ params } : { params : { slug: string } }) 
 {   
   const router = useRouter()
-  const { data, isLoading, completed } = useProductDetail(params?.slug)
+  let url: string = params?.slug
+  const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`get-product-detail`, params?.slug], queryFn: () => UseProductDetail(url)})
 
   return (
           <>                
               {
-                  ((isLoading === false) && ((completed === "no") || (completed === ""))) && <div className="col-span-12 h-[300px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
+                  isLoading && <div className="col-span-12 h-[750px] flex justify-center items-center" style={{ marginTop: '20px', paddingTop: '0px' }}
                   >
                       <PuffLoader className='w-12 h-12' />
                   </div>
-              }  
-              {
-                  ((isLoading === true) && ((completed === "no") || (completed === ""))) &&  <div className="col-span-12 h-[300px] flex justify-center items-center" style={{ marginTop: '60px', paddingTop: '0px' }}
-                  >
-                      <h1></h1>
-                  </div>
-              }
+              } 
 
               { 
-                  ((isLoading === false) && (completed === "yes")) && 
+                  !isLoading && 
                   <div 
                       className='col-span-9 bg-green-400 bg-green-50 border-shadow drop-shadow-lg md:block h-[fit] px-1 md:px-5 py-5 mt-3 md:rounded-2xl -mb-24 md:mb-0'
                   > 
@@ -63,13 +72,13 @@ export default function ProductPreview({ params } : { params : { slug: string } 
                                                 router.push(`/x-x-x/${data?.['category']['hash']}`)
                                             }}
                                         >
-                                            {data?.['category']['name']}
+                                            {data?.['data']['product']['category']}
                                         </span> 
                                           {'>>'} 
                                         <span 
                                             className="font-bold ml-2 text-sm"
                                         >
-                                            {data?.['title']}
+                                            {data?.['data']['product']['title']}
                                         </span>
                                       </div>
                                   </div>
@@ -77,7 +86,7 @@ export default function ProductPreview({ params } : { params : { slug: string } 
                                 <div 
                                     className="font-bold text-[23px] md:text-[30px] text-gray-500 mt-5 mb-2"
                                 >
-                                   {data?.['title']}
+                                    {data?.['data']['product']['title']}
                                 </div>
                                 <div 
                                   className="font-bold text-sm mt-1 flex justify-between items-center"
@@ -86,20 +95,21 @@ export default function ProductPreview({ params } : { params : { slug: string } 
                                   <span 
                                     className="text-blue-500 text-[12px] md:text-[14px] flex justify-center items-center"
                                   >
-                                    <p className="text-black mr-3">Comments: </p><p className='font-bold text-[14px] md:text-[16px]'>{data?.['comments_count']}</p>
+                                    <p className="text-black mr-3">Comments: </p><p className='font-bold text-[16px] md:text-[17px]'>{data?.['data']['product']['comments_count']}</p>
                                   </span>
                                   <span 
                                     className="text-blue-500 text-[12px] md:text-[14px] flex justify-center items-center"
                                   >
-                                    <p className="text-black mr-3">Views: </p><p className='font-bold text-[14px] md:text-[16px] text-red-500'>{data?.['views']}</p>
+                                    <p className="text-black mr-3">Views: </p><p className='font-bold text-[14px] md:text-[16px] text-red-500'>{data?.['data']['product']['views']}</p>
                                   </span>
                                 </div>
                                 <div 
                                     className="font-bold text-md text-gray-500 mt-5 border-shadow"
                                 >
-                                   <SlideShowThumbnail data={data?.['images']} imageSize={data?.['images']} waterMark={data?.['watermark']} slug="" />
-                                </div> 
-                                <div className="h-[60px]"></div>                                          
+                                   {/* <SlideShowThumbnail data={data?.['images']} imageSize={data?.['images']} waterMark={data?.['watermark']} slug="" /> */}
+                                    <SlideThumbnail data={data?.['data']['product']['images']} imageSize={data?.['data']['product']['images']} waterMark={data?.['data']['product']['watermark']} slug={url} />
+                                </div>  
+
                           </div>
                           <div 
                               className="md:col-span-4 col-span-12 md:px-1 -mt-20 md:mt-0"
@@ -112,55 +122,73 @@ export default function ProductPreview({ params } : { params : { slug: string } 
                                 className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center"
                             >
                               <p>Manufacturer:</p>
-                              <p className="text-brandGreen">
-                                  {`${data?.['manufacturer']}`}
+                              <p 
+                                className="text-brandGreen"
+                              >
+                                  {data?.['data']['product']['manufacturer']}
                               </p>
                             </div>
                             <div 
                                 className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center"
                             >
                               <p>Model:</p>
-                              <p className="text-brandGreen">
-                              {`${data?.['model']}`}
+                              <p 
+                                className="text-brandGreen"
+                              >
+                                {data?.['data']['product']['model']}
                               </p>
-                            </div>   
-                            <div 
-                                className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center"
-                            >
-                              <p>Trim:</p>
-                              { data?.['trim'] ? `${data?.['trim']}` : 'Not Specififed' }
                             </div>                     
                             <div 
                               className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center"
                             >
+                              <p>Generation:</p>
+                                { data?.['data']['product']['generation'] ? `${data?.['data']['product']['generation']}` : 'Not Specififed' }
+                            </div> 
+                            <div 
+                              className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center"
+                            >
+                               <p>Series:</p>
+                               { data?.['data']['product']['serie'] ? `${data?.['data']['product']['serie']}` : 'Not Specififed' }
+                            </div>
+                            <div 
+                              className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center"
+                            >
+                              <p>Trim:</p>
+                              <p className="text-brandGreen">
+                                {data?.['data']['product']['trim']}
+                              </p>
+                            </div>                      
+                            {/* <div 
+                              className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center"
+                            >
                               <p>Engine:</p>
                               { data?.['engine'] ? `${data?.['engine']}` : 'Not Specififed' }
-                            </div>
+                            </div> */}
                             <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                               <p>Colour:</p>
                               <p className="text-brandGreen">
-                                {`${data?.['colour']}`}
+                                {data?.['data']['product']['colour']}
                               </p>
                             </div>
                             {/* Transmission */}
                             <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                               <p>Transmission:</p>
                               <p className="text-brandGreen">
-                                {`${data?.['transmission']}`}
+                                {data?.['data']['product']['transmission']}
                               </p>
                             </div>
                             {/* Year */}
                             <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                               <p>Year:</p>
                               <p className="text-brandGreen">
-                                {`${data?.['year']}`}
+                                {data?.['data']['product']['year']}
                               </p>
                             </div>
                             {/* Price */}
                             <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                               <p>Price:</p>
                               <p className="text-brandGreen">
-                                {currencyFormatter(data?.['price'])}
+                                  { currencyFormatter(data?.['data']['product']['price']) }
                               </p>
                             </div>
                             {/* <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
@@ -180,20 +208,20 @@ export default function ProductPreview({ params } : { params : { slug: string } 
                           <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                             <p>Country</p>
                             <p className="text-brandGreen">
-                              {`${data?.['country']}`}
+                                {`${data?.['data']['product']['country']}`}
                             </p>
                           </div>
                           <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                             <p>State</p>
                             <p className="text-brandGreen">
-                              {`${data?.['state']}`}
+                              {`${data?.['data']['product']['state']}`}
                             </p>
                           </div>
                           {/* Seat */}
                           <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                             <p>Location:</p>
                             <p className="text-brandGreen">
-                              {`${data?.['location']}`}
+                              {`${data?.['data']['product']['lga']}`}
                             </p>
                           </div>
                           <div 
@@ -201,30 +229,69 @@ export default function ProductPreview({ params } : { params : { slug: string } 
                           >
                             <p>Chasis No:</p>
                             <p className="text-brandGreen">
-                               {`${data?.['chasis_no']}`}
+                              {`${data?.['data']['product']['chasis_no']}`}
                             </p>
                           </div>                          
                           <div className="bg-[#ebf2fb] h-10 w-full flex justify-between px-4 items-center">
                             <p>MileAge:</p>
-                            <p className="text-brandGreen">{((data?.['mileage']) === "" || (data?.['mileage']) === undefined || (data?.['mileage']) === null) ? 'Not Specified' : `${((data?.['mileage'])/1000)}km` }</p>
+                            <p className="text-brandGreen">{((data?.['data']['product']['mileage']) === "" || (data?.['data']['product']['mileage']) === undefined || (data?.['data']['product']['mileage']) === null) ? 'Not Specified' : `${((data?.['data']['product']['mileage'])/1000)}km` }</p>
                           </div>
-                          </div>
-                          <div 
-                              className="font-bold w-full text-dm text-gray-500 mt-2 h-fit pb-10 rounded-md border-shadow px-2 md:px-0"
-                          >
-                              <div 
-                                  className="font-bold text-sm pt-5 pr-3 w-2/2"
-                              >
-                                <h1 className="font-bold text-md bg-blue-700 text-white rounded-lg pl-2 py-2">Description</h1>
-                            </div>
-                            <div 
-                                className="pt-3 pb-5 mt-2 px-3 border-2 border-blue-200 rounded-lg"
-                            >
-                              <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data?.['description']!) }} ></div>
-                            </div>
                           </div>
                             
                           </div>
+                      </div>
+
+                      <div 
+                        className="w-full d-flex gap-5"
+                      >  
+                          <div 
+                            className="font-bold w-full text-dm text-gray-500 mt-2 h-fit pb-10 rounded-md border-shadow px-2 md:px-0"
+                          >
+                            <div 
+                              className="font-bold text-sm pt-5 pr-3 w-2/2"
+                            >
+                              <h1 className="font-bold text-md bg-blue-700 text-white rounded-lg pl-2 py-2">Description</h1>
+                            </div>
+                           <div 
+                              className="pt-3 pb-5 mt-2 px-3 border-2 border-blue-200 rounded-lg"
+                           >
+                             <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data?.['data']['product']['description']!) }} ></div>
+                           </div>
+                          </div> 
+
+                          <div>
+                            {
+                                data?.['data']['specification_details']?.length > 0 &&
+                                  <div 
+                                      className='grid grid-cols-12 gap-5 pt-1 pb-5 pb-2 overflow-auto overflow-y-scroll justify-center h-[550px] px-1 md:px-3 item-center border border-b-8 border-t-8 border-gray-100 px-2'
+                                  >        
+                                    {
+                                      data?.['data']['specification_details']?.length > 0 && data?.['data']['specification_details']?.map((specification : { name: string, value: string }, index: number) => 
+                                      {
+                                          return (
+                                                  <>  
+                                                    <div 
+                                                      className="mb-2 col-span-12 md:col-span-6 gap-5 border-2 border-shadow rounded-lg py-2 px-1 md:px-3 md:mb-2"
+                                                    >
+                                                      <span 
+                                                        className="font-bold text-blue-600 mr-3"
+                                                      >
+                                                        {specification?.name}
+                                                      </span>
+                                                        -
+                                                      <span 
+                                                        className="ml-3"
+                                                      >
+                                                        {specification?.value}
+                                                      </span>
+                                                    </div>
+                                                  </>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                              }
+                            </div>
                       </div>
                         
                 </div>

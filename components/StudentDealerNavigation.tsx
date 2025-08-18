@@ -222,7 +222,6 @@ export default function StudentDealerNavigation({ classRoom, bg, hover  }: Stude
                                                     }
                                                 } 
                                                 deleteModal={openLoggedOut} 
-                                                token={token} 
                                         />
                     }
         </>

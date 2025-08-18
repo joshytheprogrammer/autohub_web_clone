@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react"
-import { ApplicationData } from "../../api/home/home"
 import { useAddApplicationData } from "../loadData"
-import { categoryDB, countryDB, engineDB, manufacturerDB, modelDB, productsDB, settingsDB, stateDB, trimDB } from "../../model/Product"
+import { categoryDB, countryDB, engineDB, manufacturerDB, modelDB, productsDB, settingsDB, sliderDB, stateDB, trimDB } from "../../model/Product"
+
+const getDetail = async () => 
+{
+  let endPoint = `/api/landing-data`
+  let ApiUrl = `${process.env.URL}${endPoint}`
+  return await fetch(ApiUrl).then((res) => res.json());
+}
 
 export const useAppData = () => 
 {
@@ -15,12 +21,8 @@ export const useAppData = () =>
 
     const callApi = async () => 
     {
-        const response: any = await ApplicationData()
-        // console.log("+++++++++++++++++++++++")
-        // console.log(response)
-        // console.log("+++++++++++++++++++++++")
-        // return
-        if(response?.status === true)
+        const response: any = await getDetail()
+        if(response)
         {
           productsDB.clear()
           countryDB.clear()
@@ -30,12 +32,13 @@ export const useAppData = () =>
           modelDB.clear()
           trimDB.clear()
           engineDB.clear()
+          sliderDB.clear()
           settingsDB.clear()
-          await LoadedData(response?.data)
+          await LoadedData(response)
           setAppData({
-                                  data: response?.data,
+                                  data: response,
                                   isLoading: false,
-                                  isSuccess: response?.status,
+                                  isSuccess: true,
                                   isError: false,
                                   error: "",
                                   completed: "yes"
@@ -45,7 +48,7 @@ export const useAppData = () =>
           setAppData({
                                 data: null,
                                 isLoading: true,
-                                isSuccess: response?.status,
+                                isSuccess: false,
                                 isError: true,
                                 error: response?.data,
                                 completed: "no"

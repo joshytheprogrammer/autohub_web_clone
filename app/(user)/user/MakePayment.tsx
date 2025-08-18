@@ -2,18 +2,18 @@ import { BeatLoader } from "react-spinners";
 import { Modal } from "../../../components/modal/Modal";
 import { useEffect, useState } from "react";
 import SingleImageUpload from "../../../components/shared/SingleImageUpload";
-import { MakeFeePayment } from "../../api/admin/academic/student";
 import Message from "../../../components/shared/Message";
+import api from "../../api/api";
+
 
 type MakePaymentProp = 
 {
    onClick: (x: string) => void 
    openCourseModal: boolean
    refetch: () => void
-   token: string
 }
 
-export const MakePayment = ({ onClick, openCourseModal, refetch, token }: MakePaymentProp)  =>
+export const MakePayment = ({ onClick, openCourseModal, refetch }: MakePaymentProp)  =>
 {
     const [loading, setLoading] = useState<boolean>(false);
     const [url, setUrl] = useState<string>("");
@@ -34,27 +34,26 @@ export const MakePayment = ({ onClick, openCourseModal, refetch, token }: MakePa
     }, [url])
 
             
-    const sendIt = () => 
+    const sendIt = async () => 
     {
        setLoading(true)
-       const upload = MakeFeePayment(url, token)
-       upload.then((response) => 
+       let ApiUrl = '/api/students/upload-receipt'
+       await api.post(ApiUrl, { url: url })
+       .then((response: any) => 
        {
-          if(response?.status === 200)
-          {
-              setLoading(false)
-              onClick("Receipt Successfuly Sent for vertification and approval")     
-          } else {
-              setErrorMessage(response?.message)
-              setTimeout(() => 
-              {
-                  setErrorMessage("")
-              }, 3000)
-              setLoading(false)                
-          }
-       }).catch(() => {
-
-       })
+         if(response?.data?.status === 200)
+         {
+            setLoading(false)
+            onClick("Receipt Successfuly Sent for vertification and approval")                      
+         } else {
+            setErrorMessage(response?.message)
+            setTimeout(() => 
+            {
+               setErrorMessage("")
+            }, 3000)
+            setLoading(false)                
+         }
+      })
     }
   
     return (

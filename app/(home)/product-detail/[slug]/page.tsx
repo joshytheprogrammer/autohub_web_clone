@@ -7,10 +7,11 @@ type Props = {
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
+
 export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
 
-  let endPoint = `detail/`
-  let ApiUrl = `${BASE_URL}${endPoint}${params.slug}`
+  let endPoint = `/api/detail/`
+  let ApiUrl = `${process.env.URL}${endPoint}${params.slug}`
   const post = await fetch(ApiUrl).then((res) => res.json());
 
   const previousImages = (await parent).openGraph?.images || [];
@@ -36,5 +37,7 @@ export default function ProductDetail({ params } : { params : { slug: string } }
     const url: string = params?.slug
     return <DisplayProduct url={url} />
 }
+
+
 
 

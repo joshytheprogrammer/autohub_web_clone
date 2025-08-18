@@ -3,9 +3,15 @@ import { PuffLoader } from 'react-spinners';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import ProductCard from './ProductCard';
 import { useInView } from 'react-intersection-observer';
-import { AllProduct } from '../app/api/home/market/AllProduct';
 import { HiArrowPath } from 'react-icons/hi2';
 
+
+const getAllProductOnShelf = async (currentPage: number) => 
+{
+  const perPage: number = 8
+  let ApiUrl = `${process.env.URL}/api/active/${currentPage}/${perPage}`
+  return await fetch(ApiUrl).then((res) => res.json())  
+}
 
 export default function Products({ onClick }: { onClick : () => void }) 
 {
@@ -32,25 +38,20 @@ export default function Products({ onClick }: { onClick : () => void })
       } = useInfiniteQuery(
         {
             queryKey: ['adverts'],
-            queryFn: ({ pageParam }) => AllProduct(pageParam),
+            queryFn: ({ pageParam }) => getAllProductOnShelf(pageParam),
             // refetchOnMount: true,
             refetchOnWindowFocus: true,
             initialPageParam: currentPage,
             getNextPageParam: (lastPage, allPages) => {
-                const nextPage = lastPage.length ? (allPages.length + 1) : undefined 
+                const nextPage = lastPage?.length ? (allPages?.length + 1) : undefined 
                 return nextPage
             },
             getPreviousPageParam: (firstPage) =>
-            firstPage.prevCursor,
+            firstPage?.prevCursor,
             retry: 5,
             staleTime: 0
        }
       )
-
-      if(!isLoading)
-      {
-        //  console.log(data)
-      }
 
       useEffect(() => {
             fetchNextPage()
@@ -87,7 +88,7 @@ export default function Products({ onClick }: { onClick : () => void })
                     // }
                     
                     // {
-                        products.length > 0 ? (
+                        products?.length > 0 ? (
                             products?.map((product: ActiveProduct, index: number) => {
                                     return (
                                            <ProductCard key={index} product={product} refetchs={() => refetch()} />

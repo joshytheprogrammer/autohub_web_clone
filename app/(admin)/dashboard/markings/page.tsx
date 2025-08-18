@@ -45,6 +45,7 @@ export default function Markings()
     const displayByPageNo = (page: any) => 
     {   
        setPerPage(Number(page)) 
+       setCurrentPage(1) 
        setTimeout(() => 
        {          
           refetch()
@@ -54,6 +55,7 @@ export default function Markings()
     const tellThePost = (e: any) => 
     {        
         setSearchQuery(e.target.value)
+        setCurrentPage(1) 
         setTimeout(() => 
         {            
            callTheSearch(e)
@@ -283,7 +285,7 @@ export default function Markings()
                             </div>
                 }
                   
-                {  !isLoading && (data?.data?.data?.students?.length === 0) && <>
+                {  !isLoading && (data?.data?.markings?.marks === 0) && <>
                         <div 
                             className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
                         >
@@ -296,7 +298,7 @@ export default function Markings()
                     </>
                 }
                   
-                {  !isLoading && (data?.data?.data?.students?.length === 0) && searchQuery && <>
+                {  !isLoading && (data?.data?.markings?.marks === 0) && searchQuery && <>
                         <div 
                             className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
                         >
@@ -310,19 +312,19 @@ export default function Markings()
                 }
 
                 {
-                  !isLoading && (data?.data?.data?.students?.length > 0) && 
+                  !isLoading && (data?.data?.markings?.marks?.length > 0) && 
                         <div 
                                 className="shadow-md border-2 border-gray-100 mb-3 mt-1 mx-auto md:mx-5 pb-8 rounded-none overflow-hidden hover:shadow-stone-400"
                             >                    
                                 <div 
                                         className='px-5'
                                 >                              
-                                    <Table data={data?.data?.data?.students} 
+                                    <Table data={data?.data?.markings?.marks} 
                                             columns={Staff} 
                                             showNavigation={false} 
                                             searchPlaceHolder='search for employees ...' 
-                                            path='students' 
-                                            from='students' 
+                                            path='markings' 
+                                            from='markings' 
                                             pageNos={pages}
                                             onClick={(no) => {
                                                 setPerPage(no)
@@ -335,42 +337,40 @@ export default function Markings()
                         </div>
                 }
                 <div className="p-10"></div>
-                
+                                
                 { 
-                        !isLoading && !isRefetching && (data?.data?.data?.students?.length > 0) && 
-                                <Pagination onClick={(data: number) => {
-                                        setCurrentPage(data)
-                                        // setRefresh(data)
-                                        // setPerPage(data.perPage)
-                                        setTimeout(() => {
-                                            refetch()   
-                                        }, 1000)
-                                    } 
-                                } 
-                                perPageNo={perPage} 
-                                currentPageNo={currentPage} 
-                                noOfPages={data?.data?.noOfPages} 
-                                hasNextPage={data?.data?.hasNextPage} 
-                                hasPreviousPage={data?.data?.hasPreviousPage} 
-                            />    
+                    !isLoading && !isRefetching && (data?.data?.markings?.marks.length > 0) && 
+                        <Pagination onClick={(data: number) => {
+                               setCurrentPage(data)
+                               // setRefresh(data)
+                               // setPerPage(data.perPage)
+                               setTimeout(() => {
+                                   refetch()   
+                                }, 1000)
+                            } 
+                        } 
+                        perPageNo={perPage} 
+                        currentPageNo={currentPage} 
+                        noOfPages={data?.data?.markings?.noOfPages} 
+                        hasNextPage={data?.data?.markings?.hasNextPage} 
+                        hasPreviousPage={data?.data?.markings?.hasPreviousPage} 
+                    />    
                 }
                 { 
-                    !isLoading && isRefetching && (data?.data?.data?.students?.length > 0) && 
-                            <Pagination 
-                                onClick={
-                                    (data: number) => {
-                                        setCurrentPage(data)
-                                        setTimeout(() => {
-                                            refetch()   
-                                        }, 1000)
-                                    } 
-                                } 
-                                perPageNo={perPage} 
-                                currentPageNo={currentPage} 
-                                noOfPages={data?.data?.noOfPages} 
-                                hasNextPage={data?.data?.hasNextPage} 
-                                hasPreviousPage={data?.data?.hasPreviousPage} 
-                            />    
+                    !isLoading && isRefetching && (data?.data?.markings?.marks.length > 0) && 
+                        <Pagination onClick={(data: number) => {
+                                setCurrentPage(data)
+                                setTimeout(() => {
+                                    refetch()   
+                                }, 1000)
+                            } 
+                        } 
+                        perPageNo={perPage} 
+                        currentPageNo={currentPage} 
+                        noOfPages={data?.data?.markings?.noOfPages} 
+                        hasNextPage={data?.data?.markings?.hasNextPage} 
+                        hasPreviousPage={data?.data?.markings?.hasPreviousPage} 
+                    />    
                 }
 
                 { 

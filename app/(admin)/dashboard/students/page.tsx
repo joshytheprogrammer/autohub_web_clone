@@ -31,7 +31,7 @@ export default function Students()
     const [searchQuery, setSearchQuery] = useState("")
 
     const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`get-all-student`, currentPage, perPage, searchQuery, token], queryFn: () => AllStudent(currentPage, perPage, searchQuery, token)})
-   
+      
     const [open] = useState<boolean>(false)
     const [showModal] = useState<boolean>(false)
     const [employeeId] = useState<string>('')
@@ -60,6 +60,7 @@ export default function Students()
     const displayByPageNo = (page: any) => 
     {   
        setPerPage(Number(page)) 
+       setCurrentPage(1) 
        setTimeout(() => 
        {          
           refetch()
@@ -69,6 +70,7 @@ export default function Students()
     const tellThePost = (e: any) => 
     {        
         setSearchQuery(e.target.value)
+        setCurrentPage(1) 
         setTimeout(() => 
         {            
            callTheSearch(e)
@@ -163,7 +165,7 @@ export default function Students()
         exam:  number
     }
   
-    const Staff = useMemo<ColumnDef<AllStudent>[]>(
+    const Studentts = useMemo<ColumnDef<AllStudent>[]>(
           () => [            
             {
                   header: 'Picture',
@@ -396,7 +398,7 @@ export default function Students()
                             </div>
                 }
                   
-                {  !isLoading && (data?.data?.data?.students?.length === 0) && <>
+                {  !isLoading && (data?.data?.students?.student?.length === 0) && <>
                         <div 
                             className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
                         >
@@ -409,7 +411,7 @@ export default function Students()
                     </>
                 }
                   
-                {  !isLoading && (data?.data?.data?.students?.length === 0) && searchQuery && <>
+                {  !isLoading && (data?.data?.students?.student?.length === 0) && searchQuery && <>
                         <div 
                             className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
                         >
@@ -423,15 +425,15 @@ export default function Students()
                 }
 
                 {
-                  !isLoading && (data?.data?.data?.students?.length > 0) && 
+                  !isLoading && (data?.data?.students?.student?.length > 0) && 
                         <div 
                                 className="shadow-md border-2 border-gray-100 mb-3 mt-1 mx-auto md:mx-5 pb-8 rounded-none overflow-hidden hover:shadow-stone-400"
                             >                    
                                 <div 
                                         className='px-5'
                                 >                              
-                                    <Table data={data?.data?.data?.students} 
-                                            columns={Staff} 
+                                    <Table data={data?.data?.students?.student} 
+                                            columns={Studentts} 
                                             showNavigation={false} 
                                             searchPlaceHolder='search for employees ...' 
                                             path='students' 
@@ -448,40 +450,40 @@ export default function Students()
                         </div>
                 }
                 <div className="p-10"></div>
-                
+                                
                 { 
-                        !isLoading && !isRefetching && (data?.data?.data?.students?.length > 0) && 
-                                <Pagination onClick={(data: number) => {
-                                        setCurrentPage(data)
-                                        // setRefresh(data)
-                                        // setPerPage(data.perPage)
-                                        setTimeout(() => {
-                                            refetch()   
-                                        }, 1000)
-                                    } 
-                                } 
-                                perPageNo={perPage} 
-                                currentPageNo={currentPage} 
-                                noOfPages={data?.data?.noOfPages} 
-                                hasNextPage={data?.data?.hasNextPage} 
-                                hasPreviousPage={data?.data?.hasPreviousPage} 
-                            />    
+                    !isLoading && !isRefetching && (data?.data?.students?.student.length > 0) && 
+                        <Pagination onClick={(data: number) => {
+                               setCurrentPage(data)
+                               // setRefresh(data)
+                               // setPerPage(data.perPage)
+                               setTimeout(() => {
+                                   refetch()   
+                                }, 1000)
+                            } 
+                        } 
+                        perPageNo={perPage} 
+                        currentPageNo={currentPage} 
+                        noOfPages={data?.data?.students?.noOfPages} 
+                        hasNextPage={data?.data?.students?.hasNextPage} 
+                        hasPreviousPage={data?.data?.students?.hasPreviousPage} 
+                    />    
                 }
                 { 
-                    !isLoading && isRefetching && (data?.data?.data?.students?.length > 0) && 
-                            <Pagination onClick={(data: number) => {
-                                    setCurrentPage(data)
-                                    setTimeout(() => {
-                                        refetch()   
-                                    }, 1000)
-                                } 
+                    !isLoading && isRefetching && (data?.data?.students?.student.length > 0) && 
+                        <Pagination onClick={(data: number) => {
+                                setCurrentPage(data)
+                                setTimeout(() => {
+                                    refetch()   
+                                }, 1000)
                             } 
-                            perPageNo={perPage} 
-                            currentPageNo={currentPage} 
-                            noOfPages={data?.data?.noOfPages} 
-                            hasNextPage={data?.data?.hasNextPage} 
-                            hasPreviousPage={data?.data?.hasPreviousPage} 
-                        />    
+                        } 
+                        perPageNo={perPage} 
+                        currentPageNo={currentPage} 
+                        noOfPages={data?.data?.students?.noOfPages} 
+                        hasNextPage={data?.data?.students?.hasNextPage} 
+                        hasPreviousPage={data?.data?.students?.hasPreviousPage} 
+                    />    
                 }
 
 

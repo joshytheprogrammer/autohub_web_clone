@@ -1,4 +1,5 @@
 import { BASE_URL } from "../../../constant/Path"
+import api from "../api"
 
 
 export async function AutoHubSignUp(data: Member | Dealer)

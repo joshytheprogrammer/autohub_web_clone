@@ -118,7 +118,7 @@ export default function MemberDealerNavigation({ marketPlace, bg, hover }: Membe
                                                     }
                                                 }
                                             >
-                                               { ((role === 'member') || ( role === 'dealer') || ( role === 'admin')  || ( role === 'super-admin')) ? 'Market Place' : 'Class Room' }
+                                               { ((role === 'member') || ( role === 'dealer') || ( role === 'affiliate')  || ( role === 'admin')  || ( role === 'super-admin')) ? 'Market Place' : 'Class Room' }
                                             </span>
                                         )
                                     })
@@ -135,6 +135,7 @@ export default function MemberDealerNavigation({ marketPlace, bg, hover }: Membe
                                     marketPlace.map((user, index: number) => {
                                     return (
                                         <Link href={`${user?.url}`} key={index}
+                                              prefetch={true}
                                               onClick={() => {
                                                 setPage(user?.name)
                                                 router.push(`${user?.url}`)                                                
@@ -165,8 +166,10 @@ export default function MemberDealerNavigation({ marketPlace, bg, hover }: Membe
                                     )
                                 })
                                 } */}
-                                <Link href={'profile'}
-                                      onClick={() => {
+                                <Link 
+                                     prefetch={true}
+                                     href={'profile'}
+                                     onClick={() => {
                                           setPage(`/user/profile`)
                                       }}
                                 >
@@ -179,7 +182,9 @@ export default function MemberDealerNavigation({ marketPlace, bg, hover }: Membe
                                 </Link> 
                                 { 
                                     (roles.includes('member')) && 
-                                    <Link href={`become-a-dealer`}
+                                    <Link 
+                                      prefetch={true}
+                                      href={`become-a-dealer`}
                                       onClick={() => {
                                           setPage(`/user/become-a-dealer`)
                                       }}
@@ -192,8 +197,10 @@ export default function MemberDealerNavigation({ marketPlace, bg, hover }: Membe
                                         </li>
                                     </Link> 
                                 }
-                                <Link href={`change-password`}
-                                      onClick={() => {
+                                <Link 
+                                     prefetch={true}
+                                     href={`change-password`}
+                                     onClick={() => {
                                           setPage(`/user/change-password`)
                                       }}
                                 >
@@ -204,8 +211,10 @@ export default function MemberDealerNavigation({ marketPlace, bg, hover }: Membe
                                         {`Change Password`}
                                     </li>
                                 </Link>
-                                <Link href={`change-passport`}
-                                      onClick={() => {
+                                <Link
+                                     prefetch={true} 
+                                     href={`change-passport`}
+                                     onClick={() => {
                                           setPage(`/user/change-passport`)
                                       }}
                                 >
@@ -249,8 +258,7 @@ export default function MemberDealerNavigation({ marketPlace, bg, hover }: Membe
                                         () => {
                                         }
                                     } 
-                                    deleteModal={openLoggedOut} 
-                                    token={token} 
+                                    deleteModal={openLoggedOut}
                                 />
                     }
         </>

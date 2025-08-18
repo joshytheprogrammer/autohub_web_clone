@@ -10,11 +10,9 @@ type DraftControlProps =
 {
     product: ActiveProduct 
     refetch: () => void
-    token: string
-    usertype: string
 }
 
-export default function DraftControl({product, refetch, token, usertype }: DraftControlProps ) 
+export default function DraftControl({product, refetch }: DraftControlProps ) 
 {
     const [closeCommentDialog, setCloseCommentDialog] = useState<boolean>(false)
     const [productId, setProductId] = useState<number>(-1)     
@@ -81,8 +79,6 @@ export default function DraftControl({product, refetch, token, usertype }: Draft
                                                     } 
                                                     deleteModal={openDeleteProduct}
                                                     callAgain={() => { } }
-                                                    userType={usertype}
-                                                    token={token}
                         />
                     }
                     

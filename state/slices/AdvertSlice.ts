@@ -5,9 +5,9 @@ import { IAdvert } from "./interface/IAdvert";
 const createAdvertSlice: StateCreator<IAdvert> = (set, get) => (
     {
         productId: -1,
-        setProductId(id)
+        setProductId(productId)
         {
-            set(() => ({productId: id}))
+            set(() => ({productId: productId}))
         },
         getProductId()
         {
@@ -83,6 +83,16 @@ const createAdvertSlice: StateCreator<IAdvert> = (set, get) => (
         {
             return get().LgaName
         },
+        
+        OurLgaName: "",
+        setOurLgaName(OurLgaName)
+        {
+            set(() => ({OurLgaName: OurLgaName}))
+        },
+        getOurLgaName()
+        {
+            return get().OurLgaName
+        },
 
         category: -1,
         setCategory(category)
@@ -122,7 +132,7 @@ const createAdvertSlice: StateCreator<IAdvert> = (set, get) => (
         getManufacturerName()
         {
             return get().manufacturerName
-        },        
+        },  
 
         model: -1,
         setModel(model)
@@ -162,27 +172,27 @@ const createAdvertSlice: StateCreator<IAdvert> = (set, get) => (
         getTrimName()
         {
             return get().trimName
-        },     
-
-        engine: -1,
-        setEngine(engine)
-        {
-            set(() => ({engine: engine}))
-        },
-        getEngine()
-        {
-            return get().engine
         },  
 
-        engineName: "",
-        setEngineName(engineName)
+        generation: -1,
+        setGeneration(generation)
         {
-            set(() => ({engineName: engineName}))
+            set(() => ({generation: generation}))
         },
-        getEngineName()
+        getGeneration()
         {
-            return get().engineName
-        }, 
+            return get().generation
+        },       
+
+        generationName: "",
+        setGenerationName(generationName)
+        {
+            set(() => ({generationName: generationName}))
+        },
+        getGenerationName()
+        {
+            return get().generationName
+        },     
         
         colour: -1,
         setColour(colour)
@@ -202,7 +212,7 @@ const createAdvertSlice: StateCreator<IAdvert> = (set, get) => (
         getColourName()
         {
             return get().colourName
-        },        
+        },         
         
         year: "x",
         setYear(year)
@@ -222,6 +232,26 @@ const createAdvertSlice: StateCreator<IAdvert> = (set, get) => (
         getYearName()
         {
             return get().yearName
+        }, 
+
+        serie: -1,
+        setSerie(serie)
+        {
+            set(() => ({serie: serie}))
+        },
+        getSerie()
+        {
+            return get().serie
+        },       
+
+        serieName: "",
+        setSerieName(serieName)
+        {
+            set(() => ({serieName: serieName}))
+        },
+        getSerieName()
+        {
+            return get().serieName
         },
                                
         transmission: -1,
@@ -342,7 +372,7 @@ const createAdvertSlice: StateCreator<IAdvert> = (set, get) => (
         getOthers()
         {
             return get().others
-        },   
+        }, 
 
         theManufacturerName: "",
         setTheManufacturerName(theManufacturerName)
@@ -372,66 +402,166 @@ const createAdvertSlice: StateCreator<IAdvert> = (set, get) => (
         getTheTrimName()
         {
             return get().theTrimName
-        },  
-
-        theEngineName: "",
-        setTheEngineName(theEngineName)
-        {
-            set(() => ({theEngineName: theEngineName}))
-        },
-        getTheEngineName()
-        {
-            return get().theEngineName
-        },  
-
-        makerModels: [],
-        setTheMakerModels(makerModels)
-        {
-            set(() => ({makerModels: makerModels}))
-        },
-        getTheMakerModels()
-        {
-            return get().makerModels
-        },  
-
-        modelTrim: [],
-        setTheModelTrim(modelTrim)
-        {
-            set(() => ({modelTrim: modelTrim}))
-        },
-        getTheModelTrim()
-        {
-            return get().modelTrim
         }, 
 
-        trimEgine: [],
-        setTrimEngine(trimEgine)
+        categories: [],
+        setCategories(categories)
         {
-            set(() => ({trimEgine: trimEgine}))
+            set(() => ({categories: categories}))
         },
-        getTrimEngine()
+        getCategories()
         {
-            return get().trimEgine
+            return get().categories
+        },  
+        
+        countries: [],
+        setCountries(countries)
+        {
+            set(() => ({countries: countries}))
+        },
+        getCountries()
+        {
+            return get().countries
+        },  
+        
+        statess: [],
+        setStatess(statess)
+        {
+            set(() => ({statess: statess}))
+        },
+        getStatess()
+        {
+            return get().statess
+        }, 
+        
+        lgas: [],
+        setLGAS(lgas)
+        {
+            set(() => ({lgas: lgas}))
+        },
+        getLGAS()
+        {
+            return get().lgas
+        },  
+        
+        manufacturers: [],
+        setManufactuers(manufacturers)
+        {
+            set(() => ({manufacturers: manufacturers}))
+        },
+        getManufacturers()
+        {
+            return get().manufacturers
+        }, 
+        
+        models: [],
+        setModels(models)
+        {
+            set(() => ({models: models}))
+        },
+        getModels()
+        {
+            return get().models
+        }, 
+        
+        generations: [],
+        setGenerations(generations)
+        {
+            set(() => ({generations: generations}))
+        },
+        getGenerations()
+        {
+            return get().generations
+        }, 
+        
+        series: [],
+        setSeries(series)
+        {
+            set(() => ({series: series}))
+        },
+        getSeries()
+        {
+            return get().series
+        }, 
+        
+        trims: [],
+        setTrims(trims)
+        {
+            set(() => ({trims: trims}))
+        },
+        getTrims()
+        {
+            return get().trims
+        },
+        
+        fuels: [],
+        setFuels(fuels)
+        {
+            set(() => ({fuels: fuels}))
+        },
+        getFuels()
+        {
+            return get().fuels
+        },
+        
+        colours: [],
+        setColours(colours)
+        {
+            set(() => ({colours: colours}))
+        },
+        getColours()
+        {
+            return get().colours
+        }, 
+        
+        transmissions: [],
+        setTransmissions(transmissions)
+        {
+            set(() => ({transmissions: transmissions}))
+        },
+        getTransmissions()
+        {
+            return get().transmissions
+        },  
+        
+        conditions: [],
+        setConditions(conditions)
+        {
+            set(() => ({conditions: conditions}))
+        },
+        getConditions()
+        {
+            return get().conditions
+        },  
+        
+        productDetail: [],
+        setProductDetail(productDetail)
+        {
+            set(() => ({productDetail: productDetail}))
+        },
+        getProductDetail()
+        {
+            return get().productDetail
+        },        
+
+        theSerieName: "",
+        setTheSerieName(theSerieName)
+        {
+            set(() => ({theSerieName: theSerieName}))
+        },
+        getTheSerieName()
+        {
+            return get().theSerieName
         }, 
 
-        statesModels: [],
-        setStateModel(statesModels)
+        theGenerationName: "",
+        setTheGenerationName(theGenerationName)
         {
-            set(() => ({statesModels: statesModels}))
+            set(() => ({theGenerationName: theGenerationName}))
         },
-        getStateModel()
+        getTheGenerationName()
         {
-            return get().statesModels
-        }, 
-
-        LGAModel: [],
-        setLGAModel(LGAModel)
-        {
-            set(() => ({LGAModel: LGAModel}))
-        },
-        getLGAModel()
-        {
-            return get().LGAModel
+            return get().theGenerationName
         },  
 
         imagePosition: -1,
@@ -453,7 +583,6 @@ const createAdvertSlice: StateCreator<IAdvert> = (set, get) => (
         {
             return get().saveOption
         },     
-
  
     }
 )

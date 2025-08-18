@@ -2,10 +2,10 @@ import { useEffect, useState } from "react"
 import Image from 'next/image'
 import { BeatLoader } from "react-spinners"
 import { Modal } from "../../../../../components/modal/Modal"
-import { USAGE_PATH } from "../../../../../constant/Path"
 import { DeleteImage } from "../../../../api/home/market/images/product-images"
 import Message from "../../../../../components/shared/Message"
 import delay from "delay"
+import api from "../../../../api/api"
 
 
 type DeleteImageProps = 
@@ -17,11 +17,9 @@ type DeleteImageProps =
     productId: number 
     message: string
     callAgain: () => void
-    userType: string
-    token: string
 }    
 
-export const DeleteImageModal = ({onClick, deleteModal, message, imageId, imageProductUrl='', userType, productId, callAgain, token}: DeleteImageProps)  =>
+export const DeleteImageModal = ({onClick, deleteModal, message, imageId, imageProductUrl='', productId, callAgain}: DeleteImageProps)  =>
 {
      const [loading, setIsLoading] = useState<boolean>(false)
  
@@ -38,25 +36,25 @@ export const DeleteImageModal = ({onClick, deleteModal, message, imageId, imageP
      {
         setIsLoading(true)
         await delay(1000)
-        const DeleteProductImage = DeleteImage(imageId, productId, userType, token)
-        DeleteProductImage.then((response) => 
+        let ApiUrl = '/api/users/remove-image'            
+        await api.put(ApiUrl,  { image_id: imageId, product_id: productId } )
+        .then((response: any) => 
         {
-            if(response?.status === 200)
-            {
-                setIsLoading(false)
-               setErrorMessage("")
-               callAgain()
-               onClick()
-            } else {
-                setIsLoading(false)
-                setErrorMessage("Deleting product image failed")
-                setTimeout(() => 
-                {
-                   setErrorMessage("")                                
-                }, 10000)
-            }
-        }).then(() => {
-            
+          if(response?.data?.status === 200)
+          {
+            setIsLoading(false)
+            setErrorMessage("")
+            callAgain()
+            onClick()                  
+          } else {
+             setIsLoading(false)
+             setErrorMessage("Deleting product image failed")
+             setTimeout(() => 
+             {
+               setErrorMessage("")                                
+             }, 10000)
+             return false              
+          }
         })
      }
 

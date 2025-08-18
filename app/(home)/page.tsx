@@ -12,7 +12,6 @@ import Banner from '../../components/Banner'
 import { Landing } from '../api/home/market/AllProduct'
 import { useEffect, useState } from 'react'
 import SwiperSlider from '../../components/SwiperSlider'
-import SlideShow from '../../components/SlideShow'
 // import useNetwork from '../hook/network'
 
 export default function Home() 
@@ -54,7 +53,9 @@ export default function Home()
                             className='col-span-3 md:block hidden'
                         >
                             
-                            <div className="order-2 md:order-1 w-full shrink-0 md:block h-full md:h-fit pb-5 bg-white overflow-hidden">
+                            <div 
+                                className="order-2 md:order-1 w-full shrink-0 md:block h-full md:h-fit pb-5 bg-white overflow-hidden"
+                            >
                                 <h3 className="hidden md:flex h-12 text-[#1e1e1e]/50 bg-green-400 font-bold w-full items-center px-4 text-md">
                                     Categories
                                 </h3>

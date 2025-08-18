@@ -189,3 +189,89 @@ export async function CommentModeration(productId: number, action: string, comme
 }
 
 
+export async function AdverSlides(currentPage: number, perPage: number, searchQuery: string, token: string)
+{
+    let theQuery: string = searchQuery.trim()
+    let endPoint = (theQuery.length === 0) ? `market-place/advert-slides/${currentPage}/${perPage}` :  `market-place/advert-slides/${currentPage}/${perPage}/${theQuery}`
+    let ApiUrl = `${BASE_URL}${endPoint}`
+
+    const response = await fetch(ApiUrl, 
+    {
+        method: 'GET',    
+        headers: {    
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`   
+        },   
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      return await response.json()
+}
+
+
+export async function CreateAdvertSlider(data: any, token: string)
+{
+    let endPoint = `market-place/create-slide`
+    let ApiUrl = `${BASE_URL}${endPoint}`
+
+    const response = await fetch(ApiUrl, 
+    {
+        method: 'POST',    
+        headers: {    
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`   
+        },   
+        body: JSON.stringify({ name: data?.name, slide: data?.slide, status: data?.status, image: data?.image }),
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      return await response.json()
+}
+
+
+export async function UpdateAdvertSlider(data: any, token: string)
+{
+    let endPoint = `market-place/update-slide`
+    let ApiUrl = `${BASE_URL}${endPoint}`
+
+    const response = await fetch(ApiUrl, 
+    {
+        method: 'PUT',    
+        headers: {    
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`   
+        },   
+        body: JSON.stringify({ id: data?.id, name: data?.name, slide: data?.slide, status: data?.status }),
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      return await response.json()
+}
+
+
+export async function DeleteAdvertSlide(id: number, token: string)
+{
+    let endPoint = `market-place/delete-slide`
+    let ApiUrl = `${BASE_URL}${endPoint}`
+
+    const response = await fetch(ApiUrl, 
+    {
+        method: 'PUT',    
+        headers: {    
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`   
+        },   
+        body: JSON.stringify({ id: Number(id) }),
+      })     
+      if(!response.ok)
+      {
+         throw new Error(`HTTP Error! status: ${response.status}`)
+      }     
+      return await response.json()
+}

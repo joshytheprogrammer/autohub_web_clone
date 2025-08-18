@@ -10,11 +10,19 @@ import { BeatLoader } from 'react-spinners'
 import { Authenticate } from '../../api/auth/auth'
 import { UseStore } from '../../../state/store'
 import { profileDB } from '../../model/Product'
+import api from '../../api/api'
+import { BASE_URL } from '../../../constant/Path'
+import { useRouter } from 'next/navigation'
+import axios from 'axios'
+// import { useCookies } from 'next-client-cookies'
+import Cookies from 'js-cookie';
 
 
 export default function Access({ showLogo, goTo } : { showLogo: boolean, goTo: string }) 
 {
       const userData = UseStore((state) => state)
+      const router = useRouter()
+      // const cookies = useCookies()
       
       const EMAIL_MESSAGE = 'Enter Email'
       const PASSWORD_MESSAGE = 'Enter Password' 
@@ -34,13 +42,24 @@ export default function Access({ showLogo, goTo } : { showLogo: boolean, goTo: s
     
       useEffect(() => 
       {
-         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-2 -mt-1 px-2')
+         setErrMsgStyle('text-md text-white font-bold bg-red-600 rounded-lg py-2 -mt-1 px-2 pl-3')
       //    setUserIsRegistered(userData.getRegistered())
          setTimeout(() => 
          {
             userData?.setRegistered("")  
             // setUserIsRegistered("")           
          }, 10000)
+            //    cookies.set('cookieName', 'cookieValue', { expires: 7 })
+            //    cookies.get('cookieName')
+  
+         api.get('http://127.0.0.1:8888/sanctum/csrf-cookie', {
+            withCredentials: true
+         })
+         .then((response: any) => 
+         {
+            console.log(response)
+         });
+
       }, []) 
 
       useEffect(() => {
@@ -68,19 +87,23 @@ export default function Access({ showLogo, goTo } : { showLogo: boolean, goTo: s
           if(checkFields === 'valid')
           { 
               userData.setRegistered("") 
-              const SignUp = Authenticate(email, password)
-              SignUp.then((response) => 
+              let endPoint = `auth/login`
+              let ApiUrl = `${BASE_URL}${endPoint}`
+              api.post(ApiUrl, { email, password })
+              .then((response: any) => 
               {
-                  if(response?.status === 200)
+                  if(response?.data?.status === 200)
                   {
-                     userData.setFName(response?.data?.firstname)
-                     userData.setSName(response?.data?.surname)
-                     userData.setPassport(response?.data?.passport)
-                     userData.setUType(response?.data?.user_type)
-                     userData.setUserRoles(response?.additions)
+                     userData.setFName(response?.data?.data?.firstname)
+                     userData.setSName(response?.data?.data?.surname)
+                     userData.setPassport(response?.data?.data?.passport)
+                     userData.setUType(response?.data?.data?.user_type)
+                     userData.setUserRoles(response?.data?.additions)
                      userData.setSideType('member')
-                     userData.setUserToken(response?.plus)
+                     userData.setUserToken(response?.data?.plus)
                      profileDB.add(response?.data)
+                     Cookies.set('user-in-use', response?.data?.plus, { expires: 7 }); // expires in 7 days
+                  //    console.log(Cookies.get('user-in-use'))
                   //    console.log(response)
                   //    return
                      if(response?.data?.user_type === 'admin')
@@ -88,6 +111,7 @@ export default function Access({ showLogo, goTo } : { showLogo: boolean, goTo: s
                         // window.location.href = '/dashboard'
                         // return false
                         userData.setSideType('admin')
+                        console.log(Cookies.get('user-in-use'))
                         window.location.href = goTo
                      } else {
                         setTimeout(() => {
@@ -96,7 +120,7 @@ export default function Access({ showLogo, goTo } : { showLogo: boolean, goTo: s
                         }, 400)
                      }
                   } else {
-                     setErrorMessage(response?.message)
+                     setErrorMessage(response?.data?.message)
                      setLoading(false)
                      setTimeout(() => 
                      {
@@ -104,11 +128,9 @@ export default function Access({ showLogo, goTo } : { showLogo: boolean, goTo: s
                      }, 5000)
                      return false
                   }
-              }).then(() => {
-                 //  setErrorMessage("Error authenticating")
-                 setLoading(false)
-                 return false
+
               })
+              .catch((error: any) => console.log(error))
           } else {       
                setLoading(false) 
                setTimeout(() => 

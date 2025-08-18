@@ -2,10 +2,9 @@ import { useEffect, useState } from "react"
 import { BeatLoader } from "react-spinners"
 import Image from 'next/image'
 import { Modal } from "../../../../../components/modal/Modal"
-import { USAGE_PATH } from "../../../../../constant/Path"
-import { DeleteProduct } from "../../../../api/home/market/user/product"
 import Message from "../../../../../components/shared/Message"
 import delay from "delay"
+import api from "../../../../api/api"
 
 
 type DeleteProductImageProps = 
@@ -17,11 +16,9 @@ type DeleteProductImageProps =
     message: string
     productName: string
     callAgain: () => void
-    userType: string
-    token: string
 }    
 
-export const DeleteProductModal = ({onClick, deleteModal, imageProductUrl='', productId, productName, message, callAgain, userType, token}: DeleteProductImageProps)  =>
+export const DeleteProductModal = ({onClick, deleteModal, imageProductUrl='', productId, productName, message, callAgain }: DeleteProductImageProps)  =>
 {
         const [loading, setIsLoading] = useState<boolean>(false)
     
@@ -38,27 +35,27 @@ export const DeleteProductModal = ({onClick, deleteModal, imageProductUrl='', pr
         {    
            setIsLoading(true)
            await delay(1000)
-           const DeleteProductImage = DeleteProduct(productId, userType, token)
-           DeleteProductImage.then((response) => 
-           {
-              if(response?.status === 200)
-              {
+           let ApiUrl = '/api/users/remove-product'
+           await api.post(ApiUrl, { product_id: productId })
+           .then((response: any) => 
+            {
+               if(response?.data?.status === 200)
+               {
                  setIsLoading(false)
                  setErrorMessage("")
                  callAgain()
-                 onClick()
-              } else {
+                 onClick()                      
+               } else {
                  setIsLoading(false)
                  setErrorMessage("Deleting product failed")
                  setTimeout(() => 
                  {
                      setErrorMessage("")                                
-                 }, 10000)
-              }
-            }).then(() => {
-                
+                 }, 10000)                  
+               }
             })
         }
+        
 
         return (
                 <Modal 

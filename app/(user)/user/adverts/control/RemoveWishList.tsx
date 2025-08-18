@@ -2,9 +2,8 @@ import { useEffect, useState } from "react"
 import Image from 'next/image'
 import { BeatLoader } from "react-spinners"
 import { Modal } from "../../../../../components/modal/Modal"
-import { USAGE_PATH } from "../../../../../constant/Path"
-import { RemoveUserWishList } from "../../../../api/home/market/user/product"
 import Message from "../../../../../components/shared/Message"
+import api from "../../../../api/api"
 
 
 type RemoveWishListProps = 
@@ -16,11 +15,9 @@ type RemoveWishListProps =
     message: string
     productName: string
     callAgain: () => void
-    userType: string
-    token: string
 }    
 
-export const RemoveWishList = ({onClick, deleteModal, imageProductUrl='', productId, productName, message, callAgain, userType, token}: RemoveWishListProps)  =>
+export const RemoveWishList = ({onClick, deleteModal, imageProductUrl='', productId, productName, message, callAgain }: RemoveWishListProps)  =>
 {
         const [loading, setIsLoading] = useState<boolean>(false)
     
@@ -35,26 +32,25 @@ export const RemoveWishList = ({onClick, deleteModal, imageProductUrl='', produc
 
         const deleteProduct = async () => 
         {    
-           setIsLoading(true)
-           const removeWishList = RemoveUserWishList(productId, userType, token)
-           removeWishList.then((response) => 
-           {
-              if(response?.status === 200)
-              {
+           setIsLoading(true)          
+           let ApiUrl = '/api/users/remove-wish-list'
+           await api.post(ApiUrl, { product_id: productId })
+           .then((response: any) => 
+            {
+               if(response?.data?.status === 200)
+               {
                  setIsLoading(false)
                  setErrorMessage("")
                  callAgain()
-                 onClick()
-              } else {
+                 onClick()                      
+               } else {
                  setIsLoading(false)
                  setErrorMessage("Removing product from wishlist failed")
                  setTimeout(() => 
                  {
                      setErrorMessage("")                                
-                 }, 10000)
-              }
-            }).then(() => {
-                
+                 }, 10000)                 
+               }
             })
         }
 

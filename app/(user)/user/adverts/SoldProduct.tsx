@@ -8,26 +8,27 @@ import { BsGeoAltFill } from "react-icons/bs"
 import { PuffLoader } from "react-spinners"
 import Pagination from "../../../../components/Pagination"
 import currencyFormatter from "../../../../components/util/currency-formatter"
-// import { USAGE_PATH } from "../../../../constant/Path"
-import { UseStore } from "../../../../state/store"
-import { SoldProducts } from "../../../api/home/market/user/product"
 import AdvertControl from "./control/AdvertControl"
 import { MarkAsSolModal } from "./control/MarkAsSold"
-
+import { useProduct } from "../../../hook/market-place/useProduct"
 
 
 export default function SoldProduct() 
 {
+    const { SoldProduct } = useProduct()
     const router = useRouter()
-    const userToken = UseStore((state) => state)
-    const token: string = userToken.getUserToken()
-    const usertype: string = userToken.getUType()
 
     const [currentPage, setCurrentPage] = useState(1)  
     const [perPage] = useState(20) 
 
-    const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`pending-products-${currentPage}-${perPage}`, currentPage, perPage, token], queryFn: () => SoldProducts(Number(currentPage), Number(perPage), token, usertype)})
-
+    const { data, isLoading, refetch, isRefetching } = useQuery(
+                                                                    { queryKey: [`sold-products-${currentPage}-${perPage}`, currentPage, perPage], 
+                                                                      queryFn: () => SoldProduct(Number(currentPage), Number(perPage)),
+                                                                      refetchOnWindowFocus: true,
+                                                                      refetchOnMount: true, 
+                                                                      gcTime: 0, staleTime: 0  
+                                                                    })
+                                                                    
     const [openMarkAsSold, setOpenMarkAsSold] = useState<boolean>(false)
     const [porductId] = useState<number>(-1)     
     const [productTitle] = useState<string>("") 
@@ -53,7 +54,7 @@ export default function SoldProduct()
                             </div>
                 }
                   
-                {  !isLoading && (data?.data?.product_advert?.product.length === 0) && <>
+                {  !isLoading && (data?.data?.data?.product_advert?.product.length === 0) && <>
                         <div 
                             className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
                         >
@@ -74,7 +75,7 @@ export default function SoldProduct()
                     </>
                 }
                   
-                {  !isLoading && (data?.data?.product_advert?.noOfPages > 0) && <>
+                {  !isLoading && (data?.data?.data?.product_advert?.noOfPages > 0) && <>
                         <div 
                             className="container px-2 mr-3 border-2 border-gray-200 flex justify-between items-center mb-5"
                         >
@@ -83,7 +84,7 @@ export default function SoldProduct()
                             >
                                 Sold Products
                             </h1>
-                            <span className="flex justify-center items-center  whitespace-nowrap">Page {currentPage} of {data?.data?.product_advert?.noOfPages}</span>
+                            <span className="flex justify-center items-center  whitespace-nowrap">Page {currentPage} of {data?.data?.data?.product_advert?.noOfPages}</span>
                         </div>
                     </>
                 }
@@ -92,7 +93,7 @@ export default function SoldProduct()
                     className="grid grid-cols-12 gap-5 rounded-md mb-5 gap-2 md:mx-0 mr-2"
                 >
                 {
-                  !isLoading && (data?.data?.product_advert?.noOfPages > 0) && data?.data?.product_advert?.product.map((product: any, index: number) => 
+                  !isLoading && (data?.data?.data?.product_advert?.noOfPages > 0) && data?.data?.data?.product_advert?.product.map((product: any, index: number) => 
                             {
                                 return (
                                     <>
@@ -176,8 +177,6 @@ export default function SoldProduct()
                                                 <AdvertControl product={product} refetch={() => {
                                                         refetch()
                                                     }} 
-                                                 token={token}
-                                                 usertype={usertype}
                                                 />  
                                             </div> 
                                         </div>
@@ -187,7 +186,7 @@ export default function SoldProduct()
                         }
                 </div>
                 
-                {  !isLoading && (data?.data?.product_advert?.noOfPages > 0) && <>
+                {  !isLoading && (data?.data?.data?.product_advert?.noOfPages > 0) && <>
                         <div 
                             className="container px-2 mr-3 border-2 border-gray-200 flex justify-between items-center mb-5"
                         >
@@ -196,14 +195,14 @@ export default function SoldProduct()
                             >
                                 Active Products
                             </h1>
-                            <span className="flex justify-center items-center  whitespace-nowrap">Page {currentPage} of {data?.data?.product_advert?.noOfPages}</span>
+                            <span className="flex justify-center items-center  whitespace-nowrap">Page {currentPage} of {data?.data?.data?.product_advert?.noOfPages}</span>
                         </div>
                     </>
                 }
 
             <div className="mt-14">
                 { 
-                    !isLoading && isRefetching && (data?.data?.product_advert?.noOfPages > 0) && 
+                    !isLoading && isRefetching && (data?.data?.data?.product_advert?.noOfPages > 0) && 
                             <Pagination onClick={(data) => {
                                       setCurrentPage(data)
                                       setTimeout(() => {
@@ -213,16 +212,16 @@ export default function SoldProduct()
                               } 
                               perPageNo={perPage} 
                               currentPageNo={currentPage} 
-                              noOfPages={data?.data?.product_advert?.noOfPages} 
-                              hasNextPage={data?.data?.product_advert?.hasNextPage} 
-                              hasPreviousPage={data?.data?.product_advert?.hasPreviousPage} 
+                              noOfPages={data?.data?.data?.product_advert?.noOfPages} 
+                              hasNextPage={data?.data?.data?.product_advert?.hasNextPage} 
+                              hasPreviousPage={data?.data?.data?.product_advert?.hasPreviousPage} 
                           />    
                 }
             </div>
 
             <div className="mt-14">
                 { 
-                    !isLoading && !isRefetching && (data?.data?.product_advert?.noOfPages > 0) && 
+                    !isLoading && !isRefetching && (data?.data?.data?.product_advert?.noOfPages > 0) && 
                             <Pagination onClick={(data) => {
                                       setCurrentPage(data)
                                       setTimeout(() => {
@@ -232,9 +231,9 @@ export default function SoldProduct()
                               } 
                               perPageNo={perPage} 
                               currentPageNo={currentPage} 
-                              noOfPages={data?.data?.product_advert?.noOfPages} 
-                              hasNextPage={data?.data?.product_advert?.hasNextPage} 
-                              hasPreviousPage={data?.data?.product_advert?.hasPreviousPage} 
+                              noOfPages={data?.data?.data?.product_advert?.noOfPages} 
+                              hasNextPage={data?.data?.data?.product_advert?.hasNextPage} 
+                              hasPreviousPage={data?.data?.data?.product_advert?.hasPreviousPage} 
                           />    
                 }
             </div>
@@ -253,9 +252,7 @@ export default function SoldProduct()
                           () => {
                               refetch()
                           }
-                        } 
-                        userType={usertype} 
-                        token={token}               
+                        }              
             />   
         }
 

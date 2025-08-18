@@ -5,20 +5,24 @@ import { useState, useEffect } from "react"
 import Message from "../../../../components/shared/Message"
 import { UseStore } from "../../../../state/store"
 import { BeatLoader, PuffLoader } from "react-spinners"
-import { UserDetail, UserProfile } from "../../../api/auth/profile"
 import { useQuery } from "@tanstack/react-query"
+import { useProduct } from "../../../hook/market-place/useProduct"
+import api from "../../../api/api"
 
 
 export default function Profile() 
 {
       const profile = UseStore((state) => state)
-      const token: string = profile.getUserToken()
-      const usertype: string = profile.getUType()
+      const { UserDetail } = useProduct()
       
-      let url: string = ''
-      url = `${usertype}/profile`
-      const { data, isLoading } = useQuery({ queryKey: [`user-profile-${url}`, url], queryFn: () => UserDetail(url, token) })
-
+      const { data, isLoading, refetch } = useQuery(
+                                                      { queryKey: [`user-profile`], 
+                                                      queryFn: () => UserDetail(),
+                                                      refetchOnWindowFocus: true,
+                                                      refetchOnMount: true, 
+                                                      gcTime: 0, staleTime: 0  
+                                                })
+  
       const COMPANY_NAME_MESSAGE = 'Enter Company Name'
       const COMPANY_ADDRESS_MESSAGE = 'Enter Company Address'
       const RC_NUMBER_MESSAGE = 'Enter RC Number'
@@ -92,66 +96,67 @@ export default function Profile()
             if(type === 'dealer')
             {
                user = {
-                    company_name: (companyName === "") ? data?.data?.dealers?.company_name : companyName,
-                    company_address: (companyAddress === "") ? data?.data?.dealers?.company_address : companyAddress,
-                    rc_number: (rcNumber === "") ? data?.data?.dealers?.rc_number : rcNumber,
-                    firstname: (firstname === "") ? data?.data?.firstname : firstname,
-                    surname: (surname === "") ? data?.data?.surname : surname,
-                    middlename: (middlename === "") ? data?.data?.middlename : middlename,
-                    phone: (phone === "") ? data?.data?.phone : phone,
-                    email: (email === "") ? data?.data?.email : email,
-                    url: 'dealer/update-profile'
+                    company_name: (companyName === "") ? data?.data?.data?.dealers?.company_name : companyName,
+                    company_address: (companyAddress === "") ? data?.data?.data?.dealers?.company_address : companyAddress,
+                    rc_number: (rcNumber === "") ? data?.data?.data?.dealers?.rc_number : rcNumber,
+                    firstname: (firstname === "") ? data?.data?.data?.firstname : firstname,
+                    surname: (surname === "") ? data?.data?.data?.surname : surname,
+                    middlename: (middlename === "") ? data?.data?.data?.middlename : middlename,
+                    phone: (phone === "") ? data?.data?.data?.phone : phone,
+                    email: (email === "") ? data?.data?.data?.email : email,
                   }
             } if(type === 'affiliate') 
             {
                user = {
-                    company_name: (companyName === "") ? data?.data?.affiliate?.company_name : companyName,
-                    company_address: (companyAddress === "") ? data?.data?.affiliate?.company_address : companyAddress,
-                    firstname: (firstname === "") ? data?.data?.firstname : firstname,
-                    surname: (surname === "") ? data?.data?.surname : surname,
-                    middlename: (middlename === "") ? data?.data?.middlename : middlename,
-                    phone: (phone === "") ? data?.data?.phone : phone,
-                    email: (email === "") ? data?.data?.email : email,
-                    url: 'affiliate/update-profile'
+                    company_name: (companyName === "") ? data?.data?.data?.affiliate?.company_name : companyName,
+                    company_address: (companyAddress === "") ? data?.data?.data?.affiliate?.company_address : companyAddress,
+                    firstname: (firstname === "") ? data?.data?.data?.firstname : firstname,
+                    surname: (surname === "") ? data?.data?.data?.surname : surname,
+                    middlename: (middlename === "") ? data?.data?.data?.middlename : middlename,
+                    phone: (phone === "") ? data?.data?.data?.phone : phone,
+                    email: (email === "") ? data?.data?.data?.email : email,
                   }
             } else {
                   user = 
                   {
-                     firstname: (firstname === "") ? data?.data?.firstname : firstname,
-                     surname: (surname === "") ? data?.data?.surname : surname,
-                     middlename: (middlename === "") ? data?.data?.middlename : middlename,
-                     phone: (phone === "") ? data?.data?.phone : phone,
-                     email: (email === "") ? data?.data?.email : email,
-                     url: 'member/update-profile'
+                     firstname: (firstname === "") ? data?.data?.data?.firstname : firstname,
+                     surname: (surname === "") ? data?.data?.data?.surname : surname,
+                     middlename: (middlename === "") ? data?.data?.data?.middlename : middlename,
+                     phone: (phone === "") ? data?.data?.data?.phone : phone,
+                     email: (email === "") ? data?.data?.data?.email : email,
                    }                        
             }
             // alert(email)
             // setLoading(false)
             // console.log(user)
+            // setLoading(false)
             // return
-            const updateProfile = UserProfile(user, token)
-            updateProfile.then((response) => 
+            
+            let ApiUrl = '/api/users/update-profile'            
+            await api.put(ApiUrl,  { data: user } )
+            .then((response: any) => 
             {
-                  if(response?.status === 200)
+               if(response?.data?.status === 200)
+               {
+                  setLoading(false)
+                  setSuccessMsg(response?.data?.message)
+                  setTimeout(() => 
                   {
-                     setLoading(false)
-                     setSuccessMsg(response?.message)
-                     setTimeout(() => 
-                     {
-                        setSuccessMsg("")
-                     }, 5000)
-                  } else {
-                     setErrorMessage(response?.message)
-                     setLoading(false)
-                     setTimeout(() => 
-                     {
-                        setErrorMessage("")
-                     }, 5000)
-                     return false
-                  }
-            }).then(() => {
+                    refetch()
+                    setSuccessMsg("")
+                  }, 5000)                     
+               } else {
+                  setErrorMessage(response?.data?.message)
+                  setLoading(false)
+                  setTimeout(() => 
+                  {
+                    setErrorMessage("")
+                  }, 5000)
+                  return false              
+               }
             })
       }
+      
 
       return (
             <div 
@@ -181,7 +186,7 @@ export default function Profile()
                               className="w-12/12 md:pt-10 md:pb-5 d-flex items-center justify-center hover:text-white mb-7 md:-mt-10 md:mb-0"
                         >
                         {
-                              !isLoading && ((data?.plus === 'dealer') || (data?.plus === 'affiliate')) && <>
+                              !isLoading && ((data?.data?.plus === 'dealer') || (data?.data?.plus === 'affiliate')) && <>
                                     <div  
                                           className='w-full d-flex md:flex md:mb-3 px-2 md:px-0'
                                     >                                          
@@ -190,7 +195,7 @@ export default function Profile()
                                                       >
                                                             <label className="font-semibold text-sm text-black">Company Name</label>
                                                             <input 
-                                                                        defaultValue={data?.plus === 'dealer' ? data?.data?.dealers?.company_name : data?.data?.affiliate?.company_name}
+                                                                        defaultValue={data?.data?.plus === 'dealer' ? data?.data?.data?.dealers?.company_name : data?.data?.data?.affiliate?.company_name}
                                                                         className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                                                         type="text" name="companyName" id="companyName" placeholder="Enter Company Name" 
                                                                         onChange={(e: any) => 
@@ -220,7 +225,7 @@ export default function Profile()
                                                       >
                                                             <label className="font-semibold text-sm text-black">Company Address</label>
                                                             <textarea  
-                                                                        defaultValue={data?.plus === 'dealer' ? data?.data?.dealers?.company_address : data?.data?.affiliate?.company_address}
+                                                                        defaultValue={data?.data?.plus === 'dealer' ? data?.data?.data?.dealers?.company_address : data?.data?.data?.affiliate?.company_address}
                                                                         className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                                                         placeholder="Enter Company Address." rows={2}                              
                                                                         onChange={(e: any) => 
@@ -256,7 +261,7 @@ export default function Profile()
                                                       >
                                                             <label className="font-semibold text-sm text-black">RC Number</label>
                                                             <input 
-                                                                  defaultValue={data?.data?.dealers?.rc_number}
+                                                                  defaultValue={data?.data?.data?.dealers?.rc_number}
                                                                   inputMode="numeric"
                                                                   pattern="[0-9.]+"
                                                                   id="rcNumber" name="rcNumber" placeholder="Enter RC Number"
@@ -291,7 +296,7 @@ export default function Profile()
                                                 >
                                                       <label className="font-semibold text-sm text-black">Firstname</label>
                                                       <input  
-                                                            defaultValue={data?.data?.firstname}
+                                                            defaultValue={data?.data?.data?.firstname}
                                                             className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                                             type="text" name="firstname" id="firstname" placeholder="Enter firstname" 
                                                             onChange={(e: any) => 
@@ -321,7 +326,7 @@ export default function Profile()
                                                 >
                                                       <label className="font-semibold text-sm text-black">Middlename</label>
                                                       <input  
-                                                            defaultValue={data?.data?.middlename}
+                                                            defaultValue={data?.data?.data?.middlename}
                                                             className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                                             type="text" name="middlename" id="middlename" placeholder="Enter Middlename (Optional)" 
                                                             onChange={(e: any) => 
@@ -338,7 +343,7 @@ export default function Profile()
                                                 >
                                                       <label className="font-semibold text-sm text-black">Surname</label>
                                                       <input  
-                                                            defaultValue={data?.data?.surname}
+                                                            defaultValue={data?.data?.data?.surname}
                                                             className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                                             type="text" name="surname" id="surname" placeholder="Enter Surname"  
                                                             onChange={(e: any) => 
@@ -368,7 +373,7 @@ export default function Profile()
                                                 >
                                                       <label className="font-semibold text-sm text-black">Email</label>
                                                       <input  
-                                                            defaultValue={data?.data?.email}
+                                                            defaultValue={data?.data?.data?.email}
                                                             className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                                             type="email" name="email" id="email" placeholder="Enter Email" 
                                                             onChange={(e: any) => 
@@ -394,7 +399,7 @@ export default function Profile()
                                                 >
                                                       <label className="font-semibold text-sm text-black">Phone Number</label>
                                                       <input  
-                                                            defaultValue={data?.data?.phone}
+                                                            defaultValue={data?.data?.data?.phone}
                                                             className="w-full border rounded-md p-3 bg-gray-100 bg-opacity-75 rounded mb-2 border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 leading-8 transition-colors duration-200 ease-in-out" 
                                                             type="text" name="phone" id="phone" 
                                                             onChange={(e: any) => 
@@ -428,7 +433,7 @@ export default function Profile()
                         >   
                         <button
                               onClick={() => {
-                                    UpdateProfile(data?.plus)
+                                    UpdateProfile(data?.data?.plus)
                               }} 
                               className="block w-full bg-green-600 hover:bg-green-800 border-shadow text-white font-bold py-4 px-10 rounded-lg"
                         >

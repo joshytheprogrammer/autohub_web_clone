@@ -2,32 +2,35 @@
 
 import { BsGeoAltFill } from "react-icons/bs"
 // import Image from 'next/image'
-// import { USAGE_PATH } from "../../../../constant/Path"
 import currencyFormatter from "../../../../components/util/currency-formatter"
 import { HiX } from "react-icons/hi"
 import AdvertControl from "./control/AdvertControl"
 import { useRouter } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
-import { UseStore } from "../../../../state/store"
 import Pagination from "../../../../components/Pagination"
 import { PuffLoader } from "react-spinners"
-import { ActiveProducts } from "../../../api/home/market/user/product"
 import { MarkAsSolModal } from "./control/MarkAsSold"
+import { useProduct } from "../../../hook/market-place/useProduct"
 
 
 export default function ActiveProduct() 
 {
+    const { ActiveProduct } = useProduct()
     const router = useRouter()
-    const userToken = UseStore((state) => state)
-    const token: string = userToken.getUserToken()
-    const usertype: string = userToken.getUType()
 
     const [currentPage, setCurrentPage] = useState(1)  
     const [perPage] = useState(20) 
 
-    const { data, isLoading, refetch, isRefetching } = useQuery({ queryKey: [`active-products-${currentPage}-${perPage}`, currentPage, perPage, token], queryFn: () => ActiveProducts(Number(currentPage), Number(perPage), token, usertype)})
-
+    const { data, isLoading, refetch, isRefetching } = useQuery(
+                                                                    { queryKey: [`active-products-${currentPage}-${perPage}`, currentPage, perPage], 
+                                                                      queryFn: () => ActiveProduct(Number(currentPage), Number(perPage)),
+                                                                      refetchOnWindowFocus: true,
+                                                                      refetchOnMount: true, 
+                                                                      gcTime: 0, staleTime: 0  
+                                                                    }
+                                                               )
+ 
     const [openMarkAsSold, setOpenMarkAsSold] = useState<boolean>(false)
     const [porductId, setProductId] = useState<number>(-1)     
     const [productTitle, setProductTitle] = useState<string>("") 
@@ -53,7 +56,7 @@ export default function ActiveProduct()
                             </div>
                 }
                   
-                {  !isLoading && (data?.data?.product_advert?.product.length === 0) && <>
+                {  !isLoading && (data?.data?.data?.product_advert?.product.length === 0) && <>
                         <div 
                             className="flex md:d-flex xl:flex-row h-[400px] justify-center items-center mt-20"
                         >
@@ -74,7 +77,7 @@ export default function ActiveProduct()
                     </>
                 }
                   
-                {  !isLoading && (data?.data?.product_advert?.noOfPages > 0) && <>
+                {  !isLoading && (data?.data?.data?.product_advert?.noOfPages > 0) && <>
                         <div 
                             className="container px-2 mr-3 border-2 border-gray-200 flex justify-between items-center mb-5"
                         >
@@ -83,7 +86,7 @@ export default function ActiveProduct()
                             >
                                 Active Products
                             </h1>
-                            <span className="flex justify-center items-center  whitespace-nowrap">Page {currentPage} of {data?.data?.product_advert?.noOfPages}</span>
+                            <span className="flex justify-center items-center  whitespace-nowrap">Page {currentPage} of {data?.data?.data?.product_advert?.noOfPages}</span>
                         </div>
                     </>
                 }
@@ -94,7 +97,7 @@ export default function ActiveProduct()
                     
                 {/* className="border border-4 border-blue-50 h-fit rounded-t-lg bg-no-repeat bg-center bg-cover relative flex justify-center items-center" */}
                 {
-                  !isLoading && (data?.data?.product_advert?.noOfPages > 0) && data?.data?.product_advert?.product.map((product: any, index: number) => 
+                  !isLoading && (data?.data?.data?.product_advert?.noOfPages > 0) && data?.data?.data?.product_advert?.product.map((product: any, index: number) => 
                             {
                                 return (
                                     <>
@@ -180,11 +183,11 @@ export default function ActiveProduct()
                                             <div 
                                                 className="w-full mt-1 absolute bg-white bottom-0 left-0 p-1"
                                             >
-                                                <AdvertControl product={product} refetch={() => {
-                                                        refetch()
+                                                <AdvertControl 
+                                                       product={product} 
+                                                       refetch={() => {
+                                                       refetch()
                                                     }} 
-                                                 token={token}
-                                                 usertype={usertype}
                                                 />  
                                             </div> 
                                         </div>
@@ -194,7 +197,7 @@ export default function ActiveProduct()
                         }
                 </div>
                 
-                {  !isLoading && (data?.data?.product_advert?.noOfPages > 0) && <>
+                {  !isLoading && (data?.data?.data?.product_advert?.noOfPages > 0) && <>
                         <div 
                             className="container px-2 mr-3 border-2 border-gray-200 flex justify-between items-center mb-5"
                         >
@@ -203,14 +206,14 @@ export default function ActiveProduct()
                             >
                                 Active Products
                             </h1>
-                            <span className="flex justify-center items-center  whitespace-nowrap">Page {currentPage} of {data?.data?.product_advert?.noOfPages}</span>
+                            <span className="flex justify-center items-center  whitespace-nowrap">Page {currentPage} of {data?.data?.data?.product_advert?.noOfPages}</span>
                         </div>
                     </>
                 }
 
             <div className="mt-14">
                 { 
-                    !isLoading && isRefetching && (data?.data?.product_advert?.noOfPages > 0) && 
+                    !isLoading && isRefetching && (data?.data?.data?.product_advert?.noOfPages > 0) && 
                             <Pagination onClick={(data) => {
                                       setCurrentPage(data)
                                       setTimeout(() => {
@@ -220,16 +223,16 @@ export default function ActiveProduct()
                               } 
                               perPageNo={perPage} 
                               currentPageNo={currentPage} 
-                              noOfPages={data?.data?.product_advert?.noOfPages} 
-                              hasNextPage={data?.data?.product_advert?.hasNextPage} 
-                              hasPreviousPage={data?.data?.product_advert?.hasPreviousPage} 
+                              noOfPages={data?.data?.data?.product_advert?.noOfPages} 
+                              hasNextPage={data?.data?.data?.product_advert?.hasNextPage} 
+                              hasPreviousPage={data?.data?.data?.product_advert?.hasPreviousPage} 
                           />    
                 }
             </div>
 
             <div className="mt-14">
                 { 
-                    !isLoading && !isRefetching && (data?.data?.product_advert?.noOfPages > 0) && 
+                    !isLoading && !isRefetching && (data?.data?.data?.product_advert?.noOfPages > 0) && 
                             <Pagination onClick={(data) => {
                                       setCurrentPage(data)
                                       setTimeout(() => {
@@ -239,9 +242,9 @@ export default function ActiveProduct()
                               } 
                               perPageNo={perPage} 
                               currentPageNo={currentPage} 
-                              noOfPages={data?.data?.product_advert?.noOfPages} 
-                              hasNextPage={data?.data?.product_advert?.hasNextPage} 
-                              hasPreviousPage={data?.data?.product_advert?.hasPreviousPage} 
+                              noOfPages={data?.data?.data?.product_advert?.noOfPages} 
+                              hasNextPage={data?.data?.data?.product_advert?.hasNextPage} 
+                              hasPreviousPage={data?.data?.data?.product_advert?.hasPreviousPage} 
                           />    
                 }
             </div>
@@ -260,9 +263,7 @@ export default function ActiveProduct()
                           () => {
                               refetch()
                           }
-                        } 
-                        userType={usertype} 
-                        token={token}               
+                        }               
             />   
         }
 

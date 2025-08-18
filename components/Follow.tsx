@@ -107,8 +107,8 @@ const Flw = ({ count = 0 }: { count: number }) =>
                 className="font-bold text-blue-600 text-[9px] md:text-[6px] flex justify-center items-center"
             > 
                 {(count === 0) && <div className="flex justify-center items-center whitespace-nowrap">No Follower</div>}
-                {(count === 1) && <div className="flex justify-center items-center whitespace-nowrap"><span className="mr-1">{count} </span> Follower</div>}
-                {(count === 2) && <div className="flex space-x-4"><span className="mr-1 whitespace-nowrap">{count} </span>Followers</div>}
+                {(count === 1) && <div className="flex justify-center items-center whitespace-nowrap" style={{ fontSize: '12px' }}><span className="mr-1 text-md">{count} </span> Follower</div>}
+                {(count === 2) && <div className="flex space-x-4" style={{ fontSize: '12px' }}><span className="mr-1 whitespace-nowrap">{count} </span>Followers</div>}
             </span>
         </div>
    )
@@ -129,8 +129,8 @@ const UnFlw = ({ count = 0 }: { count: number }) =>
                 className="font-bold text-blue-600 text-[9px] md:text-[13px] flex justify-center items-center"
             > 
                 {(count === 0) && <div className="flex justify-center items-center">No Follower</div>}
-                {(count === 1) && <div className="flex justify-center items-center"><span className="mr-1">{count} </span> Follower</div>}
-                {(count === 2) && <div className="flex space-x-4"><span className="mr-1">{count} </span>Followers</div>}
+                {(count === 1) && <div className="flex justify-center items-center" style={{ fontSize: '12px' }}><span className="mr-1 text-md">{count} </span> Follower</div>}
+                {(count === 2) && <div className="flex space-x-4" style={{ fontSize: '12px' }}><span className="mr-1">{count} </span>Followers</div>}
             </span>
         </div>
    )

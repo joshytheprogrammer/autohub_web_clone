@@ -195,7 +195,7 @@ export default function HeaderNavigation()
                                         
                                         AppPages.map((user, index) => {
                                             return (
-                                                <Link 
+                                                <Link prefetch={true}
                                                         href={`${user?.goTo}`}
                                                         key={index}
                                                         onClick={
@@ -307,7 +307,6 @@ export default function HeaderNavigation()
                                             }
                                         } 
                                         deleteModal={openLoggedOut} 
-                                        token={token} 
                                 />
             }
        </> 

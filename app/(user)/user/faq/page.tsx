@@ -51,7 +51,6 @@ export default function FAQ()
                           refetch()
                       }
                     } 
-                    token={token}
                   />
               </>
             }

@@ -19,7 +19,10 @@ export const DropDown = ({ submenus, dropdown }: any) =>
                 return (
                     <li className='w-[250px] bg-white py-2 z-50' key={index}
                     >
-                        <Link className='text-black font-bold hover:text-green-600 hover:font-bold cursor-pointer' href={submenu?.goTo}                        >
+                        <Link
+                            prefetch={true} 
+                            className='text-black font-bold hover:text-green-600 hover:font-bold cursor-pointer' 
+                            href={submenu?.goTo}                        >
                             {submenu?.name}
                         </Link>
                     </li> 
