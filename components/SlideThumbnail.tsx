@@ -63,7 +63,7 @@ export default function SlideThumbnail({ data, imageSize, waterMark, slug }: { d
                                 className="relative flex justify-center items-center"
                             >
                                 <img src={image?.image_url} />
-                                <img src={`${USAGE_PATH.WATER_MARK}${'water_mark.png'}`} width={200} height={50} className="absolute z-5 h-[50px]" />
+                                <img src={`https://api.autohub.africa/constant/water/water_mark.png`} width={200} height={50} className="absolute z-5 h-[50px]" />
                             </div>
                         </SwiperSlide>
                         )
