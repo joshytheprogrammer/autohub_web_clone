@@ -178,7 +178,7 @@ export default function Display(url: displayProps)
                                 <div 
                                     className="font-bold text-md text-gray-500 mt-5 border-shadow"
                                 >
-                                  <SlideThumbnail data={data?.data?.data?.product?.images} imageSize={data?.data?.data?.product?.images} waterMark={`${USAGE_PATH.WATER_MARK}${data?.data?.data?.product?.water_mark}`} slug={url?.url} />
+                                  <SlideThumbnail data={data?.data?.data?.product?.images} imageSize={data?.data?.data?.product?.images} waterMark={data?.data?.data?.product?.water_mark} slug={url?.url} />
                                 </div>
                                 <div 
                                     className="font-bold w-full text-dm text-gray-500 mt-2 h-fit pb-10 rounded-md border-shadow"
@@ -186,7 +186,7 @@ export default function Display(url: displayProps)
                                     <div 
                                         className="font-bold text-sm pt-5 pr-3 w-2/2"
                                     >
-                                      Description:
+                                      Description: - {USAGE_PATH.WATER_MARK}{data?.data?.data?.product?.water_mark}
                                     </div>
                                     <div 
                                       className="pt-3 pb-5 mt-2 px-3 border-2 border-blue-200 rounded-lg"
