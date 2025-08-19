@@ -361,8 +361,7 @@ export default function CreateAdvert()
         } else {
             if(advertState.getTheManufacturerName() === ""){ setTheManufacturerNameMessage(MANUFACTURER_NAME_MESSAGE); validity = 'invalid'; console.log("6")  }
             if(advertState.getTheModelName() === -1){ setTheModelNameMessage(MODEL_NAME_MESSAGE); validity = 'invalid'; console.log("7")  }
-            if(advertState.getTheTrimName() === -1){ setTheTrimNameMessage(TRIM_NAME_MESSAGE); validity = 'invalid'; console.log("8")  }
-            if(advertState.getTheEngineName() === -1){ setTheEngineNameMessage(ENGINE_NAME_MESSAGE); validity = 'invalid'; console.log("9")  }            
+            if(advertState.getTheTrimName() === -1){ setTheTrimNameMessage(TRIM_NAME_MESSAGE); validity = 'invalid'; console.log("8")  }           
         }
 
         if(advertState.getFuel() === -1){ setFuelMessage(FUEL_MESSAGE); validity = 'invalid'; console.log("10")  }
