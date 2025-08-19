@@ -248,7 +248,7 @@ export default function Display(url: displayProps)
                                 </div>
 
                                 <div 
-                                    className="w-full rounded-xl bg-white p-[1px] min-h-[250px] h-max -mt-20"
+                                    className="w-full rounded-xl bg-white p-[1px] min-h-[250px] h-max"
                                 >
                                     <div 
                                         className="px-1 my-4 flex-col flex gap-2"

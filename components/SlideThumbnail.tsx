@@ -49,7 +49,7 @@ export default function SlideThumbnail({ data, imageSize, waterMark, slug }: { d
                     style={{
                     '--swiper-navigation-color': '#6545f7ff',
                     '--swiper-pagination-color': '#fff',
-                    'marginBottom': '10px',
+                    'marginBottom': '1px',
                     } as CSSProperties}
                     spaceBetween={10}
                     navigation={true}
@@ -87,6 +87,7 @@ export default function SlideThumbnail({ data, imageSize, waterMark, slug }: { d
             watchSlidesProgress={true}
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper"
+            style={{ marginTop: '-20px' }}
         >
         {
             data?.length > 0 && data?.map((image: any, index: number) => 

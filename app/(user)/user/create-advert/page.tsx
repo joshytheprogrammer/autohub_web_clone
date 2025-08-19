@@ -372,7 +372,7 @@ export default function CreateAdvert()
         if(advertState.getCondition() === -1){ setConditionMessage(CONDITION_MESSAGE); validity = 'invalid'; console.log("14")  }
         // if(advertState.getMileage() === ""){ setMileageMessage(MILEAGE_MESSAGE); validity = 'invalid' }
         // if(advertState.getLocation() === ""){ setLocationMessage(LOCATION_MESSAGE); validity = 'invalid'; console.log("15")  }
-        if(advertState.getChasisNo() === ""){ setChasisNoMessage(MILEAGE_MESSAGE); validity = 'invalid' }
+        // if(advertState.getChasisNo() === ""){ setChasisNoMessage(MILEAGE_MESSAGE); validity = 'invalid' }
         if(advertState.getPrice().toString() === "" || advertState.getPrice().toString() === "0" || advertState.getPrice() === 0){ setPriceMessage(PRICE_MESSAGE); validity = 'invalid'; console.log("16")  }
         if(advertState.getDescription() === "" || advertState.getDescription() === "<p><br></p>" || advertState.getDescription() === "<p></p>"){ setDescriptionMessage(DESCRIPTION_MESSAGE); validity = 'invalid'; console.log("17")  }
         if(advertImages.length < 5)
