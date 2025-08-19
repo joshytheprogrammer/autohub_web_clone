@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import DOMPurify from "dompurify"
 import { HiArrowLeft, HiHome, HiMiniPhoneArrowUpRight } from "react-icons/hi2"
-import { useProductDetail } from "../../../hook/queries/useProductDetail"
+// import { useProductDetail } from "../../../hook/queries/useProductDetail"
 // import { PuffLoader } from "react-spinners"
 import Image from 'next/image'
 import { MdOutlineWhatsapp } from "react-icons/md"
@@ -18,11 +18,11 @@ import ProductComment from "../../../../components/ProductComment"
 import Link from "next/link"
 import { isMobile } from "react-device-detect"
 import ProductCardd from "../../../../components/ProductCardd"
-import SlideThumbnail from "../../../../components/SlideThumbnail"
+// import SlideThumbnail from "../../../../components/SlideThumbnail"
 import { useQuery } from "@tanstack/react-query"
-import api from "../../../api/api"
+// import api from "../../../api/api"
 import { PuffLoader } from "react-spinners"
-import { RequestPoint } from "../../../api/endPoint"
+// import { RequestPoint } from "../../../api/endPoint"
 import { useProduct } from "../../../hook/market-place/useProduct"
 import { USAGE_PATH } from "../../../../constant/Path"
 
@@ -178,7 +178,7 @@ export default function Display(url: displayProps)
                                 <div 
                                     className="font-bold text-md text-gray-500 mt-5 border-shadow"
                                 >
-                                  <SlideThumbnail data={data?.data?.data?.product?.images} imageSize={data?.data?.data?.product?.images} waterMark={data?.data?.data?.product?.water_mark} slug={url?.url} />
+                                  {/* <SlideThumbnail data={data?.data?.data?.product?.images} imageSize={data?.data?.data?.product?.images} waterMark={data?.data?.data?.product?.water_mark} slug={url?.url} /> */}
                                 </div>
                                 <div 
                                     className="font-bold w-full text-dm text-gray-500 mt-2 h-fit pb-10 rounded-md border-shadow"

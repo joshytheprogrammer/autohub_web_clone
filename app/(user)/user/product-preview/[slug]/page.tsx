@@ -4,11 +4,11 @@ import { useRouter } from "next/navigation"
 import DOMPurify from "dompurify"
 import { HiArrowLeft, HiHome } from "react-icons/hi2"
 import { PuffLoader } from "react-spinners"
-import SlideShowThumbnail from "../../../../../components/SlideShowThumbnail"
+// import SlideShowThumbnail from "../../../../../components/SlideShowThumbnail"
 import currencyFormatter from "../../../../../components/util/currency-formatter"
-import { useProductDetail } from "../../../../hook/queries/useProductDetail"
+// import { useProductDetail } from "../../../../hook/queries/useProductDetail"
 import { useQuery } from "@tanstack/react-query"
-import SlideThumbnail from "../../../../../components/SlideThumbnail"
+// import SlideThumbnail from "../../../../../components/SlideThumbnail"
 
 
 type displayProps = 
@@ -107,7 +107,7 @@ export default function ProductPreview({ params } : { params : { slug: string } 
                                     className="font-bold text-md text-gray-500 mt-5 border-shadow"
                                 >
                                    {/* <SlideShowThumbnail data={data?.['images']} imageSize={data?.['images']} waterMark={data?.['watermark']} slug="" /> */}
-                                    <SlideThumbnail data={data?.['data']['product']['images']} imageSize={data?.['data']['product']['images']} waterMark={data?.['data']['product']['watermark']} slug={url} />
+                                    {/* <SlideThumbnail data={data?.['data']['product']['images']} imageSize={data?.['data']['product']['images']} waterMark={data?.['data']['product']['watermark']} slug={url} /> */}
                                 </div>  
 
                           </div>
