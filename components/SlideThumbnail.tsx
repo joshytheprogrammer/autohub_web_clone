@@ -55,7 +55,7 @@ export default function SlideThumbnail({ data, imageSize, waterMark, slug }: { d
                     navigation={true}
                     thumbs={{ swiper: thumbsSwiper }}
                     modules={[FreeMode, Navigation, Thumbs]}
-                    className="mySwiper2 h-[300px] md:h-[570px] lg:h-[570px]"
+                    className="mySwiper2 h-[300px] md:h-[570px] lg:h-[570px] flex justify-item item-center"
                 >
                     
                     {
@@ -94,9 +94,12 @@ export default function SlideThumbnail({ data, imageSize, waterMark, slug }: { d
                 return (                    
                     <SwiperSlide 
                         key={index}
-                        style={{ width: '200px', height: '200px' }}
                     >
-                        <img src={image?.image_url} />
+                        <img 
+                            src={image?.image_url}
+                            className="object-contain md:object-cover md:p-1"
+                            style={{ width: '150vw', height: '20vh', objectFit: 'cover' }}
+                        />
                         {/* <img src={`${USAGE_PATH.WATER_MARK}${waterMark}`} width={500} height={500} className="absolute cursor-pointer" /> */}
                     </SwiperSlide>
                 )
